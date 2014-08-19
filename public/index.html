@@ -1,9 +1,149 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Test</title>
-	</head>
-	<body>
-		Default page.
-	</body>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500' rel='stylesheet' type='text/css'>
+
+        <!-- Latest compiled and minified CSS -->
+				<link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <style>
+            body {
+                padding-top: 68px;
+                padding-bottom: 20px;
+            }
+        </style>
+
+        <!-- Optional theme -->
+				<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="navbar navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">SocketCluster.io</a>
+        </div>
+        <div class="navbar-collapse collapse">
+				<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="../getting-started">Home</a>
+						</li>
+						<li>
+							<a href="../css">Demo</a>
+						</li>
+						<li>
+							<a href="../components">Performance</a>
+						</li>
+						<li>
+							<a href="../javascript">Getting Started</a>
+						</li>
+						<li>
+							<a href="../customize">Docs</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="http://blog.getbootstrap.com">Download Latest</a></li>
+					</ul>
+				</nav>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1><strong><em>Supercharge</em></strong> your webserver with SocketCluster.io’s 
+highly parallalized architecture.</h1>
+        <p><a class="btn btn-primary btn-lg" role="button">Get Started</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row large-pad">
+        <div class="col-md-6">
+          <h2 class="header-light large-pad">What is SocketCluster.io?</h2>
+          <p>SocketCluster is a lightning fast, highly scalable HTTP + WebSocket (engine.io) server which lets you build multi-process real-time systems/apps that make use of <strong>ALL</strong> CPU cores on a machine/instance.</p>
+
+					<p>Removing the limitations of having to run your Node.js server as a single thread.</p>
+          <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
+        </div>
+        <div class="col-md-6 text-center">
+      		<img src="../img/cloud.png" alt="" class="large-pad">
+       	</div>
+      </div>
+
+      <hr>
+
+      <div class="row large-pad">
+        <div class="col-md-4">
+          <h2 class="header-light">Technical Features</h2>
+        </div>
+        <div class="col-md-8">
+          <ul class="features-list">
+            <li>Sockets which are bound to the same browser (for example, across multiple tabs) share the same session.</li>
+            <li>Emit event notifications on any session to notify all sockets that belong to it.</li>
+            <li>The SocketCluster client (socketcluster-client) has an option to allow disconnected sockets to automatically (and seamlessly) reconnect if they lose the connection.</li>
+            <li>SocketCluster processes automagically respawn on crash - Worker and load balancer crashes are invisible to users.</li>
+            <li>It uses a memory store cluster called nData which you can use to store 'volatile' session data which relates to your sockets/sessions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron jumbo-blue">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h2 class="header-light">Community</h2>
+          </div>
+          <div class="col-md-8">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <footer>
+        <p>&copy; SocketCluster.io 2014</p>
+      </footer>
+    </div> <!-- /container -->      
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+
+        <!-- Latest compiled and minified JavaScript -->
+				<script src="js/bootstrap.min.js"></script>
+
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+      </script>
+  </body>
 </html>

@@ -1,0 +1,77 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+body {
+	font-family: 'Roboto', sans-serif;
+}
+p {
+	font-size: 15px;
+}
+.navbar {
+	height: 68px;
+	box-shadow: 0px 3px 3px rgba(0,0,0,0.14);
+	background-color: #FFFFFF;
+}
+.jumbotron {
+	background: url('../img/jumbotron_bg.jpg') no-repeat 50% 0;
+	background-size: 100%;	
+}
+.jumbotron h1 {
+	font-size: 45px;
+	font-weight: 400;
+	color: #FFFFFF;
+	text-shadow: 0 3px 3px rgba(0,0,0,0.14);
+	margin-bottom: 1.5em;
+}
+.navbar-brand {
+	padding: 24px;
+}
+.navbar-nav>li>a {
+	margin-top:9px;
+	margin-bottom: 9px;
+}
+.nav>li>a:hover, 
+.nav>li>a:focus {
+	background-color: transparent;
+}
+h2.large-pad {
+	padding: 2em 0 0.75em 0;
+}
+h2.header-light {
+	font-weight: 300;
+	font-size: 34px;
+	color: rgba(0,0,0,.54);
+}
+
+img.large-pad {
+}
+
+ul.features-list{
+
+}
+ul.features-list li {
+	font-weight: 400;
+	font-size: 16px;
+	margin-bottom: 1.5em;
+}
+
+.row.large-pad {
+	padding: 60px 0;
+}
+
+.blue-row .container {
+	max-width: 100%;
+}
+
+.jumbo-blue {
+	background-image: none;
+	background-color: #4B9ACA;
+	color: #FFFFFF;
+}
+
+.jumbo-blue h2 {
+	color: #FFFFFF;
+}
+

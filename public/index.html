@@ -102,11 +102,13 @@ highly parallalized architecture.</h1>
         </div>
         <div class="col-md-8">
           <ul class="features-list">
+            <li>Scales linearly as you add more CPU cores and workers (assuming a decent OS) - Tested with up to 16 cores.</li>
+            <li>A client can publish events to all other interested clients (client-to-client pub/sub)</li>
+            <li>Client sockets automatically reconnect if they lose the connection.</li>
+            <li>SocketCluster processes automatically respawn on crash - Worker and load balancer crashes are invisible to users.</li>
+            <li>Comes with an in-memory session data store.</li>
             <li>Sockets which are bound to the same browser (for example, across multiple tabs) share the same session.</li>
             <li>Emit event notifications on any session to notify all sockets that belong to it.</li>
-            <li>The SocketCluster client (socketcluster-client) has an option to allow disconnected sockets to automatically (and seamlessly) reconnect if they lose the connection.</li>
-            <li>SocketCluster processes automagically respawn on crash - Worker and load balancer crashes are invisible to users.</li>
-            <li>It uses a memory store cluster called nData which you can use to store 'volatile' session data which relates to your sockets/sessions.</li>
           </ul>
         </div>
       </div>

@@ -16,7 +16,7 @@ p {
 }
 .jumbotron {
 	background: url('../img/jumbotron_bg.jpg') no-repeat 50% 0;
-	background-size: 100%;	
+	background-size: auto 100%;
 }
 .jumbotron h1 {
 	font-size: 45px;
@@ -75,3 +75,32 @@ ul.features-list li {
 	color: #FFFFFF;
 }
 
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	.jumbotron {
+		background-size: auto 100%;
+	}
+}
+
+@media (max-width: 769px) {
+	.jumbotron h1 {
+		font-size: 30px;
+	}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+	.jumbotron {
+		background-size: auto 100%;
+	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+	.jumbotron {
+		background-size: 100%;
+	}
+}

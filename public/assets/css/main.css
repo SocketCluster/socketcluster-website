@@ -3,6 +3,23 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.pace .pace-progress {
+  background: #29d;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  height: 2px;
+
+  -webkit-transition: width 1s;
+  -moz-transition: width 1s;
+  -o-transition: width 1s;
+  transition: width 1s;
+}
+
+.pace-inactive {
+  display: none;
+}
 body {
 	font-family: 'Roboto', sans-serif;
 }
@@ -125,6 +142,30 @@ ul.features-list li {
 	color: #FFFFFF;
 }
 
+.sc-server-img {
+	width: 100%;
+}
+.features-list {
+	padding: 0;
+}
+.features-list li {
+	list-style-type: none;
+	padding-top: 3px;
+	background: url('../../assets/img/tick.png') no-repeat 0 2px;
+	padding-left: 56px;
+}
+.community-label {
+	border: 1px solid #FFFFFF;
+	border-radius: 6px;
+	padding: 16px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	height: 94px;
+}
+.community-label img {
+	margin: 0 auto;
+	display: block;
+}
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 
@@ -133,11 +174,19 @@ ul.features-list li {
 	.jumbotron {
 		background-size: auto 100%;
 	}
+	.sc-server-img {
+		margin: 45px auto;
+		max-width: 438px;
+		width: 100%;
+	}
 }
 
 @media (max-width: 769px) {
 	.jumbotron h1 {
 		font-size: 30px;
+	}
+	.sc-server-img {
+		margin: 45px auto; 
 	}
 }
 
@@ -152,5 +201,9 @@ ul.features-list li {
 @media (min-width: 1200px) {
 	.jumbotron {
 		background-size: 100%;
+	}
+	.sc-server-img {
+		max-width: 438px;
+		width: 100%;
 	}
 }

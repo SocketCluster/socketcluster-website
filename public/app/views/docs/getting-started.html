@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Getting Started</h1>
+        <p>
+          To get started with SocketCluster, you need to have <a href="http://nodejs.org/" target="_blank">Node.js</a> installed. 
+          You can follow <a href="https://github.com/joyent/node/wiki/installation" target="_blank">these instructions</a> to install Node.
+        </p>
+        <p>
+          Once we have Node installed, we can install SocketCluster.
+          There are two ways to install SocketCluster - You can install it as a microframework (this is the simplest way) or you can install the client and server separately (this may be better if you want SocketCluster to work with an existing system).
+        </p>
+        <p>
+          For this tutorial, we will be installing it as a microframework.
+        </p>
+        <pre class="prettyprint">npm install -g socketcluster</pre>
+        <p>
+          Once installed, the simple <code>socketcluster create</code> command will create a fresh SocketCluster installation. For example, <code>socketcluster create myApp</code> will create a directory inside your current working directory called <code>myApp</code>
+        </p>
+        <pre class="prettyprint">socketcluster create myApp</pre>
+        <h2>Serving SocketCluster</h2>
+        <p>
+          When this is done, you can navigate to <code>myApp</code> and run your server immediately using <code>node server.js</code>
+        </p>
+        <pre class="prettyprint">node server.js</pre>
+
+        <p>
+          You can connect to your server by navigating to http://localhost:8000/ in your browser.
+        </p>
+        <p>
+          To test SocketCluster's realtime features, you can open your browser's developer console and enter the following command:
+        </p>
+        <pre class="prettyprint">socket.emit('ping', {message: 'This is an object with a message property'});</pre>
+        <p>
+          You should get a 'pong' message back - The server receives your ping event and then publishes a pong event to all clients which are listening to it.
+        </p>
+        <p>
+          You can pass almost anything as the second argument to the emit and publish command so long as it's compatible with JSON.
+        </p>
+        <p>
+          You can configure SocketCluster by editing code inside <code>server.js</code>. SocketCluster has over 30 options which you can change to suit your specific needs (most options are optional).
+        </p>
+
+        <p>Here is a sample <code>server.js</code> file (with comments):</p>
+        <pre class="prettyprint">var SocketCluster = require('socketcluster').SocketCluster;
+var socketCluster = new SocketCluster({
+    balancers: 1, // Number of loadbalancer processes to launch
+    workers: 1, // Number of worker processes
+    stores: 1, // Number of store processes
+    port: 8000, // The port number on which your server should listen
+    appName: 'myapp', // A unique name for your app
+
+/* A JS file which you can use to configure each of your 
+ * workers/servers - This is where most of your backend code should go
+ */
+workerController: __dirname + '/worker.js',
+
+// A JS file which you can use to configure each of your balancers (optional)
+balancerController: __dirname + '/balancer.js',
+
+/* JS file which you can use to configure each of your 
+ * stores - Useful for scaling horizontally across multiple machines (optional)
+ */ 
+storeController: __dirname + '/store.js',
+
+/* Maximum number of sockets a single IP address can have 
+ * open (security feature, optional, default is 0 - Unlimited)
+ */
+addressSocketLimit: 100,
+
+/* Maximum number of events a single socket can be subscribed to 
+ * (security feature, optional, defaults to 100)
+ */
+socketEventLimit: 100,
+
+// Whether or not to reboot the worker in case it crashes (defaults to true)
+rebootWorkerOnCrash: true,
+
+/* Smart balancing can provide a more even distribution between workers 
+ * (uses session ID instead of IP address - Defaults to true)
+ */
+useSmartBalancing: false
+});</pre>
+        <p>
+          It’s important to note that SocketCluster runs as a cluster of different kinds of processes; each kind of process has its own 'controller' file which lets you configure each process' behaviour - There is a controller for load balancers, one for workers and one for store processes. The most important one (where most of your application logic should go) is the <code>workerController</code>.
+        </p>
+        <h2>And beyond</h2>
+        <p>
+          Have a look at the existing code in your <code>workerController</code> (worker.js) and play around with it.
+        </p>
+        <p>
+          Remember to reboot SocketCluster when you make changes to your code - If you're running on a UNIX-like environment, you can also send a SIGUSR2 signal to the master PID order to reboot the only workers (with the fresh source code).
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

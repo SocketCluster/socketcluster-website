@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Middleware and Authorization</h1>
+        <p>
+          With SocketCluster, clients can share messages with one another by listening to and publishing events to particular channels. By default, anyone can listen to and publish events to any channel they like. While this might be OK for some systems, most systems need some degree of access control to regulate how users can interact with one another. Most systems also need a way to authenticate and authorize connections in order to enforce appropriate access rights. Middleware functions offer a clean, centralized way to do all this.
+        </p>
+        <p>
+          In SocketCluster, all realtime events have to pass through middleware functions before they can be handled by your server. SocketCluster offers different kinds of middleware lines to handle various kinds of interactions. The most useful middleware lines go in worker processes but there are also middleware lines exposed by load balancers (for HTTP). For this tutorial, we will focus on worker (realtime) middleware only.
+        </p>
+        <p>
+          The worker exposes middleware through our realtime scServer object &mdash; This object can be accessed using <code>worker.getSCServer()</code>.
+        </p>
+        <p>
+          To add a middleware function to the server, you should use:
+        </p>
+        <pre class="prettyprint">scServer.addMiddleware(middlewareType, middlewareFunction);</pre>
+
+        <p>
+          The middleware types available on scServer include:
+        </p>
+        <pre class="prettyprint lang-js">scServer.MIDDLEWARE_SUBSCRIBE
+scServer.MIDDLEWARE_PUBLISH
+scServer.MIDDLEWARE_EMIT</pre>
+
+        <p>
+          The arguments passed to the middlewareFunction depend on the type of middleware used.
+  Here is some sample code showing how to use each kind of middleware:
+        </p>
+
+        <h3>Subscribe</h3>
+        <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
+  function (socket, event, next) {
+    // …
+    if (...) {
+      next() // Allow
+    } else {
+      next(socket.id + ' is not allowed to subscribe to event ' + event); // Block
+    }
+  }
+);</pre>
+
+        <h3>Publish</h3>
+        <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH,
+  function (socket, event, data, next) {
+    // …
+    if (...) {
+      next() // Allow
+    } else {
+      next(socket.id + ' is not allowed to publish event ' + event); // Block
+    }
+  }
+);</pre>
+
+        <h3>Emit</h3>
+        <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_EMIT,
+  function (socket, event, data, next) {
+    // …
+    if (...) {
+      next() // Allow
+    } else {
+      next(socket.id + ' is not allowed to emit event ' + event); // Block
+    }
+  }
+);</pre>
+
+        <p>
+          Note that you can call the next() function at any time you want (asynchronously is fine), but you should make sure that you do call it eventually &mdash; Otherwise the client's subscribe/publish/emit action will simply timeout and the client will get a non-descriptive timeout error. If you want to block a client from doing something, it's better to give them an explicit error that way they can handle it better.
+        </p>
+      </div>  
+    </div>
+  </div>
+</div>

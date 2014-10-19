@@ -1,0 +1,133 @@
+<div ng-controller="bsController">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div ng-include src="'app/shared/nav-docs.html'"></div>
+      </div>
+      <div class="col-md-9">
+        <div class="docs-content">
+        <h1>Basic usage</h1>
+        <p>
+          Note that before proceeding with this tutorial, you should read the 'getting started' tutorial.
+        </p>
+        <p>
+          Once you have setup SocketCluster, you should have a file called server.js:
+        </p>
+
+        <pre class="prettyprint">// Server code
+var SocketCluster = require('socketcluster').SocketCluster;
+
+var socketCluster = new SocketCluster({
+  balancers: 1,
+  workers: 1,
+  stores: 1,
+  port: 8000,
+  appName: 'app',
+  workerController: __dirname + '/worker.js',
+  balancerController: __dirname + '/balancer.js',
+  storeController: __dirname + '/store.js',
+  addressSocketLimit: 0,
+  socketEventLimit: 100,
+  rebootWorkerOnCrash: true
+});</pre>
+
+
+        <p>
+          To make sense of some of these options, it's important to remember that SocketCluster runs as a cluster of 4 different kinds of processes:
+        </p>
+        <h3>Master process (server.js)</h3>
+        <p>
+          This is where everything starts
+        </p>
+        <h3>Balancers</h3>
+        <p>
+          These processes are responsible for distributing load evenly between all worker processes. They are also responsible for encryption/decryption when used over HTTPS. They can be extended with logic to block access to specific resources before they reach any worker processes (they can serve as a firewall for your app if required).
+        </p>
+        <h3>Workers</h3>
+        <p>
+          This is where all your business logic should go - The workerController lets you setup the logic for your HTTP server and your realtime SocketClusterServer for handling realtime socket connections and events.
+        </p>
+        <h3>Stores</h3>
+        <p>
+          This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.
+        </p>
+
+        <p>
+          If you open your <code>workerController</code> file (worker.js), you should see some code where your httpServer and your scServer are being setup to accept requests/connections. By default, the httpServer is hooked to Express (with static server middleware) which serves the content of the <code>public/</code> folder:
+        </p>
+
+        <pre class="prettyprint">// Server code
+app.use(serveStatic(__dirname + '/public'));
+
+httpServer.on('req', app);</pre>
+
+        <p>
+          By default, scServer handles incoming realtime connections and listens for 'ping' events from client sockets (among other things):
+        </p>
+
+        <pre class="prettyprint">// Server code 
+var count = 0;
+
+scServer.on('connection', function (socket) {
+  // ...
+  
+  socket.on('ping', function (data) {
+    count++;
+    console.log('PING', data);
+    scServer.global.publish('pong', count);
+  });
+});
+        </pre>
+        <p>
+          Here, the 'ping' event will be triggered whenever the client sockets emits a ping on the client using:
+        </p>
+
+        <pre class='prettyprint'>// Client code
+socket.emit('ping', 'This is a PING message')</pre>
+        <p>
+          Emitting events is the simplest way to pass messages between clients and the server but as you might be able to guess by looking at some of the code above - It is not the only way to share messages.
+        </p>
+        <p>
+          Events can also be published - One key difference here is that published events will be sent to not just a single client, but to every client which is listening for that particular event.
+        </p>
+        <p>
+          In the server-side code above, you can see the 'pong' event being published to all interested clients:
+        </p>
+
+        <pre class="prettyprint">// Server code
+scServer.global.publish('pong', count);</pre>
+
+        <p>
+          Any client which is connected to SocketCluster and is listening for the 'pong' event will  receive the value of the count variable. On the client, this might look like this:
+        </p>
+        <pre class="prettyprint">// Client code
+socket.on('pong', function (count) {
+    console.log('Client received pong event with data:', count);
+});</pre>
+        <p>
+          As we can see from above, you can publish events from the server side. For convenience, SocketCluster also lets you publish events from the client side:
+        </p>
+
+        <pre class="prettyprint">// Client code
+socket.publish('pong', 'This PONG event comes from a client');</pre>
+
+        <p>
+          Here we are passing a string as argument (instead of a number). Note that publishing an event in this way will <strong>NOT</strong> trigger socket.on('pong', …) listeners on the server side &mdash; Published events only target/affect clients (but they do pass through the server however &mdash; And you can block them using middleware functions but that is a topic for another tutorial).
+        </p>
+
+        <p>
+          The socket.emit() function allows you to send messages between 1 client socket and 1 server socket (both ways: 1 client socket &#8644; 1 server socket &mdash; One to one communication between client and server).
+        </p>
+        <p>
+          The socket.publish() function allows you to send group messages between multiple client sockets (n client sockets &#8644; n client sockets - Many to many communication directly between clients). As shown earlier, you can also call publish from the server using the global object (Global &#8594; n client sockets):
+        </p>
+        <pre class="prettyprint">// Server code
+scServer.global.publish('foo', 123);
+</pre>
+
+You can also use publish for one to one communication between two clients but you should setup some middleware to make sure that only the two authorized clients can share the same channel (see guide on middleware and authorization for more details).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

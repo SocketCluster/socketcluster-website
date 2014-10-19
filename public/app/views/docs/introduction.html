@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Introduction</h1>
+        <p>
+          SocketCluster is a fast, highly scalable HTTP + realtime server engine which lets you build multi-process realtime servers that make use of all CPU cores on a machine/instance. It removes the limitations of having to run your Node.js server as a single thread and makes your backend resilient by automatically recovering from worker crashes and aggregating errors into a central log.
+        </p>
+        <p>
+          SocketCluster works like a pub/sub system (which extends all the way to the browser) - It only delivers particular events to clients who actually need them. See this <a href="https://github.com/TopCloud/socketcluster/issues/6">issue</a> for some tips of how to leverage this feature. SocketCluster is designed to scale horizontally too.
+        </p>
+        <p>
+          SocketCluster was designed to be modular so that you can run other frameworks like express on top of it (or build your own!)
+        </p>
+        <p>
+          SocketCluster was designed to be lightweight and its realtime API is almost identical to Socket.io.
+        </p>  
+        <p>
+          Follow the project on <a href="https://twitter.com/SocketCluster">Twitter</a>  Subscribe for updates on <a href="http://socketcluster.launchrock.com/">http://socketcluster.launchrock.com/</a>
+        </p>
+        <h2>Memory Leak Profile</h2>
+        <p>
+          SocketCluster has been tested for memory leaks. The last full memory profiling was done on SocketCluster v0.9.17 (Node.js v0.10.28) and included checks on load balancer, worker and store processes.
+        </p>
+        <p> 
+          No memory leaks were detected when using the latest Node.js version. Note that leaks were found when using Node.js versions below v0.10.22 - This is probably the Node.js 'Walmart' memory leak - Not a SocketCluster issue.
+        </p>
+        <h2>Main Contributors</h2>
+        <p>
+          <ul>
+            <li>Jonathan Gros-Dubois</li>
+            <li>Nelson Zheng</li>
+            <li>Gabriel Muller</li>
+          </ul>
+        </p>
+        <h2>Installation</h2>
+        <p>There are two ways to install SocketCluster.</p>
+
+        <h3>The easy way (Sets up boilerplate - Ready to run):</h3>
+        <p>
+          Setup the socketcluster command:
+        </p>
+        <pre class="prettyprint">npm install -g socketcluster</pre>
+        <p>or</p>
+        <pre class="prettyprint">sudo npm install -g socketcluster</pre>
+        <p>Next step:</p>
+        <pre class="prettyprint">socketcluster create myApp</pre>
+        <p>Once it is installed, you can go to your myApp/ directory and launch the server with:</p>
+        <pre class="prettyprint">node server</pre>
+        <p>And the local host is now accessible at <code>http://localhost:8000/</code></p>

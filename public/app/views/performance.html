@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Performance</h1>
+        <h2>Benchmarks</h2>
+        <h3>Throughput (SocketCluster v0.9.8)</h3>
+        <p>
+          The goal of this test was to see how many JavaScript (JSON) objects SocketCluster could process each second on a decent machine.
+        </p>
+        <h3>Procedure</h3>
+        <p>
+          For this CPU benchmark, SocketCluster was tested on an <strong>8-core Amazon EC2 m3.2xlarge</strong> instance running Linux.
+          <ul>
+            <li>
+              A new client was created every second until there were <strong>100 concurrent clients</strong>.
+            </li>
+            <li>
+              The maximum number of messages sent was set to be <strong>170k</strong> (1700 messages per second per client).
+            </li>
+            <li>
+              The messages were fully bidirectional - The client sent a 'ping' event containing a JavaScript object (cast to JSON) and the server responded with a 'pong' JavaScript object. That object had a 'count' property to indicate the total number of pings received so far by the current worker.
+            </li>
+            <li>
+              SocketCluster was setup to use 5 load balancers, 5 workers and 2 stores.
+            </li>
+          </ul>
+        </p>
+        <h3>Observations</h3>
+        <ul>
+          <li>
+            An upgrade to the loadbalancer module to v0.9.12 resulted in much more even distribution between workers. Older versions of loadbalancer tended to not respond as well to large, sudden traffic spikes. The new version of loadbalancer uses an algorithm which leverages random probability with deterministic 'bad luck' correction to make sure that the load is spread evenly between workers.
+          </li>
+          <li>
+            The processes settings were poorly tuned in the previous benchmark &mdash; It's wasteful to use many more processes than you have CPU cores.
+          </li>
+          <li>
+            Using fewer processes resulted in a very healthy load average of 3.33 (out of a possible 8). We could probably have pushed well past 200K connections with our current setup. The setup of 5 load balancer, 5 workers and 2 stores is still not ideal - Maybe one more worker process would have brought the perfect balance?
+          </li>
+        </ul>
+        <h3>Screenshot</h3>
+        <img src="https://camo.githubusercontent.com/d029d6c3d54bdd9e6960412d394a7b9fc3fa189a/68747470733a2f2f7261772e6769746875622e636f6d2f746f70636c6f75642f736f636b6574636c75737465722f6d61737465722f6173736574732f62656e63686d61726b732f736f636b6574636c75737465725f76302e392e382e706e67" alt="Screenshot of Throughput Benchmark console">
+
+        <h2>Concurrency (SocketCluster v0.9.20</h2>
+        <p>The goal of this test was to estimate how many concurrent users SocketCluster could comfortably handle.</p>
+
+        <h3>Procedure</h3>
+        <p>
+          SocketCluster was deployed on an 8-core Amazon EC2 m3.2xlarge instance running Linux. The SocketCluster client was run on the largest possible 32-core Amazon EC2 c3.8xlarge instance running Linux - This was necessary in order to be able to simulate 42K concurrent users from a single machine.
+        </p>
+        <ul>
+          <li>
+            Virtual users (on client) were created (connected) at a rate of approximately 160 per second.
+          </li>
+          <li>
+            The maximum number of concurrent virtual users was set to 42K - This is a limit of the client, not the server.
+          </li>
+          <li>
+            Each virtual user sent a 'ping' message every 6 seconds on average. The payload of the 'ping' event was a JavaScript object (cast to JSON), the response was a 'pong' object containing the total number of pings received by the current worker so far.
+          </li>
+          <li>
+            A standard browser (Chrome) was connected to the SC server remotely (sending pings occasionally) to check that the service was still performant in real terms throughout the whole test (also used to check the growing ping count over time).
+          </li>
+          <li>
+            SocketCluster was setup to run with 4 load balancers, 3 workers and 1 store.
+          </li>
+        </ul>
+        <h3>Observations</h3>
+        <ul>
+          <li>
+            CPU (of busiest worker) peaked to around 60% near the end while new connections where still being created (at rate of 160 per second).
+          </li>
+          <li>
+            Once connections settled at 42K, the CPU use of the busiest worker dropped to around 45%
+          </li>
+          <li>
+            The store didn't do much work - In reality only 7 CPU cores were fully exploited.
+          </li>
+          <li>
+            The load average was under 2 (out of a possible 8), so there was plenty of room for more users.
+          </li>
+          <li>
+            Memory usage was negligible when compared to CPU usage.
+          </li>
+          <li>
+            The huge 32-core EC2 client machine could not get very far past 42K connections - CPU usage on the client was approaching 100% on all 32 cores. Past a certain point, the client would start lagging and the load on the server would drop.
+          </li>
+
+          <h3>Screenshot</h3>
+          <img src="https://camo.githubusercontent.com/8343b33abfe452a5a4089baf118c4d3dfadf7120/68747470733a2f2f7261772e6769746875622e636f6d2f746f70636c6f75642f736f636b6574636c75737465722f6d61737465722f6173736574732f62656e63686d61726b732f73635f34326b5f636c69656e74732e706e67" alt="Screenshot of Cuncurrency Benchmark console">
+        </ul>
+      </div>
+    </div>  
+  </div>  
+</div>  

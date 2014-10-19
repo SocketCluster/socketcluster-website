@@ -1,0 +1,61 @@
+<div ng-controller="mainController">
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1><strong><em>Supercharge</em></strong> your webserver with SocketCluster’s 
+  highly parallalized architecture.</h1>
+      <p><a class="btn btn-primary btn-lg" role="button" href="https://github.com/TopCloud/socketcluster">Get Started</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    {{ message }}
+    <div class="row large-pad">
+      <div class="col-md-6">
+        <h2 class="header-light large-pad">What is SocketCluster.io?</h2>
+        <p>SocketCluster is an Open Source lightning fast, highly scalable HTTP + WebSocket (engine.io) server which lets you build multi-process real-time systems/apps that make use of <strong>ALL</strong> CPU cores on a machine/instance.</p>
+
+        <p>Removing the limitations of having to run your Node.js server as a single thread.</p>
+        <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="../assets/img/cloud.png" alt="" class="large-pad">
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row large-pad">
+      <div class="col-md-4">
+        <h2 class="header-light">Technical Features</h2>
+      </div>
+      <div class="col-md-8">
+        <ul class="features-list">
+          <li>Scales linearly as you add more CPU cores and workers (assuming a decent OS) - Tested with up to 16 cores.</li>
+          <li>A client can publish events to all other interested clients (client-to-client pub/sub)</li>
+          <li>Client sockets automatically reconnect if they lose the connection.</li>
+          <li>SocketCluster processes automatically respawn on crash - Worker and load balancer crashes are invisible to users.</li>
+          <li>Comes with an in-memory session data store.</li>
+          <li>Sockets which are bound to the same browser (for example, across multiple tabs) share the same session.</li>
+          <li>Emit event notifications on any session to notify all sockets that belong to it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="jumbotron jumbo-blue">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="header-light">Community</h2>
+        </div>
+        <div class="col-md-6">
+          <iframe src="http://ghbtns.com/github-btn.html?user=topcloud&repo=socketcluster&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+        </div>
+        <div class="col-md-6">
+          <a href="https://twitter.com/SocketCluster" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @SocketCluster</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

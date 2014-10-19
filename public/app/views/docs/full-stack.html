@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Full stack pub/sub with SocketCluster</h1>
+        <p>
+          SocketCluster was designed from the ground up to offer scalable real-time communication. To achieve this, SocketCluster introduces the concept of full-stack pub/sub. Pub/sub is a design pattern typically used on the server-side which allows processes/hosts to efficiently share real-time messages with one another. SocketCluster takes this concept one step further by allowing the pub/sub channels to extend all the way to the browser.
+        </p>
+        <p>
+          <img src="assets/img/fullstack-diagram.png" alt="Full stack diagram" class="center">
+        </p>
+        <p>
+          This diagram is a bit generic, but you could assume that channel 1, channel 2, channel 3&hellip; represents different chat rooms which clients can join – Each room could focus on a particular topic, for example let's say 'math', 'physics', 'chemistry' &hellip; To listen to all messages posted in the room 'physics', all you have to do on the client is call: 
+        </p>
+
+        <pre class="prettyprint">socket.on('physics', function (data) {&hellip;});</pre>
+        <p>
+          To send messages to the physics room; you would just call:
+        </p>
+        <pre class="prettyprint">socket.publish('physics', messageData);</pre>
+        <p>
+          Note that event channels don't have to be shared by multiple users - You could setup channels for individual users. For example, the user with username 'bob123' could listen for the event 'bob123' - That way if any other user that wants to send some data to bob123, they can simply call:
+        </p>
+
+        <pre class="prettyprint">socket.publish('bob123', {from: 'alice456', message: 'Hi Bob!'});
+        </pre>
+
+        <p>
+          By default, SocketCluster allows anyone to subscribe and publish to any channel they want. SocketCluster lets you specify middleware on the server to allow or block specific users from subscribing, publishing or emitting certain events. Examples:
+        </p>
+
+        <pre class="prettyprint">
+scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, function (socket, event, next) {
+  // ...
+  if (...) {
+    next(); // Allow
+  } else {
+    next(socket.id + ' is not allowed to subscribe to ' + event); // Block
+  }
+});
+        </pre>
+
+        <pre class="prettyprint">
+scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH, function (socket, channel, data, next) {
+  // ...
+  if (...) {
+    next(); // Allow
+  } else {
+    next(socket.id + ' is not allowed to publish the ' + event + ' event'); // Block
+  }
+});
+        </pre>
+
+        <pre class="prettyprint">
+scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, function (socket, event, data, next) {
+  // ...
+  if (...) {
+    next(); // Allow
+  } else {
+    next(socket.id + ' is not allowed to emit the ' + event + ' event'); // Block
+  }
+});
+        </pre>
+        <p>
+          SocketCluster also exposes a Global object on the server-side (scServer.global) through which you can publish events to clients:
+        </p>
+        <pre class="prettyprint">scServer.global.publish(eventName, data, cb);</pre>
+        <p>
+          An emitted event is only sent to the other side of the socket (I.e. server &#8594; client or client &#8594; server); on the other hand, a published event will be sent to all subscribed client sockets (and nobody else!).
+        </p>
+        <p>
+          To subscribe a client socket to an event, you just use:
+        </p>  
+        <pre class="prettyprint">socket.on(eventName, listenerFn);</pre>
+        <p>
+          SocketCluster will automatically send a subscription request the server (it will have to pass through the SUBSCRIBE middleware first though!).
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

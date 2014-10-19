@@ -20,121 +20,34 @@
       padding-top: 68px;
       padding-bottom: 20px;
     }
-        </style>
+    </style>
 
-        <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.min.js"></script>
+    <script src="assets/js/app.js"></script>
   </head>
-  <body ng-controller="mainController">
+
+  <body onload="prettyPrint()">
     <!--[if lt IE 7]>
           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
-    <div class="navbar navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">SocketCluster.io</a>
-        </div>
-        <div class="navbar-collapse collapse">
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="/">Home {{4+6}}</a>
-            </li>
-            <!-- <li>
-              <a href="../css">Demo</a>
-            </li>-->
-            <li>
-              <a href="/">Performance {{ message }}</a>
-            </li>
-            <!-- <li>
-              <a href="../javascript">Getting Started</a>
-            </li> -->
-            <!-- <li>
-              <a href="../customize">Docs</a>
-            </li> -->
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://github.com/TopCloud/socketcluster">Download Latest</a></li>
-          </ul>
-        </nav>
-        </div><!--/.navbar-collapse -->
-      </div>
+    <div ng-include src="'app/shared/nav.html'"></div>
+
+    <div id="main">
+      <div ng-view></div>
     </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1><strong><em>Supercharge</em></strong> your webserver with SocketCluster’s 
-highly parallalized architecture.</h1>
-        <p><a class="btn btn-primary btn-lg" role="button" href="https://github.com/TopCloud/socketcluster">Get Started</a></p>
-      </div>
-    </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row large-pad">
-        <div class="col-md-6">
-          <h2 class="header-light large-pad">What is SocketCluster.io?</h2>
-          <p>SocketCluster is an Open Source lightning fast, highly scalable HTTP + WebSocket (engine.io) server which lets you build multi-process real-time systems/apps that make use of <strong>ALL</strong> CPU cores on a machine/instance.</p>
-
-          <p>Removing the limitations of having to run your Node.js server as a single thread.</p>
-          <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
-        </div>
-        <div class="col-md-6 text-center">
-          <img src="../img/cloud.png" alt="" class="large-pad">
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="row large-pad">
-        <div class="col-md-4">
-          <h2 class="header-light">Technical Features</h2>
-        </div>
-        <div class="col-md-8">
-          <ul class="features-list">
-            <li>Scales linearly as you add more CPU cores and workers (assuming a decent OS) - Tested with up to 16 cores.</li>
-            <li>A client can publish events to all other interested clients (client-to-client pub/sub)</li>
-            <li>Client sockets automatically reconnect if they lose the connection.</li>
-            <li>SocketCluster processes automatically respawn on crash - Worker and load balancer crashes are invisible to users.</li>
-            <li>Comes with an in-memory session data store.</li>
-            <li>Sockets which are bound to the same browser (for example, across multiple tabs) share the same session.</li>
-            <li>Emit event notifications on any session to notify all sockets that belong to it.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="jumbotron jumbo-blue">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2 class="header-light">Community</h2>
-          </div>
-          <div class="col-md-6">
-            <iframe src="http://ghbtns.com/github-btn.html?user=topcloud&repo=socketcluster&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
-          </div>
-          <div class="col-md-6">
-            <a href="https://twitter.com/SocketCluster" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @SocketCluster</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- footer -->
     <div class="container">
       <footer>
         <p>&copy; SocketCluster.io 2014</p>
       </footer>
-    </div> <!-- /container -->
+    </div> 
+    <!-- /footer -->
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
@@ -142,7 +55,16 @@ highly parallalized architecture.</h1>
     <!-- Latest compiled and minified JavaScript -->    
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-    <script src="js/main.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script src="assets/js/vendor/prettify/prettify.js"></script>
+    <link rel="stylesheet" href="assets/js/vendor/prettify/tomorrow-night.css">
+
+    <script type='text/javascript'>
+      document.addEventListener('DOMContentLoaded',function() {
+        prettyPrint();
+      });
+    </script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>

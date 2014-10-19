@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+      <h1>Handling Failure</h1>
+      <p>
+        Real systems in production need to be able to handle cases where the system fails. One of the most common causes of failure which needs to be considered is the possibility of a bad connection.
+      </p>
+      <p>
+        Event-related methods in SC accept a 'callback' function as final argument which allow you to check when the action has been acknowledged by the server. When a method fails, the callback will receive an error as argument &mdash; In this case you may wish to retry calling the method or you can display a message to the user to let them know about the issue.
+      </p>
+      <p>
+        Here is how to handle various errors (sample code):
+      </p>
+
+      <h2>Client-side</h2>
+      <h3>Emitting</h3>
+
+      <pre class="prettyprint">// Client code
+socket.emit('ping', 'This is a ping', function (err) {
+    if (err) {
+        // Failed to emit event, retry or let the user know and keep going?
+    } else {
+        // Event was emitted successfully
+    }
+});</pre>
+
+      <p>
+        Note that the emit method will never fail if you do not pass the callback argument to it - In such case, the call to emit would treat the event as low-importance (volatile). This feature may be useful if you're emitting an event multiple times per second and do not care if it fails occasionally.
+      </p>
+
+      <h3>Publishing</h3>
+      <pre class="prettyprint">// Client code
+socket.publish('pong', 'This is a pong', function (err) {
+    if (err) {
+        // Failed to publishevent, retry or let the user know and keep going?
+    } else {
+        // Event was published successfully
+    }
+});</pre>
+
+      <h3>Subscribing (socket.on)</h3>
+
+      <pre class="prettyprint">// Client code
+var listener = function (data) {
+     // This gets executed when the 'ping' event is received by the client
+};
+
+var ackCallback = function (err) {
+    if (err) {
+        // Failed to subscribe to 'ping' event, retry or let the user know and keep going?
+    } else {
+        // Event was successfully subscribed to
+    }
+};
+
+socket.on('ping', listener, ackCallback);</pre>
+
+      <h2>Server-side</h2>
+      <h3>Emitting</h3>
+
+      <pre class="prettyprint">// Server code
+socket.emit('ping', 'This is a ping', function (err) {
+    if (err) {
+        // Failed to emit event, retry or log?
+    } else {
+        // Event was emitted successfully
+    }
+});</pre>
+
+
+      <h3>Publishing</h3>
+
+      <pre class="prettyprint">// Server code
+socket.global.publish('pong', 'This is a pong', function (err) {
+    if (err) {
+        // Failed to publish event, retry or log?
+    } else {
+        // Event was published successfully
+    }
+});</pre>
+      </div>
+    </div>
+  </div>
+</div>

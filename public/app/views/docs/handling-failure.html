@@ -30,7 +30,18 @@ socket.emit('ping', 'This is a ping', function (err) {
 
       <p>
         Note that the emit method will never fail if you do not pass the callback argument to it - In such case, the call to emit would treat the event as low-importance (volatile). This feature may be useful if you're emitting an event multiple times per second and do not care if it fails occasionally.
+		When you pass a callback to the emit method, you will have to explicitly send a response from the other side (otherwise the callback will time out):
       </p>
+	  
+	  <pre class="prettyprint">// Server code
+socket.on('ping', function (data, res) {
+    // ...
+	if (success) {
+		res.end('Success'); // Send back success
+	} else {
+		res.error('Error message'); // Send back error
+	}
+});</pre>
 
       <h3>Publishing</h3>
       <pre class="prettyprint">// Client code

@@ -36,11 +36,11 @@ socket.emit('ping', 'This is a ping', function (err) {
 	  <pre class="prettyprint">// Server code
 socket.on('ping', function (data, res) {
     // ...
-	if (success) {
-		res.end('Success'); // Send back success
-	} else {
-		res.error('Error message'); // Send back error
-	}
+    if (success) {
+        res.end('Success'); // Send back success - 
+    } else {
+        res.error('Error message'); // Send back error
+    }
 });</pre>
 
       <h3>Publishing</h3>

@@ -37,7 +37,7 @@ socket.emit('ping', 'This is a ping', function (err) {
 socket.on('ping', function (data, res) {
     // ...
     if (success) {
-        res.end('Success'); // Send back success - 
+        res.end('Success'); // Send back success
     } else {
         res.error('Error message'); // Send back error
     }

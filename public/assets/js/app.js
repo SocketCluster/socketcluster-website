@@ -1,6 +1,7 @@
 var socketclusterApp = angular.module('socketclusterApp', ['ngRoute']);
 
-socketclusterApp.config(function($routeProvider) {
+socketclusterApp.config(function($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(false).hashPrefix('!');
   $routeProvider
 
     // Route for Home page

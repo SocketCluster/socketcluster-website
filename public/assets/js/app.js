@@ -37,7 +37,7 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
     })
     //
     .when('/docs/middleware-and-authorization', {
-      templateUrl: 'app/views/docs/middleware.html',
+      templateUrl: 'app/views/docs/middleware-and-authorization.html',
       controller: 'docsController'
     })
     //

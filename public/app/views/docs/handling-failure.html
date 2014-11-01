@@ -21,11 +21,11 @@
 
       <pre class="prettyprint">// Client code
 socket.emit('ping', 'This is a ping', function (err) {
-    if (err) {
-        // Failed to emit event, retry or let the user know and keep going?
-    } else {
-        // Event was emitted successfully
-    }
+  if (err) {
+    // Failed to emit event, retry or let the user know and keep going?
+  } else {
+    // Event was emitted successfully
+  }
 });</pre>
 
       <p>
@@ -35,51 +35,53 @@ socket.emit('ping', 'This is a ping', function (err) {
 	  
 	  <pre class="prettyprint">// Server code
 socket.on('ping', function (data, res) {
-    // ...
-    if (success) {
-        res.end('Success'); // Send back success
-    } else {
-        res.error('Error message'); // Send back error
-    }
+  // ...
+  if (success) {
+    res.end('Success'); // Send back success
+  } else {
+    res.error('Error message'); // Send back error
+  }
 });</pre>
 
       <h3>Publishing</h3>
       <pre class="prettyprint">// Client code
 socket.publish('pong', 'This is a pong', function (err) {
-    if (err) {
-        // Failed to publishevent, retry or let the user know and keep going?
-    } else {
-        // Event was published successfully
-    }
+  if (err) {
+    // Failed to publish event, retry or let the user know and keep going?
+  } else {
+    // Event was published successfully
+  }
 });</pre>
 
-      <h3>Subscribing (socket.on)</h3>
+      <h3>Subscribing</h3>
 
       <pre class="prettyprint">// Client code
-var listener = function (data) {
-     // This gets executed when the 'ping' event is received by the client
-};
+socket.subscribe(['pong'], function (err) {
+  // Note that if you try to subscribe to multiple events at once and some of them fail,
+  // err will be an object mapping each failed event channel to its corresponding error message.
+  // If everything succeeds, err will always be undefined.
+  if (err) {
+    // Failed to subscribe to event, retry or let the user know and keep going?
+  } else {
+    // Subscribed to event successfully
+  }
+});
 
-var ackCallback = function (err) {
-    if (err) {
-        // Failed to subscribe to 'ping' event, retry or let the user know and keep going?
-    } else {
-        // Event was successfully subscribed to
-    }
-};
-
-socket.on('ping', listener, ackCallback);</pre>
+// Handle the pong event
+socket.on('pong', function (data) {
+  // This gets executed when the pong event is received by the client.
+});</pre>
 
       <h2>Server-side</h2>
       <h3>Emitting</h3>
 
       <pre class="prettyprint">// Server code
 socket.emit('ping', 'This is a ping', function (err) {
-    if (err) {
-        // Failed to emit event, retry or log?
-    } else {
-        // Event was emitted successfully
-    }
+  if (err) {
+    // Failed to emit event, retry or log?
+  } else {
+    // Event was emitted successfully
+  }
 });</pre>
 
 
@@ -87,11 +89,11 @@ socket.emit('ping', 'This is a ping', function (err) {
 
       <pre class="prettyprint">// Server code
 socket.global.publish('pong', 'This is a pong', function (err) {
-    if (err) {
-        // Failed to publish event, retry or log?
-    } else {
-        // Event was published successfully
-    }
+  if (err) {
+    // Failed to publish event, retry or log?
+  } else {
+    // Event was published successfully
+  }
 });</pre>
       </div>
     </div>

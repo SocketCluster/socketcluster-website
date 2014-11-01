@@ -33,7 +33,7 @@ var socketCluster = new SocketCluster({
 
 
         <p>
-          To make sense of some of these options, it's important to remember that SocketCluster runs as a cluster of 4 different kinds of processes:
+          To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 4 different kinds of processes:
         </p>
         <h3>Master process (server.js)</h3>
         <p>
@@ -77,8 +77,7 @@ scServer.on('connection', function (socket) {
     console.log('PING', data);
     scServer.global.publish('pong', count);
   });
-});
-        </pre>
+});</pre>
         <p>
           Here, the 'ping' event will be triggered whenever the client sockets emits a ping on the client using:
         </p>
@@ -99,12 +98,20 @@ socket.emit('ping', 'This is a PING message')</pre>
 scServer.global.publish('pong', count);</pre>
 
         <p>
-          Any client which is connected to SocketCluster and is listening for the 'pong' event will  receive the value of the count variable. On the client, this might look like this:
+          Any client which is connected to SocketCluster and is subscribed and listening to the 'pong' event will receive the value of the count variable. On the client, this might look like this:
         </p>
         <pre class="prettyprint">// Client code
+// As of SocketCluster v0.9.90, if you want to listen to published events,
+// you have to explicitly subscribe to them. This is not necessary for regular events emitted by the server.
+// Note that you can subscribe to multiple event channels at once.
+socket.subscribe(['pong'], function (err) {
+  // Check if subscribe operation succeeded
+});
+
 socket.on('pong', function (count) {
-    console.log('Client received pong event with data:', count);
-});</pre>
+  console.log('Client received pong event with data:', count);
+});
+</pre>
         <p>
           As demonstrated earlier, you can publish events from the server side. For convenience, SocketCluster also lets you publish events from the client side:
         </p>

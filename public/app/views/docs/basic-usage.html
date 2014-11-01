@@ -31,7 +31,6 @@ var socketCluster = new SocketCluster({
   rebootWorkerOnCrash: true
 });</pre>
 
-
         <p>
           To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 4 different kinds of processes:
         </p>
@@ -112,6 +111,13 @@ socket.on('pong', function (count) {
   console.log('Client received pong event with data:', count);
 });
 </pre>
+        <p>
+          To unsubscribe to one or more event channels:
+        </p>
+<pre class="prettyprint">// Client code
+socket.unsubscribe(['pong'], function (err) {
+  // Check if unsubscribe operation succeeded
+});</pre>
         <p>
           As demonstrated earlier, you can publish events from the server side. For convenience, SocketCluster also lets you publish events from the client side:
         </p>

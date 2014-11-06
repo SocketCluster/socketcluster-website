@@ -34,7 +34,7 @@ scServer.MIDDLEWARE_EMIT</pre>
 
         <h3>Subscribe</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
-  function (socket, event, next) {
+  function (socket, channel, next) {
     // ...
     if (...) {
       next() // Allow
@@ -46,7 +46,7 @@ scServer.MIDDLEWARE_EMIT</pre>
 
         <h3>Publish</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH,
-  function (socket, event, data, next) {
+  function (socket, channel, data, next) {
     // ...
     if (...) {
       next() // Allow

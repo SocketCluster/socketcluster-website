@@ -56,20 +56,19 @@ socket.publish('pong', 'This is a pong', function (err) {
       <h3>Subscribing</h3>
 
       <pre class="prettyprint">// Client code
-socket.subscribe(['pong'], function (err) {
-  // Note that if you try to subscribe to multiple events at once and some of them fail,
-  // err will be an object mapping each failed event channel to its corresponding error message.
-  // If everything succeeds, err will always be undefined.
-  if (err) {
-    // Failed to subscribe to event, retry or let the user know and keep going?
-  } else {
-    // Subscribed to event successfully
-  }
+var pongChannel = socket.subscribe('pong');
+
+pongChannel.on('subscribeFail', function (err, channelName) {
+  // Handle subscribe failure
 });
 
-// Handle the pong event
-socket.on('pong', function (data) {
-  // This gets executed when the pong event is received by the client.
+pongChannel.on('subscribe', function (channelName) {
+  // Handle subscribe success
+});
+
+// Handle data published to the pong channel
+pongChannel.watch(function (data) {
+  // This gets executed whenever data is published to the pong channel
 });</pre>
 
       <h2>Server-side</h2>

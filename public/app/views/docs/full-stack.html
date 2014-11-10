@@ -17,19 +17,20 @@
         </p>
 
         <pre class="prettyprint">
-// As of SocketCluster v0.9.90, if you want to listen to published events, 
-// you have to explicitly subscribe to them. This is not necessary for regular events emitted by the server.
-socket.subscribe(['physics'], function (err) {
-  // Check if subscribe operation succeeded
-});
+// SocketCluster API v1.0.0
+var physChannel = socket.subscribe('physics');
 
-socket.on('physics', function (data) {&hellip;});</pre>
+physChannel.watch(function (data) {...});</pre>
         <p>
           To send messages to the physics room; you would just call:
         </p>
         <pre class="prettyprint">socket.publish('physics', messageData);</pre>
+        <p>... or</p>
+        
+        <pre class="prettyprint">physChannel.publish(messageData);</pre>
+        
         <p>
-          Note that event channels don't have to be shared by multiple users - You could setup channels for individual users. For example, the user with username 'bob123' could listen for the event 'bob123' - That way if any other user that wants to send some data to bob123, they can simply call:
+          Note that channels don't have to be shared by multiple users - You could setup channels for individual users. For example, the user with username 'bob123' could subscribe and watch the channel 'bob123' - That way if any other user that wants to send some data to bob123, they can simply call:
         </p>
 
         <pre class="prettyprint">socket.publish('bob123', {from: 'alice456', message: 'Hi Bob!'});</pre>
@@ -39,12 +40,12 @@ socket.on('physics', function (data) {&hellip;});</pre>
         </p>
 
         <pre class="prettyprint">
-scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, function (socket, event, next) {
+scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, function (socket, channel, next) {
   // ...
   if (...) {
     next(); // Allow
   } else {
-    next(socket.id + ' is not allowed to subscribe to ' + event); // Block
+    next(socket.id + ' is not allowed to subscribe to ' + channel); // Block
   }
 });</pre>
 
@@ -54,7 +55,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH, function (socket, channel, d
   if (...) {
     next(); // Allow
   } else {
-    next(socket.id + ' is not allowed to publish the ' + event + ' event'); // Block
+    next(socket.id + ' is not allowed to publish to the ' + channel + ' channel'); // Block
   }
 });</pre>
 
@@ -72,20 +73,18 @@ scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, function (socket, event, data, 
         </p>
         <pre class="prettyprint">scServer.global.publish(eventName, data, cb);</pre>
         <p>
-          An emitted event is only sent to the other side of the socket (I.e. server &#8594; client or client &#8594; server); on the other hand, a channel (published) event will be sent to all subscribed client sockets (and nobody else!).
+          An emitted event is only sent to the other side of the socket (I.e. server &#8594; client or client &#8594; server); on the other hand, data published to a channel will be sent to all subscribed client sockets (and nobody else!).
         </p>
         <p>
-          To subscribe a client socket to a channel event, you just use:
+          To subscribe a client socket to a channel, you just use:
         </p>  
         <pre class="prettyprint">
-socket.subscribe(channelName, function (err) {
-  // Callback code to check if subscription has succeeded
-});</pre>
+var channelObject = socket.subscribe(channelName);</pre>
         <p>
-          Then, to handle incoming channel events, you just use:
+          Then, to handle incoming channel data, you just use:
         </p>  
         <pre class="prettyprint">
-socket.on(channelName, listenerFn);</pre>
+channelObject.watch(handlerFn);</pre>
         <p>
           Note that subscription requests will have to pass through the SUBSCRIBE middleware before the client can receive channel events.
         </p>

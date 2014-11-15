@@ -143,13 +143,14 @@ pongChannel.publish('This PONG event comes from a client');</pre>
           The socket.emit(event, data) function allows you to send messages between 1 client socket and 1 matching server socket (1 client socket &#8644; 1 server socket &mdash; One to one communication between client and server).
         </p>
         <p>
-          The socket.publish(event, data) and channel.publish(data) functions allows you to send group messages between multiple client sockets (n client sockets &#8644; n client sockets - Many to many communication directly between clients). As shown earlier, you can also call publish from the server using the global object (Global &#8594; n client sockets):
+          The socket.publish(event, data) and channel.publish(data) functions allow you to send group messages between multiple client sockets (n client sockets &#8644; n client sockets - Many to many communication directly between clients). As shown earlier, you can also call publish from the server using the global object (Global &#8594; n client sockets):
         </p>
         <pre class="prettyprint">// Server code
 scServer.global.publish('foo', 123);
 </pre>
-
-You can also use publish for one to one communication between two clients but you should setup some middleware to make sure that only the two authorized clients can share the same channel (see guide on middleware and authorization for more details).
+        <p>
+          You can also use publish for one to one communication between two clients but you should setup some middleware to make sure that only the two authorized clients can share the same channel (see guide on middleware and authorization for more details).
+        </p>
         </div>
       </div>
     </div>

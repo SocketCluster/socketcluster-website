@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Running in production</h1>
+        <p>When building a system on SocketCluster, it's important to avoid placing runtime logic inside your master process (server.js file) - Such logic is better placed inside workers (worker.js).
+          Unlike the master process, workers automatically respawn whenever they crash (in case of uncaught error) and with minimal service disruption (a worker typically takes less than 1 second to respawn).
+          The master process is generally a good place to put bootstrap logic and spawn long-running daemon processes but once your system is live, you shouldn't use it to execute error-prone logic.</p>
+        <p>If you follow these rules, then running your SocketCluster server directly using the node command should be fine for production (example with arguments):</p>
+        <pre class="prettyprint">node server.js -b 2 -w 2 -s 2</pre>
+        <p>If you're running Linux however, you have the option of using the socketcluster run command:</p>
+        <pre class="prettyprint">socketcluster run server.js -b 2 -w 2 -s 2</pre>
+        <p>
+          The advantage of using the socketcluster run command is that if your master fails, it will be automatically restarted (along with all other SC processes needed to get your system running again).
+          Note that master process crashes are nevertheless a very bad thing since you would lose your SC session data too (assuming that you don't have a backup and restore mechanism).
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

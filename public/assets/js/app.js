@@ -50,6 +50,11 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/full-stack.html',
       controller: 'docsController'
     })
+    //
+    .when('/docs/running-in-production', {
+      templateUrl: 'app/views/docs/running-in-production.html',
+      controller: 'docsController'
+    })
     // Route for Docs
     .when('/docs', {
       templateUrl: 'app/views/docs/introduction.html',

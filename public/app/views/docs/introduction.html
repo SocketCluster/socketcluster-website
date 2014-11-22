@@ -7,10 +7,10 @@
       <div class="docs-content">
         <h1>Introduction</h1>
         <p>
-          SocketCluster is a fast, highly scalable HTTP + realtime server engine which lets you build multi-process realtime servers that make use of all CPU cores on a machine/instance. It removes the limitations of having to run your Node.js server as a single thread and makes your backend resilient by automatically recovering from worker crashes and aggregating errors into a central log.
+          SocketCluster is a fast, highly scalable HTTP + realtime server engine (built around Engine.io) which lets you build multi-process realtime servers that make use of all CPU cores on a machine/instance. It removes the limitations of having to run your Node.js server as a single thread and makes your backend resilient by automatically recovering from worker crashes and aggregating errors into a central log.
         </p>
         <p>
-          SocketCluster works like a pub/sub system (which extends all the way to the browser) - It only delivers particular events to clients who actually need them. See this <a href="https://github.com/TopCloud/socketcluster/issues/6">issue</a> for some tips of how to leverage this feature. SocketCluster is designed to scale horizontally too.
+          SocketCluster works like a pub/sub system (which extends all the way to the browser) - It only delivers particular events to clients who actually need them. SocketCluster is designed to scale both vertically (as a cluster of processes) and horizontally (multiple machines/instances).
         </p>
         <p>
           SocketCluster was designed to be modular so that you can run other frameworks like express on top of it (or build your own!)

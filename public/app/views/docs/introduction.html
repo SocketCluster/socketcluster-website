@@ -10,20 +10,18 @@
           SocketCluster is a fast, highly scalable HTTP + realtime server engine (built around Engine.io) which lets you build multi-process realtime servers that make use of all CPU cores on a machine/instance. It removes the limitations of having to run your Node.js server as a single thread and makes your backend resilient by automatically recovering from worker crashes and aggregating errors into a central log.
         </p>
         <p>
-          SocketCluster works like a pub/sub system (which extends all the way to the browser) - It only delivers particular events to clients who actually need them. SocketCluster is designed to scale both vertically (as a cluster of processes) and horizontally (multiple machines/instances).
+          SocketCluster works like a pub/sub system (which extends all the way to the browser) - It only delivers particular events to clients who actually need them. SC is designed to scale both vertically (as a cluster of processes) and horizontally (multiple machines/instances).
         </p>
         <p>
-          SocketCluster was designed to be modular so that you can run other frameworks like express on top of it (or build your own!)
-        </p>
-        <p>
-          SocketCluster was designed to be lightweight and its realtime API is almost identical to Socket.io.
+          SC was designed to be modular so that you can run other frameworks like express on top of it (or build your own!).
+          SC's realtime API is similar to that of Socket.io.
         </p>  
         <p>
           Follow the project on <a href="https://twitter.com/SocketCluster">Twitter</a>  Subscribe for updates on <a href="http://socketcluster.launchrock.com/">http://socketcluster.launchrock.com/</a>
         </p>
         <h2>Memory Leak Profile</h2>
         <p>
-          SocketCluster has been tested for memory leaks. The last full memory profiling was done on SocketCluster v0.9.17 (Node.js v0.10.28) and included checks on load balancer, worker and store processes.
+          SC has been tested for memory leaks. The last full memory profiling was done on v0.9.17 (Node.js v0.10.28) and included checks on load balancer, worker and store processes.
         </p>
         <p> 
           No memory leaks were detected when using the latest Node.js version. Note that leaks were found when using Node.js versions below v0.10.22 - This is probably the Node.js 'Walmart' memory leak - Not a SocketCluster issue.

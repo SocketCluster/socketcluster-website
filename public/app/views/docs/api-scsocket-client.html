@@ -97,9 +97,9 @@
               connect()
             </td>
             <td>
-              Connects to the backend. This will cause a 'connection' event to be emitted on the server.
+              Connects to the server. This will cause a 'connection' event to be emitted on the server.
               In the case of a reconnection, this will automatically resubscribe to any pub/sub channels which were active on the current socket.
-              The options arguments is optional - It can have these properties:
+              The options arguments is optional.
             </td>
           </tr>
           <tr>
@@ -156,7 +156,7 @@
             </td>
             <td>
               Subscribe to a particular channel.
-              This function returns a SCChannel object which lets you watch for incoming data on that channel.
+              This function returns an <a href="#!/docs/api-scchannel">SCChannel</a> object which lets you watch for incoming data on that channel.
             </td>
           </tr>
           <tr>
@@ -165,7 +165,7 @@
             </td>
             <td>
               Unsubscribe the from the specified channel. This makes any associated SCChannel object inactive.
-              You can reactivate the SCChannel objects by calling subscribe(channelName) again at a later time.
+              You can reactivate the <a href="#!/docs/api-scchannel">SCChannel</a> object by calling subscribe(channelName) again at a later time.
             </td>
           </tr>
           <tr>
@@ -173,7 +173,7 @@
               channel(channelName)
             </td>
             <td>
-              Returns a channel. This is different from subscribe() in that it will not try to subscribe to that channel.
+              Returns an <a href="#!/docs/api-scchannel">SCChannel</a> instance. This is different from subscribe() in that it will not try to subscribe to that channel.
               The returned channel will be inactive initially.
               You can call socket.subscribe(channelName) later to activate that channel when required.
             </td>

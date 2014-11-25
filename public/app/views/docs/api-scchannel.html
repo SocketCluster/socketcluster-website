@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - SCChannel (Client)</h1>
+        <p>
+          Instances of the SCChannel object let you subcribe to and watch for incoming data which is published on that channel by other clients or the server.
+        </p>
+
+        <h3>Inherits from:</h3>
+        <p>
+          <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
+        </p>
+
+        <h3>Properties:</h3>
+        <table class="table">
+          <tr>
+            <td>name</td>
+            <td>The channel's name.</td>
+          </tr>
+          <tr>
+            <td>subscribing</td>
+            <td>Boolean which indicates whether or not this channel is in the middle of a subscribe operation.</td>
+          </tr>
+          <tr>
+            <td>subscribed</td>
+            <td>Boolean which indicates whether or not this channel is subscribed to the server.</td>
+          </tr>
+        </table>
+          
+        <h3>Events:</h3>
+        <table class="table">
+          <tr>
+            <td>'dropOut'</td>
+            <td>This is emitted whenever the subscription to this channel is lost.</td>
+          </tr>
+          <tr>
+            <td>'subscribe'</td>
+            <td>When the subscription succeeds.</td>
+          </tr>
+          <tr>
+            <td>'subscribeFail'</td>
+            <td>Happens when the subscription fails.</td>
+          </tr>
+          <tr>
+            <td>'unsubscribe'</td>
+            <td>When the channel becomes deactivated (unsubscribed from the server).</td>
+          </tr>
+        </table>
+
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>subscribe()</td>
+            <td>Activate this channel so that it will receive all data published to it from the backend.</td>
+          </tr>
+          <tr>
+            <td>unsubscribe()</td>
+            <td>Deactivate this channel.</td>
+          </tr>
+          <tr>
+            <td>isSubscribed()</td>
+            <td>Check whether or not this channel is active (subscribed to the backend).</td>
+          </tr>
+          <tr>
+            <td>publish(data, [callback])</td>
+            <td>Publish data to this channel, optional callback is in the form callback(err).</td>
+          </tr>
+          <tr>
+            <td>watch(handler)</td>
+            <td>Capture any data which is published to this channel. The handler is a function in the form handler(data).</td>
+          </tr>
+          <tr>
+            <td>unwatch([handler])</td>
+            <td>Unbind the specified handler from this channel. If no handler is specified, it will unbind all handlers.</td>
+          </tr>
+          <tr>
+            <td>destroy()</td>
+            <td>Destroy the current SCChannel object - This makes it unusable and it will allow it to be garbage collected.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

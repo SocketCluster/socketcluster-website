@@ -82,6 +82,18 @@ socket.emit('ping', 'This is a ping', function (err) {
     // Event was emitted successfully
   }
 });</pre>
+      <p>
+        If we provide a callback, we will need to make sure the response is sent on the client:
+      </p>
+	  <pre class="prettyprint">// Client code
+socket.on('ping', function (data, res) {
+  // ...
+  if (success) {
+    res.end('Success'); // Send back success
+  } else {
+    res.error('Error message'); // Send back error
+  }
+});</pre>
 
 
       <h3>Publishing</h3>

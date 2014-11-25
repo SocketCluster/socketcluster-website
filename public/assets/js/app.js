@@ -55,6 +55,42 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/running-in-production.html',
       controller: 'docsController'
     })
+    
+    .when('/docs/api-global', {
+      templateUrl: 'app/views/docs/api-global.html',
+      controller: 'docsController'
+    })
+    
+    .when('/docs/api-scchannel', {
+      templateUrl: 'app/views/docs/api-scchannel.html',
+      controller: 'docsController'
+    })
+    
+    .when('/docs/api-scserver', {
+      templateUrl: 'app/views/docs/api-scserver.html',
+      controller: 'docsController'
+    })
+    
+    .when('/docs/api-scsocket-client', {
+      templateUrl: 'app/views/docs/api-scsocket-client.html',
+      controller: 'docsController'
+    })
+    
+    .when('/docs/api-scsocket-server', {
+      templateUrl: 'app/views/docs/api-scsocket-server.html',
+      controller: 'docsController'
+    })
+    
+    .when('/docs/api-scworker', {
+      templateUrl: 'app/views/docs/api-scworker.html',
+      controller: 'docsController'
+    })
+    
+    .when('/docs/api-session', {
+      templateUrl: 'app/views/docs/api-session.html',
+      controller: 'docsController'
+    })
+    
     // Route for Docs
     .when('/docs', {
       templateUrl: 'app/views/docs/introduction.html',

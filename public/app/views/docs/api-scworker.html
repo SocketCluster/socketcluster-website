@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - SCWorker</h1>
+        <p>
+          This instance is passed to your worker file's run() method.
+          It represents your current worker.
+        </p>
+        
+        <h3>Inherits from:</h3>
+        <p>
+          <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
+        </p>
+        
+        <h3>Properties:</h3>
+        <table class="table">
+          <tr>
+            <td>id</td>
+            <td>The id is an index - The first worker's id will always be 0.</td>
+          </tr>
+          <tr>
+            <td>isLeader</td>
+            <td>Boolean which indicates whether or not this worker is the leader (id == 0).</td>
+          </tr>
+          <tr>
+            <td>options</td>
+            <td>The options object passed to this worker from master.</td>
+          </tr>
+        </table>
+
+        <h3>Events:</h3>
+        <table class="table">
+          <tr>
+            <td>'error'</td>
+            <td>This gets triggered when fatal error occurs on this worker.</td>
+          </tr>
+          <tr>
+            <td>'notice'</td>
+            <td>A notice carries potentially useful information but isn't quite an error.</td>
+          </tr>
+          <tr>
+            <td>'exit'</td>
+            <td>Happens when this worker exits (sometimes due to error).</td>
+          </tr>
+          <tr>
+            <td>'ready'</td>
+            <td>This signals that the worker is ready to accept requests from users.</td>
+          </tr>
+        </table>
+        
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>getSCServer()</td>
+            <td>Returns the SCServer instance associated with this worker.</td>
+          </tr>
+          
+          <tr>
+            <td>getHTTPServer()</td>
+            <td>
+              Returns the Node.js HTTP server associated with this worker.
+              Note that this server's 'request' event will not trigger for requests which are handled internally by SocketCluster.
+              If you would like to handle all requests (including ones for URLs reserved by SC), you will need to listen for the 'rawRequest' event.
+            </td>
+          </tr>
+          
+          <tr>
+            <td>getSocketURL()</td>
+            <td>Returns the URL path used by realtime socket connections for handshakes and to provide HTTP fallback.</td>
+          </tr>
+          
+          <tr>
+            <td>getStatus()</td>
+            <td>
+              Returns an object containing statistics about the current worker including number 
+              of connected clients and also number of HTTP and realtime requests per minute.
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

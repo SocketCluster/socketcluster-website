@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - Global (nData)</h1>
+        <p>
+          Can be accessed using scWorker.global property.
+        </p>
+        <p>
+          The global object is a top-level nData client which lets you publish events and manipulate data within your stores.
+          It also lets you passively watch channels (those which clients of the current server are subscribed to) or you can explicitly
+          subscribe to channels to let you watch additional channels.
+          You can use any method of an nData client on instances of this object: <a href="https://github.com/TopCloud/ndata">https://github.com/TopCloud/ndata</a>
+        </p>
+        <p>
+          Because this object potentially handles a cluster of stores,
+          you can use the setMapper(mapperFn) method to set a function which will be used to map your individual nData client calls to one of your 
+          stores (assuming you have more than one).
+          The mapperFn takes three arguments:
+        </p>
+        <br />
+        <table class="table">
+          <tr>
+            <td>key</td>
+            <td>
+              The key/keyChain (typically string or Array but can also be a function) which is was passed to this nData client method/action.
+              If the method is 'query' then the key will be an nData query function which you will have to interpret in order to come up with a mapping.
+            </td>
+          </tr>
+          <tr>
+            <td>method</td>
+            <td>The nData method which was invoked and needs to be mapped to one or more store processes.</td>
+          </tr>
+          <tr>
+            <td>clientIds</td>
+            <td>An array of available nData client IDs which you can map to.</td>
+          </tr>
+        </table>
+        <br />
+        <p>
+          The mapper must return either an ID (integer) or an array of IDs and SC will send the action to all corresponding stores.
+          So if the mapperFn returns 0, then the action wil be sent to nData store with ID 0.
+          If you return the clientIds array directly, then all clients will receive the action.
+        </p>
+        <h3>Inherits from:</h3>
+        <p>
+          <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
+        </p>
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>publish(channel, data, [callback])</td>
+            <td>
+              Publish any JSON-compatible object/array or primitive to channel.
+              Optional callback is in form callback(err) - Where err is undefined on success.
+            </td>
+          </tr>
+          <tr>
+            <td>subscribe(channel, [callback])</td>
+            <td>
+              Subscribe this global nData client to the specified channel.
+              Optional callback is in form callback(err) - Where err is undefined on success.
+            </td>
+          </tr>
+          <tr>
+            <td>unsubscribe(channel, [callback])</td>
+            <td>
+              Unsubscribe this global nData client from the specified channel.
+              Optional callback is in form callback(err) - Where err is undefined on success.
+            </td>
+          </tr>
+          <tr>
+            <td>unsubscribeAll([callback])</td>
+            <td>
+              Unsubscribe all this global nData client from all channels.
+              Optional callback is in form callback(err) - Where err is undefined on success.
+            </td>
+          </tr>
+          <tr>
+            <td>watch(channel, handler)</td>
+            <td>
+              Capture data that is published on a particular channel.
+              The handler function must be in the form: handler(data)
+            </td>
+          </tr>
+          <tr>
+            <td>unwatch(channel, [handler])</td>
+            <td>
+              Stop capturing data from channel.
+              The handler function is options. If none is specified, it will remove all handlers from that channel.
+            </td>
+          </tr>
+          <tr>
+            <td>watchers(channel)</td>
+            <td>
+              Returns an array of all handler functions which are bound to channel.
+            </td>
+          </tr>
+          <tr>
+            <td>setMapper(mapper)</td>
+            <td>
+              Allows you to define a mapping function which is used to map various nData actions to 
+              specific store processes to distributed the load between them. More details coming soon...
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

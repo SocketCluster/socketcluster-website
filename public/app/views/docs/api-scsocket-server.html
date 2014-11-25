@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - SCSocket (Server)</h1>
+        <p>
+          Note that there are two types of SCSocket objects - One which runs on the client and another which runs on the server.
+          These two objects have slightly different APIs. This page concerns the server socket.
+        </p>
+        <p>
+          The server-side SCSocket object allows you to interact with a matching client-side socket in realtime.
+          It also exposes various objects to performing more complex operations such as publishing to channels.
+        </p>
+        
+        <h3>Inherits from:</h3>
+        <p>
+          Socket (<a href="https://github.com/Automattic/engine.io">engine.io</a>)
+        </p>
+
+        <h3>Properties:</h3>
+          <table class="table">
+            <tr>
+              <td colspan="2">All properties of <a href="https://github.com/Automattic/engine.io">engine.io</a> Socket</td>
+            </tr>
+            <tr>
+              <td>id</td>
+              <td>The socket id.</td>
+            </tr>
+            <tr>
+              <td>ssid</td>
+              <td>The id of the session which this socket is a part of.</td>
+            </tr>
+            <tr>
+              <td>session</td>
+              <td>
+                A <a href="#!/docs/api-session">Session</a> object which you can use to interact with your SC store processes. (Within the scope of the current session).
+                You can use it to emit events to all sockets which belong to a session (for example if a user has multiple tabs open).
+              </td>
+            </tr>
+            <tr>
+              <td>global</td>
+              <td>
+                A <a href="#!/docs/api-global">Global</a> object which you can use to interact with your SC store processes. (Global scope).
+                You can use it to publish data a channel - Any client which is subscribed to that channel will receieve the data.
+              </td>
+            </tr>
+          </table>
+          
+        <h3>Events:</h3>
+        <table class="table">
+          <tr>
+            <td colspan="2">All events emitted by the <a href="https://github.com/Automattic/engine.io">engine.io</a> Socket</td>
+          </tr>
+          <tr>
+            <td>'error'</td>
+            <td>
+              This gets triggered when an error occurs on this socket. Argument is the error object.
+            </td>
+          </tr>
+          <tr>
+            <td>'raw'</td>
+            <td>
+              This gets triggered whenever the server socket on the other side calls socket.send(...).
+            </td>
+          </tr>
+          <tr>
+            <td>'disconnect'</td>
+            <td>
+              Happens when the matching client socket becomes disconnected from the server.
+            </td>
+          </tr>
+        </table>
+        
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>disconnect()</td>
+            <td>
+              Disconnect this socket client.
+            </td>
+          </tr>
+          <tr>
+            <td>emit(event, data, [callback])</td>
+            <td>
+              Emits the specified event on the corresponding server-side socket.
+              Note that you cannot use any of the registered SCSocket events (defined above or those specified in engine.io-client).
+              If a callback is provided, your server-side socket will need to respond to this event. <a href="#!/docs/handling-failure">See example</a>.
+            </td>
+          </tr>
+          <tr>
+            <td>on(event, handler)</td>
+            <td>Add a handler for a particular event such as those emitted from a corresponding socket on the backend.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

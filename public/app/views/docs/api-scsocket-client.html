@@ -1,0 +1,239 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - SCSocket (Client)</h1>
+        <p>
+          Note that there are two types of SCSocket objects - One which runs on the client and another which runs on the server.
+          These two objects have slightly different APIs. This page concerns the client socket.
+        </p>
+        <p>
+          The client-side SCSocket object allows you to interact with your backend and with other client sockets in realtime.
+        </p>
+
+        <h3>Inherits from:</h3>
+        <p>
+          Socket (<a href="https://github.com/Automattic/engine.io-client">engine.io-client</a>)
+        </p>
+        
+        <h3>Properties:</h3>
+        <table class="table">
+          <tr>
+            <td colspan="2">All properties of <a href="https://github.com/Automattic/engine.io-client">engine.io-client</a> Socket</td>
+          </tr>
+          <tr>
+            <td>id</td>
+            <td>The socket id.</td>
+          </tr>
+          <tr>
+            <td>ssid</td>
+            <td>The id of the session which this socket is a part of.</td>
+          </tr>
+          <tr>
+            <td>connected</td>
+            <td>Boolean to indicate whether or not this socket is connected to the server.</td>
+          </tr>
+          <tr>
+            <td>connecting</td>
+            <td>Boolean to indicate if this socket is currently trying to connect to the server.</td>
+          </tr>
+        </table> 
+          
+        <h3>Events:</h3>
+        <table class="table">
+          <tr>
+            <td colspan="2">
+              All events emitted by the <a href="https://github.com/Automattic/engine.io-client">engine.io-client</a> Socket
+            </td>
+          </tr>
+          <tr>
+            <td>'error'</td>
+            <td>This gets triggered when an error occurs on this socket. Argument is the error object.</td>
+          </tr>
+          <tr>
+            <td>'connect'</td>
+            <td>
+              Emitted whenever the socket connects to the server (includes reconnections).
+              The listener to this event receives a socket id as argument.
+            </td>
+          </tr>
+          <tr>
+            <td>'disconnect'</td>
+            <td>Happens when this socket becomes disconnected from the server.</td>
+          </tr>
+          <tr>
+            <td>'raw'</td>
+            <td>This gets triggered whenever the server socket on the other side calls socket.send(...).</td>
+          </tr>
+          <tr>
+            <td>'kickOut'</td>
+            <td>Occurs when this socket is kicked out of a particular channels by the backend. Arguments are (message, channelName).</td>
+          </tr>
+          <tr>
+            <td>'subscribe'</td>
+            <td>When the subscription succeeds.</td>
+          </tr>
+          <tr>
+            <td>'subscribeFail'</td>
+            <td>Happens when the subscription fails.</td>
+          </tr>
+          <tr>
+            <td>'unsubscribe'</td>
+            <td>When the socket becomes unsubscribed from a channel.</td>
+          </tr>
+          <tr>
+            <td>'dropOut'</td>
+            <td>This event is emitted whenever the channel subscription is dropped for whatever reason (including fail and kickOut).</td>
+          </tr>
+        </table>
+
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>
+              connect()
+            </td>
+            <td>
+              Connects to the backend. This will cause a 'connection' event to be emitted on the server.
+              In the case of a reconnection, this will automatically resubscribe to any pub/sub channels which were active on the current socket.
+              The options arguments is optional - It can have these properties:
+            </td>
+          </tr>
+          <tr>
+            <td>
+              disconnect()
+            </td>
+            <td>
+              Disconnect this socket from the server.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              emit(event, data, [callback])
+            </td>
+            <td>
+              Emits the specified event on the corresponding server-side socket.
+              Note that you cannot emit any of the reserved SCSocket events.
+              If a callback is provided, your server-side socket will need to respond to this event - <a href="#!/docs/handling-failure">See example</a>.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              on(event, handler)
+            </td>
+            <td>
+              Add a handler for a particular event such as those emitted from a corresponding socket on the backend.
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <p>
+              <i style="color: #999;">
+                All of the following methods are related to pub/sub features of SC.<br />
+                Aside from the publish() method, it is generally better interact with channels directly through<br />
+                <a href="#!/docs/api-scchannel">SCChannel</a> handles which offer simpler variants of these methods.
+              </i>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              publish(channelName, data, [callback])
+            </td>
+            <td>
+              Publish data to the specified channelName.
+              The data argument can be any JSON-compatible object/array or primitive.
+              The callback lets you check that the publish action reached the backend successfully.
+              Callback function is in the form callback(err) - On success, the err argument will be undefined.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              subscribe(channelName)
+            </td>
+            <td>
+              Subscribe to a particular channel.
+              This function returns a SCChannel object which lets you watch for incoming data on that channel.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              unsubscribe(channelName)
+            </td>
+            <td>
+              Unsubscribe the from the specified channel. This makes any associated SCChannel object inactive.
+              You can reactivate the SCChannel objects by calling subscribe(channelName) again at a later time.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              channel(channelName)
+            </td>
+            <td>
+              Returns a channel. This is different from subscribe() in that it will not try to subscribe to that channel.
+              The returned channel will be inactive initially.
+              You can call socket.subscribe(channelName) later to activate that channel when required.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              watch(channelName, handler)
+            </td>
+            <td>
+              Lets you watch a channel directly from the SCSocket object.
+              The handler accepts a single data argument which holds the data which was published to the channel.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              unwatch(channelName, [handler])
+            </td>
+            <td>
+              Stop handling data which is published on the specified channel. This is different from unsubscribe in that the
+              socket will still receieve channel data but the specified handler will no longer capture it.
+              If the handler argument is not provided, all handlers for that channelName will be removed.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              watchers(channelName)
+            </td>
+            <td>
+              Returns an array of listener functions which are watching for data on the specified channel.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              destroyChannel(channelName)
+            </td>
+            <td>
+              This will cause SCSocket to unsubscribe that channel and remove any watchers from it.
+              Any SCChannel object which is associated with that channelName will be disabled permanently (ready to be cleaned up by garbage collector).
+            </td>
+          </tr>
+          <tr>
+            <td>
+              subscriptions(includePending)
+            </td>
+            <td>
+              An array of active channel subscriptions which this socket is bound to.
+              If includePending is true, pending subscriptions will also be included in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              isSubscribed(channelName, channelName)
+            </td>
+            <td>
+              Check is socket is subscribed to channelName.
+              If includePending is true, pending subscriptions will also be included in the list.
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

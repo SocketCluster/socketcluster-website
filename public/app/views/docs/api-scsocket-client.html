@@ -94,12 +94,23 @@
         <table class="table">
           <tr>
             <td>
-              connect()
+              connect([options])
             </td>
             <td>
-              Connects to the server. This will cause a 'connection' event to be emitted on the server.
+              Establishes a realtime connection to the server. This will cause a 'connection' event to be emitted on the server.
               In the case of a reconnection, this will automatically resubscribe to any pub/sub channels which were active on the current socket.
-              The options arguments is optional.
+              <br />
+              <br />
+              The options argument is optional - If omitted, the socket will try to connect to the origin server on the current port.
+              If provided, this object will be passed on to engine.io client's connect() method:
+              <a href="https://github.com/Automattic/engine.io-client">See options object under connect method</a>.
+              For cross domain requests, a typical options object might look like this (example over HTTPS/WSS):
+              <pre class="prettyprint">
+{
+  hostname: 'securedomain.com',
+  secure: true,
+  port: 443
+}</pre>
             </td>
           </tr>
           <tr>

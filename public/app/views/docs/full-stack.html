@@ -7,7 +7,9 @@
       <div class="docs-content">
         <h1>Full stack pub/sub with SocketCluster</h1>
         <p>
-          SocketCluster was designed from the ground up to offer scalable real-time communication. To achieve this, SC introduces the concept of full-stack pub/sub. Pub/sub is a design pattern typically used on the server-side which allows processes/hosts to efficiently share real-time messages with one another. SC takes this concept one step further by allowing the pub/sub channels to extend all the way to the browser.
+          SocketCluster lets you interact with realtime pub/sub channels from either the client or the server.
+          By defining middleware functions, SC gives you absolute control over your realtime data. Middleware can be used to block clients from
+          publishing to particular channels but they can also be used to transform your realtime streams (on the backend) before they are shared with other clients.
         </p>
         <p>
           <img src="assets/img/fullstack-diagram.png" alt="Full stack diagram" class="center">

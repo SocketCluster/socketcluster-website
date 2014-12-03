@@ -23,7 +23,8 @@
         <p>
           The middleware types available on scServer include:
         </p>
-        <pre class="prettyprint lang-js">scServer.MIDDLEWARE_SUBSCRIBE
+        <pre class="prettyprint lang-js">scServer.MIDDLEWARE_HANDSHAKE
+scServer.MIDDLEWARE_SUBSCRIBE
 scServer.MIDDLEWARE_PUBLISH
 scServer.MIDDLEWARE_EMIT</pre>
 
@@ -32,6 +33,19 @@ scServer.MIDDLEWARE_EMIT</pre>
   Here is some sample code showing how to use each kind of middleware:
         </p>
 
+        <h3>Handshake</h3>
+        <pre class="prettyprint"> // For WebSocket handshakes
+wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
+  function (req, next) {
+    // ...
+    if (...) {
+      next() // Allow
+    } else {
+      next('Handshake failed'); // Block
+    }
+  }
+);</pre>
+        
         <h3>Subscribe</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
   function (socket, channel, next) {

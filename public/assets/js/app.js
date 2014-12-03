@@ -56,6 +56,11 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       controller: 'docsController'
     })
     
+    .when('/docs/api-socketcluster', {
+      templateUrl: 'app/views/docs/api-socketcluster.html',
+      controller: 'docsController'
+    })
+    
     .when('/docs/api-global', {
       templateUrl: 'app/views/docs/api-global.html',
       controller: 'docsController'

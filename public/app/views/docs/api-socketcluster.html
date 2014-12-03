@@ -1,0 +1,227 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - SocketCluster (Server)</h1>
+        <p>
+          The SocketCluster object represents an entire SocketCluster instance (master process which manages a number of child processes).
+          This object's constructor accepts an 'options' object which allows you to configure your SC instance.
+        </p>
+
+        <h3>Inherits from:</h3>
+        <p>
+          <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
+        </p>
+
+        <h3>Properties:</h3>
+        <table class="table">
+          <tr>
+            <td>options</td>
+            <td>Internal options object which defines the behaviour of SC.</td>
+          </tr>
+        </table>
+          
+        <h3>Events:</h3>
+        <table class="table">
+          <tr>
+            <td>'fail'</td>
+            <td>Any error from any child process or master will cause the 'fail' event to be emitted on your SocketCluster instance (assuming the propagateErrors option is not set to false).</td>
+          </tr>
+          <tr>
+            <td>'notice'</td>
+            <td>Triggered by a notice from any child process or master.</td>
+          </tr>
+          <tr>
+            <td>'ready'</td>
+            <td>Happens when SocketCluster has booted up and is ready to accept connections.</td>
+          </tr>
+          <tr>
+            <td>'worker'</td>
+            <td>Emitted whenever a worker is launched. This event's handler can take a worker object as argument (which is a handle to the worker child process). This worker object has an id property (the lead worker will always have id 0).</td>
+          </tr>
+        </table>
+
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>constructor(options)</td>
+            <td>
+              Creates and launches a SocketCluster instance (with config options).
+              The options object can have any of the following properties (sample showing defaults):
+              <pre class="prettyprint">{
+  // The port on which to listen for outside connections/requests
+  port: 8000,
+  
+  // Number of load balancer processes to use
+  balancers: 1,
+  
+  // Number of worker processes
+  workers: 1,
+  
+  // Number of store processes
+  stores: 1,
+  
+  // A unique name for your app (this is used internally for 
+  // various things such as generating cookie names)
+  appName: null,
+  
+  // A key which various SC processes will use to interact with 
+  // nData store processes securely, defaults to a 256 bits 
+  // cryptographically random hex string
+  secretKey: null,
+  
+  // Reboot workers when they crash - This is a necessity
+  // in production but can be turned off for debugging
+  rebootWorkerOnCrash: true,
+  
+  // Can be 'http' or 'https'
+  protocol: 'http',
+  
+  // This is the same as the object provided to Node.js's https server
+  protocolOptions: null,
+  
+  // Allowed transports for SocketCluster clients
+  transports: ['polling', 'websocket'],
+  
+  // A log level of 3 will log everything, 2 will show notices and errors,
+  // 1 will only log errors, 0 will log nothing
+  logLevel: 2,
+  
+  // In seconds, how long a client has to connect to SC before timing out
+  connectTimeout: 10,
+  
+  // In seconds, the timeout for calling res.end() or res.error() when 
+  // your emit() call expects an ACK response from the other side
+  // (when callback is provided to emit)
+  ackTimeout: 10,
+  
+  // In seconds - If the socket cannot upgrade transport 
+ // within this period, it will stop trying
+  socketUpgradeTimeout: 1,
+  
+  // In seconds, how long a session persists after a browser 
+  // closes all connections to SC without reconnecting
+  sessionTimeout: 1200,
+  
+  // How many heartbeats to send during a sessionTimeout cycle
+  // to check whether or not session has expired.
+  sessionHeartRate: 4,
+  
+  // This option is passed directly to engine.io server
+  maxHttpBufferSize: null,
+  
+  // Origins which are allowed to connect to the realtime scServer
+  origins: '*:*',
+  
+  // The maximum number of allowable sockets per IP address 0 
+  // means unlimited
+  addressSocketLimit: 0,
+  
+  // The maximum number of unique channels which a single 
+  // socket can subscribe to
+  socketChannelLimit: 100,
+  
+  // Passed directly to engine.io client
+  pollingDuration: 30,
+  
+  // Passed directly to engine.io client
+  heartbeatInterval: 25,
+  
+  // Passed directly to engine.io client
+  heartbeatTimeout: 60,
+  
+  // This is used for smartBalancing - How often balancers 
+  // should request the load status of workers
+  workerStatusInterval: 10,
+  
+  // Maximum amount of seconds to wait before force-killing 
+  // a process after it was passed a 'SIGTERM' signal
+  processTermTimeout: 10,
+  
+  // Whether or not errors from child processes (balancers,
+  // workers and stores) should be passed to the current master process
+  propagateErrors: true,
+  
+  // Lets you specify a host name which will be part of your session IDs
+  host: null,
+  
+  // The path to a file used to bootstrap worker processes
+  workerController: null,
+  
+  // The path to a file used to bootstrap balancer processes
+  balancerController: null,
+  
+  // The path to a file used to bootstrap store processes
+  storeController: null,
+  
+  // A custom options object to attach to your load balancer
+  // (can be accessed inside balancerController file using balancer.options)
+  balancerOptions: null,
+  
+  // A custom options object to attach to your store (can be accessed inside 
+  // storeController file using store.options)
+  storeOptions: null,
+  
+  // By default, SC will reboot all workers when it receives a 'SIGUSR2' signal -
+  // This can be used for updating workers with fresh source code in production
+  rebootOnSignal: true,
+  
+  // By default, SC balancers poll workers for stats in order to distribute
+  // connections evenly between them (with auto-correction) - If this is 
+  // false, plain IP-based balancing will be used
+  useSmartBalancing: true,
+  
+  // If you run your master process (server.js) as super user, this option
+  // lets you downgrade worker, balancer and store processes to run under 
+  // the specified user (with fewer permissions)
+  downgradeToUser: false,
+  
+  // The URL path reserved by SocketCluster clients to interact with the server
+  path: '/socketcluster',
+  
+  // The root directory in which to store your socket files in Linux.
+  socketRoot: null,
+  
+  // Defaults to "none", but can be set to "rr" - "none" is more scalable,
+  // but it may perform worse on some specific operating systems when there
+  // are few CPU cores and worker processes
+  schedulingPolicy: 'none',
+  
+  // Whether or not clients are allowed to publish messages to channels
+  allowClientPublish: true,
+  
+  // Whether or not to add a req.session property to req objects
+  // (this will be the same as socket.session)
+  addSessionToHTTPRequest: true,
+  
+  // The default clustering engine which provides session and 
+  // global objects to SC and manages stores behind the scenes.
+  // You shouldn't need to change this.
+  clusterEngine: 'iocluster'
+}</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>killWorkers()</td>
+            <td>Kills all worker processes managed by SocketCluster. They will respawn by default.</td>
+          </tr>
+          <tr>
+            <td>killBalancers()</td>
+            <td>Kills all load balancer processes managed by SocketCluster. They will respawn by default.</td>
+          </tr>
+          <tr>
+            <td>killStores()</td>
+            <td>Kills all store processes managed by SocketCluster. They will respawn by default.</td>
+          </tr>
+          <tr>
+            <td>log(message, [time])</td>
+            <td>Log a message internally, time is optional. You generally don't need to call this - It's mostly used internally by SC.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

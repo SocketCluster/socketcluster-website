@@ -22,12 +22,16 @@
             <td>The channel's name.</td>
           </tr>
           <tr>
-            <td>subscribing</td>
-            <td>Boolean which indicates whether or not this channel is in the middle of a subscribe operation.</td>
+            <td style="text-decoration: line-through;">state</td>
+            <td>Holds a string which indicates the state of this channel. Can be 'subscribed', 'unsubscribed' or 'pending'.</td>
           </tr>
           <tr>
-            <td>subscribed</td>
-            <td>Boolean which indicates whether or not this channel is subscribed to the server.</td>
+            <td style="text-decoration: line-through;">subscribing</td>
+            <td>No longer supported since v1.1.8. Use state property instead.</td>
+          </tr>
+          <tr>
+            <td style="text-decoration: line-through;">subscribed</td>
+            <td>No longer supported since v1.1.8. Use state property instead.</td>
           </tr>
         </table>
           

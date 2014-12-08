@@ -14,8 +14,8 @@
         <h2 class="header-light regular-pad">What is SocketCluster?</h2>
         <p>SocketCluster is an open source, multi-process environment for realtime apps and the Internet of Things (IoT).
         It's an open source (no lock-in) alternative to commercial solutions like Firebase, Pusher and PubNub for those who need more control over their realtime data.</p>
-        <p>With SC, you can build systems that make use of all CPU cores on a machine/instance. This removes the limitations of having to run your Node.js code as a single thread.</p>
-        <p>SC is also designed to scale horizontally - It lets you sync pub/sub channels across multiple instances by hooking them into distributed message queues (AMQP, MQTT).</p>
+        <p>SC can scale linearly (on a single host - tested with up to 16 cores) and horizontally (across multiple hosts).</p>
+        <p>Pub/sub channels can be synced across multiple instances by hooking them into distributed message queues (AMQP, MQTT) - SC store processes provide all the hooks/events necessary.</p>
         <!--<p><a class="btn btn-default" href="#!" role="button">View details &raquo;</a></p>-->
       </div>
       <div class="col-md-6 text-center">

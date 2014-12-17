@@ -14,7 +14,7 @@
         <p>For extra peace of mind, if you want to auto-respawn master, you can run SocketCluster using forever:</p>
         <pre class="prettyprint">npm install -g forever</pre>
         <p>Then run with:</p>
-        <pre class="prettyprint">forever start server.js -b 2 -w 2 -s 2</pre>
+        <pre class="prettyprint">forever start --killSignal=SIGTERM server.js -b 2 -w 2 -s 2</pre>
       </div>
     </div>
   </div>

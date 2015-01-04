@@ -92,8 +92,8 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       controller: 'docsController'
     })
     
-    .when('/docs/api-store-ndata', {
-      templateUrl: 'app/views/docs/api-store-ndata.html',
+    .when('/docs/api-store', {
+      templateUrl: 'app/views/docs/api-store.html',
       controller: 'docsController'
     })
     

@@ -68,4 +68,8 @@
     <loc>http://socketcluster.io/#!/docs/api-session</loc>
     <lastmod>2014-12-01</lastmod>
   </url>
+  <url>
+    <loc>http://socketcluster.io/#!/docs/api-store-ndata</loc>
+    <lastmod>2015-01-04</lastmod>
+  </url>
 </urlset>

@@ -10,10 +10,11 @@
   ],
   "dependencies": {
     "connect": "3.0.1",
-    "express": "4.4.4",
-    "serve-static": "1.2.3",
-    "socketcluster": ">= 0.9.36",
-    "socketcluster-client": ">= 0.9.23"
+    "express": "4.10.7",
+    "minimist": "1.1.0",
+    "serve-static": "1.8.0",
+    "socketcluster": ">= 1.0.5",
+    "socketcluster-client": ">= 1.0.0"
   },
   "keywords": [
     "websocket",

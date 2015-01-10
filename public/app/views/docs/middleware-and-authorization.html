@@ -7,7 +7,7 @@
       <div class="docs-content">
         <h1>Middleware and authorization</h1>
         <p>
-          With SocketCluster, clients can share messages with one another by listening to and publishing data to particular channels. By default, anyone can listen to and publish data to any channel they like. While this might be OK for some systems, most systems need some degree of access control to regulate how users can interact with one another. Most systems also need a way to authenticate and authorize connections in order to enforce appropriate access rights. Middleware functions offer a clean, centralized way to do all this.
+          With SocketCluster, clients can share messages with one another by listening to and publishing data to particular channels using JavaScript. By default, anyone can listen to and publish data to any channel they like. While this might be OK for some systems, most systems need some degree of access control to regulate how users can interact with one another. Most systems also need a way to authenticate and authorize connections in order to enforce appropriate access rights. Middleware functions offer a clean, centralized way to do all this.
         </p>
         <p>
           In SocketCluster, all realtime events have to pass through middleware functions before they can be handled by your server. SocketCluster offers different kinds of middleware lines to handle various kinds of interactions. The most useful middleware lines go in worker processes but there are also middleware lines exposed by load balancers (for HTTP). For this tutorial, we will focus on worker (realtime) middleware only.

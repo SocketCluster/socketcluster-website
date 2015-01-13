@@ -12,10 +12,8 @@
     <div class="row regular-pad">
       <div class="col-md-6">
         <h2 class="header-light regular-pad">What is SocketCluster?</h2>
-        <p>SocketCluster is an open source, multi-process realtime environment written in JavaScript (Node.js). You can build entire apps on top of it or you can use it alongside existing systems written in other languages (for example, you can let it handle only realtime notifications within your system).</p>
-        <p>SC is not a full-stack framework - It only handles process-level architecture (clustering, resilience, error logging) and lets you take care of the rest - It works well with Express and other modular Node.js frameworks.</p>
-        <p>SC can scale linearly (on a single host - tested with up to 16 cores) and horizontally (across multiple hosts).</p>
-        <p>Pub/sub channels can be synced across multiple instances by hooking them into distributed message queues (AMQP, MQTT) - SC store processes provide all the hooks/events necessary.</p>
+        <p>SocketCluster is an open source, multi-process realtime environment written in JavaScript (Node.js). You can build entire apps on top of it or you can use it alongside existing systems written in other languages.</p>
+        <p>SC is designed to scale both vertically across multiple CPU cores and horizontally across multiple machines/instances (via pub/sub channel synchronization).</p>
         <!--<p><a class="btn btn-default" href="#!" role="button">View details &raquo;</a></p>-->
       </div>
       <div class="col-md-6 text-center">

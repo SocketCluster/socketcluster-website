@@ -107,11 +107,6 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/introduction.html',
       controller: 'docsController'
     });
-})
-.run(function($rootScope) {
-  $rootScope.$on("$routeChangeSuccess", function(event, next, current) {
-    $('.footer').css('visibility', 'visible');
-  });
 });
 
 socketclusterApp.controller('mainController', function($scope) {

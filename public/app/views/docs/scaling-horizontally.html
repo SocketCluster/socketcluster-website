@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Scaling across multiple hosts</h1>
+        <p>
+          SocketCluster lets you scale both vertically (across multiple CPU cores on a machine/host) and horizontally (across multiple hosts).
+          Scaling horizontally may be desirable because it removes the upper bound on how much traffic your system can handle and also because it makes 
+          your system more tolerant to server crashes.
+        </p>
+        <p>
+          The goal of horizontal scalability is to spread traffic between all available machines in an optimal way.
+          In the context of SocketCluster, horizontal scalability boils down to two specific problems:
+        </p>
+        <ol>
+          <li>How to select which host to send incoming client connections to?</li>
+          <li>When one client publishes data to a channel, how can you make sure that other clients which are subscribed to that channel on a different host also receive the channel data in realtime?</li>
+        </ol>
+        <p>
+          There are at several ways to approach the first challenge, for example:
+        </p>
+        <ul>
+          <li>
+            You can send each client directly to one of your hosts by randomly selecting a host URL and passing it as an option to the <a href="#!/docs/api-scsocket-client">client socket's</a> connect() method.
+          </li>
+          <li>
+            You can use a load balancer (which supports sticky sessions) to evenly distribute incoming connections to target hosts - You can use a third party service, or you can set it up yourself.
+            The load balancer you use needs to support WebSockets; HAProxy and new versions of NGINX should do. There is also <a href="http://github.com/topcloud/loadbalancer">LoadBalancer.js</a> if you want something that is
+            easy to setup and optimized to work with SC.
+            Note that because SocketCluster connections are stateful by nature, it's important that all requests from a specific client are always routed to the same SocketCluster instance (sticky sessions).
+            Using a Geo-based DNS service is a good option for routing clients to their nearest SocketCluster instance.
+          </li>
+        </ul>
+        <p>
+          In order to allow clients which are connected to different machines to share the same pub/sub channels, there needs to be an efficient way to synchronize channels between separate SocketCluster instances (hosts) in realtime.
+          To achieve this, SocketCluster exposes a <a href="#!/docs/api-store">Store</a> object inside its storeController file (store.js) which lets you do exactly that.
+          SocketCluster only provides you the interface for synchronizing instance channels - It doesn't care what technology/implementation you use behind the scenes to make this work; 
+          so long as it supports pub/sub and can run as a distributed cluster - MQTT (e.g. Mosquitto), AMQP (e.g. RabbitMQ), ZeroMQ and Redis are all possible options.
+          The details of how to set up such a service is outside the scope of this guide - You should read up some of these technologies/protocols or use a third-party service.
+        </p>
+        <p>
+          Assuming that you have a working pub/sub cluster which can scale across multiple machines, the actual synchronization between SC instances/machines is pretty simple - 
+          It can done through SocketCluster's store processes - Read the section on events in the <a href="#!/docs/api-store">Store API</a> for more info.
+          In effect, your MQ service behaves like a glue between your SocketCluster instances - It also allows external services to interact with SocketCluser channels as though they were part of the same system.
+        </p>
+        <p>
+          Once you have your distributed MQ service running, all you have to do is relay events between your Store processes and your message queue service using a client of your choice.
+          Setting this up is simple:
+        </p>
+        <ul>
+          <li>When a 'subscribe' event is emitted on a Store instance, you need to use your MQ client subscribe to the corresponding channel in your MQ service.</li>
+          <li>When the store emits the 'unsubscribe' event, you need to also unsubscribe form the corresponding channel in the MQ service.</li>
+          <li>Whenever you receive some channel data from your MQ client, you call store.publish(channelName, data)</li>
+        </ul>
+        <p>
+          Note that the 'subscribe' and 'unsubscribe' events do not get triggered for individual client sockets - They are initiated by a worker process.
+          The worker chooses when it needs to subscribe/unsubscribe to/from the store. When you get a 'subscribe' event, all it means is that the current store is
+          responsible for that channel - Following the same train of thought; the 'unsubscribe' event signifies that this store is no longer responsible for this channel.
+        </p>
+        <p>
+          It's important to note that your SC instances could each have multiple store processes - In this case, each store will be responsible for a subset of all channels used by end-clients.
+          When you're writing your adapter, you should never assume that all your channels will pass through the same store.
+        </p>
+        <p>
+          The final consideration is that it's best to deploy your MQ service in close proximity to your SC instances (or inside the same data center if possible) to minimize latency.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

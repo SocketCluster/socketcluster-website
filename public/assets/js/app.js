@@ -36,24 +36,29 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/introduction.html',
       controller: 'docsController'
     })
-    //
+
     .when('/docs/middleware-and-authorization', {
       templateUrl: 'app/views/docs/middleware-and-authorization.html',
       controller: 'docsController'
     })
-    //
+
     .when('/docs/handling-failure', {
       templateUrl: 'app/views/docs/handling-failure.html',
       controller: 'docsController'
     })
-    //
+
     .when('/docs/full-stack', {
       templateUrl: 'app/views/docs/full-stack.html',
       controller: 'docsController'
     })
-    //
+
     .when('/docs/running-in-production', {
       templateUrl: 'app/views/docs/running-in-production.html',
+      controller: 'docsController'
+    })
+
+    .when('/docs/scaling-horizontally', {
+      templateUrl: 'app/views/docs/scaling-horizontally.html',
       controller: 'docsController'
     })
     

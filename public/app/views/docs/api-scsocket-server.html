@@ -17,21 +17,21 @@
         
         <h3>Inherits from:</h3>
         <p>
-          <a href="https://github.com/automattic/engine.io#socket">engine.io Socket</a>
+          <a href="https://github.com/automattic/engine.io#socket">engine.io Socket</a> [Does not apply from v2.0.0]
         </p>
 
         <h3>Properties:</h3>
         <table class="table">
           <tr>
-            <td colspan="2">All properties of <a href="https://github.com/automattic/engine.io#socket">engine.io Socket</a></td>
+            <td colspan="2">All properties of <a href="https://github.com/automattic/engine.io#socket">engine.io Socket</a> [Does not apply from v2.0.0]</td>
           </tr>
           <tr>
             <td>id</td>
             <td>The socket id.</td>
           </tr>
           <tr>
-            <td>ssid</td>
-            <td>The id of the session which this socket is a part of.</td>
+            <td style="text-decoration: line-through;">ssid</td>
+            <td>[Removed v1.3.0] The id of the session which this socket is a part of.</td>
           </tr>
           <tr>
             <td>remoteAddress</td>
@@ -40,9 +40,9 @@
             </td>
           </tr>
           <tr>
-            <td>session</td>
+            <td style="text-decoration: line-through;">session</td>
             <td>
-              A <a href="#!/docs/api-session">Session</a> object which you can use to interact with your SC store processes. (Within the scope of the current session).
+              [Removed v1.3.0] A <a href="#!/docs/api-session">Session</a> object which you can use to interact with your SC store processes. (Within the scope of the current session).
               You can use it to emit events to all sockets which belong to a session (for example if a user has multiple tabs open).
             </td>
           </tr>
@@ -52,6 +52,22 @@
               A <a href="#!/docs/api-global">Global</a> object which you can use to interact with your SC store processes. (Global scope).
               You can use it to publish data a channel - Any client which is subscribed to that channel will receieve the data.
             </td>
+          </tr>
+          <tr>
+            <td>CONNECTING</td>
+            <td><b>0</b> - An integer constant which represents this socket's connecting state. See getState() method.</td>
+          </tr>
+          <tr>
+            <td>OPEN</td>
+            <td><b>1</b> - An integer constant which represents this socket's open/connected state. See getState() method.</td>
+          </tr>
+          <tr>
+            <td>CLOSING</td>
+            <td><b>2</b> - An integer constant which represents this socket's closing state. See getState() method.</td>
+          </tr>
+          <tr>
+            <td>CLOSED</td>
+            <td><b>3</b> - An integer constant which represents this socket's closed state. See getState() method.</td>
           </tr>
         </table>
           
@@ -83,6 +99,20 @@
         <h3>Methods:</h3>
         <table class="table">
           <tr>
+            <td>
+              getState()
+            </td>
+            <td>
+              Returns the state of the socket as an integer constant.
+              <ul>
+                <li><b>0</b> - socket.CONNECTING</li>
+                <li><b>1</b> - socket.OPEN</li>
+                <li><b>2</b> - socket.CLOSING</li>
+                <li><b>3</b> - socket.CLOSED</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
             <td>disconnect()</td>
             <td>
               Disconnect this socket client.
@@ -99,6 +129,71 @@
           <tr>
             <td>on(event, handler)</td>
             <td>Add a handler for a particular event such as those emitted from a corresponding socket on the backend.</td>
+          </tr>
+          <tr>
+            <td>getAuthToken()</td>
+            <td>Get the decrypted JWT authentication token associated with this socket, if there is one (and it's valid); otherwise, this method will return null.</td>
+          </tr>
+          <tr>
+            <td>setAuthToken(data, [options])</td>
+            <td>
+              <p>
+                Authenticate the current socket's client by providing it with a secret token which validates their identity and/or access rights. 
+                You should only call this method in response to a successful login attempt by the client (I.e. The client has provided 
+                a username and password combination which exists in your database).
+              </p>
+              <p>
+                In the simplest case, the data argument to this method would be an object in the form {username: 'bob123'}.
+                For a more complex use case, you could store a list of authorized channel names inside the token (for convenience so that you can simply read the token instead of checking the database every time).
+              <p>
+                The optional <b>options</b> argument is an Object which can be used to modify the token's behavior - Valid properties include:
+              </p>
+              <p>
+                <table class="table">
+                  <tr>
+                    <td colspan="2">Any option accepted by the node-jsonwebtoken library's sign method <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options">see list here</a>.
+                    In addition, the following SC-specific options are supported:</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      persistent
+                    </td>
+                    <td>
+                      If true, the token will be able to last multiple browser sessions (if the user closes the browser and comes
+                      back to your app at a later time). It will only expire when the token expiry is reached. Otherwise, the token will also
+                      expire along with the browser session (when the user closes their browser).
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      expiresInMinutes
+                    </td>
+                    <td>
+                      If expiresInMinutes is not provided, the default expiry for an auth token is 1440 minutes (1 day).
+                    </td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                Using auth tokens has the following advantages:
+                <ul>
+                  <li>The user doesn't need to login again if their socket loses its connection - Works well with SC's auto-reconnect feature.</li>
+                  <li>
+                    An auth token is shared between sockets across multiple tabs in a browser (under the same domain name).
+                    If a user logs in on one tab, they will automatically be authenticated on any other tab that they may have open.
+                    Tokens allow you to glue multiple sockets together under a single user identity.
+                  </li>
+                </ul>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>removeAuthToken()</td>
+            <td>
+              Disassociate the current socket from its current auth token.
+              This method will also tell the client socket to remove the token from the browser's cookies.
+              This is useful for logging out the user.
+            </td>
           </tr>
           <tr>
             <td>kickOut([channel, message, callback])</td>

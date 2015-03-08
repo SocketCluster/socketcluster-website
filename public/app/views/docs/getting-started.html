@@ -59,18 +59,10 @@ var socketCluster = new SocketCluster({
    */
   workerController: __dirname + '/worker.js',
 
-  // A JS file which you can use to configure each of your balancers (optional)
-  balancerController: __dirname + '/balancer.js',
-
   /* JS file which you can use to configure each of your 
    * stores - Useful for scaling horizontally across multiple machines (optional)
    */ 
   storeController: __dirname + '/store.js',
-
-  /* Maximum number of sockets a single IP address can have 
-   * open (security feature, optional, default is 0 - Unlimited)
-   */
-  addressSocketLimit: 100,
 
   /* Maximum number of events a single socket can be subscribed to 
    * (security feature, optional, defaults to 100)
@@ -78,12 +70,7 @@ var socketCluster = new SocketCluster({
   socketEventLimit: 100,
 
   // Whether or not to reboot the worker in case it crashes (defaults to true)
-  rebootWorkerOnCrash: true,
-
-  /* Smart balancing can provide a more even distribution between workers 
-   * (uses session ID instead of IP address - Defaults to true)
-   */
-  useSmartBalancing: true
+  rebootWorkerOnCrash: true
 });</pre>
         <p>
           It's important to note that SocketCluster runs as a cluster of different kinds of processes; each kind of process has its own 'controller' file which lets you configure each process' behaviour - There is a controller for load balancers, one for workers and one for store processes. The most important one (where most of your application logic should go) is the <code>workerController</code>.

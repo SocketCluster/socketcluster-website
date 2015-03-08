@@ -16,29 +16,45 @@
 
         <h3>Inherits from:</h3>
         <p>
-          <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a>
+          <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a> [Does not apply from v2.0.0]
         </p>
         
         <h3>Properties:</h3>
         <table class="table">
           <tr>
-            <td colspan="2">All properties of <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a></td>
+            <td colspan="2">All properties of <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a> [Does not apply from v2.0.0]</td>
           </tr>
           <tr>
             <td>id</td>
             <td>The socket id.</td>
           </tr>
           <tr>
-            <td>ssid</td>
-            <td>The id of the session which this socket is a part of.</td>
+            <td style="text-decoration: line-through;">ssid</td>
+            <td>[Removed in v1.3.0] The id of the session which this socket is a part of.</td>
           </tr>
           <tr>
-            <td>connected</td>
-            <td>Boolean to indicate whether or not this socket is connected to the server.</td>
+            <td style="text-decoration: line-through;">connected</td>
+            <td>[Removed in v1.3.0 in favor of getState() method below] Boolean to indicate whether or not this socket is connected to the server.</td>
           </tr>
           <tr>
-            <td>connecting</td>
-            <td>Boolean to indicate if this socket is currently trying to connect to the server.</td>
+            <td style="text-decoration: line-through;">connecting</td>
+            <td>[Removed in v1.3.0 in favor of getState() method below] Boolean to indicate if this socket is currently trying to connect to the server.</td>
+          </tr>
+          <tr>
+            <td>CONNECTING</td>
+            <td><b>0</b> - An integer constant which represents this socket's connecting state. See getState() method.</td>
+          </tr>
+          <tr>
+            <td>OPEN</td>
+            <td><b>1</b> - An integer constant which represents this socket's open/connected state. See getState() method.</td>
+          </tr>
+          <tr>
+            <td>CLOSING</td>
+            <td><b>2</b> - An integer constant which represents this socket's closing state. See getState() method.</td>
+          </tr>
+          <tr>
+            <td>CLOSED</td>
+            <td><b>3</b> - An integer constant which represents this socket's closed state. See getState() method.</td>
           </tr>
         </table> 
           
@@ -46,7 +62,7 @@
         <table class="table">
           <tr>
             <td colspan="2">
-              All events emitted by the <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a>
+              All events emitted by the <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a> [Does not apply from v2.0.0]
             </td>
           </tr>
           <tr>
@@ -57,7 +73,26 @@
             <td>'connect'</td>
             <td>
               Emitted whenever the socket connects to the server (includes reconnections).
-              The listener to this event receives a socket id as argument.
+            </td>
+          </tr>
+          <tr>
+            <td>'ready'</td>
+            <td>
+              <p>
+              Emitted when the socket has been fully initialized. This event carries an object of the following form:
+              </p>
+              <pre class="prettyprint">{
+  // The socket's id
+  id: 'RM11Szl-tPn7p1BhAAAA',
+  
+  // Whether or not the current socket is authenticated with the server
+  // (has a valid auth token)
+  isAuthenticated: true,
+  
+  // If the client has a token, but it was invalid, authError 
+  // will be an error string.
+  authError: null 
+}</pre>
             </td>
           </tr>
           <tr>
@@ -111,6 +146,20 @@
   secure: true,
   port: 443
 }</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              getState()
+            </td>
+            <td>
+              Returns the state of the socket as an integer constant.
+              <ul>
+                <li><b>0</b> - socket.CONNECTING</li>
+                <li><b>1</b> - socket.OPEN</li>
+                <li><b>2</b> - socket.CLOSING</li>
+                <li><b>3</b> - socket.CLOSED</li>
+              </ul>
             </td>
           </tr>
           <tr>
@@ -186,7 +235,7 @@
             <td>
               Returns an <a href="#!/docs/api-scchannel">SCChannel</a> instance. This is different from subscribe() in that it will not try to subscribe to that channel.
               The returned channel will be inactive initially.
-              You can call socket.subscribe(channelName) later to activate that channel when required.
+              You can call channel.subscribe() later to activate that channel when required.
             </td>
           </tr>
           <tr>

@@ -59,24 +59,25 @@
             </td>
           </tr>
           <tr>
-            <td>subscribe(channel, [callback])</td>
+            <td>subscribe(channelName)</td>
             <td>
               Subscribe this global nData client to the specified channel.
-              Optional callback is in form callback(err) - Where err is undefined on success.
+              This function returns a <a href="/#!/docs/api-channel">Channel</a> object which lets you watch for incoming data on that channel.
             </td>
           </tr>
           <tr>
-            <td>unsubscribe(channel, [callback])</td>
+            <td>unsubscribe(channelName, [callback])</td>
             <td>
               Unsubscribe this global nData client from the specified channel.
-              Optional callback is in form callback(err) - Where err is undefined on success.
+              You can reactivate the <a href="/#!/docs/api-channel">Channel</a> object by calling subscribe(channelName) again at a later time.
             </td>
           </tr>
           <tr>
-            <td>unsubscribeAll([callback])</td>
+            <td>channel(channelName)</td>
             <td>
-              Unsubscribe all this global nData client from all channels.
-              Optional callback is in form callback(err) - Where err is undefined on success.
+              Returns a Channel instance.
+              This is different from subscribe() in that it will not try to subscribe to that channel.
+              The returned channel will be inactive initially. You can call channel.subscribe() later to activate that channel when required.
             </td>
           </tr>
           <tr>

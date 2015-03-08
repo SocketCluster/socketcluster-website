@@ -5,14 +5,17 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-        <h1>API - Session (nData)</h1>
+        <h1>API - Session (nData) [REMOVED v1.3.0]</h1>
         <p>
-        Can be accessed using socket.session property.
+          Note that this object no longer exists as of SocketCluster v1.3.0. Authentication is now managed using JWT tokens. See <a href="#!/docs/api-scsocket-server">SCSocket (server)</a>.
         </p>
         <p>
-        The session object is a session-scoped nData client which lets you manipulate session data within a store. It does not
-        let you do pub/sub - For this purpose, you need to use the scWorker.global object instead.
-        You can use any (non-pub/sub) method of an nData client on instances of this object: <a href="https://github.com/TopCloud/ndata">https://github.com/TopCloud/ndata</a>
+          Can be accessed using socket.session property.
+        </p>
+        <p>
+          The session object is a session-scoped nData client which lets you manipulate session data within a store. It does not
+          let you do pub/sub - For this purpose, you need to use the scWorker.global object instead.
+          You can use any (non-pub/sub) method of an nData client on instances of this object: <a href="https://github.com/TopCloud/ndata">https://github.com/TopCloud/ndata</a>
         </p>
         
         <h3>Inherits from:</h3>

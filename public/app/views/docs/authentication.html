@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Authentication</h1>
+        <p>
+          Before v1.3.0, authentication in SocketCluster revolved around sessions. Since v1.3.0, authentication is based on 
+          <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token (JWT)</a>. SC's auth token system was designed to 
+          solve the following problems:
+        </p>
+        <ul>
+          <li>
+            Allow the user to stay logged in if their connection crashes without having to enter their credentials again.
+            This had to work with SC's auto-reconnect feature so that the user to make the reconnection as seamless as possible.
+          </li>
+          <li>
+            Allow a user to be authenticated across all open browser tabs by logging in using only one of them. (Sharing an auth token
+            between multiple browser tabs).
+          </li>
+        </ul>
+        <p>
+          An important design consideration for SC's authentication system was that it had to work with, but yet be fully independent 
+          from specific database engines or underlying data (this includes user account information).
+          To achieve this, SC had to introduce the notion of a JWT auth token.
+        </p>
+        <p>
+          Simply put, an auth token is a custom Object which is signed, encrypted and sent to clients as part of an authentication (login) process.
+          Because the data in the token is encrypted when provided to the client, the client cannot know what is inside, and more importantly, because 
+          the data is signed, the client cannot modify it without invalidating the token.
+          This means that if your socket on the server has a valid auth token attached to it 
+          (see <a href="/#!/docs/api-scsocket-server">socket.getAuthToken()</a>), then you know that the client's token was signed by the server 
+          and the data that you see inside it is therefore valid.
+        </p>
+        <p>
+          Some important things to note about an auth token is that you should only give it to a client AFTER they have been successfully 
+          authenticated and also it should be kept secret between the client and the server (not shared with any other client - Just like a session id).
+          Auth tokens in SC can be used to store any kind of access-control information related to a specific user.
+          Generally, it will suffice to create a simple token containing only the username data:
+        </p>
+        <pre class="prettyprint">{
+  username: 'bob123'
+}</pre>
+      <p>
+        
+      </p>
+      </div>
+    </div>
+  </div>
+</div>

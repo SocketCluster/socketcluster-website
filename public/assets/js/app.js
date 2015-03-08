@@ -36,6 +36,11 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/introduction.html',
       controller: 'docsController'
     })
+    
+    .when('/docs/authentication', {
+      templateUrl: 'app/views/docs/authentication.html',
+      controller: 'docsController'
+    })
 
     .when('/docs/middleware-and-authorization', {
       templateUrl: 'app/views/docs/middleware-and-authorization.html',
@@ -74,6 +79,11 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
     
     .when('/docs/api-scchannel', {
       templateUrl: 'app/views/docs/api-scchannel.html',
+      controller: 'docsController'
+    })
+    
+    .when('/docs/api-channel', {
+      templateUrl: 'app/views/docs/api-channel.html',
       controller: 'docsController'
     })
     

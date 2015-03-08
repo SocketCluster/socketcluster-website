@@ -13,8 +13,7 @@
         </p>
         <ul>
           <li>
-            Allow the user to stay logged in if their connection crashes without having to enter their credentials again.
-            This had to work with SC's auto-reconnect feature so that the user to make the reconnection as seamless as possible.
+            Allow the user to stay logged in after they recover from a lost connection without having to enter their credentials again.
           </li>
           <li>
             Allow a user to be authenticated across all open browser tabs by logging in using only one of them. (Sharing an auth token
@@ -27,25 +26,105 @@
           To achieve this, SC had to introduce the notion of a JWT auth token.
         </p>
         <p>
-          Simply put, an auth token is a custom Object which is signed, encrypted and sent to clients as part of an authentication (login) process.
+          Simply put, an auth token is a custom Object/JSON which is signed, encrypted and sent to a client as part of an authentication (login) process.
           Because the data in the token is encrypted when provided to the client, the client cannot know what is inside, and more importantly, because 
           the data is signed, the client cannot modify it without invalidating the token.
           This means that if your socket on the server has a valid auth token attached to it 
           (see <a href="/#!/docs/api-scsocket-server">socket.getAuthToken()</a>), then you know that the client's token was signed by the server 
-          and the data that you see inside it is therefore valid.
+          and the data that is inside it is therefore valid.
         </p>
         <p>
           Some important things to note about an auth token is that you should only give it to a client AFTER they have been successfully 
-          authenticated and also it should be kept secret between the client and the server (not shared with any other client - Just like a session id).
+          authenticated and also it should be kept secret between that client and the server (not shared with any other client).
           Auth tokens in SC can be used to store any kind of access-control information related to a specific user.
           Generally, it will suffice to create a simple token containing only the username data:
         </p>
         <pre class="prettyprint">{
   username: 'bob123'
 }</pre>
-      <p>
+        <p>
+          There is no single correct way to implement authentication in SC, but a sample workflow might look like this:
+        </p>
+        <pre class="prettyprint">// Client code
+socket = socketCluster.connect();
         
-      </p>
+socket.on('ready', function (status) {
+  if (status.isAuthenticated) {
+    // goToMainScreen();
+  } else {
+    // goToLoginScreen();
+  }
+}</pre>
+        <p>
+          Assume that the user is not logged in and so they are sent to the login screen.
+          We log them in by emitting a 'login' event from the client:
+        </p>
+        <pre class="prettyprint">// Client code
+var credentials = {
+  username: 'alice123',
+  password: 'thisisapassword654'
+};
+
+socket.emit('login', credentials, function (err) {
+  // This callback handles the response from the server.
+  // If we wanted, we could have listened to a separate 'loginResponse'
+  // event, but this pattern of passing a callback like this
+  // is slightly more efficient.
+  
+  if (err) {
+    // showLoginError(err);
+  } else {
+    // goToMainScreen();
+  }
+});</pre>
+        <p>
+        Then we would have some code on the server to process the login:
+        </p>
+        
+        <pre class="prettyprint">// Server code
+// This is a slightly simplified version of what it might look 
+// like if you were using MySQL as a database.
+
+socket.on('login', function (credentials, respond) {
+  var passwordHash = sha256(credentials.password);
+  
+  var userQuery = 'SELECT * FROM Users WHERE username = ?';
+  mySQLClient.query(userQuery, [credentials.username], function (err, rows) {
+    var userRow = rows[0];
+    var isValidLogin = userRow && userRow.password === passwordHash;
+    
+    if (isValidLogin) {
+      respond();
+      
+      // This will give the client a token so that they won't
+      // have to login again if they lose their connection
+      // or revisit the app at a later time.
+      socket.setAuthToken({username: credentials.username, channels: userRow.channels});
+    } else {
+      // Passing string as first argument indicates error
+      respond('Login failed');
+    }
+  });
+});</pre>
+        <p>
+          Once we have set the token, the best place to make use of it is in your middleware functions (example using publish middleware):
+        </p>
+<pre class="prettyprint">// Server code
+wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH, function (socket, channel, data, next) {
+  var authToken = socket.getAuthToken();
+  
+  if (authToken && authToken.channels.indexOf(channel) > -1) {
+    next();
+  } else {
+    next('You are not authorized to publish to ' + channel);
+  }
+});</pre>
+        <p>
+          Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't 
+          really need to store the channel list inside the token itself - We could just check the database provided that we have a 
+          username or a user id. See section on <a href="http://localhost/#!/docs/middleware-and-authorization">middleware and authorization</a> 
+          for more info about middleware in SC.
+        </p>
       </div>
     </div>
   </div>

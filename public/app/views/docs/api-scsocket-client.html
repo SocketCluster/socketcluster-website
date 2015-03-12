@@ -41,20 +41,26 @@
             <td>[Removed in v1.3.0 in favor of getState() method below] Boolean to indicate if this socket is currently trying to connect to the server.</td>
           </tr>
           <tr>
+            <td>state</td>
+            <td>
+              The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN, socket.CLOSING or socket.CLOSED.
+            </td>
+          </tr>
+          <tr>
             <td>CONNECTING</td>
-            <td><b>0</b> - An integer constant which represents this socket's connecting state. See getState() method.</td>
+            <td><b>'connecting'</b> - A string constant which represents this socket's connecting state. See state property.</td>
           </tr>
           <tr>
             <td>OPEN</td>
-            <td><b>1</b> - An integer constant which represents this socket's open/connected state. See getState() method.</td>
+            <td><b>'open'</b> - A string constant which represents this socket's open/connected state. See state property.</td>
           </tr>
           <tr>
             <td>CLOSING</td>
-            <td><b>2</b> - An integer constant which represents this socket's closing state. See getState() method.</td>
+            <td><b>'closing'</b> - A string constant which represents this socket's closing state. See state property.</td>
           </tr>
           <tr>
             <td>CLOSED</td>
-            <td><b>3</b> - An integer constant which represents this socket's closed state. See getState() method.</td>
+            <td><b>'closed'</b> - A string constant which represents this socket's closed state. See state property.</td>
           </tr>
         </table> 
           
@@ -146,20 +152,6 @@
   secure: true,
   port: 443
 }</pre>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              getState()
-            </td>
-            <td>
-              Returns the state of the socket as an integer constant.
-              <ul>
-                <li><b>0</b> - socket.CONNECTING</li>
-                <li><b>1</b> - socket.OPEN</li>
-                <li><b>2</b> - socket.CLOSING</li>
-                <li><b>3</b> - socket.CLOSED</li>
-              </ul>
             </td>
           </tr>
           <tr>

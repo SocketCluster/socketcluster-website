@@ -43,7 +43,7 @@
           <tr>
             <td>state</td>
             <td>
-              The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN, socket.CLOSING or socket.CLOSED.
+              [Only available from v2.0.0 onwards - Otherwise, use the getState() method] The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN, socket.CLOSING or socket.CLOSED.
             </td>
           </tr>
           <tr>
@@ -152,6 +152,20 @@
   secure: true,
   port: 443
 }</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              getState();
+            </td>
+            <td>
+              Returns the state of the socket as a string constant.
+              <ul>
+                <li><b>'connecting'</b> - socket.CONNECTING</li>
+                <li><b>'open'</b> - socket.OPEN</li>
+                <li><b>'closing'</b> - socket.CLOSING</li>
+                <li><b>'closed'</b> - socket.CLOSED</li>
+              </ul>
             </td>
           </tr>
           <tr>

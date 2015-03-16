@@ -181,7 +181,7 @@
               emit(event, data, [callback])
             </td>
             <td>
-              Emits the specified event on the corresponding server-side socket.
+              Emit the specified event on the corresponding server-side socket.
               Note that you cannot emit any of the reserved SCSocket events.
               If a callback is provided, your server-side socket will need to respond to this event - <a href="#!/docs/handling-failure">See example</a>.
             </td>
@@ -192,6 +192,14 @@
             </td>
             <td>
               Add a handler for a particular event such as those emitted from a corresponding socket on the backend.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              send(data, [options, callback]);
+            </td>
+            <td>
+              Send some raw data to the server. This will trigger a 'raw' event on the server which will carry the provided data.
             </td>
           </tr>
           <tr>

@@ -91,7 +91,7 @@
           <tr>
             <td>'raw'</td>
             <td>
-              This gets triggered whenever the server socket on the other side calls socket.send(...).
+              This gets triggered whenever the client socket on the other side calls socket.send(...).
             </td>
           </tr>
           <tr>
@@ -135,6 +135,14 @@
           <tr>
             <td>on(event, handler)</td>
             <td>Add a handler for a particular event such as those emitted from a corresponding socket on the backend.</td>
+          </tr>
+          <tr>
+            <td>
+              send(data, [options, callback]);
+            </td>
+            <td>
+              Send some raw data to the client. This will trigger a 'raw' event on the client which will carry the provided data.
+            </td>
           </tr>
           <tr>
             <td>getAuthToken()</td>

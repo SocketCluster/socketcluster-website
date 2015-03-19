@@ -30,6 +30,10 @@
             <td>The socket id.</td>
           </tr>
           <tr>
+            <td style="text-decoration: line-through;">request</td>
+            <td>The Node.js HTTP request which initiated the SCSocket handshake - This object is useful for accessing HTTP headers (including cookies) which relate to the current socket.</td>
+          </tr>
+          <tr>
             <td style="text-decoration: line-through;">ssid</td>
             <td>[Removed v1.3.0] The id of the session which this socket is a part of.</td>
           </tr>
@@ -138,7 +142,7 @@
           </tr>
           <tr>
             <td>
-              send(data, [options, callback]);
+              send(data, [options]);
             </td>
             <td>
               Send some raw data to the client. This will trigger a 'raw' event on the client which will carry the provided data.

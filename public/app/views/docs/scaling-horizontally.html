@@ -27,11 +27,17 @@
             You can send each client directly to one of your hosts by randomly selecting a host URL and passing it as an option to the <a href="#!/docs/api-scsocket-client">client socket's</a> connect() method.
           </li>
           <li>
-            You can use a load balancer (which supports sticky sessions) to evenly distribute incoming connections to target hosts - You can use a third party service, or you can set it up yourself.
-            The load balancer you use needs to support WebSockets; HAProxy and new versions of NGINX should do. There is also <a href="http://github.com/topcloud/loadbalancer">LoadBalancer.js</a> if you want something that is
-            easy to setup and optimized to work with SC.
-            Note that because SocketCluster connections are stateful by nature, it's important that all requests from a specific client are always routed to the same SocketCluster instance (sticky sessions).
-            Using a Geo-based DNS service is a good option for routing clients to their nearest SocketCluster instance.
+            <p>
+              You can use a load balancer (which supports sticky sessions) to evenly distribute incoming connections to target hosts - You can use a third party service, or you can set it up yourself.
+              The load balancer you use needs to support WebSockets; HAProxy and new versions of NGINX should do. There is also <a href="http://github.com/topcloud/loadbalancer">LoadBalancer.js</a> if you want something that is
+              easy to setup and optimized to work with SC.
+              Note that because SocketCluster connections are stateful by nature, it's important that all requests from a specific client are always routed to the same SocketCluster instance (sticky sessions).
+              Using a Geo-based DNS service is a good option for routing clients to their nearest SocketCluster instance.
+            </p>
+            <p>
+              <b>[EDIT]</b> - Note that if you are using v2+ of SocketCluster, you do not need your load balancer to support sticky sessions - The WebSocket protocol is such that
+              everything happens within a single stateful connection (including the handshake and all messages after that).
+            </p>
           </li>
         </ul>
         <p>

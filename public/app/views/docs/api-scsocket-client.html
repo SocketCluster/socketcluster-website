@@ -191,7 +191,7 @@
               on(event, handler)
             </td>
             <td>
-              Add a handler for a particular event such as those emitted from a corresponding socket on the server. The handler is a function
+              Add a handler for a particular event (those emitted from a corresponding socket on the server). The handler is a function
               in the form: handler(data, res) - The res argument is a function which can be used to send a response to the server socket which
               emitted the event (assuming that the server is expecting a response - I.e. A callback was provided to the emit method).
               The res function is in the form: res(err, message) - To send back an error, you can do either: res('This is an error') or 

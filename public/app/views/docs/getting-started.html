@@ -22,6 +22,24 @@
           Once installed, the simple <code>socketcluster create</code> command will create a fresh SocketCluster installation. For example, <code>socketcluster create myApp</code> will create a directory inside your current working directory called <code>myApp</code>
         </p>
         <pre class="prettyprint">socketcluster create myApp</pre>
+        
+        <p>
+          If you want to use the most cutting-edge version of SocketCluster, you can install sc2 instead of socketcluster.
+        </p>
+        
+        <pre class="prettyprint">npm install -g sc2</pre>
+        <pre class="prettyprint">sc2 create myApp</pre>
+        
+        <p>
+          SC2 is leaner, more efficient and scales better (no need for sticky load balancing) than SocketCluster 1.x.x but it doesn't support
+          HTTP polling fallbacks so it may not be an option if you need to support older browsers which don't have WebSockets.
+        </p>
+        <p>
+          SC1 and SC2 have the same API (but the clients are not cross-compatible). If you like you could run SC1 and SC2 alongside 
+          each other and send your old browsers to your SC1 server and new browsers to your SC2 server but you have to make sure that the browser
+          is using the version of the client which matches the server.
+        </p>
+        
         <h2>Serving SocketCluster</h2>
         <p>
           When this is done, you can navigate to <code>myApp</code> and run your server immediately using <code>node server.js</code>

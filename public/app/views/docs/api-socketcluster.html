@@ -85,7 +85,7 @@
   protocolOptions: null,
   
   // Allowed transports for SocketCluster clients
-  // Will be deprecated in v2.0.0
+  // Deprecated in v2.0.0
   transports: ['polling', 'websocket'],
   
   // A log level of 3 will log everything, 2 will show notices and errors,
@@ -109,13 +109,8 @@
   // No longer supported since v1.3.0
   sessionTimeout: 1200,
   
-  // How many heartbeats to send during a sessionTimeout cycle
-  // to check whether or not session has expired.
-  // No longer supported since v1.3.0
-  sessionHeartRate: 4,
-  
   // This option is passed directly to engine.io server
-  // Will be deprecated in v2.0.0
+  // Deprecated in v2.0.0
   maxHttpBufferSize: null,
   
   // Origins which are allowed to connect to the realtime scServer
@@ -131,20 +126,21 @@
   socketChannelLimit: 100,
   
   // Passed directly to engine.io client
-  // Will be deprecated in v2.0.0
+  // Deprecated in v2.0.0
   pollingDuration: 30,
   
-  // Passed directly to engine.io client
-  // Will be deprecated in v2.0.0
-  heartbeatInterval: 25,
+  // The interval in seconds on which to
+  // send a ping to the client to check that
+  // it is still alive
+  pingInterval: 25,
   
-  // Passed directly to engine.io client
-  // Will be deprecated in v2.0.0
-  heartbeatTimeout: 60,
+  // How many seconds to wait without receiving a ping
+  // before closing the socket
+  pingTimeout: 60,
   
   // This is used for smartBalancing - How often balancers 
   // should request the load status of workers
-  // Will be deprecated in v2.0.0
+  // Deprecated in v2.0.0
   workerStatusInterval: 10,
   
   // Maximum amount of seconds to wait before force-killing 
@@ -166,7 +162,7 @@
   workerController: null,
   
   // The path to a file used to bootstrap balancer processes
-  // Will be deprecated in v2.0.0
+  // Deprecated in v2.0.0
   balancerController: null,
   
   // The path to a file used to bootstrap store processes
@@ -174,7 +170,7 @@
   
   // A custom options object to attach to your load balancer
   // (can be accessed inside balancerController file using balancer.options)
-  // Will be deprecated in v2.0.0
+  // Deprecated in v2.0.0
   balancerOptions: null,
   
   // A custom options object to attach to your store (can be accessed inside 
@@ -211,7 +207,7 @@
   
   // Whether or not to add a req.session property to req objects
   // (this will be the same as socket.session)
-  // Will be deprecated in v2.0.0
+  // Deprecated in v2.0.0
   addSessionToHTTPRequest: true,
   
   // The name of the cookie in which to store the JWT auth token on the client - If

@@ -57,15 +57,35 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
     }
   }
 );</pre>
-
+  
         <h3>Publish</h3>
-        <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH,
+        <p>SC supports two different middleware lines for publish. MIDDLEWARE_PUBLISH_IN captures inbound published messages as 
+        they reach the server (before reaching a store/broker for processing) while MIDDLEWARE_PUBLISH_OUT captures published messages after they have been processed - 
+        just before they are sent to individual sockets. MIDDLEWARE_PUBLISH_OUT lets you block a message from reaching specific sockets - A use case
+        for this is that it lets you design your messages and middleware such that the socket which published a message doesn't receive 
+        their own message.</p>
+        
+        <h3>Publish in</h3>
+        <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN,
   function (socket, channel, data, next) {
     // ...
     if (...) {
       next() // Allow
     } else {
       next(socket.id + ' is not allowed to publish event ' + event); // Block
+    }
+  }
+);</pre>
+
+        <h3>Publish out</h3>
+        <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_OUT,
+  function (socket, channel, data, next) {
+    // ...
+    if (...) {
+      next() // Allow
+    } else {
+      next('Blocked publishing message out to ' + socket.id); // Block with notice
+      // next(true); // Passing true to next() blocks quietly (without raising a notice)
     }
   }
 );</pre>

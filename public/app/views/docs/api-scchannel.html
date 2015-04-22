@@ -87,8 +87,13 @@
             <td>Check whether or not this channel is active (subscribed to the backend).</td>
           </tr>
           <tr>
-            <td>publish(data, [callback])</td>
-            <td>Publish data to this channel, optional callback is in the form callback(err).</td>
+            <td>publish(data, [guaranteeDelivery, callback])</td>
+            <td>
+              Publish data to this channel.
+              The guaranteeDelivery argument is an optional boolean - If true, SC will retry to deliver messages 
+              which fail to reach a subscriber until the delivery timeout is reached - Messages will be delivered in-order.
+              The optional callback is in the form callback(err).
+            </td>
           </tr>
           <tr>
             <td>watch(handler)</td>

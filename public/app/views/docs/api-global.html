@@ -103,6 +103,24 @@
             </td>
           </tr>
           <tr>
+            <td>
+              subscriptions(includePending)
+            </td>
+            <td>
+              Returns an array of active channel subscriptions which this global client is bound to.
+              If includePending is true, pending subscriptions will also be included in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              isSubscribed(channelName, includePending)
+            </td>
+            <td>
+              Check if global client is subscribed to channelName.
+              If includePending is true, pending subscriptions will also be included in the list.
+            </td>
+          </tr>
+          <tr>
             <td>setMapper(mapper)</td>
             <td>
               Allows you to define a mapping function which is used to map various nData actions to 

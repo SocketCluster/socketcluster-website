@@ -52,11 +52,9 @@
         <h3>Methods:</h3>
         <table class="table">
           <tr>
-            <td>publish(channel, data, [guaranteeDelivery, callback])</td>
+            <td>publish(channel, data, [callback])</td>
             <td>
               Publish any JSON-compatible object/array or primitive to channel.
-              The guaranteeDelivery argument is an optional boolean - If true, SC will retry to deliver messages 
-              which fail to reach a subscriber until the delivery timeout is reached - Messages will be delivered in-order.
               Optional callback is in form callback(err) - Where err is undefined on success.
             </td>
           </tr>

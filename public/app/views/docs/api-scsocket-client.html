@@ -221,13 +221,11 @@
           </tr>
           <tr>
             <td>
-              publish(channelName, data, [guaranteeDelivery, callback])
+              publish(channelName, data, [callback])
             </td>
             <td>
               Publish data to the specified channelName.
               The data argument can be any JSON-compatible object/array or primitive.
-              The guaranteeDelivery argument is an optional boolean - If true, SC will retry to deliver messages 
-              which fail to reach a subscriber until the delivery timeout is reached - Messages will be delivered in-order.
               The callback lets you check that the publish action reached the backend successfully.
               Callback function is in the form callback(err) - On success, the err argument will be undefined.
             </td>

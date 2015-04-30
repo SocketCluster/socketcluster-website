@@ -49,8 +49,10 @@
         </p>
         <pre class="prettyprint">// Client code
 socket = socketCluster.connect();
-        
-socket.on('ready', function (status) {
+
+// The 'status' event is triggered shortly after the 
+// socket becomes connected
+socket.on('status', function (status) {
   if (status.isAuthenticated) {
     // goToMainScreen();
   } else {

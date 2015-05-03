@@ -104,6 +104,20 @@
               Happens when the matching client socket becomes disconnected from the server.
             </td>
           </tr>
+          <tr>
+            <td>'subscribe'</td>
+            <td>Emitted when the matching client socket successfully subscribes to a channel.</td>
+          </tr>
+          <tr>
+            <td>'unsubscribe'</td>
+            <td>Occurs whenever the matching client socket unsubscribes from a channel - This includes automatic unsubscriptions triggered by disconnects.</td>
+          </tr>
+          <tr>
+            <td>'message'</td>
+            <td>
+              All data that arrives on this socket is emitted through this event as a string.
+            </td>
+          </tr>
         </table>
         
         <h3>Methods:</h3>
@@ -146,6 +160,14 @@
               res(1234, 'This is the error message for error code 1234').
               To send back a normal non-error response: res(null, 'This is a normal response message').
               Note that both arguments provided to res can be of any JSON-compatible type.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              off([event, handler])
+            </td>
+            <td>
+              Unbind a previously attached event handler.
             </td>
           </tr>
           <tr>

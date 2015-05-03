@@ -19,25 +19,32 @@
         </p>
         <pre class="prettyprint">npm install -g socketcluster</pre>
         <p>
-          Once installed, the simple <code>socketcluster create</code> command will create a fresh SocketCluster installation. For example, <code>socketcluster create myApp</code> will create a directory inside your current working directory called <code>myApp</code>
+          Once installed, the <code>socketcluster create</code> command will create a fresh SocketCluster installation. For example, <code>socketcluster create myApp</code> will create a directory inside your current working directory called <code>myApp</code>
         </p>
         <pre class="prettyprint">socketcluster create myApp</pre>
         
         <p>
-          If you want to use the most cutting-edge version of SocketCluster, you can install sc2 instead of socketcluster.
+          By following the steps above, you will install the latest version of SocketCluster. The latest version is a pure WebSockets solution
+          (no long-polling fallback) and, therefore, it may not be compatible with some older browsers. See <a href="http://caniuse.com/#feat=websockets">browser stats</a>.
+          If you need to support older browsers, you will want to explicitly install SC1 instead:
         </p>
         
-        <pre class="prettyprint">npm install -g sc2</pre>
-        <pre class="prettyprint">sc2 create myApp</pre>
+        <pre class="prettyprint">npm install -g sc1</pre>
+        <pre class="prettyprint">sc1 create myApp</pre>
         
         <p>
-          SC2 is leaner, more efficient and scales better (no need for sticky load balancing) than SocketCluster 1.x.x but it doesn't support
-          HTTP polling fallbacks so it may not be an option if you need to support older browsers which don't have WebSockets.
+          SC2 is fully backwards and forwards compatible with SC1 (at the API layer for both the client and server),
+          but SC2 is leaner, more efficient and scales better (no need for sticky load balancing).
+          The downside of SC2 is that it doesn't support HTTP polling fallbacks so it may not be an option 
+          if older browsers need to be supported.
         </p>
+        
         <p>
-          SC1 and SC2 have the same API (but the clients are not cross-compatible). If you like you could run SC1 and SC2 alongside 
-          each other and send your old browsers to your SC1 server and new browsers to your SC2 server but you have to make sure that the browser
-          is using the version of the client which matches the server.
+          If you like, you could run SC1 and SC2 alongside each other and send your old browsers to your SC1 server
+          and new browsers to your SC2 server - With this approach, you'll have to make sure that you do not mix and match different client and server 
+          versions since SC1/SC2 servers/clients are not compatible at the lowest protocol layer.
+          The upside to using both SC1 and SC2 concurrently is that as WebSocket adoption increases over time, you will
+          be able to progressively scale back your number of SC1 server instances without having to change any of your code.
         </p>
         
         <h2>Serving SocketCluster</h2>

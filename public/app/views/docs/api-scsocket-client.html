@@ -126,8 +126,10 @@
             <td>When the socket becomes unsubscribed from a channel.</td>
           </tr>
           <tr>
-            <td style="text-decoration: line-through;">'dropOut'</td>
-            <td>This event is no longer supported as of SC v1.1.8 - Use 'unsubscribe' instead.</td>
+            <td>'message'</td>
+            <td>
+              All data that arrives on this socket is emitted through this event as a string.
+            </td>
           </tr>
         </table>
 
@@ -198,6 +200,14 @@
               res(1234, 'This is the error message for error code 1234').
               To send back a normal non-error response: res(null, 'This is a normal response message').
               Note that both arguments provided to res can be of any JSON-compatible type.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              off([event, handler])
+            </td>
+            <td>
+              Unbind a previously attached event handler.
             </td>
           </tr>
           <tr>

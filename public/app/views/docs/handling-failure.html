@@ -5,21 +5,21 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-      <h1>Handling failure</h1>
-      <p>
-        Real systems in production need to be able to handle cases where the system fails. One of the most common causes of failure which needs to be considered is the possibility of a bad connection.
-      </p>
-      <p>
-        Event-related methods in SC accept a 'callback' function as final argument which allow you to check when the action has been acknowledged by the server. When a method fails, the callback will receive an error as argument &mdash; In this case you may wish to retry calling the method or you can display a message to the user to let them know about the issue.
-      </p>
-      <p>
-        Here is how to handle various errors (sample code):
-      </p>
+        <h1>Handling failure</h1>
+        <p>
+          Real systems in production need to be able to handle cases where the system fails. One of the most common causes of failure which needs to be considered is the possibility of a bad connection.
+        </p>
+        <p>
+          Event-related methods in SC accept a 'callback' function as final argument which allow you to check when the action has been acknowledged by the server. When a method fails, the callback will receive an error as argument &mdash; In this case you may wish to retry calling the method or you can display a message to the user to let them know about the issue.
+        </p>
+        <p>
+          Here is how to handle various errors (sample code):
+        </p>
 
-      <h2>Client-side</h2>
-      <h3>Emitting</h3>
+        <h2>Client-side</h2>
+        <h3>Emitting</h3>
 
-      <pre class="prettyprint">// Client code
+        <pre class="prettyprint">// Client code
 socket.emit('ping', 'This is a ping', function (err) {
   if (err) {
     // Failed to emit event, retry or let the user know and keep going?
@@ -28,12 +28,12 @@ socket.emit('ping', 'This is a ping', function (err) {
   }
 });</pre>
 
-      <p>
-        Note that the emit method will never fail if you do not pass the callback argument to it - In such case, the call to emit would treat the event as low-importance (volatile). This feature may be useful if you're emitting an event multiple times per second and do not care if it fails occasionally.
-		When you pass a callback to the emit method, you will have to explicitly send a response from the other side (otherwise the callback will time out):
-      </p>
-	  
-	  <pre class="prettyprint">// Server code
+        <p>
+          Note that the emit method will never fail if you do not pass the callback argument to it - In such case, the call to emit would treat the event as low-importance (volatile). This feature may be useful if you're emitting an event multiple times per second and do not care if it fails occasionally.
+          When you pass a callback to the emit method, you will have to explicitly send a response from the other side (otherwise the callback will time out):
+        </p>
+      
+      <pre class="prettyprint">// Server code
 socket.on('ping', function (data, res) {
   // ...
   if (success) {
@@ -43,8 +43,8 @@ socket.on('ping', function (data, res) {
   }
 });</pre>
 
-      <h3>Publishing</h3>
-      <pre class="prettyprint">// Client code
+        <h3>Publishing</h3>
+        <pre class="prettyprint">// Client code
 socket.publish('pong', 'This is a pong', function (err) {
   if (err) {
     // Failed to publish event, retry or let the user know and keep going?
@@ -53,9 +53,9 @@ socket.publish('pong', 'This is a pong', function (err) {
   }
 });</pre>
 
-      <h3>Subscribing</h3>
+        <h3>Subscribing</h3>
 
-      <pre class="prettyprint">// Client code
+        <pre class="prettyprint">// Client code
 var pongChannel = socket.subscribe('pong');
 
 pongChannel.on('subscribeFail', function (err, channelName) {
@@ -71,10 +71,10 @@ pongChannel.watch(function (data) {
   // This gets executed whenever data is published to the pong channel
 });</pre>
 
-      <h2>Server-side</h2>
-      <h3>Emitting</h3>
+        <h2>Server-side</h2>
+        <h3>Emitting</h3>
 
-      <pre class="prettyprint">// Server code
+        <pre class="prettyprint">// Server code
 socket.emit('ping', 'This is a ping', function (err) {
   if (err) {
     // Failed to emit event, retry or log?
@@ -82,10 +82,10 @@ socket.emit('ping', 'This is a ping', function (err) {
     // Event was emitted successfully
   }
 });</pre>
-      <p>
-        If we provide a callback, we will need to make sure the response is sent on the client:
-      </p>
-	  <pre class="prettyprint">// Client code
+        <p>
+          If we provide a callback, we will need to make sure the response is sent on the client:
+        </p>
+        <pre class="prettyprint">// Client code
 socket.on('ping', function (data, res) {
   // ...
   if (success) {
@@ -95,10 +95,9 @@ socket.on('ping', function (data, res) {
   }
 });</pre>
 
+        <h3>Publishing</h3>
 
-      <h3>Publishing</h3>
-
-      <pre class="prettyprint">// Server code
+        <pre class="prettyprint">// Server code
 socket.global.publish('pong', 'This is a pong', function (err) {
   if (err) {
     // Failed to publish event, retry or log?

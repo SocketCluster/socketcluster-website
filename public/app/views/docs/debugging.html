@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>Debugging</h1>
+        <p>
+          You can debug any SC process in much the same way that you would debug a normal Node.js process.
+          The only difference is that because SC has multiple kinds of processes which interact with each other in
+          various ways, you generally don't want to debug all of them at the same time.
+          For this reason, SC allows you to provide <b>--debug-workers</b> and <b>--debug-stores</b> CLI arguments 
+          to let you debug workers and stores (message brokers) separately.
+        </p>
+        <p>
+          First, make sure that you are using Node.js v0.11.0+ (preferably the latest stable version).
+        </p>
+        <p>
+          Install node-inspector globally:
+        </p>
+        <pre class="prettyprint">
+npm install -g node-inspector</pre>
+
+        <p>
+          Then run it in a console window using:
+        </p>
+        <pre class="prettyprint">
+node-inspector</pre>
+
+        <p>
+          ^ You have to keep this one running in its own console (or in the background) throughout your whole 
+          debugging session (no need to restart it between individual debugs).
+        </p>
+        <p>
+          To start debugging, you need to have a fresh console open. You just have to pass a <b>--debug-workers</b>
+          or <b>--debug-stores</b> argument when you run your server.js file using node. Make sure you add the 
+          new flags <b>after</b> the server file name or else it won't work.
+        </p>
+        <p>
+          E.g.
+        </p>
+        <pre class="prettyprint">
+node server --debug-workers</pre>
+        <p>
+          or
+        </p>
+        <pre class="prettyprint">
+node server --debug-stores</pre>
+
+        <p>
+          The default debug port for the first worker is <b>5858</b>, the second worker is 5859, ... (it increments by one for each 
+          worker) - You should see a debug message get printed to the console telling you which debug ports are open.
+        </p>
+        <p>
+          To open the debug console for the first worker, you need to insert this address in your Chrome browser (debug port 5858):
+          <a href="http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5858">http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5858</a>
+        </p>
+        <p>
+          You can also provide a custom starting port for the first worker (subsequent workers will +1 increment):
+        </p>
+        <pre class="prettyprint">
+node server --debug-workers=5999</pre>
+        <p>
+          This applies to stores too:
+        </p>
+        <pre class="prettyprint">
+node server --debug-stores=5999</pre>
+
+        <p>
+          If you want to debug your master process (server.js), it's the normal
+        </p>
+        <pre class="prettyprint">
+node --debug-brk server</pre>
+
+        <p>
+          ^ Note that the order matters in this case too (this time <b>--debug-brk</b> needs to go <b>before</b> the server argument)!
+        </p>
+        <p>
+          When you're debugging a worker, you may occasionally want to make it break on a particular line or else it will go to the end (idle, waiting for connections).
+          To do this you need to add a <b>debugger;</b> statement in your worker.js code where you want it to stop.</p>
+        <p>
+          Note that if you're in a worker, you will have access to a global <b>worker</b> object (in the debugger console) so you can interact with your server and do 
+          things like <b>worker.global.publish('pong', 'This is a message for the pong channel')</b> to interact with the rest of your system from your worker.
+          (Note that you don't need to add <b>debugger</b> statements anywhere in your code to access this feature - The 
+          worker variable is exposed globally so you can access it from any scope).
+        </p>
+        <p>
+          In the same way, when you're debugging a store process, you will have access to a <b>store</b> object and you can also 
+          interact with the store directly through the debugger just like the worker.
+        </p>
+        <p>
+          Slightly off-topic: If you're using multiple stores, each store will only manage a subset of all available channels (this is the secret sauce to SC's scalability), 
+          so don't be surprised if you publish() to a store and no one gets the message - You have to call publish() on the store which is
+          responsible for that particular channel.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

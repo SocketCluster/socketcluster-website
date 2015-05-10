@@ -11,23 +11,26 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       controller: 'mainController'
     })
 
-    // Route for Demos
     .when('/demos', {
       templateUrl: 'app/views/demos.html',
       controller: 'demosController'
     })
     
-    // Route for Getting Started
     .when('/docs/getting-started', {
       templateUrl: 'app/views/docs/getting-started.html',
       controller: 'docsController'
     })
-    // Route for Basic Setup
+
     .when('/docs/basic-usage', {
       templateUrl: 'app/views/docs/basic-usage.html',
       controller: 'docsController'
     })
-    // Route for Performance
+    
+    .when('/docs/debugging', {
+      templateUrl: 'app/views/docs/debugging.html',
+      controller: 'docsController'
+    })
+    
     .when('/performance', {
       templateUrl: 'app/views/performance.html',
       controller: 'performanceController'
@@ -117,7 +120,6 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       controller: 'docsController'
     })
     
-    // Route for Docs
     .when('/docs', {
       templateUrl: 'app/views/docs/introduction.html',
       controller: 'docsController'

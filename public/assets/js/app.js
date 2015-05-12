@@ -1,4 +1,4 @@
-var socketclusterApp = angular.module('socketclusterApp', ['ngRoute']);
+var socketclusterApp = angular.module('socketclusterApp', ['ngRoute', 'ui.bootstrap']);
 
 socketclusterApp.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(false).hashPrefix('!');
@@ -128,6 +128,15 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
 
 socketclusterApp.controller('mainController', function($scope) {
   $scope.ctrl = 'mainController';
+});
+
+socketclusterApp.directive('feelDemo', function() {
+  return {
+    templateUrl: 'app/shared/feel-demo.html',
+    link: function ($scope) {
+      $scope.customer = {name: 'John Smith', address: '123 South Street, Sydney'};
+    }
+  };
 });
 
 socketclusterApp.controller('demosController', function($scope) {

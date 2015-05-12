@@ -60,5 +60,5 @@ module.exports.run = function (worker) {
   
   app.use(serveStatic(__dirname + '/public'));
   
-  httpServer.on('req', app);
+  httpServer.on('request', app);
 };

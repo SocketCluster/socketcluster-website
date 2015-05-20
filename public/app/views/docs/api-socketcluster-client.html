@@ -26,7 +26,7 @@
               connect([options])
             </td>
             <td>
-              Creates a new socket connection to the server.
+              Creates and returns a new socket connection to the specified host (or origin if not specified).
               The options argument is optional - If omitted, the socket will try to connect to the origin server on the current port.
               For cross domain requests, a typical options object might look like this (example over HTTPS/WSS):
               <pre class="prettyprint">

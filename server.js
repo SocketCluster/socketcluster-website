@@ -5,7 +5,7 @@ var socketCluster = new SocketCluster({
   workers: 1,
   stores: 1,
   port: 80,
-  appName: 'app',
+  appName: 'sc-website',
   workerController: __dirname + '/worker.js',
   balancerController: __dirname + '/balancer.js',
   storeController: __dirname + '/store.js',

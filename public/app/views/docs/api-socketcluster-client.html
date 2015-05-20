@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - socketCluster (Client)</h1>
+        <p>
+          This is the root standalone object for the SocketCluster client library - You can use it to create socket connections which
+          you can use to interact with the server in realtime.
+        </p>
+        
+        <h3>Properties:</h3>
+        <table class="table">
+          <tr>
+            <td>version</td>
+            <td>The SC client version number.</td>
+          </tr>
+        </table> 
+
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>
+              connect([options])
+            </td>
+            <td>
+              Creates a new socket connection to the server.
+              The options argument is optional - If omitted, the socket will try to connect to the origin server on the current port.
+              For cross domain requests, a typical options object might look like this (example over HTTPS/WSS):
+              <pre class="prettyprint">
+{
+  hostname: 'securedomain.com',
+  secure: true,
+  port: 443
+}</pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

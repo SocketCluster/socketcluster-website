@@ -42,6 +42,12 @@ socket.on('ping', function (data, res) {
     res('Error message'); // Send back error
   }
 });</pre>
+        
+        <p>
+          The first argument to the res function is an error (can be any JSON-compatible type or object) - If you want to send back a regular message (no error),
+          you should set the first argument to null. Note that you can also send back an error with a message like this: res(123, 'This is the error message') - You 
+          can use the first argument as the error code if you like.
+        </p>
 
         <h3>Publishing</h3>
         <pre class="prettyprint">// Client code

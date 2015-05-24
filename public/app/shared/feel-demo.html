@@ -1,4 +1,29 @@
-<tabset class="feel-demo">
-  <tab heading="Socket"></tab>
-  <tab heading="Cluster"></tab>
-</tabset>
+<div class="row regular-pad" ng-show="hasWebSocketSupport">
+  <div class="col-md-12">
+    <h2 class="header-light">Feel it</h2>
+    <div class="feel-demo-wrapper">
+      <div ng-repeat="(channelName, channelState) in channels" class="row channels-row">
+        <div class="col col-sm-2">{{channelName}}</div>
+        <div class="col col-sm-6"><input type="text" class="form-control" ng-model="channelState.data" /></div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Subscribe" /></div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Unsubscribe" /></div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-10"></div>
+        <div class="col col-sm-2">
+          <input type="button" class="btn btn-medium" value="Add channel" />
+        </div>
+      </div>
+      <div class="row row-publish">
+        <div class="col col-sm-5">Channel: <input type="text" class="form-control" /></div>
+        <div class="col col-sm-5">Data: <input type="text" class="form-control" /></div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-publish btn-medium" value="Publish" /></div>
+      </div>
+      <div class="row row-connect-disconnect">
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Connect" /></div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Disconnect" /></div>
+      </div>
+    </div>
+  </div>
+</div>
+

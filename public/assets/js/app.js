@@ -134,7 +134,28 @@ socketclusterApp.directive('feelDemo', function() {
   return {
     templateUrl: 'app/shared/feel-demo.html',
     link: function ($scope) {
-      $scope.customer = {name: 'John Smith', address: '123 South Street, Sydney'};
+      var socket = socketCluster.connect();
+      socket.on('status', function (status) {
+        $scope.$apply(function () {
+          $scope.hasWebSocketSupport = true;
+        });
+      });
+      
+      var randChannelName = 'rand';
+      
+      $scope.channels = {};
+      
+      $scope.channels[randChannelName] = {data: ''};
+      $scope.channels['bla'] = {data: ''};
+/*
+      var randChannel = socket.subscribe(randChannelName);
+      randChannel.watch(function (data) {
+        $scope.$apply(function () {
+          console.log(44);
+          $scope.channels[randChannelName].data = data;
+        });
+      });
+      */
     }
   };
 });

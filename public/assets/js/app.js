@@ -162,6 +162,12 @@ socketclusterApp.directive('feelDemo', function() {
             channel.data = data;
           });
         });
+        channel.on('subscribe', function () {
+          if (!$scope.$$phase) $scope.$apply();
+        });
+        channel.on('unsubscribe', function () {
+          if (!$scope.$$phase) $scope.$apply();
+        });
       };
       
       $scope.addChannel = function () {

@@ -52,14 +52,16 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.min.js"></script>
-    <script src="assets/js/vendor/angular-ui/ui-bootstrap.min.js"></script>
-    <script src="assets/js/vendor/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     
     <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
     <script>window.angular || document.write('<script src="assets/js/vendor/angular.min.js"><\/script>')</script>
     <script>try { window.angular.module('ngRoute'); } catch (e) { document.write('<script src="assets/js/vendor/angular-route.min.js"><\/script>'); }</script>
     <script>(typeof $().modal == 'function') || document.write('<script src="assets/js/vendor/bootstrap.min.js"><\/script>')</script>
+
+    <script src="assets/js/vendor/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="assets/js/vendor/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    
     <script src="assets/js/app.js"></script>
     <script src="assets/js/main.js"></script>
 
@@ -74,14 +76,15 @@
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      if (!/\/localhost(\/|$)/.test(location.href)) {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-54246608-1', 'auto');
-      ga('send', 'pageview');
-
+        ga('create', 'UA-54246608-1', 'auto');
+        ga('send', 'pageview');
+      }
     </script>
   </body>
 </html>

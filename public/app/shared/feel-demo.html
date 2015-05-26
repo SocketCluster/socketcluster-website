@@ -1,27 +1,91 @@
 <div class="row regular-pad" ng-show="hasWebSocketSupport">
   <div class="col-md-12">
-    <h2 class="header-light">Feel it</h2>
+    <h2 class="header-light feel-it-header">Feel SocketCluster [
+      <a
+        href="javascript:void(0);"
+        class="feel-it-info"
+        tooltip="Fun things to try: Use the disconnect and connect buttons to see how individual channels respond to changes in connection state. Also, maybe pull your Ethernet cable out (or kill your Wi-Fi) and see how channels automatically regain state after your plug it back in (after a short delay)."
+        tooltip-placement="top"
+        tooltip-trigger="mouseenter" 
+      >
+        ?
+      </a>
+      ]
+    </h2>
     <div class="feel-demo-wrapper">
-      <div ng-repeat="(channelName, channelState) in channels" class="row channels-row">
-        <div class="col col-sm-2">{{channelName}}</div>
-        <div class="col col-sm-6"><input type="text" class="form-control" ng-model="channelState.data" /></div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Subscribe" /></div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Unsubscribe" /></div>
+      <div ng-repeat="channel in channels" class="row channels-row">
+        <div class="col col-sm-4 channel-name">
+          <span
+            class="channel-name-label"
+            tooltip="Channel name and channel state"
+            tooltip-placement="top"
+            tooltip-trigger="mouseenter"
+          >
+            {{channel.name}} ({{channel.state}})
+          </span>
+        </div>
+        <div class="col col-sm-4">
+          <input
+            type="text"
+            class="form-control"
+            ng-model="channel.data"
+            tooltip="Incoming {{channel.name}} channel data"
+            tooltip-placement="top"
+            tooltip-trigger="mouseenter"
+          />
+        </div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Subscribe" ng-click="channel.subscribe()" /></div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Unsubscribe" ng-click="channel.unsubscribe()" /></div>
       </div>
-      <div class="row">
-        <div class="col col-sm-10"></div>
+      <div class="row row-add-channel">
+        <div class="col col-sm-4 channel-name">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="15"
+            ng-model="newChannelName"
+            tooltip="Enter a new channel name"
+            tooltip-placement="top"
+            tooltip-trigger="mouseenter" 
+          />
+        </div>
         <div class="col col-sm-2">
-          <input type="button" class="btn btn-medium" value="Add channel" />
+          <input type="button" class="btn btn-medium" value="Add channel" ng-click="addChannel()" />
+        </div>
+        <div class="col col-sm-6 add-channel-error-wrapper">
+          <span class="add-channel-error">
+            {{addChannelError}}
+          </span>
         </div>
       </div>
       <div class="row row-publish">
-        <div class="col col-sm-5">Channel: <input type="text" class="form-control" /></div>
-        <div class="col col-sm-5">Data: <input type="text" class="form-control" /></div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-publish btn-medium" value="Publish" /></div>
+        <div class="col col-sm-5">Channel:
+          <input
+            type="text"
+            class="form-control"
+            maxlength="15"
+            ng-model="publishChannelName"
+            tooltip="Name of a channel to publish to"
+            tooltip-placement="bottom"
+            tooltip-trigger="mouseenter"
+          />
+        </div>
+        <div class="col col-sm-5">Data:
+          <input
+            type="text"
+            class="form-control"
+            ng-model="publishChannelData"
+            tooltip="Message to publish to {{publishChannelName}} channel"
+            tooltip-placement="bottom"
+            tooltip-trigger="mouseenter"
+          />
+        </div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-publish btn-medium" value="Publish" ng-click="publishToChannel()" /></div>
       </div>
       <div class="row row-connect-disconnect">
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Connect" /></div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Disconnect" /></div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Connect" ng-click="socket.connect()" /></div>
+        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Disconnect" ng-click="socket.disconnect()" /></div>
+        <div class="col col-sm-4 socket-state">socket.state: <b>{{socket.state}}</b></div>
       </div>
     </div>
   </div>

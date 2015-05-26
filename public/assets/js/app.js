@@ -185,6 +185,11 @@ socketclusterApp.directive('feelDemo', function() {
         $scope.publishChannelData = '';
       };
       
+      // This is necessary in case of unexpected connection failure (ping timeout)
+      socket.on('disconnect', function () {
+        if (!$scope.$$phase) $scope.$apply();
+      });
+      
       var randChannel = socket.subscribe('rand');
       var fooChannel = socket.subscribe('foo');
       $scope.channels = [randChannel, fooChannel];

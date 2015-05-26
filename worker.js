@@ -11,7 +11,7 @@ module.exports.run = function (worker) {
   // Get a reference to our raw Node HTTP server
   var httpServer = worker.getHTTPServer();
   // Get a reference to our WebSocket server
-  var wsServer = worker.getSCServer();
+  var scServer = worker.getSCServer();
   
   var mainNavFile = __dirname + '/public/app/shared/nav.html';
   var mainNavContent = fs.readFileSync(mainNavFile, {encoding: 'utf8'});
@@ -61,4 +61,8 @@ module.exports.run = function (worker) {
   app.use(serveStatic(__dirname + '/public'));
   
   httpServer.on('request', app);
+  
+  var randInterval = setInterval(function () {
+    scServer.global.publish('rand', Math.round(Math.random() * 100000));
+  }, 1000);
 };

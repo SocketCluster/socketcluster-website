@@ -135,7 +135,7 @@ ul.features-list li {
 }
 
 .row.regular-pad {
-  padding: 30px 0;
+  padding: 10px 0;
 }
 
 .blue-row .container {
@@ -220,4 +220,73 @@ ul.features-list li {
 
 .footer p {
   font-size: 14px;
+}
+
+.feel-demo {
+  width: 100%;
+  height: 300px;
+}
+
+.feel-demo-wrapper {
+  margin-top: 30px;
+}
+
+.feel-it-header a:link,
+.feel-it-header a:visited,
+.feel-it-header a:hover,
+.feel-it-header a:active {
+  text-decoration: none;
+}
+
+.feel-demo-wrapper .col {
+  margin-bottom: 10px;
+}
+
+.feel-demo-wrapper .row-add-channel {
+  margin-top: 30px;
+}
+
+.feel-demo-wrapper .add-channel-error-wrapper {
+  line-height: 34px;
+}
+
+.feel-demo-wrapper .add-channel-error {
+  display: inline-block;
+  line-height: 1.2em;
+  color: #bb0000;
+}
+
+.feel-demo-wrapper .row-publish {
+  margin-top: 30px;
+}
+
+.feel-demo-wrapper .btn-publish {
+  margin-top: 20px;
+}
+
+.feel-demo-wrapper .row-connect-disconnect {
+  margin-top: 30px;
+}
+
+.feel-demo-wrapper .btn-medium {
+  width: 110px;
+}
+
+.feel-demo-wrapper .channel-name {
+  line-height: 34px;
+}
+
+.feel-demo-wrapper .channel-name-label {
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+.feel-demo-wrapper .socket-state {
+  line-height: 34px;
+}
+
+@media screen and (max-width: 767px) {
+  .feel-demo-wrapper .channels-row {
+    margin-bottom: 10px;
+  }
 }

@@ -1,7 +1,6 @@
 var SocketCluster = require('socketcluster').SocketCluster;
 
 var socketCluster = new SocketCluster({
-  balancers: 1,
   workers: 1,
   stores: 1,
   port: 80,
@@ -12,6 +11,5 @@ var socketCluster = new SocketCluster({
   addressSocketLimit: 0,
   socketEventLimit: 100,
   rebootWorkerOnCrash: true,
-  useSmartBalancing: false,
   downgradeToUser: 'ec2-user'
 });

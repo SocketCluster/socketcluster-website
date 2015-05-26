@@ -1,4 +1,5 @@
-var socketclusterApp = angular.module('socketclusterApp', ['ngRoute']);
+// TODO: Add 'ui.bootstrap' when tabs are needed
+var socketclusterApp = angular.module('socketclusterApp', ['ngRoute', 'ui.bootstrap']);
 
 socketclusterApp.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(false).hashPrefix('!');
@@ -133,6 +134,65 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
 
 socketclusterApp.controller('mainController', function($scope) {
   $scope.ctrl = 'mainController';
+});
+
+socketclusterApp.directive('feelDemo', function() {
+  return {
+    templateUrl: 'app/shared/feel-demo.html',
+    link: function ($scope) {
+    
+      var socket = socketCluster.connect({
+        autoReconnectOptions: {
+          initialDelay: 1000,
+          randomness: 1000,
+          maxDelay: 4000
+        }
+      });
+      $scope.socket = socket;
+      
+      socket.on('status', function (status) {
+        $scope.$apply(function () {
+          $scope.hasWebSocketSupport = true;
+        });
+      });
+      
+      var watchChannel = function (channel) {
+        channel.watch(function (data) {
+          $scope.$apply(function () {
+            channel.data = data;
+          });
+        });
+      };
+      
+      $scope.addChannel = function () {
+        var newChannelName = $scope.newChannelName;
+        if (newChannelName == null || newChannelName.length <= 0) {
+          $scope.addChannelError = 'Error - No channel name was specified';
+        } else if (socket.isSubscribed(newChannelName)) {
+          $scope.addChannelError = 'Error - Already subscribed to ' + newChannelName + ' channel';
+        } else {
+          $scope.addChannelError = '';
+          var newChannel = socket.subscribe(newChannelName);
+          $scope.newChannelName = '';
+          $scope.channels.push(newChannel);
+          $scope.publishChannelName = newChannelName;
+          watchChannel(newChannel);
+        }
+      };
+      
+      $scope.publishToChannel = function () {
+        socket.publish($scope.publishChannelName, $scope.publishChannelData);
+        $scope.publishChannelData = '';
+      };
+      
+      var randChannel = socket.subscribe('rand');
+      var fooChannel = socket.subscribe('foo');
+      $scope.channels = [randChannel, fooChannel];
+      $scope.publishChannelName = 'foo';
+      watchChannel(randChannel);
+      watchChannel(fooChannel);
+    }
+  };
 });
 
 socketclusterApp.controller('demosController', function($scope) {

@@ -229,6 +229,11 @@ ul.features-list li {
 
 .feel-demo-wrapper {
   margin-top: 30px;
+  padding: 30px;
+  border: 1px solid #dddddd;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
 }
 
 .feel-it-header a:link,

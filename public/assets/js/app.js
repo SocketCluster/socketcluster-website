@@ -7,6 +7,7 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
   $routeProvider
 
     // Route for Home page
+    
     .when('/', {
       templateUrl: 'app/views/index.html',
       controller: 'mainController'
@@ -132,10 +133,6 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
     });
 });
 
-socketclusterApp.controller('mainController', function($scope) {
-  $scope.ctrl = 'mainController';
-});
-
 socketclusterApp.directive('feelDemo', function() {
   return {
     templateUrl: 'app/shared/feel-demo.html',
@@ -212,6 +209,11 @@ var trackAnalyticsPageView = function () {
     ga('send', 'pageview', pageName);
   }
 };
+
+socketclusterApp.controller('mainController', function($scope) {
+  $scope.ctrl = 'mainController';
+  trackAnalyticsPageView();
+});
 
 socketclusterApp.controller('demosController', function($scope) {
   trackAnalyticsPageView();

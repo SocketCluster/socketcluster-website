@@ -15,7 +15,8 @@
           <img src="assets/img/fullstack-diagram.png" alt="Full stack diagram" class="center">
         </p>
         <p>
-          This diagram is a bit generic, but you could assume that channel 1, channel 2, channel 3&hellip; represents different chat rooms which clients can join – Each room could focus on a particular topic, for example let's say 'math', 'physics', 'chemistry' &hellip; To listen to all messages posted in the room 'physics', all you have to do on the client is call: 
+          Note that this diagram represents the architecture for SC v1.x.x - In SC v2.0.0+, there is no sticky load balancer layer; instead, workers share the same port and pick up new connections based on which one is the least busy.
+          The diagram is a bit generic, but you could assume that channel 1, channel 2, channel 3&hellip; represents different chat rooms which clients can join – Each room could focus on a particular topic, for example let's say 'math', 'physics', 'chemistry' &hellip; To listen to all messages posted in the room 'physics', all you have to do on the client is call: 
         </p>
 
         <pre class="prettyprint">

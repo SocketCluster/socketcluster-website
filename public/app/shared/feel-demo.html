@@ -12,9 +12,9 @@
       </a>
       ]
     </h2>
-    <div class="feel-demo-wrapper">
+    <div class="feel-demo-wrapper container-fluid">
       <div ng-repeat="channel in channels" class="row channels-row">
-        <div class="col col-sm-4 channel-name">
+        <div class="col col-sm-3 channel-name">
           <span
             class="channel-name-label"
             tooltip="Channel name and channel state"
@@ -24,7 +24,7 @@
             {{channel.name}} ({{channel.state}})
           </span>
         </div>
-        <div class="col col-sm-4">
+        <div class="col col-sm-3">
           <input
             type="text"
             class="form-control"
@@ -34,22 +34,23 @@
             tooltip-trigger="mouseenter"
           />
         </div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Subscribe" ng-click="channel.subscribe()" /></div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Unsubscribe" ng-click="channel.unsubscribe()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Subscribe" ng-click="channel.subscribe()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Unsubscribe" ng-click="channel.unsubscribe()" /></div>
       </div>
       <div class="row row-add-channel">
-        <div class="col col-sm-4 channel-name">
+        <div class="col col-sm-3 channel-name">
           <input
             type="text"
             class="form-control"
             maxlength="15"
             ng-model="newChannelName"
+            ng-keyup="$event.keyCode == 13 ? addChannel() : null"
             tooltip="Enter a new channel name"
             tooltip-placement="top"
             tooltip-trigger="mouseenter" 
           />
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-sm-3">
           <input type="button" class="btn btn-medium" value="Add channel" ng-click="addChannel()" />
         </div>
         <div class="col col-sm-6 add-channel-error-wrapper">
@@ -59,32 +60,35 @@
         </div>
       </div>
       <div class="row row-publish">
-        <div class="col col-sm-5">Channel:
+        <div class="col col-sm-3">
+          Channel:
           <input
             type="text"
             class="form-control"
             maxlength="15"
             ng-model="publishChannelName"
             tooltip="Name of a channel to publish to"
-            tooltip-placement="bottom"
+            tooltip-placement="top"
             tooltip-trigger="mouseenter"
           />
         </div>
-        <div class="col col-sm-5">Data:
+        <div class="col col-sm-3">
+          Data:
           <input
             type="text"
             class="form-control"
             ng-model="publishChannelData"
+            ng-keyup="$event.keyCode == 13 ? publishToChannel() : null"
             tooltip="Message to publish to {{publishChannelName}} channel"
-            tooltip-placement="bottom"
+            tooltip-placement="top"
             tooltip-trigger="mouseenter"
           />
         </div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-publish btn-medium" value="Publish" ng-click="publishToChannel()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-publish btn-medium" value="Publish" ng-click="publishToChannel()" /></div>
       </div>
       <div class="row row-connect-disconnect">
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Connect" ng-click="socket.connect()" /></div>
-        <div class="col col-sm-2"><input type="button" class="btn btn-medium" value="Disconnect" ng-click="socket.disconnect()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Connect" ng-click="socket.connect()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Disconnect" ng-click="socket.disconnect()" /></div>
         <div class="col col-sm-4 socket-state">socket.state: <b>{{socket.state}}</b></div>
       </div>
     </div>

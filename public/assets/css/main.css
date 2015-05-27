@@ -228,6 +228,7 @@ ul.features-list li {
 }
 
 .feel-demo-wrapper {
+position: relative;
   margin-top: 30px;
   padding: 30px;
   border: 1px solid #dddddd;
@@ -265,8 +266,10 @@ ul.features-list li {
   margin-top: 30px;
 }
 
-.feel-demo-wrapper .btn-publish {
-  margin-top: 20px;
+@media screen and (min-width: 767px) {
+  .feel-demo-wrapper .btn-publish {
+    margin-top: 20px;
+  }
 }
 
 .feel-demo-wrapper .row-connect-disconnect {
@@ -274,7 +277,7 @@ ul.features-list li {
 }
 
 .feel-demo-wrapper .btn-medium {
-  width: 110px;
+  width: 100%;
 }
 
 .feel-demo-wrapper .channel-name {

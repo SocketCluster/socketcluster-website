@@ -206,28 +206,35 @@ socketclusterApp.directive('feelDemo', function() {
   };
 });
 
-socketclusterApp.controller('demosController', function($scope) {
+var trackAnalyticsPageView = function () {
+  if (window.ga) {
+    var pageName = location.hash.replace(/^#!/, '');
+    ga('send', 'pageview', pageName);
+  }
+};
 
+socketclusterApp.controller('demosController', function($scope) {
+  trackAnalyticsPageView();
 });
 
 socketclusterApp.controller('gsController', function($scope) {
-
+  trackAnalyticsPageView();
 });
 
 socketclusterApp.controller('bsController', function($scope) {
-
+  trackAnalyticsPageView();
 });
 
 socketclusterApp.controller('middlewareController', function($scope) {
-
+  trackAnalyticsPageView();
 });
 
 socketclusterApp.controller('performanceController', function($scope) {
-
+  trackAnalyticsPageView();
 });
 
 socketclusterApp.controller('docsController', function($scope) {
-
+  trackAnalyticsPageView();
 });
 
 socketclusterApp.directive('prettyprint', function() {

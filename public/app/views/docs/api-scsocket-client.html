@@ -78,14 +78,29 @@
           <tr>
             <td>'connect'</td>
             <td>
-              Emitted whenever the socket connects to the server (includes reconnections).
+              <p>
+                Emitted whenever the socket connects to the server (includes reconnections).
+                Since v2.2.25, the handler receives a status object of the following form:
+              </p>
+              <pre class="prettyprint">{
+  // The socket's id
+  id: 'RM11Szl-tPn7p1BhAAAA',
+  
+  // Whether or not the current socket is authenticated with the server
+  // (has a valid auth token)
+  isAuthenticated: true,
+  
+  // If the client has a token, but it was invalid, authError 
+  // will be an error string.
+  authError: null 
+}</pre>
             </td>
           </tr>
           <tr>
-            <td>'status'</td>
+            <td style="text-decoration: line-through;">'status'</td>
             <td>
               <p>
-              Emitted when the socket has been fully initialized. This event carries an object of the following form:
+              [Removed in v2.2.25 - From then on, the status object below can be obtained from the 'connect' event as the first argument to the handler]. This event carries an object of the following form:
               </p>
               <pre class="prettyprint">{
   // The socket's id
@@ -104,6 +119,10 @@
           <tr>
             <td>'disconnect'</td>
             <td>Happens when this socket becomes disconnected from the server.</td>
+          </tr>
+          <tr>
+            <td>'connectAbort'</td>
+            <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the connection phase or it may be triggered intentionally by calling socket.disconnect() while the socket is connecting.</td>
           </tr>
           <tr>
             <td>'raw'</td>
@@ -307,6 +326,14 @@
             <td>
               Check if socket is subscribed to channelName.
               If includePending is true, pending subscriptions will also be included in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              removeAuthToken()
+            </td>
+            <td>
+              Deletes the auth token from this client if it has one.
             </td>
           </tr>
         </table>

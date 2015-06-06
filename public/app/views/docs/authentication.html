@@ -50,9 +50,12 @@
         <pre class="prettyprint">// Client code
 socket = socketCluster.connect();
 
-// The 'status' event is triggered shortly after the 
-// socket becomes connected
-socket.on('status', function (status) {
+// As of SC v2.2.25, the 'connect' event carries a status object which has a 
+// boolean 'isAuthenticated' property - It will be true if the socket carried
+// a valid token at the time the connection was established.
+// Note that you can also get the authenticated state using the 
+// socket.isAuthenticated property (anytime when socket is connected).
+socket.on('connect', function (status) {
   if (status.isAuthenticated) {
     // goToMainScreen();
   } else {

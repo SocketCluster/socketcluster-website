@@ -147,7 +147,7 @@ socketclusterApp.directive('feelDemo', function() {
       });
       $scope.socket = socket;
       
-      socket.on('status', function (status) {
+      socket.on('connect', function (status) {
         $scope.$apply(function () {
           $scope.hasWebSocketSupport = true;
         });

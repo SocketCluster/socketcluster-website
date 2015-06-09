@@ -252,6 +252,10 @@ position: relative;
   margin-top: 30px;
 }
 
+.feel-demo-wrapper .add-channel-label {
+  line-height: 34px;
+}
+
 .feel-demo-wrapper .add-channel-error-wrapper {
   line-height: 34px;
 }

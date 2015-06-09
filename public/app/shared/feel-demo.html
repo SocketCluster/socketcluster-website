@@ -34,10 +34,11 @@
             tooltip-trigger="mouseenter"
           />
         </div>
-        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Subscribe" ng-click="channel.subscribe()" /></div>
-        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Unsubscribe" ng-click="channel.unsubscribe()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium btn-primary" value="Subscribe" ng-click="channel.subscribe()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium btn-primary" value="Unsubscribe" ng-click="channel.unsubscribe()" /></div>
       </div>
       <div class="row row-add-channel">
+        <div class="col col-sm-3 add-channel-label">Create a new channel:</div>
         <div class="col col-sm-3 channel-name">
           <input
             type="text"
@@ -51,9 +52,9 @@
           />
         </div>
         <div class="col col-sm-3">
-          <input type="button" class="btn btn-medium" value="Add channel" ng-click="addChannel()" />
+          <input type="button" class="btn btn-medium btn-primary" value="Add channel" ng-click="addChannel()" />
         </div>
-        <div class="col col-sm-6 add-channel-error-wrapper">
+        <div class="col col-sm-3 add-channel-error-wrapper">
           <span class="add-channel-error">
             {{addChannelError}}
           </span>
@@ -84,11 +85,11 @@
             tooltip-trigger="mouseenter"
           />
         </div>
-        <div class="col col-sm-3"><input type="button" class="btn btn-publish btn-medium" value="Publish" ng-click="publishToChannel()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-publish btn-medium btn-primary" value="Publish" ng-click="publishToChannel()" /></div>
       </div>
       <div class="row row-connect-disconnect">
-        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Connect" ng-click="socket.connect()" /></div>
-        <div class="col col-sm-3"><input type="button" class="btn btn-medium" value="Disconnect" ng-click="socket.disconnect()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium btn-primary" value="Connect" ng-click="socket.connect()" /></div>
+        <div class="col col-sm-3"><input type="button" class="btn btn-medium btn-primary" value="Disconnect" ng-click="socket.disconnect()" /></div>
         <div class="col col-sm-4 socket-state">socket.state: <b>{{socket.state}}</b></div>
       </div>
     </div>

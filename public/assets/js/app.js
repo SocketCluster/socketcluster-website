@@ -87,13 +87,13 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       controller: 'docsController'
     })
     
-    .when('/docs/api-scchannel', {
-      templateUrl: 'app/views/docs/api-scchannel.html',
+    .when('/docs/api-scchannel-client', {
+      templateUrl: 'app/views/docs/api-scchannel-client.html',
       controller: 'docsController'
     })
     
-    .when('/docs/api-channel', {
-      templateUrl: 'app/views/docs/api-channel.html',
+    .when('/docs/api-scchannel-server', {
+      templateUrl: 'app/views/docs/api-scchannel-server.html',
       controller: 'docsController'
     })
     

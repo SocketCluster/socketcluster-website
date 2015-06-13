@@ -58,11 +58,6 @@ module.exports.run = function (worker) {
     }
   });
   
-  app.use(function (req, res, next) {
-    res.setHeader('Set-Cookie', 'sc-cookie=sc12345; path=/;');
-    next();
-  });
-  
   app.use(serveStatic(__dirname + '/public'));
   
   httpServer.on('request', app);

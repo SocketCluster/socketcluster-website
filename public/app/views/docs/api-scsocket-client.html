@@ -29,18 +29,6 @@
             <td>The socket id.</td>
           </tr>
           <tr>
-            <td style="text-decoration: line-through;">ssid</td>
-            <td>[Removed in v1.3.0] The id of the session which this socket is a part of.</td>
-          </tr>
-          <tr>
-            <td style="text-decoration: line-through;">connected</td>
-            <td>[Removed in v1.3.0 in favor of getState() method below] Boolean to indicate whether or not this socket is connected to the server.</td>
-          </tr>
-          <tr>
-            <td style="text-decoration: line-through;">connecting</td>
-            <td>[Removed in v1.3.0 in favor of getState() method below] Boolean to indicate if this socket is currently trying to connect to the server.</td>
-          </tr>
-          <tr>
             <td>state</td>
             <td>
               [Only available from v2.0.0 onwards - Otherwise, use the getState() method] The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN, socket.CLOSING or socket.CLOSED.

@@ -5,10 +5,12 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-        <h1>Running in production</h1>
-        <p>When building a system on SocketCluster, it's important to avoid placing runtime logic inside your master process (server.js file) - Such logic is better placed inside workers (worker.js).
+        <h1>Running in production (with SSL)</h1>
+        <p>
+          When building a system on SocketCluster, it's important to avoid placing runtime logic inside your master process (server.js file) - Such logic is better placed inside workers (worker.js).
           Unlike the master process, workers automatically respawn whenever they crash (in case of uncaught error) and with minimal service disruption (a worker typically takes less than 1 second to respawn).
-          The master process is generally a good place to put bootstrap logic and spawn long-running daemon processes but once your system is live, you shouldn't use it to execute error-prone logic.</p>
+          The master process is generally a good place to put bootstrap logic and spawn long-running daemon processes but once your system is live, you shouldn't use it to execute error-prone logic.
+        </p>
         <p>If you follow these rules, then running your SocketCluster server directly using the node command should be fine for production (example with arguments):</p>
         <pre class="prettyprint">nohup node server.js -b 2 -w 2 -s 2 &</pre>
         <p>For extra peace of mind, if you want to auto-respawn master, you can run SocketCluster using forever:</p>
@@ -18,6 +20,17 @@
         <p>
           If you want to do a near-zero downtime deploy (for example, to force an update of your server-side code), you can send a SIGUSR2 signal to your master process.
           Refer to <a href="https://github.com/SocketCluster/socketcluster/issues/42">this issue</a> for more details.
+        </p>
+        <h3>SSL</h3>
+        <p>
+          Another important thing to consider when running SC in production is that some old corporate proxies may block WebSocket traffic.
+          To avoid this issue, you should deliver your app over HTTPS/WSS by providing a key/cert SSL pair to your SC instance(s).
+        </p>
+        <p>
+          To configure SC to use SSL, you need to set some <a href="http://socketcluster.io/#!/docs/api-socketcluster">boot options</a> - Set the 
+          'protocol' to 'https' and provide an object containing your certificate and key to 'protocolOptions'.
+          The protocolOptions object is exactly the same as the options object which is passed to Node.js's https 
+          server: <a href="https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener">See here</a>.
         </p>
       </div>
     </div>

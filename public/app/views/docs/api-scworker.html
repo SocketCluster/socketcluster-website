@@ -43,6 +43,10 @@
             <td>scServer</td>
             <td>The SCServer instance associated with this worker.</td>
           </tr>
+          <tr>
+            <td>auth</td>
+            <td>The current AuthEngine used by SC (this is what SC uses internally to create/sign and verify auth tokens).</td>
+          </tr>
         </table>
 
         <h3>Events:</h3>
@@ -74,7 +78,6 @@
               Note that you no longer have to use this method; you can now simply access the worker.scServer property directly instead.
             </td>
           </tr>
-          
           <tr>
             <td>getHTTPServer()</td>
             <td>
@@ -85,8 +88,16 @@
               Note that you no longer have to use this method; you can now simply access the worker.httpServer property directly instead.
             </td>
           </tr>
-          
           <tr>
+            <td>setAuthEngine(authEngine)</td>
+            <td>
+              Set a custom auth engine for use throughout SC. This new engine will be used internally to create/sign and verify auth tokens.
+              The provided auth engine will become accessible from the 'worker.auth' property inside your workerController (worker.js).
+              The provided authEngine needs to provide a 'verifyToken' and a 'signToken' method - See the 
+              <a href="https://github.com/SocketCluster/socketcluster/blob/master/lib/auth.js">default engine</a> for details.
+            </td>
+          </tr>
+          
             <td>getSocketPath()</td>
             <td>Returns the URL path used by realtime socket connections. The method name getSocketURL() has been deprecated.</td>
           </tr>

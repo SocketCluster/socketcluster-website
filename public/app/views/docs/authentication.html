@@ -45,7 +45,9 @@
 }</pre>
         <h3>Authentication flow</h3>
         <p>
-          There is no single correct way to implement authentication in SC, but a sample authentication flow might look like this:
+          There is no single correct way to implement authentication in SC. You can can perform auth over HTTP
+          (before establishing the WebSocket connection) or you can do it after. <a href="https://github.com/SocketCluster/socketcluster/issues/71#issuecomment-115706901">See this comment</a>.
+          A sample WebSocket-based authentication flow might look like this:
         </p>
         <pre class="prettyprint">// Client code
 socket = socketCluster.connect();
@@ -132,6 +134,13 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH, function (socket, channel, d
           really need to store the channel list inside the token itself - We could just check the database provided that we have a 
           username or a user id. See section on <a href="/#!/docs/middleware-and-authorization">middleware and authorization</a> 
           for more info about middleware in SC.
+        </p>
+        <p>
+          If you want to do authentication over HTTP (before establishing a WebSocket connection), you will need to handle the token yourself.
+          See <a href="https://github.com/SocketCluster/socketcluster/issues/71#issuecomment-115706901">this comment</a> for ideas. Note that SC
+          now provides a default 'AuthEngine' for signing (creating) and verifying tokens on the server side - You can access it in your 
+          workerController (worker.js) from the 'worker.auth' property - See the implementation here: <a href="https://github.com/SocketCluster/socketcluster/blob/master/lib/auth.js">Default server auth engine</a>.
+          More info about Node.js JSON web token library can be found here: <a href="https://github.com/auth0/node-jsonwebtoken">jsonwebtoken</a>.
         </p>
       </div>
     </div>

@@ -16,7 +16,7 @@
 
         <h3>Inherits from:</h3>
         <p>
-          <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a> [Does not apply from v2.0.0]
+          <a href="https://github.com/component/emitter">Emitter</a>
         </p>
         
         <h3>Properties:</h3>
@@ -31,7 +31,7 @@
           <tr>
             <td>state</td>
             <td>
-              [Only available from v2.0.0 onwards - Otherwise, use the getState() method] The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN, socket.CLOSING or socket.CLOSED.
+              [Only available from v2.0.0 onwards - Otherwise, use the getState() method] The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN or socket.CLOSED.
             </td>
           </tr>
           <tr>
@@ -41,10 +41,6 @@
           <tr>
             <td>OPEN</td>
             <td><b>'open'</b> - A string constant which represents this socket's open/connected state. See state property.</td>
-          </tr>
-          <tr>
-            <td>CLOSING</td>
-            <td><b>'closing'</b> - A string constant which represents this socket's closing state. See state property.</td>
           </tr>
           <tr>
             <td>CLOSED</td>
@@ -118,7 +114,7 @@
           </tr>
           <tr>
             <td>'kickOut'</td>
-            <td>Occurs when this socket is kicked out of a particular channels by the backend. Arguments are (message, channelName).</td>
+            <td>Occurs when this socket is kicked out of a particular channel by the backend. Arguments are (message, channelName).</td>
           </tr>
           <tr>
             <td>'subscribe'</td>
@@ -159,7 +155,6 @@
               <ul>
                 <li><b>'connecting'</b> - socket.CONNECTING</li>
                 <li><b>'open'</b> - socket.OPEN</li>
-                <li><b>'closing'</b> - socket.CLOSING</li>
                 <li><b>'closed'</b> - socket.CLOSED</li>
               </ul>
             </td>

@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/full-stack</loc>
-    <lastmod>2014-12-01</lastmod>
+    <lastmod>2015-06-28</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/running-in-production</loc>
@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scsocket-client</loc>
-    <lastmod>2015-05-21</lastmod>
+    <lastmod>2015-06-28</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scchannel-client</loc>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-socketcluster</loc>
-    <lastmod>2015-03-09</lastmod>
+    <lastmod>2015-06-28</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-socketcluster-client</loc>
@@ -74,11 +74,11 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scserver</loc>
-    <lastmod>2015-05-21</lastmod>
+    <lastmod>2015-06-28</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scsocket-server</loc>
-    <lastmod>2015-04-24</lastmod>
+    <lastmod>2015-06-28</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-global</loc>
@@ -90,6 +90,6 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-store</loc>
-    <lastmod>2015-01-04</lastmod>
+    <lastmod>2015-06-28</lastmod>
   </url>
 </urlset>

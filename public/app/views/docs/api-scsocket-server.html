@@ -17,14 +17,11 @@
         
         <h3>Inherits from:</h3>
         <p>
-          <a href="https://github.com/automattic/engine.io#socket">engine.io Socket</a> [Does not apply from v2.0.0]
+          <a href="https://github.com/component/emitter">Emitter</a>
         </p>
 
         <h3>Properties:</h3>
         <table class="table">
-          <tr>
-            <td colspan="2">All properties of <a href="https://github.com/automattic/engine.io#socket">engine.io Socket</a> [Does not apply from v2.0.0]</td>
-          </tr>
           <tr>
             <td>id</td>
             <td>The socket id.</td>
@@ -34,20 +31,9 @@
             <td>The Node.js HTTP request which initiated the SCSocket handshake - This object is useful for accessing HTTP headers (including cookies) which relate to the current socket.</td>
           </tr>
           <tr>
-            <td style="text-decoration: line-through;">ssid</td>
-            <td>[Removed v1.3.0] The id of the session which this socket is a part of.</td>
-          </tr>
-          <tr>
             <td>remoteAddress</td>
             <td>
               This socket's client IP address.
-            </td>
-          </tr>
-          <tr>
-            <td style="text-decoration: line-through;">session</td>
-            <td>
-              [Removed v1.3.0] A <a href="#!/docs/api-session">Session</a> object which you can use to interact with your SC store processes. (Within the scope of the current session).
-              You can use it to emit events to all sockets which belong to a session (for example if a user has multiple tabs open).
             </td>
           </tr>
           <tr>
@@ -60,7 +46,7 @@
           <tr>
             <td>state</td>
             <td>
-              [Only available from v2.0.0 onwards - Otherwise, use the getState() method] The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN, socket.CLOSING or socket.CLOSED.
+              [Only available from v2.0.0 onwards - Otherwise, use the getState() method] The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN or socket.CLOSED.
             </td>
           </tr>
           <tr>
@@ -72,10 +58,6 @@
             <td><b>'open'</b> - A string constant which represents this socket's open/connected state. See state property.</td>
           </tr>
           <tr>
-            <td>CLOSING</td>
-            <td><b>'closing'</b> - A string constant which represents this socket's closing state. See state property.</td>
-          </tr>
-          <tr>
             <td>CLOSED</td>
             <td><b>'closed'</b> - A string constant which represents this socket's closed state. See state property.</td>
           </tr>
@@ -83,9 +65,6 @@
           
         <h3>Events:</h3>
         <table class="table">
-          <tr>
-            <td colspan="2">All events emitted by the <a href="https://github.com/automattic/engine.io#socket">engine.io Socket</a></td>
-          </tr>
           <tr>
             <td>'error'</td>
             <td>
@@ -131,7 +110,6 @@
               <ul>
                 <li><b>'connecting'</b> - socket.CONNECTING</li>
                 <li><b>'open'</b> - socket.OPEN</li>
-                <li><b>'closing'</b> - socket.CLOSING</li>
                 <li><b>'closed'</b> - socket.CLOSED</li>
               </ul>
             </td>
@@ -194,23 +172,9 @@
                 In the simplest case, the data argument to this method would be an object in the form {username: 'bob123'}.
                 For a more complex use case, you could store a list of authorized channel names inside the token (for convenience so that you can simply read the token instead of checking the database every time).
               <p>
-                The optional <b>options</b> argument is an Object which can be used to modify the token's behavior - Valid properties include:
-              </p>
-              <p>
-                <table class="table">
-                  <tr>
-                    <td colspan="2">Any option accepted by the node-jsonwebtoken library's sign method <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options">see list here</a>.
-                    In addition, the following SC-specific options are supported:</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      expiresInMinutes
-                    </td>
-                    <td>
-                      If expiresInMinutes is not provided, the default expiry for an auth token is 1440 minutes (1 day).
-                    </td>
-                  </tr>
-                </table>
+                The optional <b>options</b> argument is an Object which can be used to modify the token's behavior - Valid properties include any 
+                option accepted by the node-jsonwebtoken library's sign method. 
+                <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options">See list here</a>.
               </p>
               <p>
                 Using auth tokens has the following advantages:

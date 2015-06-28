@@ -44,6 +44,13 @@
             </td>
           </tr>
           <tr>
+            <td>instanceId</td>
+            <td>
+              The ID of the current SocketCluster instance. A single SC instance constitutes of the master process and all of its child processes - 
+              This includes worker and store processes which were forked from master.
+            </td>
+          </tr>
+          <tr>
             <td>dataMap</td>
             <td>
               A FlexiMap (<a href="https://github.com/SocketCluster/fleximap">https://github.com/SocketCluster/fleximap</a>) containing all data for the current store.
@@ -116,7 +123,7 @@
           <tr>
             <td>run(query)</td>
             <td>
-              Execute a query function on the current store. See http://github.com/SocketCluster/ndata for details.
+              Execute a query function on the current store. See <a href="http://github.com/SocketCluster/ndata">http://github.com/SocketCluster/ndata</a> for details.
             </td>
           </tr>
         </table>

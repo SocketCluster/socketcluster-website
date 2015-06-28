@@ -55,10 +55,6 @@
   // The port on which to listen for outside connections/requests
   port: 8000,
   
-  // Number of load balancer processes to use
-  // No longer supported since v1.3.0
-  balancers: 1,
-  
   // Number of worker processes
   workers: 1,
   
@@ -66,13 +62,26 @@
   stores: 1,
   
   // A unique name for your app (this is used internally for 
-  // various things such as generating cookie names)
+  // various things such as the directory name in which to store socket 
+  // file descriptors) - If you don't provide an appName, SC will
+  // generate a random one (UUID v4)
   appName: null,
+  
+  // An ID to associate with this specific instance of SC
+  // this may be useful if you are running an SC app on multiple
+  // hosts - You can access the instanceId from the Store object
+  // (inside storeController) - If you don't provide an instanceId,
+  // SC will generate a random one (UUID v4)
+  instanceId: null,
   
   // A key which various SC processes will use to interact with 
   // nData store processes securely, defaults to a 256 bits 
   // cryptographically random hex string
   secretKey: null,
+  
+  // The key which SC will use to encrypt/decrypt authTokens, defaults
+  // to a 256 bits cryptographically random hex string
+  authKey: null,
   
   // Reboot workers when they crash - This is a necessity
   // in production but can be turned off for debugging
@@ -84,94 +93,59 @@
   // This is the same as the object provided to Node.js's https server
   protocolOptions: null,
   
-  // Allowed transports for SocketCluster clients
-  // Deprecated in v2.0.0
-  transports: ['polling', 'websocket'],
-  
   // A log level of 3 will log everything, 2 will show notices and errors,
   // 1 will only log errors, 0 will log nothing
   logLevel: 2,
   
-  // In seconds, how long a client has to connect to SC before timing out
-  connectTimeout: 10,
+  // In milliseconds, how long a client has to connect to SC before timing out
+  connectTimeout: 10000,
   
-  // In seconds, the timeout for calling res.end() or res.error() when 
+  // In milliseconds, the timeout for calling res.end() or res.error() when 
   // your emit() call expects an ACK response from the other side
   // (when callback is provided to emit)
-  ackTimeout: 10,
+  ackTimeout: 10000,
   
-  // In seconds - If the socket cannot upgrade transport 
+  // In milliseconds - If the socket cannot upgrade transport 
  // within this period, it will stop trying
-  socketUpgradeTimeout: 1,
-  
-  // In seconds, how long a session persists after a browser 
-  // closes all connections to SC without reconnecting
-  // No longer supported since v1.3.0
-  sessionTimeout: 1200,
-  
-  // This option is passed directly to engine.io server
-  // Deprecated in v2.0.0
-  maxHttpBufferSize: null,
+  socketUpgradeTimeout: 1000,
   
   // Origins which are allowed to connect to the realtime scServer
   origins: '*:*',
   
-  // The maximum number of allowable sockets per IP address 0 
-  // means unlimited
-  // No longer supported since v1.3.0
-  addressSocketLimit: 0,
-  
   // The maximum number of unique channels which a single 
   // socket can subscribe to
-  socketChannelLimit: 100,
+  socketChannelLimit: 1000,
   
-  // Passed directly to engine.io client
-  // Deprecated in v2.0.0
-  pollingDuration: 30,
-  
-  // The interval in seconds on which to
+  // The interval in milliseconds on which to
   // send a ping to the client to check that
   // it is still alive
-  pingInterval: 25,
+  pingInterval: 25000,
   
-  // How many seconds to wait without receiving a ping
+  // How many milliseconds to wait without receiving a ping
   // before closing the socket
-  pingTimeout: 60,
+  pingTimeout: 60000,
   
-  // This is used for smartBalancing - How often balancers 
-  // should request the load status of workers
-  // Deprecated in v2.0.0
-  workerStatusInterval: 10,
-  
-  // Maximum amount of seconds to wait before force-killing 
+  // Maximum amount of milliseconds to wait before force-killing 
   // a process after it was passed a 'SIGTERM' signal
-  processTermTimeout: 10,
+  processTermTimeout: 10000,
   
-  // Whether or not errors from child processes (balancers,
-  // workers and stores) should be passed to the current master process
+  // Whether or not errors from child processes (workers and stores)
+  // should be passed to the current master process
   propagateErrors: true,
   
-  // Whether or not notices from child processes (balancers,
-  // workers and stores) should be passed to the current master process
+  // Whether or not notices from child processes (workers and stores)
+  // should be passed to the current master process
   propagateNotices: true,
   
-  // Lets you specify a host name which will be part of your session IDs
+  // Lets you specify a host name to bind to - Defaults to 
+  // 127.0.0.1 (localhost)
   host: null,
   
   // The path to a file used to bootstrap worker processes
   workerController: null,
   
-  // The path to a file used to bootstrap balancer processes
-  // Deprecated in v2.0.0
-  balancerController: null,
-  
   // The path to a file used to bootstrap store processes
   storeController: null,
-  
-  // A custom options object to attach to your load balancer
-  // (can be accessed inside balancerController file using balancer.options)
-  // Deprecated in v2.0.0
-  balancerOptions: null,
   
   // A custom options object to attach to your store (can be accessed inside 
   // storeController file using store.options)
@@ -181,14 +155,10 @@
   // This can be used for updating workers with fresh source code in production
   rebootOnSignal: true,
   
-  // By default, SC balancers poll workers for stats in order to distribute
-  // connections evenly between them (with auto-correction) - If this is 
-  // false, plain IP-based balancing will be used
-  useSmartBalancing: true,
-  
   // If you run your master process (server.js) as super user, this option
-  // lets you downgrade worker, balancer and store processes to run under 
-  // the specified user (with fewer permissions)
+  // lets you downgrade worker and store processes to run under 
+  // the specified user (with fewer permissions than master) - You can provide 
+  // a Linux UID or username
   downgradeToUser: false,
   
   // The URL path reserved by SocketCluster clients to interact with the server
@@ -198,21 +168,27 @@
   socketRoot: null,
   
   // Defaults to "none", but can be set to "rr" - "none" is more scalable,
-  // but it may perform worse on some specific operating systems when there
-  // are few CPU cores and worker processes
+  // but it may perform worse on some systems when there are few CPU 
+  // cores and worker processes
   schedulingPolicy: 'none',
   
   // Whether or not clients are allowed to publish messages to channels
   allowClientPublish: true,
   
-  // Whether or not to add a req.session property to req objects
-  // (this will be the same as socket.session)
-  // Deprecated in v2.0.0
-  addSessionToHTTPRequest: true,
+  // The default expiry for auth tokens
+  defaultAuthTokenExpiryInMinutes: 1440,
   
-  // The name of the cookie in which to store the JWT auth token on the client - If
-  // not provided, SC will choose a default one based on appName
-  authCookieName: null,
+  // By default, when you send a 'kill -SIGUSR2' signal to the master process,
+  // it will reboot all workers, you can turn this behavior off by setting this
+  // option to false
+  rebootOnSignal: true,
+  
+  // This option is passed to the Node.js HTTP server if provided
+  tcpSynBacklog: null,
+  
+  // SC keeps track of request per minutes internally - This allows you to change 
+  // how often this gets updated
+  workerStatusInterval: 10000,
   
   // The default clustering engine which provides session and 
   // global objects to SC and manages stores behind the scenes.
@@ -224,10 +200,6 @@
           <tr>
             <td>killWorkers()</td>
             <td>Kills all worker processes managed by SocketCluster. They will respawn by default.</td>
-          </tr>
-          <tr>
-            <td>killBalancers()</td>
-            <td>Kills all load balancer processes managed by SocketCluster. They will respawn by default.</td>
           </tr>
           <tr>
             <td>killStores()</td>

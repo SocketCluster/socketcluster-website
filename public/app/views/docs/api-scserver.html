@@ -15,16 +15,11 @@
         
         <h3>Inherits from:</h3>
         <p>
-          <a href="https://github.com/Automattic/engine.io#server">engine.io Server</a>
+          <a href="https://github.com/component/emitter">Emitter</a>
         </p>
         
         <h3>Properties:</h3>
         <table class="table">
-          <tr>
-            <td colspan="2">
-              All properties of <a href="https://github.com/Automattic/engine.io#server">engine.io Server</a>
-            </td>
-          </tr>
           <tr>
             <td>global</td>
             <td>
@@ -55,9 +50,6 @@
         
         <h3>Events:</h3>
         <table class="table">
-          <tr>
-            <td colspan="2">All events emitted by the <a href="https://github.com/Automattic/engine.io#server">engine.io Server</a></td>
-          </tr>
           <tr>
             <td>'error'</td>
             <td>This gets triggered when fatal error occurs on this worker.</td>
@@ -100,35 +92,41 @@
                   <br />
                   <table class="table">
                     <tr>
-                    <td>
-                      scServer.MIDDLEWARE_HANDSHAKE - 'handshake' -
-                      This middleware function is run before a connection is established during handshake stage.
-                    </td>
+                      <td>
+                        scServer.MIDDLEWARE_HANDSHAKE - 'handshake' -
+                        This middleware function is run before a connection is established during handshake stage.
+                      </td>
                     </tr>
                     <tr>
-                    <td>
-                      scServer.MIDDLEWARE_SUBSCRIBE - 'subscribe' - 
-                      For all client subscribe() actions.
-                    </td>
+                      <td>
+                        scServer.MIDDLEWARE_SUBSCRIBE - 'subscribe' - 
+                        For all client subscribe() actions.
+                      </td>
                     </tr>
                     <tr>
-                    <td>
-                      scServer.MIDDLEWARE_PUBLISH - 'publish' - 
-                      For all client publish() actions.
-                    </td>
+                      <td>
+                        scServer.MIDDLEWARE_PUBLISH_IN - 'publishIn' - 
+                        For all inbound client publish() actions.
+                      </td>
                     </tr>
                     <tr>
-                    <td>
-                      scServer.MIDDLEWARE_EMIT - 'emit' - 
-                      For all client emit() actions.
-                    </td>
+                      <td>
+                        scServer.MIDDLEWARE_PUBLISH_OUT - 'publishOut' - 
+                        For all outbound client publish() actions. This gets run once for each subscribed client.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        scServer.MIDDLEWARE_EMIT - 'emit' - 
+                        For all client emit() actions.
+                      </td>
                     </tr>
                   </table>
                 </li>
                 <li>
                   <h5>middlewareFn</h5>
                   <p>
-                    A middleware function which can be used to monitor realtime interactions and/or to block unauthorizd client actions before they
+                    A middleware function which can be used to monitor realtime interactions and/or to block unauthorized client actions before they
                     reach the server.
                     Middleware functions accept different arguments depending on the specified middleware type:
                   </p>
@@ -142,7 +140,11 @@
                       <td>middlewareFn(socket, channel, next)</td>
                     </tr>
                     <tr>
-                      <td>MIDDLEWARE_PUBLISH</td>
+                      <td>MIDDLEWARE_PUBLISH_IN</td>
+                      <td>middlewareFn(socket, channel, data, next)</td>
+                    </tr>
+                    <tr>
+                      <td>MIDDLEWARE_PUBLISH_OUT</td>
                       <td>middlewareFn(socket, channel, data, next)</td>
                     </tr>
                     <tr>
@@ -160,11 +162,10 @@
             </td>
           </tr>
           <tr>
-            <td>removeMiddleware(type, [middlewareFn])</td>
+            <td>removeMiddleware(type, middlewareFn)</td>
             <td>
               <p>
                 Lets you remove middleware functions previously added with the addMiddleware() method.
-                If middlewareFn is not specified, all middleware functions of the specified type will be removed.
               </p>
             </td>
           </tr>

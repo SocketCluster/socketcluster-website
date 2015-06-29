@@ -1,7 +1,7 @@
 <div>
   <div class="jumbotron">
     <div class="container">
-      <h1>An open, <strong><em>scalable</em></strong> realtime engine for Node.js</h1>
+      <h1>A <strong><em>scalable</em></strong> realtime engine for Node.js</h1>
       <p><a class="btn btn-primary btn-lg" role="button" href="/#!/docs/getting-started">Get Started</a></p>
     </div>
   </div>
@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-md-6">
         <h2 class="header-light regular-pad">What is SocketCluster?</h2>
-        <p>SocketCluster is an open source, multi-process realtime engine for Node.js. You can build entire applications on top of it or you can use it alongside existing systems written in other languages.</p>
+        <p>SocketCluster is an open source, multi-process realtime WebSocket engine for Node.js. You can build entire applications on top of it or you can use it alongside existing systems written in other languages.</p>
         <p>SC supports both direct client-server communication (like Socket.io) and group communication via pub/sub channels.</p>
         <p>SC is designed to scale both vertically across multiple CPU cores and horizontally across multiple machines/instances (via pub/sub channel synchronization).</p>
       </div>
@@ -31,7 +31,7 @@
           <li>Resilient on both the client and backend - Process crashes, lost connections and other failures are handled seamlessly.</li>
           <li>Scales linearly as you add more CPU cores and workers (assuming a decent OS) - Tested with up to 16 cores.</li>
           <li>Also designed to scale horizontally across multiple machines. See <a href="http://github.com/socketcluster/sc-redis">sc-redis</a> sample.</li>
-          <li>Support for both pub/sub channels and standard client-server interactions (via events).</li>
+          <li>Support for both pub/sub channels and standard WebSocket client-server interactions (via events).</li>
           <li>Channels offer a clean way to allow multiple browser tabs to share the same realtime data.</li>
           <li>Authentication engine compliant with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a> (JWT).</li>
           <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake interactions).</li>
@@ -40,7 +40,7 @@
           <li>Errors across all processes are caught and logged on master by default.</li>
           <li>Designed to work alongside any database/datastore (Redis, MySql, PostgreSQL, MongoDB, Cassandra, etc...).</li>
           <li>Open source alternative to PubNub and Pusher.</li>
-          <li>Can be used as an open source Firebase alternative when integrated with a database of your choice (with a bit of extra work).</li>
+          <li>Can be used as an open source Firebase alternative when integrated with a database of your choice (with some extra work).</li>
         </ul>
       </div>
     </div>

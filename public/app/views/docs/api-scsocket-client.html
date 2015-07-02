@@ -23,9 +23,6 @@
         <h3>Properties:</h3>
         <table class="table">
           <tr>
-            <td colspan="2">All properties of <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a> [Does not apply from v2.0.0]</td>
-          </tr>
-          <tr>
             <td>id</td>
             <td>The socket id.</td>
           </tr>
@@ -52,11 +49,6 @@
         <h3>Events:</h3>
         <table class="table">
           <tr>
-            <td colspan="2">
-              All events emitted by the <a href="https://github.com/Automattic/engine.io-client#socket">engine.io-client Socket</a> [Does not apply from v2.0.0]
-            </td>
-          </tr>
-          <tr>
             <td>'error'</td>
             <td>This gets triggered when an error occurs on this socket. Argument is the error object.</td>
           </tr>
@@ -76,31 +68,12 @@
   isAuthenticated: true,
   
   // If the client has a token, but it was invalid, authError 
-  // will be an error string.
-  authError: null 
+  // will be a JavaScript object.
+  authError: {name: 'errorName', message: 'errorMessage'} 
 }</pre>
             </td>
           </tr>
           <tr>
-            <td style="text-decoration: line-through;">'status'</td>
-            <td>
-              <p>
-              [Removed in v2.2.25 - From then on, the status object below can be obtained from the 'connect' event as the first argument to the handler]. This event carries an object of the following form:
-              </p>
-              <pre class="prettyprint">{
-  // The socket's id
-  id: 'RM11Szl-tPn7p1BhAAAA',
-  
-  // Whether or not the current socket is authenticated with the server
-  // (has a valid auth token)
-  isAuthenticated: true,
-  
-  // If the client has a token, but it was invalid, authError 
-  // will be an error string.
-  authError: null 
-}</pre>
-            </td>
-          </tr>
           <tr>
             <td>'disconnect'</td>
             <td>Happens when this socket becomes disconnected from the server.</td>
@@ -128,6 +101,13 @@
           <tr>
             <td>'unsubscribe'</td>
             <td>When the socket becomes unsubscribed from a channel.</td>
+          </tr>
+          <tr>
+            <td>'authenticate'</td>
+            <td>
+              Triggers whenever the client is successfully authenticated by the server - The data argument passed along
+              with this event is the encrypted auth token as a string.
+            </td>
           </tr>
           <tr>
             <td>'message'</td>
@@ -206,6 +186,19 @@
             </td>
             <td>
               Send some raw data to the server. This will trigger a 'raw' event on the server which will carry the provided data.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              authenticate(encryptedTokenString, [callback]);
+            </td>
+            <td>
+              Perform client-initiated authentication - This is useful if you already have a valid encrypted auth token string and would like to use 
+              it to authenticate directly with the server (without having to ask the user to login details).
+              Typically, you should perform server-initiated authentication using the socket.setAuthToken() method from the server side.
+              This method is useful if, for example, you received the token from a different browser tab via localStorage and you want to immediately
+              authenticate the current socket without having to reconnect the socket. It may also be useful if you're getting the token from a third-party
+              JWT-based system and you're using the same authKey (see boot options for SocketCluster) - In which case they should be compatible.
             </td>
           </tr>
           <tr>

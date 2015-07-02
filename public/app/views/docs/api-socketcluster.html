@@ -190,9 +190,10 @@
   // how often this gets updated
   workerStatusInterval: 10000,
   
-  // The default clustering engine which provides session and 
-  // global objects to SC and manages stores behind the scenes.
-  // You shouldn't need to change this.
+  // The default clustering engine (Node.js module name) which provides the 
+  // SCWorker.global object and manages stores behind the scenes.
+  // You shouldn't need to change this unless you want to build your own
+  // process clustering engine (which is difficult to do).
   clusterEngine: 'iocluster'
 }</pre>
             </td>

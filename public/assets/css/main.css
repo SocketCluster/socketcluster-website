@@ -1,8 +1,4 @@
 
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
 .pace .pace-progress {
   background: #29d;
   position: fixed;
@@ -32,6 +28,19 @@ a {
   -moz-transition:.2s;
   -webkit-transition:.2s;
 }
+
+.get-started-button {
+  dispay: block;
+  float: left;
+}
+
+.github-star-button-top {
+  display: block;
+  float: left;
+  margin-left: 15px;
+  margin-top: 6px;
+}
+
 a:hover {
   text-decoration: none;
 }

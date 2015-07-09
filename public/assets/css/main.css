@@ -36,9 +36,8 @@ a {
 
 .github-star-button-top {
   display: block;
-  float: left;
-  margin-left: 15px;
-  margin-top: 6px;
+  float: right;
+  margin-top: 19px;
 }
 
 a:hover {

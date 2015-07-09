@@ -10,6 +10,15 @@
           The SocketCluster object represents an entire SocketCluster instance (master process which manages a number of child processes).
           This object's constructor accepts an 'options' object which allows you to configure your SC instance.
         </p>
+        <p>
+          Note that since SC v2.2.38, this options object can be accessed from any backend process. E.g:
+          socketCluster.options (in master process - server.js), worker.options (in workerController) and store.options (in storeController).
+        </p>
+        <p>
+          You can also add custom properties to the options object if you want to pass data to various processes. Just make sure that whatever custom data
+          you provide can be serialized to JSON (so you can't pass functions around - However, you can provide a module name as a string and 
+          require() the module from inside the target process).
+        </p>
 
         <h3>Inherits from:</h3>
         <p>

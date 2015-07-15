@@ -207,7 +207,7 @@
               <i style="color: #999;">
                 All of the following methods are related to pub/sub features of SC.<br />
                 SC let you interact with channels either directly through the socket or through
-                <a href="#!/docs/api-scchannel">SCChannel</a> objects.
+                <a href="#!/docs/api-scchannel-client">SCChannel</a> objects.
               </i>
               </p>
             </td>
@@ -229,7 +229,7 @@
             </td>
             <td>
               Subscribe to a particular channel.
-              This function returns an <a href="#!/docs/api-scchannel">SCChannel</a> object which lets you watch for incoming data on that channel.
+              This function returns an <a href="#!/docs/api-scchannel-client">SCChannel</a> object which lets you watch for incoming data on that channel.
             </td>
           </tr>
           <tr>
@@ -238,7 +238,7 @@
             </td>
             <td>
               Unsubscribe the from the specified channel. This makes any associated SCChannel object inactive.
-              You can reactivate the <a href="#!/docs/api-scchannel">SCChannel</a> object by calling subscribe(channelName) again at a later time.
+              You can reactivate the <a href="#!/docs/api-scchannel-client">SCChannel</a> object by calling subscribe(channelName) again at a later time.
             </td>
           </tr>
           <tr>
@@ -246,7 +246,7 @@
               channel(channelName)
             </td>
             <td>
-              Returns an <a href="#!/docs/api-scchannel">SCChannel</a> instance. This is different from subscribe() in that it will not try to subscribe to that channel.
+              Returns an <a href="#!/docs/api-scchannel-client">SCChannel</a> instance. This is different from subscribe() in that it will not try to subscribe to that channel.
               The returned channel will be inactive initially.
               You can call channel.subscribe() later to activate that channel when required.
             </td>

@@ -8,17 +8,17 @@
         <h1>Running in production (with SSL)</h1>
         <p>
           When building a system on SocketCluster, it's important to avoid placing runtime logic inside your master process (server.js file) - Such logic is better placed inside workers (worker.js).
-          Unlike the master process, workers automatically respawn whenever they crash (in case of uncaught error) and with minimal service disruption (a worker typically takes less than 1 second to respawn).
+          Unlike the master process, workers automatically respawn whenever they crash (in case of uncaught error) and with minimal service disruption (a worker typically takes less than 1 second to respawn so it should be transparent to your users).
           The master process is generally a good place to put bootstrap logic and spawn long-running daemon processes but once your system is live, you shouldn't use it to execute error-prone logic.
         </p>
         <p>If you follow these rules, then running your SocketCluster server directly using the node command should be fine for production (example with arguments):</p>
-        <pre class="prettyprint">nohup node server.js -b 2 -w 2 -s 2 &</pre>
+        <pre class="prettyprint">nohup node server.js -w 2 -s 2 &</pre>
         <p>For extra peace of mind, if you want to auto-respawn master, you can run SocketCluster using forever:</p>
         <pre class="prettyprint">npm install -g forever</pre>
         <p>Then run with:</p>
-        <pre class="prettyprint">forever start --killSignal=SIGTERM server.js -b 2 -w 2 -s 2</pre>
+        <pre class="prettyprint">forever start --killSignal=SIGTERM server.js -w 2 -s 2</pre>
         <p>
-          If you want to do a near-zero downtime deploy (for example, to force an update of your server-side code), you can send a SIGUSR2 signal to your master process.
+          In any case, if you want to do a near-zero downtime deploy (for example, to force an update of your server-side code), you can send a SIGUSR2 signal to your master process.
           Refer to <a href="https://github.com/SocketCluster/socketcluster/issues/42">this issue</a> for more details.
         </p>
         <h3>SSL</h3>

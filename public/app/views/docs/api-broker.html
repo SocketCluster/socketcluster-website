@@ -1,0 +1,133 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-include src="'app/shared/nav-docs.html'"></div>
+    </div>
+    <div class="col-md-9">
+      <div class="docs-content">
+        <h1>API - Broker</h1>
+        <p>
+          The broker object allows you to interact directly with SocketCluster's internal data and pub/sub channels.
+          This object can be accessed from inside the brokerController (broker.js file by default).
+          The broker's main purpose is to allow you to synchronise SocketCluster's internal channels with external 
+          channels from a third-party system - This is useful if you need to scale SocketCluster horizontally across
+          multiple machines.
+        </p>
+        <p>
+          Some third-party systems which can be used to achieve horizontal scalability include RabbitMQ, Redis (as a distributed cluster), 
+          and various other AMQP and MQTT solutions.
+          SocketCluster doesn't currently provide a plugin to do this automatically (there are plans for a Redis plugin) but, hopefully, this page is enough to give you an idea of how this can be achieved.
+          Feel free to share your plugin with us if it's generic enough.
+        </p>
+        <p>
+          When reading this documentation, it's important to keep in mind that your SocketCluster system could have multiple brokers; in 
+          such a case, each broker will only manage a subset of all available channels (responsibilities will be somewhat evenly 
+          distributed between each broker).
+        </p>
+        
+        <h3>Inherits from:</h3>
+        <p>
+          <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
+        </p>
+
+        <h3>Properties:</h3>
+        <table class="table">
+          <tr>
+            <td>id</td>
+            <td>The broker's id. This is also the broker's index - So the first broker's ID will always be 0.</td>
+          </tr>
+          <tr>
+            <td>options</td>
+            <td>
+              This is the options object provided through the brokerOptions property when you initialize your SocketCluster instance (inside server.js).
+              This can be useful if you need to pass command line arguments from your master process to your broker when you run SC.
+            </td>
+          </tr>
+          <tr>
+            <td>instanceId</td>
+            <td>
+              The ID of the current SocketCluster instance. A single SC instance constitutes of the master process and all of its child processes - 
+              This includes worker and broker processes which were forked from master.
+            </td>
+          </tr>
+          <tr>
+            <td>dataMap</td>
+            <td>
+              A FlexiMap (<a href="https://github.com/SocketCluster/fleximap">https://github.com/SocketCluster/fleximap</a>) containing all data for the current broker.
+            </td>
+          </tr>
+          <tr>
+            <td>dataExpirer</td>
+            <td>
+              An ExpiryManager (<a href="https://github.com/SocketCluster/expirymanager">https://github.com/SocketCluster/expirymanager</a>) which holds a list of expiries for various keys in dataMap.
+            </td>
+          </tr>
+          <tr>
+            <td>channelMap</td>
+            <td>
+              A FlexiMap (<a href="https://github.com/SocketCluster/fleximap">https://github.com/SocketCluster/fleximap</a>) containing all channels managed by the current broker.
+            </td>
+          </tr>
+        </table>
+          
+        <h3>Events:</h3>
+        <table class="table">
+          <tr>
+            <td>'subscribe'</td>
+            <td>
+              This gets triggered whenever a SocketCluster worker subscribes to a channel. When a worker subscribes to a channel,
+              it means that at least one client-side socket which is bound to that worker has asked to subscribe to that channel.
+              A worker will not try to subscribe to the channel again if it is already subscribed to it.<br />
+              <br />
+              For the purpose of scaling SocketCluster across multiple machines, if you see this event triggered for a particular 
+              channel, then you know that the current broker is interested in that channel, so you can use an MQTT, AMQP, or Redis client
+              of your choice to create a matching channel subscription on a remote Pub/Sub cluster - This allows you to extend the subscription
+              to an external pub/sub service.
+            </td>
+          </tr>
+          <tr>
+            <td>'unsubscribe'</td>
+            <td>
+              This event will get triggered when a worker unsubscribes from a channel on the current broker.
+              A worker will unsubscribe itself from a channel when it no longer has any client-side sockets which want to be subscribed to that channel.
+              A worker will only unsubscribe to a channel if it is subscribed to it.<br />
+              <br />
+              Like the 'subscribe' event described above, you can use this event to unsubscribe your broker process from a particular
+              channel on a remote Pub/Sub cluster.
+            </td>
+          </tr>
+          <tr>
+            <td>'publish'</td>
+            <td>
+              This event will be emitted whenever a worker publishes data to a particular channel on the current broker.
+              The worker may publish data to a channel on a broker when one of its client-side sockets asks to publish to that channel or
+              when you call worker.global.publish(...) from the worker process.
+            </td>
+          </tr>
+        </table>
+        
+        <h3>Methods:</h3>
+        <table class="table">
+          <tr>
+            <td>publish(channelName, data)</td>
+            <td>
+              Publish data (can be any valid JavaScript object/type) to channelName on the current broker.
+              <br />
+              For the purpose of scaling to multiple SC instances, this method allows you to inject external 
+              channel data (from your remote cluster) into relevant SocketCluster channels.
+              <br />
+              Because this method publishes data directly from the broker itself, the broker will not emit a 'publish' event - 
+              The 'publish' event only gets emitted when a worker publishes data.
+            </td>
+          </tr>
+          <tr>
+            <td>run(query)</td>
+            <td>
+              Execute a query function on the current broker. See <a href="http://github.com/SocketCluster/ndata">http://github.com/SocketCluster/ndata</a> for details.
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

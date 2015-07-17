@@ -10,15 +10,15 @@
           Can be accessed using scWorker.global property.
         </p>
         <p>
-          The global object is a top-level nData client which lets you publish events and manipulate data within your stores.
+          The global object is a top-level nData client which lets you publish events and manipulate data within your brokers.
           It also lets you passively watch channels (those which clients of the current server are subscribed to) or you can explicitly
           subscribe to channels to let you watch additional channels.
           You can use any method of an nData client on instances of this object: <a href="https://github.com/SocketCluster/ndata">https://github.com/SocketCluster/ndata</a>
         </p>
         <p>
-          Because this object potentially handles a cluster of stores,
+          Because this object potentially handles a cluster of brokers,
           you can use the setMapper(mapperFn) method to set a function which will be used to map your individual nData client calls to one of your 
-          stores (assuming you have more than one).
+          brokers (assuming you have more than one).
           The mapperFn takes three arguments:
         </p>
         <br />
@@ -32,7 +32,7 @@
           </tr>
           <tr>
             <td>method</td>
-            <td>The nData method which was invoked and needs to be mapped to one or more store processes.</td>
+            <td>The nData method which was invoked and needs to be mapped to one or more broker processes.</td>
           </tr>
           <tr>
             <td>clientIds</td>
@@ -41,8 +41,8 @@
         </table>
         <br />
         <p>
-          The mapper must return either an ID (integer) or an array of IDs and SC will send the action to all corresponding stores.
-          So if the mapperFn returns 0, then the action wil be sent to nData store with ID 0.
+          The mapper must return either an ID (integer) or an array of IDs and SC will send the action to all corresponding brokers.
+          So if the mapperFn returns 0, then the action wil be sent to nData broker with ID 0.
           If you return the clientIds array directly, then all clients will receive the action.
         </p>
         <h3>Inherits from:</h3>
@@ -122,7 +122,7 @@
             <td>setMapper(mapper)</td>
             <td>
               Allows you to define a mapping function which is used to map various nData actions to 
-              specific store processes to distributed the load between them. More details coming soon...
+              specific broker processes to distributed the load between them. More details coming soon...
             </td>
           </tr>
         </table>

@@ -75,7 +75,7 @@
 var socketCluster = new SocketCluster({
   balancers: 1, // Number of loadbalancer processes to launch
   workers: 1, // Number of worker processes
-  stores: 1, // Number of store processes
+  brokers: 1, // Number of broker processes
   port: 8000, // The port number on which your server should listen
   appName: 'myapp', // A unique name for your app
 
@@ -85,9 +85,9 @@ var socketCluster = new SocketCluster({
   workerController: __dirname + '/worker.js',
 
   /* JS file which you can use to configure each of your 
-   * stores - Useful for scaling horizontally across multiple machines (optional)
+   * brokers - Useful for scaling horizontally across multiple machines (optional)
    */ 
-  storeController: __dirname + '/store.js',
+  brokerController: __dirname + '/broker.js',
 
   /* Maximum number of events a single socket can be subscribed to 
    * (security feature, optional, defaults to 100)
@@ -98,7 +98,7 @@ var socketCluster = new SocketCluster({
   rebootWorkerOnCrash: true
 });</pre>
         <p>
-          It's important to note that SocketCluster runs as a cluster of different kinds of processes; each kind of process has its own 'controller' file which lets you configure each process' behaviour - There is a controller for load balancers, one for workers and one for store processes. The most important one (where most of your application logic should go) is the <code>workerController</code>.
+          It's important to note that SocketCluster runs as a cluster of different kinds of processes; each kind of process has its own 'controller' file which lets you configure each process' behaviour - There is a controller for load balancers, one for workers and one for broker processes. The most important one (where most of your application logic should go) is the <code>workerController</code>.
         </p>
         <h2>And beyond</h2>
         <p>

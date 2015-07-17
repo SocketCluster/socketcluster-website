@@ -12,7 +12,7 @@
         </p>
         <p>
           Note that since SC v2.2.38, this options object can be accessed from any backend process. E.g:
-          socketCluster.options (in master process - server.js), worker.options (in workerController) and store.options (in storeController).
+          socketCluster.options (in master process - server.js), worker.options (in workerController) and broker.options (in brokerController).
         </p>
         <p>
           You can also add custom properties to the options object if you want to pass data to various processes. Just make sure that whatever custom data
@@ -67,8 +67,8 @@
   // Number of worker processes
   workers: 1,
   
-  // Number of store processes
-  stores: 1,
+  // Number of broker processes
+  brokers: 1,
   
   // A unique name for your app (this is used internally for 
   // various things such as the directory name in which to store socket 
@@ -78,13 +78,13 @@
   
   // An ID to associate with this specific instance of SC
   // this may be useful if you are running an SC app on multiple
-  // hosts - You can access the instanceId from the Store object
-  // (inside storeController) - If you don't provide an instanceId,
+  // hosts - You can access the instanceId from the Broker object
+  // (inside brokerController) - If you don't provide an instanceId,
   // SC will generate a random one (UUID v4)
   instanceId: null,
   
   // A key which various SC processes will use to interact with 
-  // nData store processes securely, defaults to a 256 bits 
+  // nData broker processes securely, defaults to a 256 bits 
   // cryptographically random hex string
   secretKey: null,
   
@@ -138,11 +138,11 @@
   // a process after it was passed a 'SIGTERM' signal
   processTermTimeout: 10000,
   
-  // Whether or not errors from child processes (workers and stores)
+  // Whether or not errors from child processes (workers and brokers)
   // should be passed to the current master process
   propagateErrors: true,
   
-  // Whether or not notices from child processes (workers and stores)
+  // Whether or not notices from child processes (workers and brokers)
   // should be passed to the current master process
   propagateNotices: true,
   
@@ -153,19 +153,19 @@
   // The path to a file used to bootstrap worker processes
   workerController: null,
   
-  // The path to a file used to bootstrap store processes
-  storeController: null,
+  // The path to a file used to bootstrap broker processes
+  brokerController: null,
   
-  // A custom options object to attach to your store (can be accessed inside 
-  // storeController file using store.options)
-  storeOptions: null,
+  // A custom options object to attach to your broker (can be accessed inside 
+  // brokerController file using broker.options)
+  brokerOptions: null,
   
   // By default, SC will reboot all workers when it receives a 'SIGUSR2' signal -
   // This can be used for updating workers with fresh source code in production
   rebootOnSignal: true,
   
   // If you run your master process (server.js) as super user, this option
-  // lets you downgrade worker and store processes to run under 
+  // lets you downgrade worker and broker processes to run under 
   // the specified user (with fewer permissions than master) - You can provide 
   // a Linux UID or username
   downgradeToUser: false,
@@ -200,7 +200,7 @@
   workerStatusInterval: 10000,
   
   // The default clustering engine (Node.js module name) which provides the 
-  // SCWorker.global object and manages stores behind the scenes.
+  // SCWorker.global object and manages brokers behind the scenes.
   // You shouldn't need to change this unless you want to build your own
   // process clustering engine (which is difficult to do).
   clusterEngine: 'iocluster'
@@ -212,8 +212,8 @@
             <td>Kills all worker processes managed by SocketCluster. They will respawn by default.</td>
           </tr>
           <tr>
-            <td>killStores()</td>
-            <td>Kills all store processes managed by SocketCluster. They will respawn by default.</td>
+            <td>killBrokers()</td>
+            <td>Kills all broker processes managed by SocketCluster. They will respawn by default.</td>
           </tr>
           <tr>
             <td>log(message, [time])</td>

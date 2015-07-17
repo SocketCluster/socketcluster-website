@@ -25,7 +25,7 @@
               The messages were fully bidirectional - The client sent a 'ping' event containing a JavaScript object (cast to JSON) and the server responded with a 'pong' JavaScript object. That object had a 'count' property to indicate the total number of pings received so far by the current worker.
             </li>
             <li>
-              SocketCluster was setup to use 5 load balancers, 5 workers and 2 stores.
+              SocketCluster was setup to use 5 load balancers, 5 workers and 2 brokers.
             </li>
           </ul>
         </p>
@@ -38,7 +38,7 @@
             The processes settings were poorly tuned in the previous benchmark &mdash; It's wasteful to use many more processes than you have CPU cores.
           </li>
           <li>
-            Using fewer processes resulted in a very healthy load average of 3.33 (out of a possible 8). We could probably have pushed well past 200K connections with our current setup. The setup of 5 load balancer, 5 workers and 2 stores is still not ideal - Maybe one more worker process would have brought the perfect balance?
+            Using fewer processes resulted in a very healthy load average of 3.33 (out of a possible 8). We could probably have pushed well past 200K connections with our current setup. The setup of 5 load balancer, 5 workers and 2 brokers is still not ideal - Maybe one more worker process would have brought the perfect balance?
           </li>
         </ul>
         <h3>Screenshot</h3>
@@ -65,7 +65,7 @@
             A standard browser (Chrome) was connected to the SC server remotely (sending pings occasionally) to check that the service was still performant in real terms throughout the whole test (also used to check the growing ping count over time).
           </li>
           <li>
-            SocketCluster was setup to run with 4 load balancers, 3 workers and 1 store.
+            SocketCluster was setup to run with 4 load balancers, 3 workers and 1 broker.
           </li>
         </ul>
         <h3>Observations</h3>
@@ -77,7 +77,7 @@
             Once connections settled at 42K, the CPU use of the busiest worker dropped to around 45%
           </li>
           <li>
-            The store didn't do much work - In reality only 7 CPU cores were fully exploited.
+            The broker didn't do much work - In reality only 7 CPU cores were fully exploited.
           </li>
           <li>
             The load average was under 2 (out of a possible 8), so there was plenty of room for more users.

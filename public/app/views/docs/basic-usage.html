@@ -19,11 +19,11 @@ var SocketCluster = require('socketcluster').SocketCluster;
 
 var socketCluster = new SocketCluster({
   workers: 1,
-  stores: 1,
+  brokers: 1,
   port: 8000,
   appName: 'app',
   workerController: __dirname + '/worker.js',
-  storeController: __dirname + '/store.js',
+  brokerController: __dirname + '/broker.js',
   socketChannelLimit: 1000,
   rebootWorkerOnCrash: true
 });</pre>
@@ -39,7 +39,7 @@ var socketCluster = new SocketCluster({
         <p>
           This is where all your business logic should go - The workerController lets you setup the logic for your HTTP server and your realtime SocketClusterServer for handling realtime socket connections and events.
         </p>
-        <h3>Stores</h3>
+        <h3>Brokers</h3>
         <p>
           This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.	  
         </p>

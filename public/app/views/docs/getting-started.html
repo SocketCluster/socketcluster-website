@@ -33,18 +33,15 @@
         <pre class="prettyprint">sc1 create myApp</pre>
         
         <p>
-          SC2 is fully backwards and forwards compatible with SC1 (at the API layer for both the client and server),
+          SC2 is backwards compatible with SC1 (at the API layer for both the client and server),
           but SC2 is leaner, more efficient and scales better (no need for sticky load balancing).
-          The downside of SC2 is that it doesn't support HTTP polling fallbacks so it may not be an option 
-          if older browsers need to be supported.
+          The downside of SC2 is that it doesn't support HTTP polling fallbacks.
         </p>
-        
         <p>
-          If you like, you could run SC1 and SC2 alongside each other and send your old browsers to your SC1 server
-          and new browsers to your SC2 server - With this approach, you'll have to make sure that you do not mix and match different client and server 
-          versions since SC1/SC2 servers/clients are not compatible at the lowest protocol layer.
-          The upside to using both SC1 and SC2 concurrently is that as WebSocket adoption increases over time, you will
-          be able to progressively scale back your number of SC1 server instances without having to change any of your code.
+          Note that SC1 and SC2 also have a few API differences when dealing with authentication. SC1 doesn't expose an authenticate()
+          method on the client-side (for client-initiated authentication). It also doesn't let you swap out authentication engines.
+          In SC1, you need to listen for a 'status' event to check the client's isAuthenticated state. As of June 2015, SC1 and SC2 have started to
+          diverge so we strongly recommend that you use SC2.
         </p>
         
         <h2>Serving SocketCluster</h2>
@@ -73,7 +70,6 @@
         <p>Here is a sample <code>server.js</code> file (with comments):</p>
         <pre class="prettyprint">var SocketCluster = require('socketcluster').SocketCluster;
 var socketCluster = new SocketCluster({
-  balancers: 1, // Number of loadbalancer processes to launch
   workers: 1, // Number of worker processes
   brokers: 1, // Number of broker processes
   port: 8000, // The port number on which your server should listen
@@ -88,11 +84,6 @@ var socketCluster = new SocketCluster({
    * brokers - Useful for scaling horizontally across multiple machines (optional)
    */ 
   brokerController: __dirname + '/broker.js',
-
-  /* Maximum number of events a single socket can be subscribed to 
-   * (security feature, optional, defaults to 100)
-   */
-  socketEventLimit: 100,
 
   // Whether or not to reboot the worker in case it crashes (defaults to true)
   rebootWorkerOnCrash: true

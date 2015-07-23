@@ -29,8 +29,8 @@
           </li>
           <li>
             Unlike other engines which you can attach to an existing Node.js HTTP server, SC takes responsibility for creating the necessary
-            HTTP server(s) and launching itself as a cluster of worker and broker processes which you can control independently. SC lets you specify
-            the entry point for these processes (I.e. using the workerController and brokerController options).
+            HTTP server(s) and launching itself as a cluster of worker and broker processes. SC lets you specify
+            the entry point for these processes (I.e. you can provide paths to the the source files using the workerController and brokerController options).
           </li>
           <li>
             Most other solutions don't support pub/sub channels which are necessary when building a scalable realtime application.

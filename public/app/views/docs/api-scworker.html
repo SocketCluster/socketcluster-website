@@ -67,6 +67,15 @@
             <td>'ready'</td>
             <td>This signals that the worker is ready to accept requests from users.</td>
           </tr>
+          <tr>
+            <td>'masterMessage'</td>
+            <td>
+              Emitted when the master process sends a message to this worker.
+              The only parameter passed to the handler is the object/message from master.
+              See sendToWorker() method in <a href="/#!/docs/api-socketcluster">master SocketCluster API</a> for details on how
+              to send a message to a worker from the master process.
+            </td>
+          </tr>
         </table>
         
         <h3>Methods:</h3>
@@ -95,6 +104,14 @@
               The provided auth engine will become accessible from the 'worker.auth' property inside your workerController (worker.js).
               The provided authEngine needs to provide a 'verifyToken' and a 'signToken' method - See the 
               <a href="https://github.com/SocketCluster/socketcluster/blob/master/lib/auth.js">default engine</a> for details.
+            </td>
+          </tr>
+          
+          <tr>
+            <td>sendToMaster(data)</td>
+            <td>
+              Send some data to the master process from this worker. You can handle this message from inside the master process by listening for the 
+              'workerMessage' event. See <a href="/#!/docs/api-socketcluster">here</a> for more details.
             </td>
           </tr>
           

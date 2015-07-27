@@ -51,6 +51,15 @@
             <td>'worker'</td>
             <td>Emitted whenever a worker is launched. This event's handler can take a worker object as argument (which is a handle to the worker child process). This worker object has an id property (the lead worker will always have id 0).</td>
           </tr>
+          <tr>
+            <td>'workerMessage'</td>
+            <td>
+              Emitted when a worker process sends a message to this master process.
+              The first parameter passed to the handler is the workerId, the second parameter is the data/object provided by the worker.
+              See sendToMaster() method in <a href="/#!/docs/api-scworker">SCWorker API</a> for details on how
+              to send a message to master from inside a worker process.
+            </td>
+          </tr>
         </table>
 
         <h3>Methods:</h3>
@@ -205,6 +214,13 @@
   // process clustering engine (which is difficult to do).
   clusterEngine: 'iocluster'
 }</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>sendToWorker(workerId, data)</td>
+            <td>
+              Send some data to a specific worker process from master. You can handle this message from inside the worker process by listening for the 
+              'masterMessage' event. See <a href="/#!/docs/api-scworker">here</a> for more details.
             </td>
           </tr>
           <tr>

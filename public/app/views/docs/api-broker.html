@@ -104,6 +104,15 @@
               when you call worker.global.publish(...) from the worker process.
             </td>
           </tr>
+          <tr>
+            <td>'masterMessage'</td>
+            <td>
+              Emitted when the master process sends a message to this broker.
+              The only parameter passed to the handler is the object/message sent from master.
+              See sendToBroker() method in <a href="/#!/docs/api-socketcluster">master SocketCluster API</a> for details on how
+              to send a message to a broker from the master process.
+            </td>
+          </tr>
         </table>
         
         <h3>Methods:</h3>
@@ -124,6 +133,13 @@
             <td>run(query)</td>
             <td>
               Execute a query function on the current broker. See <a href="http://github.com/SocketCluster/ndata">http://github.com/SocketCluster/ndata</a> for details.
+            </td>
+          </tr>
+          <tr>
+            <td>sendToMaster(data)</td>
+            <td>
+              Send some data to the master process from this broker. You can handle this message from inside the master process by listening for the 
+              'brokerMessage' event. See <a href="/#!/docs/api-socketcluster">here</a> for more details.
             </td>
           </tr>
         </table>

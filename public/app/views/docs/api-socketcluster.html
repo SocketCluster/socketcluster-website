@@ -114,6 +114,11 @@
   // in production but can be turned off for debugging
   rebootWorkerOnCrash: true,
   
+  // Kill/respawn a worker process if its memory consumption exceeds this
+  // threshold (in bytes) - If this is null (default), this behavior
+  // will be switched off
+  killWorkerMemoryThreshold: null,
+  
   // Can be 'http' or 'https'
   protocol: 'http',
   

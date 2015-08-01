@@ -169,6 +169,10 @@
   // should be passed to the current master process
   propagateNotices: true,
   
+  // Whether or not a 'notice' event should be emitted (and logged to console)
+  // whenever an action is blocked by a middleware function
+  middlewareEmitNotices: true,
+  
   // Lets you specify a host name to bind to - Defaults to 
   // 127.0.0.1 (localhost)
   host: null,

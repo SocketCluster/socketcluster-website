@@ -72,6 +72,15 @@
               an socket (SCSocket) object as argument which can be used to interact with that client.
             </td>
           </tr>
+          <tr>
+            <td>'badSocketAuthToken'</td>
+            <td>
+              Emitted when a client tries to authenticate itself with an invalid (or expired) token.
+              The first argument passed along with this event is the SCSocket object, and the second one is the JWT error object.
+              This error object has an additional ecryptedAuthToken property which holds the encrypted token
+              which failed the verification step.
+            </td>
+          </tr>
         </table>
         
         <h3>Methods:</h3>

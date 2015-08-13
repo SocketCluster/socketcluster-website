@@ -7,17 +7,18 @@
       <div class="docs-content">
         <h1>API - socketCluster (Client)</h1>
         <p>
-          This is the root standalone object for the SocketCluster client library - You can use it to create socket connections which
-          you can use to interact with the server in realtime.
+          This is the root standalone object for the SocketCluster client library - You can
+          use it to create socket connections which you can use to interact with
+          the server in realtime.
         </p>
-        
+
         <h3>Properties:</h3>
         <table class="table">
           <tr>
             <td>version</td>
             <td>The SC client version number.</td>
           </tr>
-        </table> 
+        </table>
 
         <h3>Methods:</h3>
         <table class="table">
@@ -26,15 +27,47 @@
               connect([options])
             </td>
             <td>
-              Creates and returns a new socket connection to the specified host (or origin if not specified).
-              The options argument is optional - If omitted, the socket will try to connect to the origin server on the current port.
-              For cross domain requests, a typical options object might look like this (example over HTTPS/WSS):
+              Creates and returns a new socket connection to the specified host (or origin if not
+              specified). The options argument is optional - If omitted, the socket
+              will try to connect to the origin server on the current port. For cross
+              domain requests, a typical options object might look like this (example
+              over HTTPS/WSS):
               <pre class="prettyprint">
 {
   hostname: 'securedomain.com',
   secure: true,
   port: 443
 }</pre>
+
+              <p>Here are some properties that you can provide to the options object:</p>
+              <ul>
+                <li><b>hostname:</b> String - Defaults to the current host (ready from
+                  the URL).</li>
+                <li><b>secure:</b> Boolean - Defaults to false</li>
+                <li><b>port</b>: Number - Defaults to 80 if !secure otherwise defaults
+                  to 443.</li>
+                <li><b>path</b>: String - The URL which SC uses to make the initial handshake
+                  for the WebSocket. Defaults to '/socketcluster/'.</li>
+                <li><b>ackTimeout</b>: Number (milliseconds) - This is the timeout for
+                  getting a response to a SCSocket emit event (when a callback is
+                  provided).</li>
+                <li><b>autoReconnect</b>: Boolean - Whether or not to automatically reconnect
+                  the socket when it loses the connection.</li>
+                <li><b>autoReconnectOptions</b>: Object - Valid properties are: initialDelay
+                  (milliseconds), randomness (milliseconds), multiplier (decimal;
+                  default is 1.5) and maxDelay (milliseconds).</li>
+                <li><b>timestampRequests</b>: Boolean - Whether or not to add a timestamp
+                  to the WebSocket handshake request.</li>
+                <li><b>timestampParam</b>: String - The query parameter name to use to
+                  hold the timestamp.</li>
+                <li><b>authEngine</b>: Object - A custom engine to use for storing and
+                  loading JWT auth tokens on the client side.</li>
+                <li><b>authTokenName</b>: String - The name of the JWT auth token (provided
+                  to the authEngine - By default this is the localStorage variable
+                  name); defaults to 'socketCluster.authToken'.</li>
+                <li><b>binaryType</b>: String - The type to use to represent binary on
+                  the client. Defaults to 'arraybuffer'.</li>
+              </ul>
             </td>
           </tr>
         </table>

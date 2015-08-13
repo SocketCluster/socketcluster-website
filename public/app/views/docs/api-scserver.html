@@ -7,29 +7,38 @@
       <div class="docs-content">
         <h1>API - SCServer</h1>
         <p>
-        This instance is returned from the call to worker.getSCServer().
-        It represents your realtime (WebSocket) server object which you can use to listen for incoming realtime socket connections.
-        This object inherits from engine.io's Server object so you have access to all the properties and methods of an engine.io server
-        but with some additions.
+          This instance is returned from the call to worker.getSCServer(). It represents your
+          realtime (WebSocket) server object which you can use to listen for incoming
+          realtime socket connections. This object inherits from engine.io's Server
+          object so you have access to all the properties and methods of an engine.io
+          server but with some additions.
         </p>
-        
+
         <h3>Inherits from:</h3>
         <p>
           <a href="https://github.com/component/emitter">Emitter</a>
         </p>
-        
+
         <h3>Properties:</h3>
         <table class="table">
           <tr>
             <td>global</td>
             <td>
               A top-level nData client which lets you publish and manipulate data within your brokers.
-              (See API section on Global object for details)
+              (See API section on Global object for details).
+            </td>
+          </tr>
+          <tr>
+            <td>clients</td>
+            <td>
+              An object which holds all connected clients in the current worker. Keys are socket
+              IDs and the values are SCSocket instances.
             </td>
           </tr>
           <tr>
             <td>sourcePort</td>
-            <td>The public port on which clients connect to SocketCluster (e.g. 80 for HTTP)</td>
+            <td>The public port on which clients connect to SocketCluster (e.g. 80 for
+              HTTP).</td>
           </tr>
           <tr>
             <td>secure</td>
@@ -42,12 +51,14 @@
           <tr>
             <td>ackTimeout</td>
             <td>
-              The timeout in milliseconds in which clients have to receive a response to events which require acknowledgement.
-              For example, when you provide a callback to socket.emit() on the client (it will expect a response from the server).
+              The timeout in milliseconds in which clients have to receive a response to events
+              which require acknowledgement. For example, when you provide a callback
+              to socket.emit() on the client (it will expect a response from the
+              server).
             </td>
           </tr>
         </table>
-        
+
         <h3>Events:</h3>
         <table class="table">
           <tr>
@@ -61,73 +72,77 @@
           <tr>
             <td>'handshake'</td>
             <td>
-              Emitted as soon as a new SCSocket object is created on the server - This occurs at the beginning of the 
-              client handshake, before the 'connection' event. You should not try to send events to the socket while it is in this state.
+              Emitted as soon as a new SCSocket object is created on the server - This occurs at
+              the beginning of the client handshake, before the 'connection' event.
+              You should not try to send events to the socket while it is in this
+              state.
             </td>
           </tr>
           <tr>
             <td>'connection'</td>
             <td>
-              Emitted whenever a new socket connection is established. The listener to this event receives 
-              an socket (SCSocket) object as argument which can be used to interact with that client.
+              Emitted whenever a new socket connection is established. The listener to this event
+              receives an socket (SCSocket) object as argument which can be used
+              to interact with that client.
             </td>
           </tr>
           <tr>
             <td>'badSocketAuthToken'</td>
             <td>
               Emitted when a client tries to authenticate itself with an invalid (or expired) token.
-              The first argument passed along with this event is the SCSocket object, and the second one is the JWT error object.
-              This error object has an additional ecryptedAuthToken property which holds the encrypted token
+              The first argument passed along with this event is the SCSocket object,
+              and the second one is the JWT error object. This error object has an
+              additional ecryptedAuthToken property which holds the encrypted token
               which failed the verification step.
             </td>
           </tr>
         </table>
-        
+
         <h3>Methods:</h3>
         <table class="table">
           <tr>
             <td>addMiddleware(type, middlewareFn)</td>
             <td>
               <p>
-                Lets you add middleware functions which can be used to manage client access control to various features of the SCServer.
-                This is useful for monitoring realtime data flows and also to block access to restricted channels and resources.
-                Note that only actions from clients pass through middleware. Server-side calls to scServer.global.publish() do not.
+                Lets you add middleware functions which can be used to manage client access control
+                to various features of the SCServer. This is useful for monitoring
+                realtime data flows and also to block access to restricted channels
+                and resources. Note that only actions from clients pass through middleware.
+                Server-side calls to scServer.global.publish() do not.
               </p>
               <ul>
-                <li><h5>type</h5>
+                <li>
+                  <h5>type</h5>
                   <p>
-                  A string representing the type of middleware to use, can be:
+                    A string representing the type of middleware to use, can be:
                   </p>
                   <br />
                   <table class="table">
                     <tr>
                       <td>
-                        scServer.MIDDLEWARE_HANDSHAKE - 'handshake' -
-                        This middleware function is run before a connection is established during handshake stage.
+                        scServer.MIDDLEWARE_HANDSHAKE - 'handshake' - This middleware function is run before
+                        a connection is established during handshake stage.
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        scServer.MIDDLEWARE_SUBSCRIBE - 'subscribe' - 
-                        For all client subscribe() actions.
+                        scServer.MIDDLEWARE_SUBSCRIBE - 'subscribe' - For all client subscribe() actions.
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        scServer.MIDDLEWARE_PUBLISH_IN - 'publishIn' - 
-                        For all inbound client publish() actions.
+                        scServer.MIDDLEWARE_PUBLISH_IN - 'publishIn' - For all inbound client publish() actions.
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        scServer.MIDDLEWARE_PUBLISH_OUT - 'publishOut' - 
-                        For all outbound client publish() actions. This gets run once for each subscribed client.
+                        scServer.MIDDLEWARE_PUBLISH_OUT - 'publishOut' - For all outbound client publish()
+                        actions. This gets run once for each subscribed client.
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        scServer.MIDDLEWARE_EMIT - 'emit' - 
-                        For all client emit() actions.
+                        scServer.MIDDLEWARE_EMIT - 'emit' - For all client emit() actions.
                       </td>
                     </tr>
                   </table>
@@ -135,9 +150,10 @@
                 <li>
                   <h5>middlewareFn</h5>
                   <p>
-                    A middleware function which can be used to monitor realtime interactions and/or to block unauthorized client actions before they
-                    reach the server.
-                    Middleware functions accept different arguments depending on the specified middleware type:
+                    A middleware function which can be used to monitor realtime interactions and/or to
+                    block unauthorized client actions before they reach the server.
+                    Middleware functions accept different arguments depending on
+                    the specified middleware type:
                   </p>
                   <table class="table">
                     <tr>
@@ -146,7 +162,8 @@
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_SUBSCRIBE</td>
-                      <td>middlewareFn(socket, channel, next)</td>
+                      <td>middlewareFn(socket, channel, next)
+                      </td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_PUBLISH_IN</td>
@@ -164,10 +181,10 @@
                 </li>
               </ul>
               <p>
-              <h5>Example:</h5>
-              <p>
-                <a href="#!/docs/middleware-and-authorization">Middleware and authorization</a>
-              </p>
+                <h5>Example:</h5>
+                <p>
+                  <a href="#!/docs/middleware-and-authorization">Middleware and authorization</a>
+                </p>
             </td>
           </tr>
           <tr>
@@ -178,7 +195,7 @@
               </p>
             </td>
           </tr>
-        </table> 
+        </table>
       </div>
     </div>
   </div>

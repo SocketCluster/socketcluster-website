@@ -7,22 +7,24 @@
       <div class="docs-content">
         <h1>API - Session (nData) [REMOVED v1.3.0]</h1>
         <p>
-          Note that this object no longer exists as of SocketCluster v1.3.0. Authentication is now managed using JWT tokens. See <a href="#!/docs/api-scsocket-server">SCSocket (server)</a>.
+          Note that this object no longer exists as of SocketCluster v1.3.0. Authentication
+          is now managed using JWT tokens. See <a href="#!/docs/api-scsocket-server">SCSocket (server)</a>.
         </p>
         <p>
           Can be accessed using socket.session property.
         </p>
         <p>
-          The session object is a session-scoped nData client which lets you manipulate session data within a store. It does not
-          let you do pub/sub - For this purpose, you need to use the scWorker.global object instead.
-          You can use any (non-pub/sub) method of an nData client on instances of this object: <a href="https://github.com/SocketCluster/ndata">https://github.com/SocketCluster/ndata</a>
+          The session object is a session-scoped nData client which lets you manipulate session
+          data within a store. It does not let you do pub/sub - For this purpose,
+          you need to use the scWorker.global object instead. You can use any (non-pub/sub)
+          method of an nData client on instances of this object: <a href="https://github.com/SocketCluster/ndata">https://github.com/SocketCluster/ndata</a>
         </p>
-        
+
         <h3>Inherits from:</h3>
         <p>
           <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
         </p>
-        
+
         <h3>Properties:</h3>
         <table class="table">
           <tr>
@@ -38,7 +40,7 @@
             </td>
           </tr>
         </table>
-        
+
         <h3>Methods:</h3>
         <table class="table">
           <tr>
@@ -50,24 +52,28 @@
           <tr>
             <td>transmit(event, data)</td>
             <td>
-              Emits an event to all sockets which belong to the current session except the socket to which the session is currently bound.
+              Emits an event to all sockets which belong to the current session except the socket
+              to which the session is currently bound.
             </td>
           </tr>
           <tr>
             <td>kickOut([channel, message, callback])</td>
             <td>
-              All sockets which are part of the current session will be unsubscribed from the specified channel.
-              All arguments are optional - If no channel name is provided, it will unsubscribe this session's sockets from ALL channels.
-              In addition, all client-side sockets will emit a 'kickOut' event and a 'dropOut' event to signify that
-              the socket was kicked out of the channel and has dropped out of further messages.
-              Note that this doesn't prevent the client from resubscribing to that channel later. You will need to update your middleware
-              if you want to achieve this.
+              All sockets which are part of the current session will be unsubscribed from the specified
+              channel. All arguments are optional - If no channel name is provided,
+              it will unsubscribe this session's sockets from ALL channels. In addition,
+              all client-side sockets will emit a 'kickOut' event and a 'dropOut'
+              event to signify that the socket was kicked out of the channel and
+              has dropped out of further messages. Note that this doesn't prevent
+              the client from resubscribing to that channel later. You will need
+              to update your middleware if you want to achieve this.
             </td>
           </tr>
           <tr>
             <td>getSockets()</td>
             <td>
-              Returns an Object whose properties are socket IDs and associated values are socket objects.
+              Returns an Object whose properties are socket IDs and associated values are socket
+              objects.
             </td>
           </tr>
         </table>

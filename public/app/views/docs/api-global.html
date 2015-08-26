@@ -119,6 +119,17 @@
             </td>
           </tr>
           <tr>
+            <td>run(queryFn,[data,] callback)</td>
+            <td>
+              This method is a wrapper around the <a href="https://github.com/SocketCluster/ndata#run">nData run</a> method.
+              The queryFn function will be executed directly on one of your brokers and the result will be passed back to your callback.
+              If your SC instance has more than one broker, they queryFn will be executed on the first one by default - In order to spread
+              the load evenly between all your brokers, you should add a <b>mapIndex</b> key to your queryFn before you pass it to the run method.
+              For example, if you wanted to map to a specific broker based on a string stored in channelName you would just go: queryFn.mapIndex = channelName;
+              then you just pass it to global.run(queryFn, ...) as normal.
+            </td>
+          </tr>
+          <tr>
             <td>setMapper(mapper)</td>
             <td>
               Allows you to define a mapping function which is used to map various nData actions to 

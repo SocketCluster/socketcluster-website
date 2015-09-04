@@ -93,7 +93,7 @@ nav#docs a {
 
 .header-container {
   background: url('../img/cloud_mountain.jpg') no-repeat 50% 0;
-  background-size: 100% auto;
+  background-size: cover;
   background-position: center 35%;
 }
 

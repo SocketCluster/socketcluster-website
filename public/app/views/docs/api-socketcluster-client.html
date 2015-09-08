@@ -36,7 +36,8 @@
 {
   hostname: 'securedomain.com',
   secure: true,
-  port: 443
+  port: 443,
+  rejectUnauthorized: false // Only necessary during debug if using a self-signed certificate
 }</pre>
 
               <p>Here are some properties that you can provide to the options object:</p>
@@ -67,6 +68,8 @@
                   name); defaults to 'socketCluster.authToken'.</li>
                 <li><b>binaryType</b>: String - The type to use to represent binary on
                   the client. Defaults to 'arraybuffer'.</li>
+                <li><b>rejectUnauthorized</b>: Boolean - Set this to false during
+                  debugging - Otherwise client connection will fail when using self-signed certificates.</li>
               </ul>
             </td>
           </tr>

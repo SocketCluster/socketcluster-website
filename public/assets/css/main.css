@@ -111,7 +111,7 @@ nav#docs a {
   margin-top:9px;
   margin-bottom: 9px;
 }
-.nav>li>a:hover, 
+.nav>li>a:hover,
 .nav>li>a:focus {
   background-color: transparent;
 }
@@ -204,7 +204,7 @@ ul.features-list li {
     font-size: 30px;
   }
   .sc-server-img {
-    margin: 45px auto; 
+    margin: 45px auto;
   }
 }
 
@@ -303,4 +303,8 @@ position: relative;
 
 .page-index .header-technical-features {
   margin-bottom: 30px;
+}
+
+.list li {
+  margin-bottom: 1em;
 }

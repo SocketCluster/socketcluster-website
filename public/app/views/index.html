@@ -1,13 +1,12 @@
 <div class="page-index">
   <div class="header-container jumbotron">
     <div class="container">
-      <h1>An open source framework to build your own <strong><em>scalable</em></strong> realtime apps and microservices.</h1>
+      <h1>A <strong><em>scalable</em></strong> framework for realtime apps and microservices.</h1>
       <p><a class="btn btn-primary btn-lg get-started-button" role="button" href="/#!/docs/getting-started">Get Started</a></p>
     </div>
   </div>
 
   <div class="container">
-    <div feel-demo></div>
     <div class="row">
       <div class="col-md-6">
         <h2 class="header-light regular-pad">What is SocketCluster?</h2>
@@ -19,36 +18,37 @@
         <img src="../assets/img/cloud.png" alt="" class="large-pad sc-server-img">
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-md-12">
         <h2 class="header-light regular-pad">How does it compare to other realtime engines like Socket.io, SockJS, etc?</h2>
-        <ul>
+        <ul class="list">
           <li>
-            SocketCluster is a complete, configurable and extendable realtime framework - Not just a transport.
+            SocketCluster is a complete, configurable and extendable realtime framework - Not just a transport layer.
+            SC is a realtime framework to the same extent that Angular is a front-end framework and Express is an HTTP/REST framework.
           </li>
           <li>
             Unlike other engines which you can attach to an existing Node.js HTTP server, SC takes responsibility for creating the necessary
-            HTTP server(s) and launching itself as a local cluster of worker and broker processes. SC lets you specify
-            the entry point for these processes (I.e. you can provide paths to the the source files using the workerController and brokerController options).
+            HTTP server(s) and launching itself as a local cluster (bipartite graph) of worker and broker processes.
           </li>
           <li>
-            SocketCluster supports pub/sub channels which are necessary when building a scalable realtime application.
+            SocketCluster supports pub/sub channels which are ideal for passively consuming data from the server in realtime.
           </li>
           <li>
-            Other solutions typically don't handle failures for you (especially process failures).
-            You could use a process manager, but it won't be able to effectively coordinate respawn behaviours between your processes - 
-            This is because process managers treat each process in a generic way without any regard to the interactions between them.
+            Realtime engines are vulnerable of failure.
+            With a realtime engine, you will have to do a lot of work to effectively handle lost connections and coordinate respawn behaviours between your processes.
             For example, you need to figure out how reconnect, reauthenticate and resubscribe users to channels which were temporarily lost as a result of failure.
-            While building SC, we identified some flows of interactions which worked really well but these required coordination between broker and worker processes.
+            SC adds an element of management and coordination to your realtime stack.
           </li>
           <li>
             In short - Providing a realtime service that 'just works' in all cases is difficult - That is the problem which SocketCluster aims to solve.
-            SocketCluster provides a fully functional and scalable realtime microservice but nothing else.
+            SocketCluster provides a fully functional and scalable realtime microservice out of the box.
           </li>
         </ul>
       </div>
     </div>
+
+    <div feel-demo></div>
 
     <hr>
 

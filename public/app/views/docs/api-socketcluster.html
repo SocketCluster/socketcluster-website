@@ -183,6 +183,9 @@
   // The path to a file used to bootstrap broker processes
   brokerController: null,
   
+  // The path to a file used to bootstrap either worker or broker process.
+  initController: null,
+  
   // A custom options object to attach to your broker (can be accessed inside 
   // brokerController file using broker.options)
   brokerOptions: null,
@@ -261,6 +264,49 @@
             <td>Log a message internally, time is optional. You generally don't need to call this - It's mostly used internally by SC.</td>
           </tr>
         </table>
+        <h3>Note about <code>options.initController</code></h3>
+        <p>
+          The <code>options.initController</code> is a module that is to be ran before the worker or broker process start. 
+          It is therefore very important to know, that both the <code>broker</code> and <code>worker</code> object both have a property named <code>type</code>.
+          This property allows you to know what kind of process you are bootstrapping, in case you wanted to know.
+        </p>
+        <p>
+          The <code>initController</code> can be used to allow custom scripting languages to be used within SocketCluster. The following example illustrates usage of such with CoffeeScript:
+          <pre class="prettyprint">
+// entry.js : We start SocketCluster here.
+var SC = new SocketCluster({
+  // ... options ...
+  initController: "./init.js",
+  workerController: "./worker.coffee",
+  brokerController: "./broker.coffee"
+});
+
+// init.js : This script runs on all processes, before they start.
+//           In here, we modify the global namespace, so that SocketCluster can require our .coffee files.
+module.exports.run = function(thisProcess) {
+  require("coffee-script/register");
+}
+
+// worker.coffee : An example CoffeeScript that runs a basic server.
+module.exports.run = (worker) ->
+  server = worker.getHTTPServer()
+  server.on "request", (req, res) ->
+    console.log req.method, req.url
+    data = 'hi\n'
+    res.writeHead 200,
+      'Content-Type':     'text/plain'
+      'Content-Length':   data.length
+    res.end data
+
+// broker.coffee : Just a simple worker.
+module.exports.run = (broker) ->
+  console.log "Broker on : ", process.pid
+          </pre>
+        </p>
+        <p>
+          As you can see, we can access the process object and modify the global environment.
+          If you decide to use this feature, please be aware that you are intercepting the current environment in which also SocketCluster runs.
+        </p>
       </div>
     </div>
   </div>

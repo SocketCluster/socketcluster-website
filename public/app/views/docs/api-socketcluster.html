@@ -16,7 +16,7 @@
         </p>
         <p>
           You can also add custom properties to the options object if you want to pass data to various processes. Just make sure that whatever custom data
-          you provide can be serialized to JSON (so you can't pass functions around - However, you can provide a module name as a string and 
+          you provide can be serialized to JSON (so you can't pass functions around - However, you can provide a module name as a string and
           require() the module from inside the target process).
         </p>
 
@@ -32,7 +32,7 @@
             <td>Internal options object which defines the behaviour of SC.</td>
           </tr>
         </table>
-          
+
         <h3>Events:</h3>
         <table class="table">
           <tr>
@@ -81,152 +81,155 @@
               <pre class="prettyprint">{
   // The port on which to listen for outside connections/requests
   port: 8000,
-  
+
   // Number of worker processes
   workers: 1,
-  
+
   // Number of broker processes
   brokers: 1,
-  
-  // A unique name for your app (this is used internally for 
-  // various things such as the directory name in which to store socket 
+
+  // A unique name for your app (this is used internally for
+  // various things such as the directory name in which to store socket
   // file descriptors) - If you don't provide an appName, SC will
   // generate a random one (UUID v4)
   appName: null,
-  
+
   // An ID to associate with this specific instance of SC
   // this may be useful if you are running an SC app on multiple
   // hosts - You can access the instanceId from the Broker object
   // (inside brokerController) - If you don't provide an instanceId,
   // SC will generate a random one (UUID v4)
   instanceId: null,
-  
-  // A key which various SC processes will use to interact with 
-  // nData broker processes securely, defaults to a 256 bits 
+
+  // A key which various SC processes will use to interact with
+  // nData broker processes securely, defaults to a 256 bits
   // cryptographically random hex string
   secretKey: null,
-  
+
   // The key which SC will use to encrypt/decrypt authTokens, defaults
   // to a 256 bits cryptographically random hex string
   authKey: null,
-  
+
   // Reboot workers when they crash - This is a necessity
   // in production but can be turned off for debugging
   rebootWorkerOnCrash: true,
-  
+
   // Kill/respawn a worker process if its memory consumption exceeds this
   // threshold (in bytes) - If this is null (default), this behavior
   // will be switched off
   killWorkerMemoryThreshold: null,
-  
+
   // Can be 'http' or 'https'
   protocol: 'http',
-  
+
   // This is the same as the object provided to Node.js's https server
   protocolOptions: null,
-  
+
   // A log level of 3 will log everything, 2 will show notices and errors,
   // 1 will only log errors, 0 will log nothing
   logLevel: 2,
-  
+
   // In milliseconds, how long a client has to connect to SC before timing out
   connectTimeout: 10000,
-  
-  // In milliseconds, the timeout for calling res.end() or res.error() when 
+
+  // In milliseconds, the timeout for calling res.end() or res.error() when
   // your emit() call expects an ACK response from the other side
   // (when callback is provided to emit)
   ackTimeout: 10000,
-  
-  // In milliseconds - If the socket cannot upgrade transport 
+
+  // In milliseconds - If the socket cannot upgrade transport
  // within this period, it will stop trying
   socketUpgradeTimeout: 1000,
-  
+
   // Origins which are allowed to connect to the realtime scServer
   origins: '*:*',
-  
-  // The maximum number of unique channels which a single 
+
+  // The maximum number of unique channels which a single
   // socket can subscribe to
   socketChannelLimit: 1000,
-  
+
   // The interval in milliseconds on which to
   // send a ping to the client to check that
   // it is still alive
   pingInterval: 25000,
-  
+
   // How many milliseconds to wait without receiving a ping
   // before closing the socket
   pingTimeout: 60000,
-  
-  // Maximum amount of milliseconds to wait before force-killing 
+
+  // Maximum amount of milliseconds to wait before force-killing
   // a process after it was passed a 'SIGTERM' signal
   processTermTimeout: 10000,
-  
+
   // Whether or not errors from child processes (workers and brokers)
   // should be passed to the current master process
   propagateErrors: true,
-  
+
   // Whether or not notices from child processes (workers and brokers)
   // should be passed to the current master process
   propagateNotices: true,
-  
+
   // Whether or not a 'notice' event should be emitted (and logged to console)
   // whenever an action is blocked by a middleware function
   middlewareEmitNotices: true,
-  
-  // Lets you specify a host name to bind to - Defaults to 
+
+  // Lets you specify a host name to bind to - Defaults to
   // 127.0.0.1 (localhost)
   host: null,
-  
+
   // The path to a file used to bootstrap worker processes
   workerController: null,
-  
+
   // The path to a file used to bootstrap broker processes
   brokerController: null,
-  
-  // A custom options object to attach to your broker (can be accessed inside 
+
+  // The path to a file used to bootstrap either worker or broker process.
+  initController: null,
+
+  // A custom options object to attach to your broker (can be accessed inside
   // brokerController file using broker.options)
   brokerOptions: null,
-  
+
   // By default, SC will reboot all workers when it receives a 'SIGUSR2' signal -
   // This can be used for updating workers with fresh source code in production
   rebootOnSignal: true,
-  
+
   // If you run your master process (server.js) as super user, this option
-  // lets you downgrade worker and broker processes to run under 
-  // the specified user (with fewer permissions than master) - You can provide 
+  // lets you downgrade worker and broker processes to run under
+  // the specified user (with fewer permissions than master) - You can provide
   // a Linux UID or username
   downgradeToUser: false,
-  
+
   // The URL path reserved by SocketCluster clients to interact with the server
   path: '/socketcluster',
-  
+
   // The root directory in which to store your socket files in Linux.
   socketRoot: null,
-  
+
   // Defaults to "none", but can be set to "rr" - "none" is more scalable,
-  // but it may perform worse on some systems when there are few CPU 
+  // but it may perform worse on some systems when there are few CPU
   // cores and worker processes
   schedulingPolicy: 'none',
-  
+
   // Whether or not clients are allowed to publish messages to channels
   allowClientPublish: true,
-  
+
   // The default expiry for auth tokens
   defaultAuthTokenExpiryInMinutes: 1440,
-  
+
   // By default, when you send a 'kill -SIGUSR2' signal to the master process,
   // it will reboot all workers, you can turn this behavior off by setting this
   // option to false
   rebootOnSignal: true,
-  
+
   // This option is passed to the Node.js HTTP server if provided
   tcpSynBacklog: null,
-  
-  // SC keeps track of request per minutes internally - This allows you to change 
+
+  // SC keeps track of request per minutes internally - This allows you to change
   // how often this gets updated
   workerStatusInterval: 10000,
-  
-  // The default clustering engine (Node.js module name) which provides the 
+
+  // The default clustering engine (Node.js module name) which provides the
   // SCWorker.global object and manages brokers behind the scenes.
   // You shouldn't need to change this unless you want to build your own
   // process clustering engine (which is difficult to do).
@@ -237,14 +240,14 @@
           <tr>
             <td>sendToWorker(workerId, data)</td>
             <td>
-              Send some data to a specific worker process from master. You can handle this message from inside the worker process by listening for the 
+              Send some data to a specific worker process from master. You can handle this message from inside the worker process by listening for the
               'masterMessage' event. See <a href="/#!/docs/api-scworker">here</a> for more details.
             </td>
           </tr>
           <tr>
             <td>sendToBroker(brokerId, data)</td>
             <td>
-              Send some data to a specific broker process from master. You can handle this message from inside the broker process by listening for the 
+              Send some data to a specific broker process from master. You can handle this message from inside the broker process by listening for the
               'masterMessage' event. See <a href="/#!/docs/api-broker">here</a> for more details.
             </td>
           </tr>
@@ -261,6 +264,49 @@
             <td>Log a message internally, time is optional. You generally don't need to call this - It's mostly used internally by SC.</td>
           </tr>
         </table>
+        <h3>Note about <code>options.initController</code></h3>
+        <p>
+          The <code>options.initController</code> is a module that is to be run before the worker or broker process start.
+          It is therefore very important to know, that both the <code>broker</code> and <code>worker</code> object both have a property named <code>type</code>.
+          This property allows you to know what kind of process you are bootstrapping.
+        </p>
+        <p>
+          The <code>initController</code> can be used to allow custom scripting languages to be used within SocketCluster. The following example illustrates usage of such with CoffeeScript:
+          <pre class="prettyprint">
+// entry.js : We start SocketCluster here.
+var SC = new SocketCluster({
+  // ... options ...
+  initController: "./init.js",
+  workerController: "./worker.coffee",
+  brokerController: "./broker.coffee"
+});
+
+// init.js : This script runs on all processes, before they start.
+//           In here, we modify the global namespace, so that SocketCluster can require our .coffee files.
+module.exports.run = function(thisProcess) {
+  require("coffee-script/register");
+}
+
+// worker.coffee : An example CoffeeScript that runs a basic server.
+module.exports.run = (worker) ->
+  server = worker.getHTTPServer()
+  server.on "request", (req, res) ->
+    console.log req.method, req.url
+    data = 'hi\n'
+    res.writeHead 200,
+      'Content-Type':     'text/plain'
+      'Content-Length':   data.length
+    res.end data
+
+// broker.coffee : Just a simple worker.
+module.exports.run = (broker) ->
+  console.log "Broker on : ", process.pid
+          </pre>
+        </p>
+        <p>
+          As you can see, we can access the process object and modify the global environment.
+          If you decide to use this feature, please be aware that you are intercepting the current environment in which also SocketCluster runs.
+        </p>
       </div>
     </div>
   </div>

@@ -56,9 +56,9 @@
         <p>
           To test SocketCluster's realtime features, you can open your browser's developer console and enter the following command:
         </p>
-        <pre class="prettyprint">socket.emit('ping', {message: 'This is an object with a message property'});</pre>
+        <pre class="prettyprint">socket.emit('sampleClientEvent', {message: 'This is an object with a message property'});</pre>
         <p>
-          You should get a 'pong' message back - The server receives your ping event and then publishes a pong event to all clients which are listening to it.
+          You should get a 'Sample channel message: 1' message back - The server receives your sampleClientEvent event and then publishes a sample event to all clients which are listening to it.
         </p>
         <p>
           You can pass almost anything as the second argument to the emit and publish command so long as it's compatible with JSON.

@@ -9,22 +9,22 @@
         <p>
           The broker object allows you to interact directly with SocketCluster's internal data and pub/sub channels.
           This object can be accessed from inside the brokerController (broker.js file by default).
-          The broker's main purpose is to allow you to synchronise SocketCluster's internal channels with external 
+          The broker's main purpose is to allow you to synchronise SocketCluster's internal channels with external
           channels from a third-party system - This is useful if you need to scale SocketCluster horizontally across
           multiple machines.
         </p>
         <p>
-          Some third-party systems which can be used to achieve horizontal scalability include RabbitMQ, Redis (as a distributed cluster), 
+          Some third-party systems which can be used to achieve horizontal scalability include RabbitMQ, Redis (as a distributed cluster),
           and various other AMQP and MQTT solutions.
           SocketCluster doesn't currently provide a plugin to do this automatically (there are plans for a Redis plugin) but, hopefully, this page is enough to give you an idea of how this can be achieved.
           Feel free to share your plugin with us if it's generic enough.
         </p>
         <p>
-          When reading this documentation, it's important to keep in mind that your SocketCluster system could have multiple brokers; in 
-          such a case, each broker will only manage a subset of all available channels (responsibilities will be somewhat evenly 
+          When reading this documentation, it's important to keep in mind that your SocketCluster system could have multiple brokers; in
+          such a case, each broker will only manage a subset of all available channels (responsibilities will be somewhat evenly
           distributed between each broker).
         </p>
-        
+
         <h3>Inherits from:</h3>
         <p>
           <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
@@ -46,7 +46,7 @@
           <tr>
             <td>instanceId</td>
             <td>
-              The ID of the current SocketCluster instance. A single SC instance constitutes of the master process and all of its child processes - 
+              The ID of the current SocketCluster instance. A single SC instance constitutes of the master process and all of its child processes -
               This includes worker and broker processes which were forked from master.
             </td>
           </tr>
@@ -69,7 +69,7 @@
             </td>
           </tr>
         </table>
-          
+
         <h3>Events:</h3>
         <table class="table">
           <tr>
@@ -79,7 +79,7 @@
               it means that at least one client-side socket which is bound to that worker has asked to subscribe to that channel.
               A worker will not try to subscribe to the channel again if it is already subscribed to it.<br />
               <br />
-              For the purpose of scaling SocketCluster across multiple machines, if you see this event triggered for a particular 
+              For the purpose of scaling SocketCluster across multiple machines, if you see this event triggered for a particular
               channel, then you know that the current broker is interested in that channel, so you can use an MQTT, AMQP, or Redis client
               of your choice to create a matching channel subscription on a remote Pub/Sub cluster - This allows you to extend the subscription
               to an external pub/sub service.
@@ -101,7 +101,7 @@
             <td>
               This event will be emitted whenever a worker publishes data to a particular channel on the current broker.
               The worker may publish data to a channel on a broker when one of its client-side sockets asks to publish to that channel or
-              when you call worker.global.publish(...) from the worker process.
+              when you call worker.exchange.publish(...) from the worker process.
             </td>
           </tr>
           <tr>
@@ -114,7 +114,7 @@
             </td>
           </tr>
         </table>
-        
+
         <h3>Methods:</h3>
         <table class="table">
           <tr>
@@ -122,10 +122,10 @@
             <td>
               Publish data (can be any valid JavaScript object/type) to channelName on the current broker.
               <br />
-              For the purpose of scaling to multiple SC instances, this method allows you to inject external 
+              For the purpose of scaling to multiple SC instances, this method allows you to inject external
               channel data (from your remote cluster) into relevant SocketCluster channels.
               <br />
-              Because this method publishes data directly from the broker itself, the broker will not emit a 'publish' event - 
+              Because this method publishes data directly from the broker itself, the broker will not emit a 'publish' event -
               The 'publish' event only gets emitted when a worker publishes data.
             </td>
           </tr>
@@ -138,7 +138,7 @@
           <tr>
             <td>sendToMaster(data)</td>
             <td>
-              Send some data to the master process from this broker. You can handle this message from inside the master process by listening for the 
+              Send some data to the master process from this broker. You can handle this message from inside the master process by listening for the
               'brokerMessage' event. See <a href="/#!/docs/api-socketcluster">here</a> for more details.
             </td>
           </tr>

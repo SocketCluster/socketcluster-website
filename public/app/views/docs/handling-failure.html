@@ -32,7 +32,7 @@ socket.emit('ping', 'This is a ping', function (err) {
           Note that the emit method will never fail if you do not pass the callback argument to it - In such case, the call to emit would treat the event as low-importance (volatile). This feature may be useful if you're emitting an event multiple times per second and do not care if it fails occasionally.
           When you pass a callback to the emit method, you will have to explicitly send a response from the other side (otherwise the callback will time out):
         </p>
-      
+
       <pre class="prettyprint">// Server code
 socket.on('ping', function (data, res) {
   // ...
@@ -42,10 +42,10 @@ socket.on('ping', function (data, res) {
     res('Error message'); // Send back error
   }
 });</pre>
-        
+
         <p>
           The first argument to the res function is an error (can be any JSON-compatible type or object) - If you want to send back a regular message (no error),
-          you should set the first argument to null. Note that you can also send back an error with a message like this: res(123, 'This is the error message') - You 
+          you should set the first argument to null. Note that you can also send back an error with a message like this: res(123, 'This is the error message') - You
           can use the first argument as the error code if you like.
         </p>
 
@@ -104,7 +104,7 @@ socket.on('ping', function (data, res) {
         <h3>Publishing</h3>
 
         <pre class="prettyprint">// Server code
-socket.global.publish('pong', 'This is a pong', function (err) {
+socket.exchange.publish('pong', 'This is a pong', function (err) {
   if (err) {
     // Failed to publish event, retry or log?
   } else {

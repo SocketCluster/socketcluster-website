@@ -5,19 +5,19 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-        <h1>API - Global (nData)</h1>
+        <h1>API - Exchange (nData)</h1>
         <p>
-          Can be accessed using scWorker.global property.
+          Can be accessed using scWorker.exchange property.
         </p>
         <p>
-          The global object is a top-level nData client which lets you publish events and manipulate data within your brokers.
+          The exchange object is a top-level nData client which lets you publish events and manipulate data within your brokers.
           It also lets you passively watch channels (those which clients of the current server are subscribed to) or you can explicitly
           subscribe to channels to let you watch additional channels.
           You can use any method of an nData client on instances of this object: <a href="https://github.com/SocketCluster/ndata">https://github.com/SocketCluster/ndata</a>
         </p>
         <p>
           Because this object potentially handles a cluster of brokers,
-          you can use the setMapper(mapperFn) method to set a function which will be used to map your individual nData client calls to one of your 
+          you can use the setMapper(mapperFn) method to set a function which will be used to map your individual nData client calls to one of your
           brokers (assuming you have more than one).
           The mapperFn takes three arguments:
         </p>
@@ -61,14 +61,14 @@
           <tr>
             <td>subscribe(channelName)</td>
             <td>
-              Subscribe this global nData client to the specified channel.
+              Subscribe this nData exchange client to the specified channel.
               This function returns a <a href="/#!/docs/api-scchannel-server">Channel</a> object which lets you watch for incoming data on that channel.
             </td>
           </tr>
           <tr>
             <td>unsubscribe(channelName, [callback])</td>
             <td>
-              Unsubscribe this global nData client from the specified channel.
+              Unsubscribe this nData exchange client from the specified channel.
               You can reactivate the <a href="/#!/docs/api-scchannel-server">Channel</a> object by calling subscribe(channelName) again at a later time.
             </td>
           </tr>
@@ -105,7 +105,7 @@
               subscriptions(includePending)
             </td>
             <td>
-              Returns an array of active channel subscriptions which this global client is bound to.
+              Returns an array of active channel subscriptions which this exchange client is bound to.
               If includePending is true, pending subscriptions will also be included in the list.
             </td>
           </tr>
@@ -114,7 +114,7 @@
               isSubscribed(channelName, includePending)
             </td>
             <td>
-              Check if global client is subscribed to channelName.
+              Check if exchange client is subscribed to channelName.
               If includePending is true, pending subscriptions will also be included in the list.
             </td>
           </tr>
@@ -126,13 +126,13 @@
               If your SC instance has more than one broker, they queryFn will be executed on the first one by default - In order to spread
               the load evenly between all your brokers, you should add a <b>mapIndex</b> key to your queryFn before you pass it to the run method.
               For example, if you wanted to map to a specific broker based on a string stored in channelName you would just go: queryFn.mapIndex = channelName;
-              then you just pass it to global.run(queryFn, ...) as normal.
+              then you just pass it to exchange.run(queryFn, ...) as normal.
             </td>
           </tr>
           <tr>
             <td>setMapper(mapper)</td>
             <td>
-              Allows you to define a mapping function which is used to map various nData actions to 
+              Allows you to define a mapping function which is used to map various nData actions to
               specific broker processes to distributed the load between them. More details coming soon...
             </td>
           </tr>

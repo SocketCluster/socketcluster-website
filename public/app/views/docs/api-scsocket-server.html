@@ -14,7 +14,7 @@
           The server-side SCSocket object allows you to interact with a matching client-side socket in realtime.
           It also allows you to subscribe and publish to channels. It uses the WebSocket API as the underlying transport.
         </p>
-        
+
         <h3>Inherits from:</h3>
         <p>
           <a href="https://github.com/component/emitter">Emitter</a>
@@ -37,9 +37,9 @@
             </td>
           </tr>
           <tr>
-            <td>global</td>
+            <td>exchange</td>
             <td>
-              A <a href="#!/docs/api-global">Global</a> object which you can use to interact with your SC broker processes. (Global scope).
+              A <a href="#!/docs/api-exchange">Exchange</a> object which you can use to interact with your SC broker processes.
               You can use it to publish data a channel - Any client which is subscribed to that channel will receieve the data.
             </td>
           </tr>
@@ -62,7 +62,7 @@
             <td><b>'closed'</b> - A string constant which represents this socket's closed state. See state property.</td>
           </tr>
         </table>
-          
+
         <h3>Events:</h3>
         <table class="table">
           <tr>
@@ -107,7 +107,7 @@
             </td>
           </tr>
         </table>
-        
+
         <h3>Methods:</h3>
         <table class="table">
           <tr>
@@ -143,7 +143,7 @@
               Add a handler for a particular event (those emitted from a corresponding socket on the client). The handler is a function
               in the form: handler(data, res) - The res argument is a function which can be used to send a response to the client socket which
               emitted the event (assuming that the client is expecting a response - I.e. A callback was provided to the emit method).
-              The res function is in the form: res(err, message) - To send back an error, you can do either: res('This is an error') or 
+              The res function is in the form: res(err, message) - To send back an error, you can do either: res('This is an error') or
               res(1234, 'This is the error message for error code 1234').
               To send back a normal non-error response: res(null, 'This is a normal response message').
               Note that both arguments provided to res can be of any JSON-compatible type.
@@ -173,16 +173,16 @@
             <td>setAuthToken(data, [options])</td>
             <td>
               <p>
-                Authenticate the current socket's client by providing it with a secret token which validates their identity and/or access rights. 
-                You should only call this method in response to a successful login attempt by the client (I.e. The client has provided 
+                Authenticate the current socket's client by providing it with a secret token which validates their identity and/or access rights.
+                You should only call this method in response to a successful login attempt by the client (I.e. The client has provided
                 a username and password combination which exists in your database).
               </p>
               <p>
                 In the simplest case, the data argument to this method would be an object in the form {username: 'bob123'}.
                 For a more complex use case, you could store a list of authorized channel names inside the token (for convenience so that you can simply read the token instead of checking the database every time).
               <p>
-                The optional <b>options</b> argument is an Object which can be used to modify the token's behavior - Valid properties include any 
-                option accepted by the node-jsonwebtoken library's sign method. 
+                The optional <b>options</b> argument is an Object which can be used to modify the token's behavior - Valid properties include any
+                option accepted by the node-jsonwebtoken library's sign method.
                 <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options">See list here</a>.
               </p>
               <p>

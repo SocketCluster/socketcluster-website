@@ -22,10 +22,10 @@
         <h3>Properties:</h3>
         <table class="table">
           <tr>
-            <td>global</td>
+            <td>exchange</td>
             <td>
               A top-level nData client which lets you publish and manipulate data within your brokers.
-              (See API section on Global object for details).
+              (See API section on Exchange object for details).
             </td>
           </tr>
           <tr>
@@ -108,7 +108,7 @@
                 to various features of the SCServer. This is useful for monitoring
                 realtime data flows and also to block access to restricted channels
                 and resources. Note that only actions from clients pass through middleware.
-                Server-side calls to scServer.global.publish() do not.
+                Server-side calls to scServer.exchange.publish() do not.
               </p>
               <ul>
                 <li>

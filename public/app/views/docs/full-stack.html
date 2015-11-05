@@ -16,7 +16,7 @@
         </p>
         <p>
           Note that this diagram represents the architecture for SC v1.x.x - In SC v2.0.0+, there is no sticky load balancer layer; instead, workers share the same port and pick up new connections based on which one is the least busy.
-          The diagram is a bit generic, but you could assume that channel 1, channel 2, channel 3&hellip; represents different chat rooms which clients can join – Each room could focus on a particular topic, for example let's say 'math', 'physics', 'chemistry' &hellip; To listen to all messages posted in the room 'physics', all you have to do on the client is call: 
+          The diagram is a bit generic, but you could assume that channel 1, channel 2, channel 3&hellip; represents different chat rooms which clients can join – Each room could focus on a particular topic, for example let's say 'math', 'physics', 'chemistry' &hellip; To listen to all messages posted in the room 'physics', all you have to do on the client is call:
         </p>
 
         <pre class="prettyprint">
@@ -29,9 +29,9 @@ physChannel.watch(function (data) {...});</pre>
         </p>
         <pre class="prettyprint">socket.publish('physics', messageData);</pre>
         <p>... or</p>
-        
+
         <pre class="prettyprint">physChannel.publish(messageData);</pre>
-        
+
         <p>
           Note that channels don't have to be shared by multiple users - You could setup channels for individual users. For example, the user with username 'bob123' could subscribe and watch the channel 'bob123' - That way if any other user that wants to send some data to bob123, they can simply call:
         </p>
@@ -72,20 +72,20 @@ scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, function (socket, event, data, 
   }
 });</pre>
         <p>
-          SocketCluster also exposes a Global object on the server-side (scServer.global) through which you can publish events to clients:
+          SocketCluster also exposes an Exchange object on the server-side (scServer.exchange) through which you can publish events to clients:
         </p>
-        <pre class="prettyprint">scServer.global.publish(eventName, data, cb);</pre>
+        <pre class="prettyprint">scServer.exchange.publish(eventName, data, cb);</pre>
         <p>
           An emitted event is only sent to the other side of the socket (I.e. server &#8594; client or client &#8594; server); on the other hand, data published to a channel will be sent to all subscribed client sockets (and nobody else!).
         </p>
         <p>
           To subscribe a client socket to a channel, you just use:
-        </p>  
+        </p>
         <pre class="prettyprint">
 var channelObject = socket.subscribe(channelName);</pre>
         <p>
           Then, to handle incoming channel data, you just use:
-        </p>  
+        </p>
         <pre class="prettyprint">
 channelObject.watch(handlerFn);</pre>
         <p>

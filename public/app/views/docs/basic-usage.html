@@ -41,9 +41,9 @@ var socketCluster = new SocketCluster({
         </p>
         <h3>Brokers</h3>
         <p>
-          This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.	  
+          This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.
         </p>
-        
+
         <h2>Boilerplate app</h2>
         <p>
           If you open your <code>workerController</code> file (worker.js), you should see some code where your httpServer and your scServer are being setup to accept requests/connections. By default, the httpServer is hooked to Express (with static server middleware) which serves the content of the <code>public/</code> folder:
@@ -58,16 +58,16 @@ httpServer.on('req', app);</pre>
           In the boilerplate app, scServer handles incoming WebSocket connections and listens for 'ping' events from client sockets (among other things):
         </p>
 
-        <pre class="prettyprint">// Server code 
+        <pre class="prettyprint">// Server code
 var count = 0;
 
 scServer.on('connection', function (socket) {
   // ...
-  
+
   socket.on('ping', function (data) {
     count++;
     console.log('PING', data);
-    scServer.global.publish('pong', count);
+    scServer.exchange.publish('pong', count);
   });
 });</pre>
         <p>
@@ -90,7 +90,7 @@ socket.emit('ping', 'This is a PING message')</pre>
         </p>
 
         <pre class="prettyprint">// Server code
-scServer.global.publish('pong', count);</pre>
+scServer.exchange.publish('pong', count);</pre>
 
         <p>
           Any client which is connected to SocketCluster and is subscribed and watching the 'pong' channel will receive the value of the count variable.
@@ -110,7 +110,7 @@ pongChannel.watch(function (count) {
 <pre class="prettyprint">// Client code
 socket.unsubscribe('pong');</pre>
         <p>
-          As demonstrated earlier, you can publish to channels from the server side using scServer.global.publish(...). For convenience, SocketCluster also lets you publish to channels from the client side:
+          As demonstrated earlier, you can publish to channels from the server side using scServer.exchange.publish(...). For convenience, SocketCluster also lets you publish to channels from the client side:
         </p>
 
         <pre class="prettyprint">// Client code
@@ -120,26 +120,26 @@ socket.publish('pong', 'This PONG event comes from a client');</pre>
           Here we are passing a string as argument.
           Note that you can also publish data directly on a channel object - The following snippet does exactly the same thing as the one above:
         </p>
-        
+
         <pre class="prettyprint">// Client code
 pongChannel.publish('This PONG event comes from a client');</pre>
-        
+
         <p>
           Sometimes you may want to restrict read or write access to certain channels by certain individuals - For this purpose,
           SC lets you define middleware functions. To find out more about this, you should read the guide on middleware and
           authorization.
         </p>
-    
+
 		<h2>Summary</h2>
 
         <p>
           The socket.emit(event, data) function allows you to send messages between 1 client socket and 1 matching server socket (1 client socket &#8644; 1 server socket &mdash; One to one communication between client and server).
         </p>
         <p>
-          The socket.publish(event, data) and channel.publish(data) functions allow you to send group messages between multiple client sockets (n client sockets &#8644; n client sockets - Many to many communication directly between clients). As shown earlier, you can also call publish from the server using the global object (Global &#8594; n client sockets):
+          The socket.publish(event, data) and channel.publish(data) functions allow you to send group messages between multiple client sockets (n client sockets &#8644; n client sockets - Many to many communication directly between clients). As shown earlier, you can also call publish from the server using the exchange object:
         </p>
         <pre class="prettyprint">// Server code
-scServer.global.publish('foo', 123);
+scServer.exchange.publish('foo', 123);
 </pre>
         <p>
           You can also use publish for one to one communication between two clients but you should setup some middleware to make sure that only the two authorized clients can share the same channel (see guide on middleware and authorization for more details).

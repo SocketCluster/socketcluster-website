@@ -10,12 +10,12 @@
           This instance is passed to your worker file's run() method.
           It represents your current worker.
         </p>
-        
+
         <h3>Inherits from:</h3>
         <p>
           <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
         </p>
-        
+
         <h3>Properties:</h3>
         <table class="table">
           <tr>
@@ -42,6 +42,13 @@
           <tr>
             <td>scServer</td>
             <td>The SCServer instance associated with this worker.</td>
+          </tr>
+          <tr>
+            <td>exchange</td>
+            <td>
+              A top-level nData client which lets you publish and manipulate data within your brokers.
+              (See API section on Exchange object for details).
+            </td>
           </tr>
           <tr>
             <td>auth</td>
@@ -77,7 +84,7 @@
             </td>
           </tr>
         </table>
-        
+
         <h3>Methods:</h3>
         <table class="table">
           <tr>
@@ -102,28 +109,28 @@
             <td>
               Set a custom auth engine for use throughout SC. This new engine will be used internally to create/sign and verify auth tokens.
               The provided auth engine will become accessible from the 'worker.auth' property inside your workerController (worker.js).
-              The provided authEngine needs to provide a 'verifyToken' and a 'signToken' method - See the 
+              The provided authEngine needs to provide a 'verifyToken' and a 'signToken' method - See the
               <a href="https://github.com/SocketCluster/socketcluster/blob/master/lib/auth.js">default engine</a> for details.
             </td>
           </tr>
-          
+
           <tr>
             <td>sendToMaster(data)</td>
             <td>
-              Send some data to the master process from this worker. You can handle this message from inside the master process by listening for the 
+              Send some data to the master process from this worker. You can handle this message from inside the master process by listening for the
               'workerMessage' event. See <a href="/#!/docs/api-socketcluster">here</a> for more details.
             </td>
           </tr>
-          
+
           <tr>
             <td>getSocketPath()</td>
             <td>Returns the URL path used by realtime socket connections. The method name getSocketURL() has been deprecated.</td>
           </tr>
-          
+
           <tr>
             <td>getStatus()</td>
             <td>
-              Returns an object containing statistics about the current worker including number 
+              Returns an object containing statistics about the current worker including number
               of connected clients and also number of HTTP and realtime requests per minute.
             </td>
           </tr>

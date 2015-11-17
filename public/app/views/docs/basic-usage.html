@@ -6,15 +6,15 @@
       </div>
       <div class="col-md-9">
         <div class="docs-content">
-        <h1>Basic usage</h1>
-        <p>
-          Note that before proceeding with this tutorial, you should read the 'getting started' tutorial.
-        </p>
-        <p>
-          Once you have setup SocketCluster, you should have a JavaScript file called server.js:
-        </p>
+          <h1>Basic usage</h1>
+          <p>
+            Note that before proceeding with this tutorial, you should read the 'getting started' tutorial.
+          </p>
+          <p>
+            Once you have setup SocketCluster, you should have a JavaScript file called server.js:
+          </p>
 
-        <pre class="prettyprint">// Server code
+          <pre class="prettyprint">// Server code
 var SocketCluster = require('socketcluster').SocketCluster;
 
 var socketCluster = new SocketCluster({
@@ -28,37 +28,37 @@ var socketCluster = new SocketCluster({
   rebootWorkerOnCrash: true
 });</pre>
 
-        <p>
-          To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 3 different kinds of processes:
-        </p>
-        <h3>Master process (server.js)</h3>
-        <p>
-          This is where everything starts
-        </p>
-        <h3>Workers</h3>
-        <p>
-          This is where all your business logic should go - The workerController lets you setup the logic for your HTTP server and your realtime SocketClusterServer for handling realtime socket connections and events.
-        </p>
-        <h3>Brokers</h3>
-        <p>
-          This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.
-        </p>
+          <p>
+            To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 3 different kinds of processes:
+          </p>
+          <h3>Master process (server.js)</h3>
+          <p>
+            This is where everything starts
+          </p>
+          <h3>Workers</h3>
+          <p>
+            This is where all your business logic should go - The workerController lets you setup the logic for your HTTP server and your realtime SocketClusterServer for handling realtime socket connections and events.
+          </p>
+          <h3>Brokers</h3>
+          <p>
+            This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.
+          </p>
 
-        <h2>Boilerplate app</h2>
-        <p>
-          If you open your <code>workerController</code> file (worker.js), you should see some code where your httpServer and your scServer are being setup to accept requests/connections. By default, the httpServer is hooked to Express (with static server middleware) which serves the content of the <code>public/</code> folder:
-        </p>
+          <h2>Boilerplate app</h2>
+          <p>
+            If you open your <code>workerController</code> file (worker.js), you should see some code where your httpServer and your scServer are being setup to accept requests/connections. By default, the httpServer is hooked to Express (with static server middleware) which serves the content of the <code>public/</code> folder:
+          </p>
 
-        <pre class="prettyprint">// Server code
+          <pre class="prettyprint">// Server code
 app.use(serveStatic(__dirname + '/public'));
 
 httpServer.on('req', app);</pre>
 
-        <p>
-          In the boilerplate app, scServer handles incoming WebSocket connections and listens for 'ping' events from client sockets (among other things):
-        </p>
+          <p>
+            In the boilerplate app, scServer handles incoming WebSocket connections and listens for 'ping' events from client sockets (among other things):
+          </p>
 
-        <pre class="prettyprint">// Server code
+          <pre class="prettyprint">// Server code
 var count = 0;
 
 scServer.on('connection', function (socket) {
@@ -70,33 +70,33 @@ scServer.on('connection', function (socket) {
     scServer.exchange.publish('pong', count);
   });
 });</pre>
-        <p>
-          Here, the 'ping' event will be triggered whenever the client sockets emits a ping on the client using:
-        </p>
+          <p>
+            Here, the 'ping' event will be triggered whenever the client sockets emits a ping on the client using:
+          </p>
 
-        <pre class='prettyprint'>// Client code
+          <pre class='prettyprint'>// Client code
 socket.emit('ping', 'This is a PING message')</pre>
         <p>
-          Emitting events is the simplest way to pass messages between clients and the server but it is not the only way to share messages.
-        </p>
-        <p>
-          You can also publish data to channels. By publishing to a channel, you can send data to multiple clients at once.
-          A client which is subscribed to a channel will receive all data published to that channel. Both clients and servers can
-          publish to a channel (provided that your middleware doesn't block them from doing so). Channels are intended primarily for client to client
-          communication but SC also offers a way to listen to channels from the server (but this is a topic for another tutorial).
-        </p>
-        <p>
-          In one of the server-side code snippets above, we are publishing to the 'pong' channel like this:
-        </p>
+            Emitting events is the simplest way to pass messages between clients and the server but it is not the only way to share messages.
+          </p>
+          <p>
+            You can also publish data to channels. By publishing to a channel, you can send data to multiple clients at once.
+            A client which is subscribed to a channel will receive all data published to that channel. Both clients and servers can
+            publish to a channel (provided that your middleware doesn't block them from doing so). Channels are intended primarily for client to client
+            communication but SC also offers a way to listen to channels from the server (but this is a topic for another tutorial).
+          </p>
+          <p>
+            In one of the server-side code snippets above, we are publishing to the 'pong' channel like this:
+          </p>
 
-        <pre class="prettyprint">// Server code
+          <pre class="prettyprint">// Server code
 scServer.exchange.publish('pong', count);</pre>
 
-        <p>
-          Any client which is connected to SocketCluster and is subscribed and watching the 'pong' channel will receive the value of the count variable.
-          On the client, the code might look like this:
-        </p>
-        <pre class="prettyprint">// Client code
+          <p>
+            Any client which is connected to SocketCluster and is subscribed and watching the 'pong' channel will receive the value of the count variable.
+            On the client, the code might look like this:
+          </p>
+          <pre class="prettyprint">// Client code
 // New API as of SocketCluster v1.0.0.
 var pongChannel = socket.subscribe('pong');
 
@@ -104,46 +104,53 @@ pongChannel.watch(function (count) {
   console.log('Client received data from pong channel:', count);
 });
 </pre>
-        <p>
-          To unsubscribe from one or more channels:
-        </p>
-<pre class="prettyprint">// Client code
+          <p>
+            To unsubscribe from one or more channels:
+          </p>
+          <pre class="prettyprint">// Client code
 socket.unsubscribe('pong');</pre>
-        <p>
-          As demonstrated earlier, you can publish to channels from the server side using scServer.exchange.publish(...). For convenience, SocketCluster also lets you publish to channels from the client side:
-        </p>
+          <p>
+            As demonstrated earlier, you can publish to channels from the server side using scServer.exchange.publish(...). For convenience, SocketCluster also lets you publish to channels from the client side:
+          </p>
 
-        <pre class="prettyprint">// Client code
+          <pre class="prettyprint">// Client code
 socket.publish('pong', 'This PONG event comes from a client');</pre>
 
-        <p>
-          Here we are passing a string as argument.
-          Note that you can also publish data directly on a channel object - The following snippet does exactly the same thing as the one above:
-        </p>
+          <p>
+            Here we are passing a string as argument.
+            Note that you can also publish data directly on a channel object - The following snippet does exactly the same thing as the one above:
+          </p>
 
-        <pre class="prettyprint">// Client code
+          <pre class="prettyprint">// Client code
 pongChannel.publish('This PONG event comes from a client');</pre>
 
-        <p>
-          Sometimes you may want to restrict read or write access to certain channels by certain individuals - For this purpose,
-          SC lets you define middleware functions. To find out more about this, you should read the guide on middleware and
-          authorization.
-        </p>
+          <p>
+            Sometimes you may want to restrict read or write access to certain channels by certain individuals - For this purpose,
+            SC lets you define middleware functions. To find out more about this, you should read the guide on middleware and
+            authorization.
+          </p>
 
-		<h2>Summary</h2>
+		      <h2>Summary</h2>
 
-        <p>
-          The socket.emit(event, data) function allows you to send messages between 1 client socket and 1 matching server socket (1 client socket &#8644; 1 server socket &mdash; One to one communication between client and server).
-        </p>
-        <p>
-          The socket.publish(event, data) and channel.publish(data) functions allow you to send group messages between multiple client sockets (n client sockets &#8644; n client sockets - Many to many communication directly between clients). As shown earlier, you can also call publish from the server using the exchange object:
-        </p>
-        <pre class="prettyprint">// Server code
+          <p>
+            The socket.emit(event, data) function allows you to send messages between 1 client socket and 1 matching server socket (1 client socket &#8644; 1 server socket &mdash; One to one communication between client and server).
+          </p>
+          <p>
+            The socket.publish(event, data) and channel.publish(data) functions allow you to send group messages between multiple client sockets (n client sockets &#8644; n client sockets - Many to many communication directly between clients). As shown earlier, you can also call publish from the server using the exchange object:
+          </p>
+          <pre class="prettyprint">// Server code
 scServer.exchange.publish('foo', 123);
 </pre>
-        <p>
-          You can also use publish for one to one communication between two clients but you should setup some middleware to make sure that only the two authorized clients can share the same channel (see guide on middleware and authorization for more details).
-        </p>
+          <p>
+            You can also use publish for one to one communication between two clients but you should setup some middleware to make sure that only the two authorized clients can share the same channel (see guide on middleware and authorization for more details).
+          </p>
+
+          <h3>Videos by <a href="https://www.youtube.com/channel/UCRlz06nPWywubixXkRFOOtQ">Nick Kotenberg</a></h3>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=ERh0utlP2go&list=PLTxFJWe_410zNJJD0o8njNLv7HidG1CHq&index=8">007 Socketcluster Server/Client Communication Basic</a></li>
+            <li><a href="https://www.youtube.com/watch?v=ODtHFFsUpW4&list=PLTxFJWe_410zNJJD0o8njNLv7HidG1CHq&index=9">008 Server/Client Data 1</a></li>
+            <li><a href="https://www.youtube.com/watch?v=hEpcA_gOjvM&list=PLTxFJWe_410zNJJD0o8njNLv7HidG1CHq&index=10">009 Server/Client Data 2</a></li>
+          </ul>
         </div>
       </div>
     </div>

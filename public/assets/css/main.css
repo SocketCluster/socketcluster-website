@@ -34,6 +34,12 @@ a {
   dispay: block;
   float: left;
   margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.jumbotron {
+  padding-top: 38px;
+  padding-bottom: 38px;
 }
 
 .chat-button {

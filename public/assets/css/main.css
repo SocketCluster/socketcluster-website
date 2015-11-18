@@ -33,12 +33,12 @@ a {
 .get-started-button {
   dispay: block;
   float: left;
+  margin-right: 10px;
 }
 
 .chat-button {
   dispay: block;
   float: left;
-  margin-left: 10px;
 }
 
 .github-star-button-top {

@@ -27,9 +27,8 @@
           To achieve this, SC had to introduce the notion of a JWT auth token.
         </p>
         <p>
-          Simply put, an auth token is a custom Object/JSON which is signed, encrypted and sent to a client as part of an authentication (login) process.
-          Because the data in the token is encrypted when provided to the client, the client cannot know what is inside, and more importantly, because 
-          the data is signed, the client cannot modify it without invalidating the token.
+          Simply put, an auth token is a custom Object/JSON which is signed, encoded and sent to a client as part of an authentication (login) process.
+          Because the data is signed, the client cannot modify it without invalidating the token.
           This means that if your socket on the server has a valid auth token attached to it 
           (see <a href="/#!/docs/api-scsocket-server">socket.getAuthToken()</a>), then you know that the client's token was signed by the server 
           and the data that is inside it is therefore valid.

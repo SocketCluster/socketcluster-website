@@ -108,10 +108,21 @@
 
   // The key which SC will use to encrypt/decrypt authTokens, defaults
   // to a 256 bits cryptographically random hex string
-  // The default JWT algorithm used is 'HS256' which signs, but does not encrypt the
-  // content of the token. If you want to use RSA or ECDSA (for encryption), the
-  // authKey will need to be a PEM-encoded private key.
+  // The default JWT algorithm used is 'HS256'.
+  // If you want to use RSA or ECDSA, you should provide a authPrivateKey
+  // and authPublicKey instead of authKey.
   authKey: null,
+
+  // If using an RSA or ECDSA algorithm to sign the authToken, you will need
+  // to provide an authPrivateKey and authPublicKey in PEM format (string or Buffer).
+  authPrivateKey: null,
+  authPublicKey: null,
+
+  // The default expiry for auth tokens in seconds
+  authDefaultExpiry: 86400,
+
+  // The algorithm to use to sign and verify JWT tokens.
+  authAlgorithm: 'HS256',
 
   // Reboot workers when they crash - This is a necessity
   // in production but can be turned off for debugging
@@ -189,10 +200,6 @@
   // The path to a file used to bootstrap either worker or broker process.
   initController: null,
 
-  // A custom options object to attach to your broker (can be accessed inside
-  // brokerController file using broker.options)
-  brokerOptions: null,
-
   // By default, SC will reboot all workers when it receives a 'SIGUSR2' signal -
   // This can be used for updating workers with fresh source code in production
   rebootOnSignal: true,
@@ -216,9 +223,6 @@
 
   // Whether or not clients are allowed to publish messages to channels
   allowClientPublish: true,
-
-  // The default expiry for auth tokens
-  defaultAuthTokenExpiryInMinutes: 1440,
 
   // By default, when you send a 'kill -SIGUSR2' signal to the master process,
   // it will reboot all workers, you can turn this behavior off by setting this

@@ -184,6 +184,8 @@
                 The optional <b>options</b> argument is an Object which can be used to modify the token's behavior - Valid properties include any
                 option accepted by the node-jsonwebtoken library's sign method.
                 <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options">See list here</a>.
+                Note that if you use a different algorithm from the default 'HS256', you will need to make sure that your authKey is in the correct format.
+                (I.e. a PEM encoded private key for RSA and ECDSA). See authKey option in SocketCluster constructor <a href="/#!/docs/api-socketcluster">here</a>.
               </p>
               <p>
                 Using auth tokens has the following advantages:

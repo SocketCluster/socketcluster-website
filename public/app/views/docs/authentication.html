@@ -8,8 +8,8 @@
         <h1>Authentication</h1>
         <h3>Overview</h3>
         <p>
-          Before v1.3.0, authentication in SocketCluster revolved around sessions. Since v1.3.0, authentication is based on 
-          <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token (JWT)</a>. SC's auth token system was designed to 
+          Before v1.3.0, authentication in SocketCluster revolved around sessions. Since v1.3.0, authentication is based on
+          <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token (JWT)</a>. SC's auth token system was designed to
           solve the following problems:
         </p>
         <ul>
@@ -22,19 +22,20 @@
           </li>
         </ul>
         <p>
-          An important design consideration for SC's authentication system was that it had to work with, but yet be fully independent 
+          An important design consideration for SC's authentication system was that it had to work with, but yet be fully independent
           from specific database engines or underlying data (this includes user account information).
           To achieve this, SC had to introduce the notion of a JWT auth token.
         </p>
         <p>
-          Simply put, an auth token is a custom Object/JSON which is signed, encoded and sent to a client as part of an authentication (login) process.
-          Because the data is signed, the client cannot modify it without invalidating the token.
-          This means that if your socket on the server has a valid auth token attached to it 
-          (see <a href="/#!/docs/api-scsocket-server">socket.getAuthToken()</a>), then you know that the client's token was signed by the server 
+          Simply put, an auth token is a custom Object/JSON which is signed with a secret authKey on the server and sent to a client as part of an
+          authentication (login) process (see authKey option in SocketCluster constructor <a href="/#!/docs/api-socketcluster">here</a>).
+          Because the data in the token is signed when provided to the client, they cannot modify it without invalidating the token.
+          This means that if your socket on the server has a valid auth token attached to it
+          (see <a href="/#!/docs/api-scsocket-server">socket.getAuthToken()</a>), then you know that the client's token was signed by the server
           and the data that is inside it is therefore valid.
         </p>
         <p>
-          Some important things to note about an auth token is that you should only give it to a client AFTER they have been successfully 
+          Some important things to note about an auth token is that you should only give it to a client AFTER they have been successfully
           authenticated and also it should be kept secret between that client and the server (not shared with any other client).
           Auth tokens in SC can be used to store any kind of access-control information related to a specific user.
           Generally, it will suffice to create a simple token containing only the username data:
@@ -51,7 +52,7 @@
         <pre class="prettyprint">// Client code
 socket = socketCluster.connect();
 
-// As of SC v2.2.25, the 'connect' event carries a status object which has a 
+// As of SC v2.2.25, the 'connect' event carries a status object which has a
 // boolean 'isAuthenticated' property - It will be true if the socket carried
 // a valid token at the time the connection was established.
 socket.on('connect', function (status) {
@@ -77,7 +78,7 @@ socket.emit('login', credentials, function (err) {
   // If we wanted, we could have listened to a separate 'loginResponse'
   // event, but this pattern of passing a callback like this
   // is slightly more efficient.
-  
+
   if (err) {
     // showLoginError(err);
   } else {
@@ -87,23 +88,23 @@ socket.emit('login', credentials, function (err) {
         <p>
         Then we would have some code on the server to process the login:
         </p>
-        
+
         <pre class="prettyprint">// Server code
 
-// This is a slightly simplified version of what it might look 
+// This is a slightly simplified version of what it might look
 // like if you were using MySQL as a database.
 
 socket.on('login', function (credentials, respond) {
   var passwordHash = sha256(credentials.password);
-  
+
   var userQuery = 'SELECT * FROM Users WHERE username = ?';
   mySQLClient.query(userQuery, [credentials.username], function (err, rows) {
     var userRow = rows[0];
     var isValidLogin = userRow && userRow.password === passwordHash;
-    
+
     if (isValidLogin) {
       respond();
-      
+
       // This will give the client a token so that they won't
       // have to login again if they lose their connection
       // or revisit the app at a later time.
@@ -121,7 +122,7 @@ socket.on('login', function (credentials, respond) {
 
 wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH, function (socket, channel, data, next) {
   var authToken = socket.getAuthToken();
-  
+
   if (authToken && authToken.channels.indexOf(channel) > -1) {
     next();
   } else {
@@ -129,15 +130,15 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH, function (socket, channel, d
   }
 });</pre>
         <p>
-          Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't 
-          really need to store the channel list inside the token itself - We could just check the database provided that we have a 
-          username or a user id. See section on <a href="/#!/docs/middleware-and-authorization">middleware and authorization</a> 
+          Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't
+          really need to store the channel list inside the token itself - We could just check the database provided that we have a
+          username or a user id. See section on <a href="/#!/docs/middleware-and-authorization">middleware and authorization</a>
           for more info about middleware in SC.
         </p>
         <p>
           If you want to do authentication over HTTP (before establishing a WebSocket connection), you will need to handle the token yourself.
           See <a href="https://github.com/SocketCluster/socketcluster/issues/71#issuecomment-115706901">this comment</a> for ideas. Note that SC
-          now provides a default 'AuthEngine' for signing (creating) and verifying tokens on the server side - You can access it in your 
+          now provides a default 'AuthEngine' for signing (creating) and verifying tokens on the server side - You can access it in your
           workerController (worker.js) from the 'worker.auth' property - See the implementation here: <a href="https://github.com/SocketCluster/socketcluster/blob/master/lib/auth.js">Default server auth engine</a>.
           More info about Node.js JSON web token library can be found here: <a href="https://github.com/auth0/node-jsonwebtoken">jsonwebtoken</a>.
         </p>

@@ -108,6 +108,9 @@
 
   // The key which SC will use to encrypt/decrypt authTokens, defaults
   // to a 256 bits cryptographically random hex string
+  // The default JWT algorithm used is 'HS256' which signs, but does not encrypt the
+  // content of the token. If you want to use RSA or ECDSA (for encryption), the
+  // authKey will need to be a PEM-encoded private key.
   authKey: null,
 
   // Reboot workers when they crash - This is a necessity

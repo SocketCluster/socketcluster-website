@@ -8,7 +8,7 @@
         <h1>Scaling across multiple hosts</h1>
         <p>
           SocketCluster lets you scale both vertically (across multiple CPU cores on a machine/host) and horizontally (across multiple hosts).
-          Scaling horizontally may be desirable because it removes the upper bound on how much traffic your system can handle and also because it makes 
+          Scaling horizontally may be desirable because it removes the upper bound on how much traffic your system can handle and also because it makes
           your system more tolerant to server crashes.
         </p>
         <p>
@@ -38,12 +38,12 @@
         <p>
           In order to allow clients which are connected to different machines to share the same pub/sub channels, there needs to be an efficient way to synchronize channels between separate SocketCluster instances (hosts) in realtime.
           To achieve this, SocketCluster exposes a <a href="#!/docs/api-broker">Broker</a> object inside its brokerController file (broker.js) which lets you do exactly that.
-          SocketCluster only provides you the interface for synchronizing instance channels - It doesn't care what technology/implementation you use behind the scenes to make this work; 
+          SocketCluster only provides you the interface for synchronizing instance channels - It doesn't care what technology/implementation you use behind the scenes to make this work;
           so long as it supports pub/sub and can run as a distributed cluster - MQTT (e.g. Mosquitto), AMQP (e.g. RabbitMQ), ZeroMQ and Redis are all possible options.
           The details of how to set up such a service is outside the scope of this guide - You should read up some of these technologies/protocols or use a third-party service.
         </p>
         <p>
-          Assuming that you have a working pub/sub cluster which can scale across multiple machines, the actual synchronization between SC instances/machines is pretty simple - 
+          Assuming that you have a working pub/sub cluster which can scale across multiple machines, the actual synchronization between SC instances/machines is pretty simple -
           It can be done through SocketCluster's broker processes - Read the section on events in the <a href="#!/docs/api-broker">Broker API</a> for more info.
           In effect, your MQ service behaves like a glue between your SocketCluster instances - It also allows external services to interact with SocketCluser channels as though they were part of the same system.
         </p>
@@ -68,6 +68,12 @@
         <p>
           The final consideration is that it's best to deploy your MQ service in close proximity to your SC instances (or inside the same data center if possible) to minimize latency.
         </p>
+
+        <h3>Videos by <a href="https://www.youtube.com/channel/UCRlz06nPWywubixXkRFOOtQ">Nick Kotenberg</a></h3>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=swjwNsEGz9g&feature=youtu.be">017 NodeJS Socketcluster Horizontal Scaling</a></li>
+          <li><a href="https://www.youtube.com/watch?v=zmCdIg7NNUg&index=19&list=PLTxFJWe_410zNJJD0o8njNLv7HidG1CHq">018 NodeJS Socketcluster Horizontal Scaling with Loadbalancer</a></li>
+        </ul>
       </div>
     </div>
   </div>

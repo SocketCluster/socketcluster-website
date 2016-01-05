@@ -152,30 +152,29 @@
                   <p>
                     A middleware function which can be used to monitor realtime interactions and/or to
                     block unauthorized client actions before they reach the server.
-                    Middleware functions accept different arguments depending on
-                    the specified middleware type:
+                    Middleware functions are all in the form <code>middlewareFn(req, next)</code> but the req object will have different properties
+                    depending on the specified middleware type:
                   </p>
                   <table class="table">
                     <tr>
                       <td>MIDDLEWARE_HANDSHAKE</td>
-                      <td>middlewareFn(req, next)</td>
+                      <td>The req object is a Node.js HTTP request object.</td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_SUBSCRIBE</td>
-                      <td>middlewareFn(socket, channel, next)
-                      </td>
+                      <td>The req object has the following properties: <code>socket</code> and <code>channel</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method.</td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_PUBLISH_IN</td>
-                      <td>middlewareFn(socket, channel, data, next)</td>
+                      <td>The req object has the following properties: <code>socket</code>, <code>channel</code> and <code>data</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method.</td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_PUBLISH_OUT</td>
-                      <td>middlewareFn(socket, channel, data, next)</td>
+                      <td>The req object has the following properties: <code>socket</code>, <code>channel</code> and <code>data</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method.</td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_EMIT</td>
-                      <td>middlewareFn(socket, event, data, next)</td>
+                      <td>The req object has the following properties: <code>socket</code>, <code>event</code> and <code>data</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method.</td>
                     </tr>
                   </table>
                 </li>

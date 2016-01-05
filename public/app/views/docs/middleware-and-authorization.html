@@ -29,8 +29,11 @@ scServer.MIDDLEWARE_PUBLISH
 scServer.MIDDLEWARE_EMIT</pre>
 
         <p>
-          The arguments passed to the middlewareFunction depend on the type of middleware used.
-  Here is some sample code showing how to use each kind of middleware:
+          The req argument passed to the middlewareFunction depends on the type of middleware used.
+          Note that the <code>err</code> objects in the following examples are based on custom classes which inherit from JavaScript's <code>Error</code> object.
+          If you don't care about getting the stack trace on the server, you can also pass plain objects in the form
+          <code>{name: 'MyCustomError', message: 'This is a custom error'}</code> (or with additional custom properties) to the <code>next(err)</code>.
+          Here are some sample code snippets showing how to use each kind of middleware:
         </p>
 
         <h3>Handshake</h3>
@@ -41,30 +44,39 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
     if (...) {
       next() // Allow
     } else {
-      next('Handshake failed'); // Block
+      var err = new MyCustomHandshakeFailedError('Handshake failed');
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
     }
   }
 );</pre>
-        
+
         <h3>Subscribe</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_SUBSCRIBE,
-  function (socket, channel, next) {
+  function (req, next) {
     // ...
-    if (...) {
+    if (req.authTokenExpiredError) {
+      next(req.authTokenExpiredError); // Fail with a default auth token expiry error
+    } else if (...) {
       next() // Allow
     } else {
-      next(socket.id + ' is not allowed to subscribe to channel ' + channel); // Block
+      var socketId = req.socket.id;
+      var err = new MyCustomSubscribeFailedError(socketId + ' cannot subscribe to channel ' + req.channel);
+      // You can have custom properties on your Error object.
+      err.code = 1234;
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
     }
   }
 );</pre>
-  
+
         <h3>Publish</h3>
-        <p>SC supports two different middleware lines for publish. MIDDLEWARE_PUBLISH_IN captures inbound published messages as 
-        they reach the server (before reaching a broker for processing) while MIDDLEWARE_PUBLISH_OUT captures published messages after they have been processed - 
+        <p>SC supports two different middleware lines for publish. MIDDLEWARE_PUBLISH_IN captures inbound published messages as
+        they reach the server (before reaching a broker for processing) while MIDDLEWARE_PUBLISH_OUT captures published messages after they have been processed -
         just before they are sent to individual sockets. MIDDLEWARE_PUBLISH_OUT lets you block a message from reaching specific sockets - A use case
-        for this is that it lets you design your messages and middleware such that the socket which published a message doesn't receive 
+        for this is that it lets you design your messages and middleware such that the socket which published a message doesn't receive
         their own message.</p>
-        
+
         <h3>Publish in</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN,
   function (socket, channel, data, next) {
@@ -72,7 +84,9 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
     if (...) {
       next() // Allow
     } else {
-      next(socket.id + ' is not allowed to publish channel ' + channel); // Block
+      var err = MyCustomPublishInFailedError(req.socket.id + ' cannot publish channel ' + req.channel);
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
     }
   }
 );</pre>
@@ -84,8 +98,9 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
     if (...) {
       next() // Allow
     } else {
-      next('Blocked publishing message out to ' + socket.id); // Block with notice
-      // next(true); // Passing true to next() blocks quietly (without raising a notice)
+      var err = MyCustomPublishOutFailedError('Blocked publishing message out to ' + socket.id);
+      next(err); // Block with notice
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
     }
   }
 );</pre>
@@ -97,7 +112,9 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
     if (...) {
       next() // Allow
     } else {
-      next(socket.id + ' is not allowed to emit event ' + event); // Block
+      var err = MyCustomEmitFailedError(socket.id + ' is not allowed to emit event ' + event);
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
     }
   }
 );</pre>
@@ -105,7 +122,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
         <p>
           Note that you can call the next() function at any time you want (asynchronously is fine), but you should make sure that you do call it eventually &mdash; Otherwise the client's subscribe/publish/emit action will simply timeout and the client will get a non-descriptive timeout error. If you want to block a client from doing something, it's better to give them an explicit error that way they can handle it better.
         </p>
-      </div>  
+      </div>
     </div>
   </div>
 </div>

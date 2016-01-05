@@ -19,7 +19,7 @@
         <p>
           <a href="https://github.com/component/emitter">Emitter</a>
         </p>
-        
+
         <h3>Properties:</h3>
         <table class="table">
           <tr>
@@ -29,7 +29,15 @@
           <tr>
             <td>state</td>
             <td>
-              [Only available from v2.0.0 onwards - Otherwise, use the getState() method] The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN or socket.CLOSED.
+              The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN or socket.CLOSED.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              authState
+            </td>
+            <td>
+              [Only available from v4.0.0 onwards] The authentication state of the socket as a string. Can be either socket.AUTHENTICATED, socket.UNAUTHENTICATED or socket.PENDING.
             </td>
           </tr>
           <tr>
@@ -44,8 +52,20 @@
             <td>CLOSED</td>
             <td><b>'closed'</b> - A string constant which represents this socket's closed state. See state property.</td>
           </tr>
-        </table> 
-          
+          <tr>
+            <td>AUTHENTICATED</td>
+            <td><b>'authenticated'</b> - A string constant which represents this socket's authenticated authState.</td>
+          </tr>
+          <tr>
+            <td>UNAUTHENTICATED</td>
+            <td><b>'unauthenticated'</b> - A string constant which represents this socket's unauthenticated authState.</td>
+          </tr>
+          <tr>
+            <td>PENDING</td>
+            <td><b>'pending'</b> - A string constant which represents this socket's pending auth state. This state signifies that the authentication status of the socket is not yet known.</td>
+          </tr>
+        </table>
+
         <h3>Events:</h3>
         <table class="table">
           <tr>
@@ -62,14 +82,14 @@
               <pre class="prettyprint">{
   // The socket's id
   id: 'RM11Szl-tPn7p1BhAAAA',
-  
+
   // Whether or not the current socket is authenticated with the server
   // (has a valid auth token)
   isAuthenticated: true,
-  
-  // If the client has a token, but it was invalid, authError 
+
+  // If the client has a token, but it was invalid, authError
   // will be a JavaScript object.
-  authError: {name: 'errorName', message: 'errorMessage'} 
+  authError: {name: 'errorName', message: 'errorMessage'}
 }</pre>
             </td>
           </tr>
@@ -96,17 +116,37 @@
           </tr>
           <tr>
             <td>'subscribeFail'</td>
-            <td>Happens when the subscription fails.</td>
+            <td>Happens when the subscription fails. The first argument passed to the handler will be the error which caused the subscription to fail.</td>
           </tr>
           <tr>
             <td>'unsubscribe'</td>
             <td>When the socket becomes unsubscribed from a channel.</td>
           </tr>
           <tr>
+            <td>'authStateChange'</td>
+            <td>
+              Triggers whenever the client's authState changes. This includes changes between socket.PENDING and socket.AUTHENTICATED/UNAUTHENTICATED states.
+              The handler will receieve as an argument an object which has two properties: oldState and newState.
+            </td>
+          </tr>
+          <tr>
+            <td>'subscribeStateChange'</td>
+            <td>
+              Triggers whenever a pub/sub channel's state transitions between 'pending', 'subscribed' and 'unsubscribed' states.
+              The handler will receieve as an argument an object which has three properties: channel, oldState and newState.
+            </td>
+          </tr>
+          <tr>
             <td>'authenticate'</td>
             <td>
               Triggers whenever the client is successfully authenticated by the server - The data argument passed along
               with this event is the encrypted auth token as a string.
+            </td>
+          </tr>
+          <tr>
+            <td>'deauthenticate'</td>
+            <td>
+              Triggers whenever the client becomes unauthenticated.
             </td>
           </tr>
           <tr>
@@ -166,7 +206,7 @@
               Add a handler for a particular event (those emitted from a corresponding socket on the server). The handler is a function
               in the form: handler(data, res) - The res argument is a function which can be used to send a response to the server socket which
               emitted the event (assuming that the server is expecting a response - I.e. A callback was provided to the emit method).
-              The res function is in the form: res(err, message) - To send back an error, you can do either: res('This is an error') or 
+              The res function is in the form: res(err, message) - To send back an error, you can do either: res('This is an error') or
               res(1234, 'This is the error message for error code 1234').
               To send back a normal non-error response: res(null, 'This is a normal response message').
               Note that both arguments provided to res can be of any JSON-compatible type.
@@ -193,12 +233,21 @@
               authenticate(encryptedTokenString, [callback]);
             </td>
             <td>
-              Perform client-initiated authentication - This is useful if you already have a valid encrypted auth token string and would like to use 
+              Perform client-initiated authentication - This is useful if you already have a valid encrypted auth token string and would like to use
               it to authenticate directly with the server (without having to ask the user to login details).
               Typically, you should perform server-initiated authentication using the socket.setAuthToken() method from the server side.
               This method is useful if, for example, you received the token from a different browser tab via localStorage and you want to immediately
               authenticate the current socket without having to reconnect the socket. It may also be useful if you're getting the token from a third-party
               JWT-based system and you're using the same authKey (see boot options for SocketCluster) - In which case they should be compatible.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              deauthenticate([callback]);
+            </td>
+            <td>
+              Perform client-initiated deauthentication - Deauthenticate (logout) the current socket.
+              The callback will receieve an error as the first argument if the operation fails.
             </td>
           </tr>
           <tr>
@@ -225,11 +274,14 @@
           </tr>
           <tr>
             <td>
-              subscribe(channelName)
+              subscribe(channelName, [options])
             </td>
             <td>
               Subscribe to a particular channel.
               This function returns an <a href="#!/docs/api-scchannel-client">SCChannel</a> object which lets you watch for incoming data on that channel.
+              Since v4.0.0, you can provide an optional options object in the form <code>{waitForAuth: true}</code> - If waitForAuth is true, the channel
+              will automatically wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
+              sometimes known as "private channels".
             </td>
           </tr>
           <tr>

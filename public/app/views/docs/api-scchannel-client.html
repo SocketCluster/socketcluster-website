@@ -27,12 +27,8 @@
             <td>Holds a string which indicates the state of this channel. Can be 'subscribed', 'unsubscribed' or 'pending'.</td>
           </tr>
           <tr>
-            <td style="text-decoration: line-through;">subscribing</td>
-            <td>No longer supported since v1.1.8. Use state property instead.</td>
-          </tr>
-          <tr>
-            <td style="text-decoration: line-through;">subscribed</td>
-            <td>No longer supported since v1.1.8. Use state property instead.</td>
+            <td>waitForAuth</td>
+            <td>A boolean which indicates whether or not this channel will wait for socket authentication before subscribing to the server. It will remain in the 'pending' state until the socket becomes authenticated.</td>
           </tr>
           <tr>
             <td>SUBSCRIBED</td>
@@ -47,7 +43,7 @@
             <td>A string constant which is used to indicate that this channel is in an unsubscribed state. See getState() method.</td>
           </tr>
         </table>
-          
+
         <h3>Events:</h3>
         <table class="table">
           <tr>
@@ -65,6 +61,10 @@
           <tr>
             <td>'unsubscribe'</td>
             <td>When the channel becomes deactivated (unsubscribed from the server).</td>
+          </tr>
+          <tr>
+            <td>'subscribeStateChange'</td>
+            <td>Whenever the channel's subscription state changes. The handler received an object with three properties: channel, oldState and newState.</td>
           </tr>
         </table>
 

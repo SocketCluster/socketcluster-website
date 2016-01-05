@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://socketcluster.io/</loc>
-    <lastmod>2015-06-10</lastmod>
+    <lastmod>2016-01-06</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/introduction</loc>
@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/middleware-and-authorization</loc>
-    <lastmod>2014-12-01</lastmod>
+    <lastmod>2016-01-06</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/handling-failure</loc>
@@ -50,15 +50,15 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scsocket-client</loc>
-    <lastmod>2015-06-28</lastmod>
+    <lastmod>2016-01-06</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scchannel-client</loc>
-    <lastmod>2015-06-12</lastmod>
+    <lastmod>2016-01-06</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scchannel-server</loc>
-    <lastmod>2015-06-12</lastmod>
+    <lastmod>2016-01-06</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-socketcluster</loc>
@@ -74,11 +74,11 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scserver</loc>
-    <lastmod>2015-06-28</lastmod>
+    <lastmod>2016-01-06</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scsocket-server</loc>
-    <lastmod>2015-06-28</lastmod>
+    <lastmod>2016-01-06</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-exchange</loc>

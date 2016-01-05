@@ -167,7 +167,7 @@
           </tr>
           <tr>
             <td>getAuthToken()</td>
-            <td>Get the decrypted JWT authentication token associated with this socket, if there is one (and it's valid); otherwise, this method will return null.</td>
+            <td>Get the decrypted JWT authentication token associated with this socket, if there is one (and it's valid); otherwise, this method will return null (which means that the socket is not authenticated).</td>
           </tr>
           <tr>
             <td>setAuthToken(data, [options])</td>
@@ -201,9 +201,9 @@
             </td>
           </tr>
           <tr>
-            <td>removeAuthToken()</td>
+            <td>deauthenticate()</td>
             <td>
-              Disassociate the current socket from its current auth token.
+              Disassociate the current socket from its auth token.
               This method will also tell the client socket to remove the token from the browser's cookies.
               This is useful for logging out the user.
             </td>

@@ -52,9 +52,11 @@
         <pre class="prettyprint">// Client code
 socket = socketCluster.connect();
 
-// As of SC v2.2.25, the 'connect' event carries a status object which has a
+// The 'connect' event carries a status object which has a
 // boolean 'isAuthenticated' property - It will be true if the socket carried
 // a valid token at the time the connection was established.
+// The status object may also have an 'authError' property (which contains an
+// Error object) if JWT authentication failed during the handshake.
 socket.on('connect', function (status) {
   if (status.isAuthenticated) {
     // goToMainScreen();

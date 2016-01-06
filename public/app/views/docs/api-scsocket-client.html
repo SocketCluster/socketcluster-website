@@ -126,7 +126,9 @@
             <td>'authStateChange'</td>
             <td>
               Triggers whenever the client's authState changes. This includes changes between socket.PENDING and socket.AUTHENTICATED/UNAUTHENTICATED states.
-              The handler will receieve as an argument an object which has two properties: oldState and newState.
+              The handler will receieve as an argument an object which has at least two properties: <code>oldState</code> and <code>newState</code>.
+              If <code>newState</code> is 'authenticated', the argument to the handler will also have an additional <code>authToken</code> property which
+              will be the base64 signed JWT auth token as a string.
             </td>
           </tr>
           <tr>
@@ -140,7 +142,7 @@
             <td>'authenticate'</td>
             <td>
               Triggers whenever the client is successfully authenticated by the server - The data argument passed along
-              with this event is the encrypted auth token as a string.
+              with this event is the bsae64 signed JWT auth token as a string.
             </td>
           </tr>
           <tr>

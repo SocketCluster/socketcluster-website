@@ -124,6 +124,9 @@
   // The algorithm to use to sign and verify JWT tokens.
   authAlgorithm: 'HS256',
 
+  // Crash workers when an error happens - This is the most sensible default
+  crashWorkerOnError: true,
+
   // Reboot workers when they crash - This is a necessity
   // in production but can be turned off for debugging
   rebootWorkerOnCrash: true,

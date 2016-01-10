@@ -126,7 +126,7 @@
             <td>'authStateChange'</td>
             <td>
               Triggers whenever the client's authState changes. This includes changes between socket.PENDING and socket.AUTHENTICATED/UNAUTHENTICATED states.
-              The handler will receieve as an argument an object which has at least two properties: <code>oldState</code> and <code>newState</code>.
+              The handler will receive as an argument an object which has at least two properties: <code>oldState</code> and <code>newState</code>.
               If <code>newState</code> is 'authenticated', the argument to the handler will also have an additional <code>authToken</code> property which
               will be the base64 signed JWT auth token as a string.
             </td>
@@ -135,7 +135,7 @@
             <td>'subscribeStateChange'</td>
             <td>
               Triggers whenever a pub/sub channel's state transitions between 'pending', 'subscribed' and 'unsubscribed' states.
-              The handler will receieve as an argument an object which has three properties: channel, oldState and newState.
+              The handler will receive as an argument an object which has three properties: channel, oldState and newState.
             </td>
           </tr>
           <tr>
@@ -249,7 +249,7 @@
             </td>
             <td>
               Perform client-initiated deauthentication - Deauthenticate (logout) the current socket.
-              The callback will receieve an error as the first argument if the operation fails.
+              The callback will receive an error as the first argument if the operation fails.
             </td>
           </tr>
           <tr>
@@ -320,7 +320,7 @@
             </td>
             <td>
               Stop handling data which is published on the specified channel. This is different from unsubscribe in that the
-              socket will still receieve channel data but the specified handler will no longer capture it.
+              socket will still receive channel data but the specified handler will no longer capture it.
               If the handler argument is not provided, all handlers for that channelName will be removed.
             </td>
           </tr>

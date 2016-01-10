@@ -57,6 +57,8 @@
                 <li><b>autoReconnectOptions</b>: Object - Valid properties are: initialDelay
                   (milliseconds), randomness (milliseconds), multiplier (decimal;
                   default is 1.5) and maxDelay (milliseconds).</li>
+                <li><b>multiplex</b>: Boolean - Defaults to true; multiplexing allows you
+                  to reuse a socket instead of creating a second socket to the same address.</li>
                 <li><b>timestampRequests</b>: Boolean - Whether or not to add a timestamp
                   to the WebSocket handshake request.</li>
                 <li><b>timestampParam</b>: String - The query parameter name to use to

@@ -5,19 +5,19 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-        <h1>API - Exchange (nData)</h1>
+        <h1>API - Exchange (scBroker)</h1>
         <p>
           Can be accessed using scWorker.exchange property.
         </p>
         <p>
-          The exchange object is a top-level nData client which lets you publish events and manipulate data within your brokers.
+          The exchange object is a top-level scBroker client which lets you publish events and manipulate data within your brokers.
           It also lets you passively watch channels (those which clients of the current server are subscribed to) or you can explicitly
           subscribe to channels to let you watch additional channels.
-          You can use any method of an nData client on instances of this object: <a href="https://github.com/SocketCluster/ndata">https://github.com/SocketCluster/ndata</a>
+          You can use any method of an scBroker client on instances of this object: <a href="https://github.com/SocketCluster/sc-broker">https://github.com/SocketCluster/sc-broker</a>
         </p>
         <p>
           Because this object potentially handles a cluster of brokers,
-          you can use the setMapper(mapperFn) method to set a function which will be used to map your individual nData client calls to one of your
+          you can use the setMapper(mapperFn) method to set a function which will be used to map your individual scBroker client calls to one of your
           brokers (assuming you have more than one).
           The mapperFn takes three arguments:
         </p>
@@ -26,23 +26,23 @@
           <tr>
             <td>key</td>
             <td>
-              The key/keyChain (typically string or Array but can also be a function) which is was passed to this nData client method/action.
-              If the method is 'query' then the key will be an nData query function which you will have to interpret in order to come up with a mapping.
+              The key/keyChain (typically string or Array but can also be a function) which is was passed to this scBroker client method/action.
+              If the method is 'query' then the key will be an scBroker query function which you will have to interpret in order to come up with a mapping.
             </td>
           </tr>
           <tr>
             <td>method</td>
-            <td>The nData method which was invoked and needs to be mapped to one or more broker processes.</td>
+            <td>The scBroker method which was invoked and needs to be mapped to one or more broker processes.</td>
           </tr>
           <tr>
             <td>clientIds</td>
-            <td>An array of available nData client IDs which you can map to.</td>
+            <td>An array of available scBroker client IDs which you can map to.</td>
           </tr>
         </table>
         <br />
         <p>
           The mapper must return either an ID (integer) or an array of IDs and SC will send the action to all corresponding brokers.
-          So if the mapperFn returns 0, then the action wil be sent to nData broker with ID 0.
+          So if the mapperFn returns 0, then the action wil be sent to scBroker broker with ID 0.
           If you return the clientIds array directly, then all clients will receive the action.
         </p>
         <h3>Inherits from:</h3>
@@ -61,14 +61,14 @@
           <tr>
             <td>subscribe(channelName)</td>
             <td>
-              Subscribe this nData exchange client to the specified channel.
+              Subscribe this scBroker exchange client to the specified channel.
               This function returns a <a href="/#!/docs/api-scchannel-server">Channel</a> object which lets you watch for incoming data on that channel.
             </td>
           </tr>
           <tr>
             <td>unsubscribe(channelName, [callback])</td>
             <td>
-              Unsubscribe this nData exchange client from the specified channel.
+              Unsubscribe this scBroker exchange client from the specified channel.
               You can reactivate the <a href="/#!/docs/api-scchannel-server">Channel</a> object by calling subscribe(channelName) again at a later time.
             </td>
           </tr>
@@ -121,7 +121,7 @@
           <tr>
             <td>run(queryFn,[data,] callback)</td>
             <td>
-              This method is a wrapper around the <a href="https://github.com/SocketCluster/ndata#run">nData run</a> method.
+              This method is a wrapper around the <a href="https://github.com/SocketCluster/sc-broker#run">scBroker run</a> method.
               The queryFn function will be executed directly on one of your brokers and the result will be passed back to your callback.
               If your SC instance has more than one broker, they queryFn will be executed on the first one by default - In order to spread
               the load evenly between all your brokers, you should add a <b>mapIndex</b> key to your queryFn before you pass it to the run method.
@@ -132,7 +132,7 @@
           <tr>
             <td>setMapper(mapper)</td>
             <td>
-              Allows you to define a mapping function which is used to map various nData actions to
+              Allows you to define a mapping function which is used to map various scBroker actions to
               specific broker processes to distributed the load between them. More details coming soon...
             </td>
           </tr>

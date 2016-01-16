@@ -41,6 +41,22 @@
             </td>
           </tr>
           <tr>
+            <td>
+               authToken
+             </td>
+             <td>
+               [Only available from v4.0.0 onwards] The auth token (as a plain Object) currently associated with the socket. This property will be null if no token is associated with this socket.
+             </td>
+           </tr>
+           <tr>
+             <td>
+               signedAuthToken
+             </td>
+             <td>
+               [Only available from v4.0.0 onwards] The signed auth token currently associated with the socket (encoded and signed in the JWT format). This property will be null if no token is associated with this socket.
+             </td>
+           </tr>
+           <tr>
             <td>CONNECTING</td>
             <td><b>'connecting'</b> - A string constant which represents this socket's connecting state. See state property.</td>
           </tr>
@@ -127,8 +143,8 @@
             <td>
               Triggers whenever the client's authState changes. This includes changes between socket.PENDING and socket.AUTHENTICATED/UNAUTHENTICATED states.
               The handler will receive as an argument an object which has at least two properties: <code>oldState</code> and <code>newState</code>.
-              If <code>newState</code> is 'authenticated', the argument to the handler will also have an additional <code>authToken</code> property which
-              will be the base64 signed JWT auth token as a string.
+              If <code>newState</code> is 'authenticated', the argument to the handler will also have an additional <code>signedAuthToken</code> property which
+              will be the base64 signed JWT auth token as a string and an <code>authToken</code> property which will represent the token as a plain Object.
             </td>
           </tr>
           <tr>
@@ -159,6 +175,14 @@
           </tr>
         </table>
 
+        <h3>Errors</h3>
+        <p>
+          For the list of all SC errors (and their properties) <a href="https://github.com/SocketCluster/sc-errors/blob/master/index.js">click here</a>.
+          To check the type of an error in SC, you should use the <code>name</code> property of the error (do not use the instanceof statement).
+          Errors which are sent to the client from the server will be dehydrated on the server and rehydrated on the client - As a result they will be cast
+          to plain <code>Error</code> objects.
+        </p>
+
         <h3>Methods:</h3>
         <table class="table">
           <tr>
@@ -180,6 +204,22 @@
                 <li><b>'open'</b> - socket.OPEN</li>
                 <li><b>'closed'</b> - socket.CLOSED</li>
               </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              getAuthToken()
+            </td>
+            <td>
+              Returns the auth token as a plain JavaScript object.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              getSignedAuthToken()
+            </td>
+            <td>
+              Returns the signed auth token as a string in the JWT format.
             </td>
           </tr>
           <tr>
@@ -255,11 +295,11 @@
           <tr>
             <td colspan="2">
               <p>
-              <i style="color: #999;">
-                All of the following methods are related to pub/sub features of SC.<br />
-                SC let you interact with channels either directly through the socket or through
-                <a href="#!/docs/api-scchannel-client">SCChannel</a> objects.
-              </i>
+                <i style="color: #999;">
+                  All of the following methods are related to pub/sub features of SC.<br />
+                  SC let you interact with channels either directly through the socket or through
+                  <a href="#!/docs/api-scchannel-client">SCChannel</a> objects.
+                </i>
               </p>
             </td>
           </tr>

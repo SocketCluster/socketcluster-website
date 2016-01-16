@@ -219,9 +219,7 @@
   // The root directory in which to store your socket files in Linux.
   socketRoot: null,
 
-  // Defaults to "none", but can be set to "rr" - "none" is more scalable,
-  // but it may perform worse on some systems when there are few CPU
-  // cores and worker processes
+  // Defaults to "rr", but can be set to "none" - <a href="https://nodejs.org/dist/latest-v5.x/docs/api/cluster.html#cluster_cluster_schedulingpolicy">Click here</a> for details.
   schedulingPolicy: 'none',
 
   // Whether or not clients are allowed to publish messages to channels

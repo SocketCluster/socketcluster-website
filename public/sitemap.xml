@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scsocket-client</loc>
-    <lastmod>2016-01-06</lastmod>
+    <lastmod>2016-01-16</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scchannel-client</loc>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-socketcluster</loc>
-    <lastmod>2015-06-28</lastmod>
+    <lastmod>2016-01-16</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-socketcluster-client</loc>
@@ -82,7 +82,7 @@
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-exchange</loc>
-    <lastmod>2015-04-25</lastmod>
+    <lastmod>2016-01-16</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-session</loc>

@@ -56,7 +56,7 @@
               <p>
                 <i style="color: #999;">
                   If you're running the full version of SC (not just the standalone <a href="https://github.com/SocketCluster/socketcluster-server">socketcluster-server</a>),
-                  this object will inherit all the methods of the scBroker Client documented <a href="https://github.com/SocketCluster/sc-broker#client-methods">here</a>.
+                  this <code>Exchange</code> object will inherit all the methods of the scBroker Client documented <a href="https://github.com/SocketCluster/sc-broker#client-methods">here</a>.
                   So for example, if you want to store data to share accross all your worker processes, you could call
                   <code>worker.exchange.set('myCustomVariable', {foo: 'Hello world'}, function (err) { /*...*/ })</code>.
                   Then <code>worker.exchange.get('myCustomVariable', function (err, data) { /* data will be {foo: 'Hello world'} */ })</code>.

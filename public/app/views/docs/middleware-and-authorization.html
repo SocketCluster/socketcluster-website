@@ -98,7 +98,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
     if (...) {
       next() // Allow
     } else {
-      var err = MyCustomPublishOutFailedError('Blocked publishing message out to ' + socket.id);
+      var err = MyCustomPublishOutFailedError('Blocked publishing message out to ' + req.socket.id);
       next(err); // Block with notice
       // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
     }

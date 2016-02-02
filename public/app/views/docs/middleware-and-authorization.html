@@ -79,7 +79,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
 
         <h3>Publish in</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN,
-  function (socket, channel, data, next) {
+  function (req, next) {
     // ...
     if (...) {
       next() // Allow
@@ -93,7 +93,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
 
         <h3>Publish out</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_OUT,
-  function (socket, channel, data, next) {
+  function (req, next) {
     // ...
     if (...) {
       next() // Allow
@@ -107,12 +107,12 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
 
         <h3>Emit</h3>
         <pre class="prettyprint">wsServer.addMiddleware(wsServer.MIDDLEWARE_EMIT,
-  function (socket, event, data, next) {
+  function (req, next) {
     // ...
     if (...) {
       next() // Allow
     } else {
-      var err = MyCustomEmitFailedError(socket.id + ' is not allowed to emit event ' + event);
+      var err = MyCustomEmitFailedError(req.socket.id + ' is not allowed to emit event ' + req.event);
       next(err); // Block
       // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
     }

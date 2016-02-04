@@ -142,6 +142,12 @@
   // This is the same as the object provided to Node.js's https server
   protocolOptions: null,
 
+  // This allows you to provide a custom server to use as the underlying HTTP server for SC.
+  // This should be the path (string) to your custom HTTP server module.
+  // This module needs to export a createServer(protocolOptions) function which should return a customized Node.js HTTP server.
+  // The protocolOptions argument passed to the createServer function will be whatever you specify as the protocolOptions above.
+  httpServerModule: null,
+
   // A log level of 3 will log everything, 2 will show notices and errors,
   // 1 will only log errors, 0 will log nothing
   logLevel: 2,
@@ -155,7 +161,7 @@
   ackTimeout: 10000,
 
   // In milliseconds - If the socket cannot upgrade transport
- // within this period, it will stop trying
+  // within this period, it will stop trying
   socketUpgradeTimeout: 1000,
 
   // Origins which are allowed to connect to the realtime scServer

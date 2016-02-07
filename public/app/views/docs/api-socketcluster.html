@@ -155,6 +155,10 @@
   // In milliseconds, how long a client has to connect to SC before timing out
   connectTimeout: 10000,
 
+  // In milliseconds - If the socket handshake hasn't been completed before
+  // this timeout is reached, the new connection attempt will be terminated.
+  handshakeTimeout: 10000,
+
   // In milliseconds, the timeout for calling res.end() or res.error() when
   // your emit() call expects an ACK response from the other side
   // (when callback is provided to emit)

@@ -3,11 +3,11 @@ var socketclusterApp = angular.module('socketclusterApp', ['ngRoute', 'ui.bootst
 
 socketclusterApp.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(false).hashPrefix('!');
-  
+
   $routeProvider
 
     // Route for Home page
-    
+
     .when('/', {
       templateUrl: 'app/views/index.html',
       controller: 'mainController'
@@ -17,7 +17,7 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/demos.html',
       controller: 'demosController'
     })
-    
+
     .when('/docs/getting-started', {
       templateUrl: 'app/views/docs/getting-started.html',
       controller: 'docsController'
@@ -27,12 +27,12 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/basic-usage.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/debugging', {
       templateUrl: 'app/views/docs/debugging.html',
       controller: 'docsController'
     })
-    
+
     .when('/performance', {
       templateUrl: 'app/views/performance.html',
       controller: 'performanceController'
@@ -41,7 +41,7 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/introduction.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/authentication', {
       templateUrl: 'app/views/docs/authentication.html',
       controller: 'docsController'
@@ -71,67 +71,67 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/docs/scaling-horizontally.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-socketcluster', {
       templateUrl: 'app/views/docs/api-socketcluster.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-socketcluster-client', {
       templateUrl: 'app/views/docs/api-socketcluster-client.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-exchange', {
       templateUrl: 'app/views/docs/api-exchange.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-scchannel-client', {
       templateUrl: 'app/views/docs/api-scchannel-client.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-scchannel-server', {
       templateUrl: 'app/views/docs/api-scchannel-server.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-scserver', {
       templateUrl: 'app/views/docs/api-scserver.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-scsocket-client', {
       templateUrl: 'app/views/docs/api-scsocket-client.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-scsocket-server', {
       templateUrl: 'app/views/docs/api-scsocket-server.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-scworker', {
       templateUrl: 'app/views/docs/api-scworker.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-store', {
       templateUrl: 'app/views/docs/api-store.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-broker', {
       templateUrl: 'app/views/docs/api-broker.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs/api-session', {
       templateUrl: 'app/views/docs/api-session.html',
       controller: 'docsController'
     })
-    
+
     .when('/docs', {
       templateUrl: 'app/views/docs/introduction.html',
       controller: 'docsController'
@@ -142,7 +142,7 @@ socketclusterApp.directive('feelDemo', function() {
   return {
     templateUrl: 'app/shared/feel-demo.html',
     link: function ($scope) {
-    
+
       var socket = socketCluster.connect({
         autoReconnectOptions: {
           initialDelay: 1000,
@@ -151,13 +151,13 @@ socketclusterApp.directive('feelDemo', function() {
         }
       });
       $scope.socket = socket;
-      
+
       socket.on('connect', function (status) {
         $scope.$apply(function () {
           $scope.hasWebSocketSupport = true;
         });
       });
-      
+
       var watchChannel = function (channel) {
         channel.watch(function (data) {
           $scope.$apply(function () {
@@ -171,7 +171,7 @@ socketclusterApp.directive('feelDemo', function() {
           if (!$scope.$$phase) $scope.$apply();
         });
       };
-      
+
       $scope.addChannel = function () {
         var newChannelName = $scope.newChannelName;
         if (newChannelName == null || newChannelName.length <= 0) {
@@ -187,17 +187,17 @@ socketclusterApp.directive('feelDemo', function() {
           watchChannel(newChannel);
         }
       };
-      
+
       $scope.publishToChannel = function () {
         socket.publish($scope.publishChannelName, $scope.publishChannelData);
         $scope.publishChannelData = '';
       };
-      
+
       // This is necessary in case of unexpected connection failure (ping timeout)
       socket.on('disconnect', function () {
         if (!$scope.$$phase) $scope.$apply();
       });
-      
+
       var randChannel = socket.subscribe('rand');
       var fooChannel = socket.subscribe('foo');
       $scope.channels = [randChannel, fooChannel];
@@ -246,7 +246,7 @@ socketclusterApp.controller('docsController', function($scope) {
 
 socketclusterApp.directive('prettyprint', function() {
   return {
-    restrict: 'C',  
+    restrict: 'C',
     link: function postLink(scope, element, attrs) {
       prettyPrint();
     }

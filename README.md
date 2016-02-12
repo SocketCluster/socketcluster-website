@@ -1,4 +1,4 @@
-SocketCluster Sample App
+SocketCluster Website
 ======
 
-This is a sample SocketCluster app.
+This is the http://socketcluster.io website. Contributions are welcome.

@@ -141,7 +141,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH, function (socket, channel, d
           If you want to do authentication over HTTP (before establishing a WebSocket connection), you will need to handle the token yourself.
           See <a href="https://github.com/SocketCluster/socketcluster/issues/71#issuecomment-115706901">this comment</a> for ideas. Note that SC
           now provides a default 'AuthEngine' for signing (creating) and verifying tokens on the server side - You can access it in your
-          workerController (worker.js) from the 'worker.auth' property - See the implementation here: <a href="https://github.com/SocketCluster/socketcluster/blob/master/lib/auth.js">Default server auth engine</a>.
+          workerController (worker.js) from the 'worker.auth' property - See the implementation here: <a href="https://github.com/SocketCluster/sc-auth/blob/master/index.js">Default server auth engine</a>.
           More info about Node.js JSON web token library can be found here: <a href="https://github.com/auth0/node-jsonwebtoken">jsonwebtoken</a>.
         </p>
         <h3>Videos by <a href="https://www.youtube.com/channel/UCRlz06nPWywubixXkRFOOtQ">Nick Kotenberg</a></h3>

@@ -50,6 +50,22 @@
             </td>
           </tr>
           <tr>
+            <td>
+              authState
+            </td>
+            <td>
+              [Only available from v4.0.0 onwards] The authentication state of the socket as a string. Can be either socket.AUTHENTICATED, socket.UNAUTHENTICATED
+            </td>
+          </tr>
+          <tr>
+            <td>
+              authToken
+            </td>
+            <td>
+              [Only available from v4.0.0 onwards] The auth token (as a plain Object) currently associated with the socket. This property will be null if no token is associated with this socket.
+            </td>
+          </tr>
+          <tr>
             <td>CONNECTING</td>
             <td><b>'connecting'</b> - A string constant which represents this socket's connecting state. See state property.</td>
           </tr>
@@ -60,6 +76,14 @@
           <tr>
             <td>CLOSED</td>
             <td><b>'closed'</b> - A string constant which represents this socket's closed state. See state property.</td>
+          </tr>
+          <tr>
+            <td>AUTHENTICATED</td>
+            <td><b>'authenticated'</b> - A string constant which represents this socket's authenticated authState.</td>
+          </tr>
+          <tr>
+            <td>UNAUTHENTICATED</td>
+            <td><b>'unauthenticated'</b> - A string constant which represents this socket's unauthenticated authState.</td>
           </tr>
         </table>
 

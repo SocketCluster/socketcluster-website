@@ -7,6 +7,9 @@
       <div class="docs-content">
         <h1>Getting started</h1>
         <p>
+          If you would like to try SocketCluster on the frontend, the quickest way is to sign up for a trial account on Baasil.io <a href="https://baasil.io/#!/sign-up">here</a> and then start typing commands into your developer console (Ctrl + Shift + J in Chrome).
+        </p>
+        <p>
           To get started with SocketCluster, you need to have <a href="http://nodejs.org/" target="_blank">Node.js</a> installed.
           You can follow <a href="https://github.com/joyent/node/wiki/installation" target="_blank">these instructions</a> to install Node.
         </p>
@@ -35,9 +38,11 @@
           You can connect to your server by navigating to http://localhost:8000/ in your browser.
         </p>
         <p>
-          To test SocketCluster's realtime features, you can open your browser's developer console and enter the following command:
+          To test SocketCluster's realtime features, you can open your browser's developer console and enter this:
         </p>
-        <pre class="prettyprint">socket.emit('sampleClientEvent', {message: 'This is an object with a message property'});</pre>
+        <pre class="prettyprint">// Client side
+var socket = socketCluster.connect();
+socket.emit('sampleClientEvent', {message: 'This is an object with a message property'});</pre>
         <p>
           You should get a 'Sample channel message: 1' message back - The server receives your sampleClientEvent event and then publishes a sample event to all clients which are listening to it.
         </p>
@@ -45,7 +50,11 @@
           You can pass almost anything as the second argument to the emit and publish command so long as it's compatible with JSON.
         </p>
         <p>
-          You can configure SocketCluster by editing code inside <code>server.js</code>. SocketCluster has over 30 options which you can change to suit your specific needs (most options are optional).
+          Note that you can provide an optional options object to the socketCluster.connect() method on the client side.
+          See <a href="http://localhost/#!/docs/api-socketcluster-client" target="_blank">socketCluster</a> for details.
+        </p>
+        <p>
+          On the server side, you can configure SocketCluster by editing code inside <code>server.js</code>. SocketCluster has over 30 options which you can change to suit your specific needs (most options are optional).
         </p>
 
         <p>Here is a sample <code>server.js</code> file (with comments):</p>

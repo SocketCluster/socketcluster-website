@@ -29,7 +29,7 @@ var socketCluster = new SocketCluster({
 });</pre>
 
           <p>
-            To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 3 different kinds of processes:
+            To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 3 different kinds of processes on the server:
           </p>
           <h3>Master process (server.js)</h3>
           <p>
@@ -43,6 +43,13 @@ var socketCluster = new SocketCluster({
           <p>
             This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.
           </p>
+          
+          <h2>Try it on Baasil.io</h2>
+          <p>
+            If you would like to try SocketCluster quickly, you can setup a free trial account on <a href="https://baasil.io/#!/sign-up">Baasil.io</a>
+            then you can play with SC directly from your browser's developer console. Baasil.io is just "SocketCluster as a Service" except without the ability to
+            add custom code on the backend - It's useful if you have simple requirements and don't want to manage your own pub/sub servers.
+          </p>
 
           <h2>Boilerplate app</h2>
           <p>
@@ -55,7 +62,7 @@ app.use(serveStatic(__dirname + '/public'));
 httpServer.on('req', app);</pre>
 
           <p>
-            In the boilerplate app, scServer handles incoming WebSocket connections and listens for 'ping' events from client sockets (among other things):
+            In the boilerplate app, scServer handles incoming WebSocket connections and listens for a custom 'ping' event from client sockets (among other things):
           </p>
 
           <pre class="prettyprint">// Server code

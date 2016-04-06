@@ -26,6 +26,19 @@
         </p>
         <pre class="prettyprint">socketcluster create myApp</pre>
         <p>
+          To install it in a bundled project (e.g. webpack):
+        </p>
+        <pre class="prettyprint">npm install --save socketcluster
+npm install --save socketcluster-client</pre>
+        <p>
+          Then on the server
+        </p>
+        <pre class="prettyprint">var SocketCluster = require('socketcluster').SocketCluster</pre>
+        <p>
+          And on the client
+        </p>
+        <pre class="prettyprint">var SocketCluster = require('socketcluster-client')</pre>
+        <p>
           To install it as a standalone server and client; follow the instructions <a href="https://github.com/SocketCluster/socketcluster-server" target="_blank">here (server)</a> and <a href="https://github.com/SocketCluster/socketcluster-client" target="_blank">here (client)</a>.
         </p>
 

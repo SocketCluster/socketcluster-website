@@ -79,6 +79,9 @@ var socketCluster = new SocketCluster({
   port: 8000, // The port number on which your server should listen
   appName: 'myapp', // A unique name for your app
 
+  // Switch wsEngine to 'uws' for a MAJOR performance boost (beta)
+  wsEngine: 'ws',
+
   /* A JS file which you can use to configure each of your
    * workers/servers - This is where most of your backend code should go
    */

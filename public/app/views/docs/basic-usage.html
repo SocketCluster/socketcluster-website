@@ -22,6 +22,8 @@ var socketCluster = new SocketCluster({
   brokers: 1,
   port: 8000,
   appName: 'app',
+  // Switch wsEngine to 'uws' for a MAJOR performance boost (beta)
+  wsEngine: 'ws',
   workerController: __dirname + '/worker.js',
   brokerController: __dirname + '/broker.js',
   socketChannelLimit: 1000,
@@ -43,7 +45,7 @@ var socketCluster = new SocketCluster({
           <p>
             This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.
           </p>
-          
+
           <h2>Try it on Baasil.io</h2>
           <p>
             If you would like to try SocketCluster quickly, you can setup a free trial account on <a href="https://baasil.io/#!/sign-up">Baasil.io</a>

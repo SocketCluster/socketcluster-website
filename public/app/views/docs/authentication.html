@@ -122,13 +122,13 @@ socket.on('login', function (credentials, respond) {
         </p>
 <pre class="prettyprint">// Server code
 
-wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH, function (socket, channel, data, next) {
-  var authToken = socket.getAuthToken();
+wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN, function (req, next) {
+  var authToken = req.socket.getAuthToken();
 
-  if (authToken && authToken.channels.indexOf(channel) > -1) {
+  if (authToken && authToken.channels.indexOf(req.channel) > -1) {
     next();
   } else {
-    next('You are not authorized to publish to ' + channel);
+    next('You are not authorized to publish to ' + req.channel);
   }
 });</pre>
         <p>

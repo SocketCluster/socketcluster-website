@@ -166,6 +166,13 @@
             </td>
           </tr>
           <tr>
+            <td>'authTokenChange'</td>
+            <td>
+              Triggers whenever the client's signedAuthToken and authToken properties are updated (including if the client is already authenticated).
+              The argument passed to the handler is the signedAuthToken. You can use <code>socket.authToken</code> to get the token in plaintext.
+            </td>
+          </tr>
+          <tr>
             <td>'subscribeStateChange'</td>
             <td>
               Triggers whenever a pub/sub channel's state transitions between 'pending', 'subscribed' and 'unsubscribed' states.

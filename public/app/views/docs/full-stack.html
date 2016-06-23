@@ -43,32 +43,32 @@ physChannel.watch(function (data) {...});</pre>
         </p>
 
         <pre class="prettyprint">
-scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, function (socket, channel, next) {
+scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, function (req, next) {
   // ...
   if (...) {
     next(); // Allow
   } else {
-    next(socket.id + ' is not allowed to subscribe to ' + channel); // Block
+    next(req.socket.id + ' is not allowed to subscribe to ' + req.channel); // Block
   }
 });</pre>
 
         <pre class="prettyprint">
-scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_IN, function (socket, channel, data, next) {
+scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_IN, function (req, next) {
   // ...
   if (...) {
     next(); // Allow
   } else {
-    next(socket.id + ' is not allowed to publish to the ' + channel + ' channel'); // Block
+    next(req.socket.id + ' is not allowed to publish to the ' + req.channel + ' channel'); // Block
   }
 });</pre>
 
         <pre class="prettyprint">
-scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, function (socket, event, data, next) {
+scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, function (req, next) {
   // ...
   if (...) {
     next(); // Allow
   } else {
-    next(socket.id + ' is not allowed to emit the ' + event + ' event'); // Block
+    next(req.socket.id + ' is not allowed to emit the ' + req.event + ' req.event'); // Block
   }
 });</pre>
         <p>

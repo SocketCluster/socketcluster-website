@@ -52,6 +52,10 @@
             <td>Emitted whenever a worker is launched. This event's handler can take a worker object as argument (which is a handle to the worker child process). This worker object has an id property (the lead worker will always have id 0).</td>
           </tr>
           <tr>
+            <td>'workerExit'</td>
+            <td>Emitted whenever a worker exits. This event's handler can take a workerInfo object as argument. This workerInfo object has an id property (the id of the worker), a code property (the exit code) and a signal property (if terminated using a signal).</td>
+          </tr>
+          <tr>
             <td>'workerMessage'</td>
             <td>
               Emitted when a worker process sends a message to this master process.

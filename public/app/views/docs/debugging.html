@@ -68,10 +68,10 @@ node server --debug-brokers</pre>
           <a href="http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5859">http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5859</a>
         </p>
         <p>
-          For Node.js >= v6.3.0, just copy the URL provided in the console.
+          For Node.js >= v6.3.0, just copy the second URL provided in the console to debug the first worker (the first URL provided is for the master workerCluster process).
         </p>
         <p>
-          You can also provide a custom starting port for the workerCluster master - The workerCluster master is the process
+          You can also provide a custom starting port for the workers - The first port will be assigned to the workerCluster master - This is the process
           which manages the SC workers - You generally don't need to debug that one. The first worker's debug port will be the specified port + 1
           and subsequent workers will +1 increment:
         </p>

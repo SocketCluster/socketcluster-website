@@ -12,12 +12,14 @@
           various ways, you generally don't want to debug all of them at the same time.
           For this reason, SC allows you to provide <b>--debug-workers</b> and <b>--debug-brokers</b> CLI arguments
           to let you debug workers and brokers separately.
+          Note that if you're using Node.js versions 6.3.0 and above, you can use <b>--inspect-workers</b> and <b>--inspect-brokers</b> that way you
+          don't need to run an external debugger on the side.
         </p>
         <p>
           First, make sure that you are using Node.js v0.11.0+ (preferably the latest stable version).
         </p>
         <p>
-          Install node-inspector globally:
+          Install node-inspector globally (skip this step if you're on Node.js v6.3.0 or above):
         </p>
         <pre class="prettyprint">
 npm install -g node-inspector</pre>
@@ -33,9 +35,9 @@ node-inspector</pre>
           debugging session (no need to restart it between individual debugs).
         </p>
         <p>
-          To start debugging, you need to have a fresh console open. You just have to pass a <b>--debug-workers</b>
-          or <b>--debug-brokers</b> argument when you run your server.js file using node. Make sure you add the
-          new flags <b>after</b> the server file name or else it won't work.
+          To start debugging, you need to have a fresh console open. You just have to pass a <b>--debug-workers</b>,
+          <b>--debug-brokers</b>, <b>--inspect-workers</b> or <b>--inspect-brokers</b> argument when you run your server.js
+          file using node. Make sure you add the flags <b>after</b> the server file name or else it won't work.
         </p>
         <p>
           E.g.
@@ -47,34 +49,56 @@ node server --debug-workers</pre>
         </p>
         <pre class="prettyprint">
 node server --debug-brokers</pre>
-
         <p>
-          The default debug port for the first worker is <b>5858</b>, the second worker is 5859, ... (it increments by one for each
+          or (Node.js version >= 6.3.0)
+        </p>
+        <pre class="prettyprint">
+        node server --inspect-workers</pre>
+        <p>
+          or (Node.js version >= 6.3.0)
+        </p>
+        <pre class="prettyprint">
+        node server --inspect-brokers</pre>
+        <p>
+          The default debug port for the first worker is <b>5859</b>, the second worker is 5860, ... (it increments by one for each
           worker) - You should see a debug message get printed to the console telling you which debug ports are open.
         </p>
         <p>
-          To open the debug console for the first worker, you need to insert this address in your Chrome browser (debug port 5858):
-          <a href="http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5858">http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5858</a>
+          To open the debug console for the first worker, you need to insert this address in your Chrome browser (debug port 5859):
+          <a href="http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5859">http://127.0.0.1:8080/debug?ws=127.0.0.1:8080&port=5859</a>
         </p>
         <p>
-          You can also provide a custom starting port for the first worker (subsequent workers will +1 increment):
+          You can also provide a custom starting port for the workerCluster master - The workerCluster master is the process
+          which manages the SC workers - You generally don't need to debug that one. The first worker's debug port will be the specified port + 1
+          and subsequent workers will +1 increment:
         </p>
         <pre class="prettyprint">
+// Our workerCluster process will be debuggable on port 5999.
+// The first worker will be debuggable on port 6000.
 node server --debug-workers=5999</pre>
         <p>
           This applies to brokers too:
         </p>
         <pre class="prettyprint">
+// First broker will be debuggable on port 5999.
 node server --debug-brokers=5999</pre>
-
+        <p>
+          If you're using Node.js v6.3.0 or above, you can substitute the 'debug' keyword above with 'inspect' and it will work in essentially the same way.
+          You should see the debugger URLs come up on the console; you can just copy them and paste them in your browser.
+        </p>
         <p>
           If you want to debug your master process (server.js), it's the normal
         </p>
         <pre class="prettyprint">
 node --debug-brk server</pre>
+        <p>
+          or for Node.js >= v6.3.0:
+        </p>
+        <pre class="prettyprint">
+node --inspect server</pre>
 
         <p>
-          ^ Note that the order matters in this case too (this time <b>--debug-brk</b> needs to go <b>before</b> the server argument)!
+          ^ Note that the order matters in this case too (this time <b>--debug-brk</b> or <b>--inspect</b> needs to go <b>before</b> the server argument)!
         </p>
         <p>
           When you're debugging a worker, you may occasionally want to make it break on a particular line or else it will go to the end (idle, waiting for connections).

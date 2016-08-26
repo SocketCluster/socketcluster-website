@@ -38,27 +38,28 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h2 class="header-light regular-pad">How does it compare to other realtime engines like Socket.io, SockJS, etc?</h2>
+        <h2 class="header-light regular-pad">What is it good for?</h2>
         <ul class="list">
           <li>
-            SocketCluster is a complete, configurable and extendable realtime framework - Not just a transport.
+            Any kind of single-page app which needs to display data in realtime (no need to refresh the page).
           </li>
           <li>
-            Unlike other engines which you can attach to an existing Node.js HTTP server, SC takes responsibility for creating the necessary
-            HTTP server(s) and launching itself as a local cluster (bipartite graph) of worker and broker processes.
+            Chatbots and other chat-related applications which need to interact with millions of users.
           </li>
           <li>
-            SocketCluster supports pub/sub channels which are ideal for passively consuming data from the server in realtime.
+            IoT devices which run Node.js. SC can be used to collect data from IoT devices in realtime.
           </li>
           <li>
-            Realtime engines are vulnerable to failure.
-            With a realtime engine, you will have to do a lot of work to effectively handle lost connections and coordinate respawn behaviours between your processes.
-            For example, you need to figure out how reconnect, reauthenticate and resubscribe users to channels which were temporarily lost as a result of failure.
-            SC adds an element of management and coordination to your realtime stack.
+            Finance/trading applications.
           </li>
           <li>
-            In short - Providing a realtime service that 'just works' in all cases is difficult - That is the problem which SocketCluster aims to solve.
-            SocketCluster provides a fully functional and scalable realtime microservice out of the box.
+            Mobile apps built with web technologies such as React Native.
+          </li>
+          <li>
+            Massively Multiplayer Online Games.
+          </li>
+          <li>
+            Any kind of realtime app or service which needs to scale across hundreds (or thousands) of machines and service millions of concurrent users.
           </li>
         </ul>
       </div>

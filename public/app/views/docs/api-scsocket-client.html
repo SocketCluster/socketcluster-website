@@ -253,10 +253,12 @@
           </tr>
           <tr>
             <td>
-              disconnect()
+              disconnect([code, data])
             </td>
             <td>
               Disconnect this socket from the server.
+              This function accepts two optional arguments:
+              A custom error code (a Number - Ideally between 4100 to 4500) and data (which can be either reason message String or an Object).
             </td>
           </tr>
           <tr>

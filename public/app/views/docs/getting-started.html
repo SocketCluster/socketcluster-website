@@ -7,18 +7,19 @@
       <div class="docs-content">
         <h1>Getting started</h1>
         <p>
-          If you would like to try SocketCluster on the frontend, the quickest way is to sign up for a trial account on Baasil.io <a href="https://baasil.io/#!/sign-up">here</a> and then start typing commands into your developer console (Ctrl + Shift + J in Chrome).
-        </p>
-        <p>
           To get started with SocketCluster, you need to have <a href="http://nodejs.org/" target="_blank">Node.js</a> installed.
           You can follow <a href="https://github.com/joyent/node/wiki/installation" target="_blank">these instructions</a> to install Node.
         </p>
         <p>
           Once you have Node installed, you can install SocketCluster.
-          There are two ways to install SocketCluster - You can install it as a microframework (this is the simplest way) or you can install the client and server separately (this may be better if you want SocketCluster to work with an existing system).
+          There are two ways to install SocketCluster - You can install it as a framework (this is the simplest way) or you can install the client and server separately (this may be better if you have more specific requirements).
+          Note that the two setups share almost exactly the same API so you generally don't need to change any code when switching from one to the other. In fact, socketcluster-server is a direct dependency of socketcluster (the framework).
         </p>
         <p>
-          To install it as a microframework:
+          To install SocketCluster as a standalone server and client; follow the instructions <a href="https://github.com/SocketCluster/socketcluster-server" target="_blank">here (server)</a> and <a href="https://github.com/SocketCluster/socketcluster-client" target="_blank">here (client)</a>.
+        </p>
+        <p>
+          To install it as a framework (recommended):
         </p>
         <pre class="prettyprint">npm install -g socketcluster</pre>
         <p>
@@ -38,9 +39,6 @@ npm install --save socketcluster-client</pre>
           And on the client
         </p>
         <pre class="prettyprint">var SocketCluster = require('socketcluster-client')</pre>
-        <p>
-          To install it as a standalone server and client; follow the instructions <a href="https://github.com/SocketCluster/socketcluster-server" target="_blank">here (server)</a> and <a href="https://github.com/SocketCluster/socketcluster-client" target="_blank">here (client)</a>.
-        </p>
 
         <h2>Serving SocketCluster</h2>
         <p>

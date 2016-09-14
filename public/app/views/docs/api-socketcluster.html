@@ -122,6 +122,10 @@
   // and authPublicKey instead of authKey.
   authKey: null,
 
+  // perMessageDeflate compression. Note that if you set it to true, you
+  // should also set it to true when instantiating the client socket.
+  perMessageDeflate: false,
+
   // If using an RSA or ECDSA algorithm to sign the authToken, you will need
   // to provide an authPrivateKey and authPublicKey in PEM format (string or Buffer).
   authPrivateKey: null,

@@ -84,8 +84,8 @@
                   <a href="https://github.com/SocketCluster/socketcluster/blob/master/socketcluster-protocol.md">SC protocol</a>.
                   The idea of using a custom codec is that it allows you to compress SC packets in any format you like (optimized for any use case) -
                   By decoding these packets back into their original protocol form, SC will be able process them appropriately.
-                  Note that if you provide a codecEngine when creating a client socket, you will need to make sure that the server uses the same codec
-                  by passing the same engine to `worker.scServer.setCodecEngine(codecEngine)` when your SC worker initializes on the server side.
+                  Note that if you provide a codecEngine when creating a client socket see 'codecEngine', you will need to make sure that the server uses the same codec
+                  by passing the same engine to `worker.scServer.setCodecEngine(codecEngine)` when your SC worker initializes on the server side (see 'setCodecEngine' method <a href="#!/docs/api-scserver">here</a>).
                   The default codec engine used by SC is <a href="https://github.com/SocketCluster/sc-formatter/blob/master/index.js">here</a>.</li>
               </ul>
             </td>

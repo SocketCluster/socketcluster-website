@@ -172,7 +172,7 @@
   // this timeout is reached, the new connection attempt will be terminated.
   handshakeTimeout: 10000,
 
-  // In milliseconds, the timeout for calling res.end() or res.error() when
+  // In milliseconds, the timeout for calling res(err, data) when
   // your emit() call expects an ACK response from the other side
   // (when callback is provided to emit)
   ackTimeout: 10000,

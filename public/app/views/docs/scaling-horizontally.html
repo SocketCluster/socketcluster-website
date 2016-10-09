@@ -11,6 +11,18 @@
           Scaling horizontally may be desirable because it removes the upper bound on how much traffic your system can handle and also because it makes
           your system more tolerant to server crashes.
         </p>
+
+        <h2>SCC</h2>
+        <p>
+          Since September 2016, SCC was introduced - It is a set of components for scaling SC across multiple hosts.
+          If you use SCC, you shouldn't need to read the rest of this guide.
+        </p>
+        <p>
+          SCC is designed to be easy to setup and gives you horizontal scalability without you having to know much about what is happening behind the scenes.
+          If you run SCC on top of Kubernetes, scaling up and down will be handled for you automatically.
+          The complete guide to using SCC is <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">here</a>.
+        </p>
+        <h2>Scaling Manually</h2>
         <p>
           The goal of horizontal scalability is to spread traffic between all available machines in an optimal way.
           In the context of SocketCluster, horizontal scalability boils down to two specific problems:

@@ -8,21 +8,21 @@
         <h1>Scaling across multiple hosts</h1>
         <p>
           SocketCluster lets you scale both vertically (across multiple CPU cores on a machine/host) and horizontally (across multiple hosts).
-          Scaling horizontally may be desirable because it removes the upper bound on how much traffic your system can handle and also because it makes
-          your system more tolerant to server crashes.
+          To scale horizontally, you can either use SCC (recommended) or implement your own solution from scratch.
+          If you use SCC, then you don't need to learn about the implementation details of how SC synchronizes channel data across machines.
         </p>
 
         <h3>SCC</h3>
         <p>
-          Since September 2016, SCC was introduced - It is a set of components for scaling SC across multiple hosts.
-          If you use SCC, you shouldn't need to read the rest of this guide.
+          SCC was introduced in September 2016 - It is a set of components for scaling SC across multiple hosts.
         </p>
         <p>
           SCC is designed to be easy to setup and gives you horizontal scalability without you having to know much about what is happening behind the scenes.
           If you run SCC on top of Kubernetes, scaling up and down will be handled for you automatically.
           The complete guide to using SCC is <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">here</a>.
+          If you use SCC, you don't need to read the section below about 'Scaling Manually'.
         </p>
-        
+
         <h3>Scaling Manually</h3>
         <p>
           The goal of horizontal scalability is to spread traffic between all available machines in an optimal way.

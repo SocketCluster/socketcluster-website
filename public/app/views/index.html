@@ -1,7 +1,7 @@
 <div class="page-index">
   <div class="header-container jumbotron">
     <div class="container">
-      <h1>A <strong><em>scalable</em></strong> framework for realtime apps and microservices.</h1>
+      <h1>A <strong><em>scalable</em></strong> framework for realtime apps and services.</h1>
       <p><a class="btn btn-primary btn-lg get-started-button" role="button" href="/#!/docs/getting-started">Get Started</a></p>
       <p><a class="btn btn-default btn-lg chat-button" role="button" href="https://gitter.im/SocketCluster/socketcluster">Chat on Gitter</a></p>
     </div>
@@ -9,25 +9,12 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <img src="../assets/img/users/openlearning_logo.png" alt="OpenLearning" class="user-logo">
-        <img src="../assets/img/users/webaula_logo.png" alt="WebAula" class="user-logo user-logo-webaula">
-
-        <img src="../assets/img/users/coinigy_logo.jpg" alt="Coinigy" class="user-logo user-logo-coinigy">
-        <img src="../assets/img/users/liga_mx_logo.jpg" alt="Liga MX" class="user-logo">
-        <img src="../assets/img/users/ascenso_logo.png" alt="Ascenso" class="user-logo">
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
       <div class="col-md-6">
         <h2 class="header-light regular-pad">What is SocketCluster?</h2>
-        <p>SocketCluster is an open source realtime WebSocket framework for Node.js.</p>
+        <p>SocketCluster is an open source realtime WebSocket framework powered by Node.js and optimized to run on Kubernetes (K8s).</p>
         <p>SC supports both direct client-server communication (like Socket.io) and group communication via pub/sub channels.</p>
-        <p>SC is designed to scale both vertically across multiple CPU cores and horizontally across multiple machines/instances (via pub/sub channel synchronization). See <a href="https://www.youtube.com/watch?v=swjwNsEGz9g&feature=youtu.be">video about scaling horizontally</a>.</p>
-        <p>If you're looking for a complete realtime reactive framework, check out <a href="https://github.com/mattkrick/meatier">Meatier</a> (built with SC).</p>
+        <p>SC is designed to scale both vertically across multiple CPU cores and horizontally across multiple machines/instances.</p>
+        <p>SC is built to run and auto-scale on a Kubernetes (K8s) cluster. All K8s config files are available <a href="https://github.com/SocketCluster/socketcluster/tree/master/kubernetes">from our main repo</a>. See our <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">Kubernetes guide</a>.</p>
       </div>
       <div class="col-md-6 text-center">
         <img src="../assets/img/cloud.png" alt="" class="large-pad sc-server-img">
@@ -41,13 +28,13 @@
         <h2 class="header-light regular-pad">What is it good for?</h2>
         <ul class="list">
           <li>
-            Single-page apps which needs to display data in realtime (no need to refresh the page).
+            Single-page apps which needs to display data in realtime.
           </li>
           <li>
-            Chatbots and other chat-related applications which need to interact with millions of users (and/or bots).
+            Chatbots and other chat-related applications.
           </li>
           <li>
-            IoT devices which need to send realtime data to a central server and which can run Node.js.
+            IoT devices.
           </li>
           <li>
             Finance/trading applications.
@@ -59,7 +46,7 @@
             Massively Multiplayer Online Games.
           </li>
           <li>
-            Any kind of realtime app or service which needs to scale across hundreds (or thousands) of machines and service millions of concurrent users.
+            Any kind of realtime app or service which needs to scale to millions of users.
           </li>
         </ul>
       </div>
@@ -74,18 +61,16 @@
       <div class="col-md-8">
         <ul class="features-list">
           <li>Resilient on both the client and backend - Process crashes, lost connections and other failures are handled seamlessly.</li>
-          <li>Scales linearly as you add more CPU cores and workers (assuming a decent OS) - Tested with up to 16 cores.</li>
-          <li>Also designed to scale horizontally across multiple machines. See <a href="http://github.com/socketcluster/sc-redis">sc-redis</a> sample.</li>
-          <li>Support for both pub/sub channels and standard WebSocket client-server interactions (via events).</li>
-          <li>Channels offer a clean way to allow multiple browser tabs to share the same realtime data.</li>
+          <li>Scales linearly as you add more CPU cores and workers.</li>
+          <li>Also designed to scale horizontally across multiple machines. See <a href="/#!/docs/scaling-horizontally">guide on horizontal scalability</a>.</li>
+          <li>Support for both pub/sub channels and direct client-server communication.</li>
           <li>Authentication engine compliant with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a> (JWT). See <a href="https://www.youtube.com/watch?v=5xbEynJzwzk">video</a>.</li>
           <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake interactions).</li>
           <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
-          <li>SocketCluster is a pure WebSocket (no hack) solution.</li>
-          <li>Errors across all processes are caught and logged on master by default.</li>
+          <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
           <li>Designed to work alongside any database/datastore (Redis, MySql, PostgreSQL, MongoDB, Cassandra, etc...).</li>
           <li>Open source alternative to PubNub and Pusher.</li>
-          <li>Can be used as an open source Firebase or Parse alternative when used with the <a href="https://github.com/SocketCluster/sc-crud-rethink">sc-crud-rethink</a>, <a href="https://github.com/SocketCluster/sc-collection">sc-collection</a> and <a href="https://github.com/SocketCluster/sc-field">sc-field</a> plugins.</li>
+          <li>Optimized to run and autoscale on Kubernetes.</li>
         </ul>
       </div>
     </div>

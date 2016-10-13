@@ -127,6 +127,19 @@ nav#docs a {
 .nav>li>a:focus {
   background-color: transparent;
 }
+
+@media screen and (max-width: 1000px) {
+  .navbar-nav {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .navbar-right {
+    display: none;
+  }
+}
+
 h2.large-pad {
   padding: 2em 0 0.75em 0;
 }

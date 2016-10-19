@@ -31,7 +31,7 @@
           authentication (login) process (see authKey option in SocketCluster constructor <a href="/#!/docs/api-socketcluster">here</a>).
           Because the data in the token is signed when provided to the client, they cannot modify it without invalidating the token.
           This means that if your socket on the server has a valid auth token attached to it
-          (see <a href="/#!/docs/api-scsocket-server">socket.getAuthToken()</a>), then you know that the client's token was signed by the server
+          (see <a href="/#!/docs/api-scsocket-server">socket.authToken</a>), then you know that the client's token was signed by the server
           and the data that is inside it is therefore valid.
         </p>
         <p>
@@ -46,7 +46,8 @@
         <h3>Authentication flow</h3>
         <p>
           There is no single correct way to implement authentication in SC. You can can perform auth over HTTP
-          (before establishing the WebSocket connection) or you can do it after. <a href="https://github.com/SocketCluster/socketcluster/issues/71#issuecomment-115706901">See this comment</a>.
+          (before establishing the WebSocket connection) or you can do it after.
+          For details about HTTP-based authentication, see <a href="https://github.com/SocketCluster/socketcluster/issues/233#issuecomment-254871963">this comment</a>.
           A sample WebSocket-based authentication flow might look like this:
         </p>
         <pre class="prettyprint">// Client code
@@ -123,7 +124,7 @@ socket.on('login', function (credentials, respond) {
 <pre class="prettyprint">// Server code
 
 wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN, function (req, next) {
-  var authToken = req.socket.getAuthToken();
+  var authToken = req.socket.authToken;
 
   if (authToken && authToken.channels.indexOf(req.channel) > -1) {
     next();
@@ -139,7 +140,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN, function (req, next) {
         </p>
         <p>
           If you want to do authentication over HTTP (before establishing a WebSocket connection), you will need to handle the token yourself.
-          See <a href="https://github.com/SocketCluster/socketcluster/issues/71#issuecomment-115706901">this comment</a> for ideas. Note that SC
+          See <a href="https://github.com/SocketCluster/socketcluster/issues/233#issuecomment-254871963">this comment</a>. Note that SC
           now provides a default 'AuthEngine' for signing (creating) and verifying tokens on the server side - You can access it in your
           workerController (worker.js) from the 'worker.auth' property - See the implementation here: <a href="https://github.com/SocketCluster/sc-auth/blob/master/index.js">Default server auth engine</a>.
           More info about Node.js JSON web token library can be found here: <a href="https://github.com/auth0/node-jsonwebtoken">jsonwebtoken</a>.

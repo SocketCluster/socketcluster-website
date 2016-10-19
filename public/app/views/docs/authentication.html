@@ -43,11 +43,20 @@
         <pre class="prettyprint">{
   username: 'bob123'
 }</pre>
+
         <h3>Authentication flow</h3>
         <p>
           There is no single correct way to implement authentication in SC. You can perform auth over HTTP
           (before establishing the WebSocket connection) or you can do it after.
+        </p>
+        <br>
+        <h4>HTTP-based flow</h4>
+        <p>
           For details about HTTP-based authentication, see <a href="https://github.com/SocketCluster/socketcluster/issues/233#issuecomment-254871963">this discussion</a>.
+        </p>
+        <br>
+        <h4>WebSocket-based flow</h4>
+        <p>
           A sample WebSocket-based authentication flow might look like this:
         </p>
         <pre class="prettyprint">// Client code
@@ -118,8 +127,11 @@ socket.on('login', function (credentials, respond) {
     }
   });
 });</pre>
+
+        <h3>Checking and using the token</h3>
         <p>
-          Once we have set the token, the best place to make use of it is in your middleware functions (example using publish middleware):
+          You can verify/read the JWT token in the same way regardless of whether you used the HTTP or WebSocket auth flow.
+          Once the token has been set/captured by SC, the best place to make use of it is in your middleware functions (example using publish middleware):
         </p>
 <pre class="prettyprint">// Server code
 

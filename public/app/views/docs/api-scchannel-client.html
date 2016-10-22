@@ -75,8 +75,12 @@
             <td>Returns the state of the channel as a string. Can be channel.SUBSCRIBED, channel.PENDING or channel.UNSUBSCRIBED.</td>
           </tr>
           <tr>
-            <td>subscribe()</td>
-            <td>Activate this channel so that it will receive all data published to it from the backend.</td>
+            <td>subscribe([options])</td>
+            <td>Activate this channel so that it will receive all data published to it from the backend. You can provide an optional options object in the
+              form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If waitForAuth is true, the channel
+              will automatically wait for the underlying socket to become authenticated before trying to subscribe to the server - This channel will then
+              behave as a "private channel". The data property of the options object can be used to pass data along with the subscription.
+              See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how ot handle the data property.</td>
           </tr>
           <tr>
             <td>unsubscribe()</td>

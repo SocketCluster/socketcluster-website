@@ -46,13 +46,6 @@ var socketCluster = new SocketCluster({
             This is mostly used internally by SocketCluster to allow all your workers to efficiently share events with one another. You can also use these to store session data and also to scale your app horizontally across multiple machines.
           </p>
 
-          <h2>Try it on Baasil.io</h2>
-          <p>
-            If you would like to try SocketCluster quickly, you can setup a free trial account on <a href="https://baasil.io/#!/sign-up">Baasil.io</a>
-            then you can play with SC directly from your browser's developer console. Baasil.io is just "SocketCluster as a Service" except without the ability to
-            add custom code on the backend - It's useful if you have simple requirements and don't want to manage your own pub/sub servers.
-          </p>
-
           <h2>Boilerplate app</h2>
           <p>
             If you open your <code>workerController</code> file (worker.js), you should see some code where your httpServer and your scServer are being setup to accept requests/connections. By default, the httpServer is hooked to Express (with static server middleware) which serves the content of the <code>public/</code> folder:
@@ -86,7 +79,7 @@ scServer.on('connection', function (socket) {
           <pre class='prettyprint'>// Client code
 socket.emit('ping', 'This is a PING message')</pre>
           <p>
-            Emitting events is the simplest way to pass messages between clients and the server but it is not the only way to share messages.
+            Emitting events (Socket.io style) is the simplest way to pass messages between clients and the server but it is not the only way to share messages.
           </p>
           <p>
             Note that you can name your events anything you like except for the reserved event names <a href="https://github.com/SocketCluster/socketcluster-client/blob/416982105e86494e4f6b12f0244b67b702618588/lib/scsocket.js#L56-L71">in this list</a> - These have special meaning within SC.

@@ -160,7 +160,7 @@
             <td>
               Emits the specified event on the corresponding server-side socket.
               Note that you cannot use any of the registered SCSocket events (defined above or those specified in engine.io-client).
-              If a callback is provided, your server-side socket will need to respond to this event. <a href="#!/docs/handling-failure">See example</a>.
+              This is the same as Socket.io's emit function except that if a callback is provided, your server-side socket will need to respond to this event. <a href="#!/docs/handling-failure">See example</a>.
               Also note that SC has a default timeout of 10 seconds for responding to events on the other side. You can increase this limit by setting <code>ackTimeout</code> when
               initiating SocketCluster on the server side. See <a href="#!/docs/api-socketcluster">here</a>.
             </td>

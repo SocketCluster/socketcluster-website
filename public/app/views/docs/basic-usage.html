@@ -79,7 +79,7 @@ scServer.on('connection', function (socket) {
           <pre class='prettyprint'>// Client code
 socket.emit('ping', 'This is a PING message')</pre>
           <p>
-            Emitting events (Socket.io style) is the simplest way to pass messages between clients and the server but it is not the only way to share messages.
+            Emitting events is the simplest way to pass messages between clients and the server but it is not the only way to share messages.
           </p>
           <p>
             Note that you can name your events anything you like except for the reserved event names <a href="https://github.com/SocketCluster/socketcluster-client/blob/416982105e86494e4f6b12f0244b67b702618588/lib/scsocket.js#L56-L71">in this list</a> - These have special meaning within SC.

@@ -10,6 +10,9 @@
           SocketCluster is a fast, highly scalable HTTP + WebSockets server environment which lets you build multi-process realtime systems that make use of all CPU cores on a machine/instance. It removes the limitations of having to run your Node.js server as a single thread and makes your backend resilient by automatically recovering from worker crashes and aggregating errors into a central log.
         </p>
         <p>
+          SocketCluster is optimized to run on Kubernetes inside Docker containers, see <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">SCC</a> for details.
+        </p>
+        <p>
           SocketCluster works like a pub/sub system (which extends all the way to the browser/IoT device) - It only delivers particular events to clients who actually need them. SC is designed to scale both vertically (as a cluster of processes) and horizontally (multiple machines/instances).
         </p>
         <p>

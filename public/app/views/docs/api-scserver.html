@@ -8,8 +8,8 @@
         <h1>API - SCServer</h1>
         <p>
           This instance is returned from the call to worker.getSCServer(). It represents your
-          realtime (WebSocket) server object which you can use to listen for incoming
-          realtime socket connections. This object inherits from engine.io's Server
+          real-time (WebSocket) server object which you can use to listen for incoming
+          real-time socket connections. This object inherits from engine.io's Server
           object so you have access to all the properties and methods of an engine.io
           server but with some additions.
         </p>
@@ -120,7 +120,7 @@
               <p>
                 Lets you add middleware functions which can be used to manage client access control
                 to various features of the SCServer. This is useful for monitoring
-                realtime data flows and also to block access to restricted channels
+                real-time data flows and also to block access to restricted channels
                 and resources. Note that only actions from clients pass through middleware.
                 Server-side calls to scServer.exchange.publish() do not.
               </p>
@@ -164,7 +164,7 @@
                 <li>
                   <h5>middlewareFn</h5>
                   <p>
-                    A middleware function which can be used to monitor realtime interactions and/or to
+                    A middleware function which can be used to monitor real-time interactions and/or to
                     block unauthorized client actions before they reach the server.
                     Middleware functions are all in the form <code>middlewareFn(req, next)</code> but the req object will have different properties
                     depending on the specified middleware type:

@@ -30,7 +30,7 @@
         </p>
         <ol>
           <li>How to select which host to send incoming client connections to?</li>
-          <li>When one client publishes data to a channel, how can you make sure that other clients which are subscribed to that channel on a different host also receive the channel data in realtime?</li>
+          <li>When one client publishes data to a channel, how can you make sure that other clients which are subscribed to that channel on a different host also receive the channel data in real-time?</li>
         </ol>
         <p>
           There are at several ways to approach the first challenge, for example:
@@ -49,7 +49,7 @@
           </li>
         </ul>
         <p>
-          In order to allow clients which are connected to different machines to share the same pub/sub channels, there needs to be an efficient way to synchronize channels between separate SocketCluster instances (hosts) in realtime.
+          In order to allow clients which are connected to different machines to share the same pub/sub channels, there needs to be an efficient way to synchronize channels between separate SocketCluster instances (hosts) in real-time.
           To achieve this, SocketCluster exposes a <a href="#!/docs/api-broker">Broker</a> object inside its brokerController file (broker.js) which lets you do exactly that.
           SocketCluster only provides you the interface for synchronizing instance channels - It doesn't care what technology/implementation you use behind the scenes to make this work;
           so long as it supports pub/sub and can run as a distributed cluster - MQTT (e.g. Mosquitto), AMQP (e.g. RabbitMQ), ZeroMQ and Redis are all possible options.

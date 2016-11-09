@@ -109,11 +109,24 @@ nav#docs a {
   background-position: center 35%;
 }
 
+.powered-by-uws-container {
+  color: #555;
+  font-weight: 400;
+  float: left;
+  width: 100%;
+  margin-bottom: 2em;
+}
+
+.uws-header-logo {
+  width: 150px;
+  border: 0;
+}
+
 .jumbotron h1 {
   font-size: 45px;
   font-weight: 400;
   color: #555;
-  margin-bottom: 1.5em;
+  margin-bottom: 0.1em;
 }
 .navbar-brand {
   padding: 16px;

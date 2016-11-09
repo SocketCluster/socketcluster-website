@@ -2,6 +2,7 @@
   <div class="header-container jumbotron">
     <div class="container">
       <h1>A <strong><em>scalable</em></strong> framework for real-time apps and services.</h1>
+      <div class="powered-by-uws-container"><span>Powered by </span><a target="_blank" href="https://github.com/uWebSockets/uWebSockets"><img class="uws-header-logo" src="assets/img/uws.png" alt="uWebSockets"></a></div>
       <p><a class="btn btn-primary btn-lg get-started-button" role="button" href="/#!/docs/getting-started">Get Started</a></p>
       <p><a class="btn btn-default btn-lg chat-button" role="button" href="https://gitter.im/SocketCluster/socketcluster">Chat on Gitter</a></p>
     </div>
@@ -69,6 +70,7 @@
           <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake interactions).</li>
           <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
           <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
+          <li>SC uses uWebSockets as its default engine (this is the fastest available).</li>
           <li>Designed to work alongside any database/datastore (Redis, MySql, PostgreSQL, MongoDB, Cassandra, etc...).</li>
           <li>Open source alternative to PubNub and Pusher.</li>
           <li>Optimized to run and autoscale on Kubernetes.</li>

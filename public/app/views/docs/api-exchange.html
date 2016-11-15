@@ -146,8 +146,17 @@
           <tr>
             <td>setMapper(mapper)</td>
             <td>
-              Allows you to define a mapping function which is used to map various scBroker actions to
-              specific broker processes to distributed the load between them. More details coming soon...
+              Allows you to define a mapping function which is used to map specific broker actions to specific broker processes in order to
+              distribute the load between them (assuming you have more than 1 broker). This mapping function is particularly important
+              for the subscribe and publish actions as it decides which brokers will handle what channel names. This is only for advanced use cases.
+            </td>
+          </tr>
+          <tr>
+            <td>getMapper()</td>
+            <td>
+              Returns the current mapping function which is used to map specific broker actions to specific broker processes.
+              For the publish and subscribe actions, the default mapping function will shard channels such that each broker will
+              handle approximately (1/n)th of all channels (where n is the number of brokers). This is only for advanced use cases.
             </td>
           </tr>
         </table>

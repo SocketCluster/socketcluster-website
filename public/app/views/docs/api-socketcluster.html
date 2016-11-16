@@ -92,6 +92,17 @@
   // Number of broker processes
   brokers: 1,
 
+  // Should be either 'dev' or 'prod' - This affects the shutdown procedure
+  // when a 'SIGUSR2' signal is received by master. In 'dev', a SIGUSR2 will
+  // trigger an immediate shutdown of workers. In 'prod' workers will
+  // be terminated progressively in accordance with processTermTimeout.
+  environment: 'dev',
+
+  // Setting this to true will cause the master process to shut down when
+  // it receives a SIGUSR2 signal (instead of just the workers).
+  // If you're using nodemon, set this to true.
+  killMasterOnSignal: false,
+
   // A unique name for your app (this is used internally for
   // various things such as the directory name in which to store socket
   // file descriptors) - If you don't provide an appName, SC will
@@ -101,7 +112,7 @@
   // This can be the name of an npm module or a path to a Node.js module
   // to use as the WebSocket server engine.
   // You can now set this to 'uws' for a massive speedup of at least 2x!
-  wsEngine: 'ws',
+  wsEngine: 'uws',
 
   // An ID to associate with this specific instance of SC
   // this may be useful if you are running an SC app on multiple
@@ -198,7 +209,7 @@
   pingTimeout: 60000,
 
   // Maximum amount of milliseconds to wait before force-killing
-  // a process after it was passed a 'SIGTERM' signal
+  // a process after it was passed a 'SIGTERM' or 'SIGUSR2' signal
   processTermTimeout: 10000,
 
   // Whether or not errors from child processes (workers and brokers)

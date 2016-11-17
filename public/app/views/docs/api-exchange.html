@@ -10,40 +10,11 @@
           Can be accessed using scWorker.exchange property.
         </p>
         <p>
-          The exchange object is a top-level scBroker client which lets you publish events and manipulate data within your brokers.
-          It also lets you passively watch channels (those which clients of the current server are subscribed to) or you can explicitly
-          subscribe to channels to let you watch additional channels.
-          You can use any method of an scBroker client on instances of this object: <a href="https://github.com/SocketCluster/sc-broker#client-methods">scBroker Client</a>
-        </p>
-        <p>
-          Because this object potentially handles a cluster of brokers,
-          you can use the setMapper(mapperFn) method to set a function which will be used to map your individual scBroker client calls to one of your
-          brokers (assuming you have more than one).
-          The mapperFn takes three arguments:
-        </p>
-        <br />
-        <table class="table">
-          <tr>
-            <td>key</td>
-            <td>
-              The key/keyChain (typically string or Array but can also be a function) which is was passed to this scBroker client method/action.
-              If the method is 'query' then the key will be an scBroker query function which you will have to interpret in order to come up with a mapping.
-            </td>
-          </tr>
-          <tr>
-            <td>method</td>
-            <td>The scBroker method which was invoked and needs to be mapped to one or more broker processes.</td>
-          </tr>
-          <tr>
-            <td>clientIds</td>
-            <td>An array of available scBroker client IDs which you can map to.</td>
-          </tr>
-        </table>
-        <br />
-        <p>
-          The mapper must return either an ID (integer) or an array of IDs and SC will send the action to all corresponding brokers.
-          So if the mapperFn returns 0, then the action wil be sent to scBroker broker with ID 0.
-          If you return the clientIds array directly, then all clients will receive the action.
+          The exchange object is a top-level scBroker client which lets you publish events and manipulate data within your brokers - It represents a cluster of 1 or more brokers.
+          You can use any method of an scBroker client on instances of this object (see <a href="https://github.com/SocketCluster/sc-broker#client-methods">scBroker Client</a>).
+          Note that the hashing function used by the Exchange object to shard actions/channels accross brokers can be found in the <a href="https://www.npmjs.com/package/sc-hasher">sc-hasher</a>
+          module - You can use this function in your code to help with sharding (advanced use case).
+          See <a href="https://github.com/SocketCluster/socketcluster/issues/245#issuecomment-261041729">this comment</a> for details.
         </p>
         <h3>Inherits from:</h3>
         <p>
@@ -160,6 +131,35 @@
             </td>
           </tr>
         </table>
+        <p>
+          Because this object potentially handles a cluster of local brokers, you can optionally use the
+          setMapper(mapperFn) method to set a function which will be used to map individual scBroker actions to one of your
+          brokers (assuming you have more than one). Changing the default mapper is an advanced use case though and you generally don't need to do it.
+          The mapperFn takes three arguments:
+        </p>
+        <br />
+        <table class="table">
+          <tr>
+            <td>key</td>
+            <td>
+              The key/keyChain (typically string or Array) which is was passed to this scBroker client method/action.
+              If the method is 'query' then the key will be an scBroker query function which you will have to interpret in order to come up with a mapping.
+            </td>
+          </tr>
+          <tr>
+            <td>method</td>
+            <td>The scBroker method which was invoked and needs to be mapped to one or more broker processes.</td>
+          </tr>
+          <tr>
+            <td>clientIds</td>
+            <td>An array of available scBroker client IDs which you can map to.</td>
+          </tr>
+        </table>
+        <p>
+          The mapper must return either an ID (integer) or an array of IDs and SC will send the action to all corresponding brokers.
+          So if the mapperFn returns 0, then the action wil be sent to scBroker broker with ID 0.
+          If you return the clientIds array directly, then all clients will receive the action.
+        </p>
       </div>
     </div>
   </div>

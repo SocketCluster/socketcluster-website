@@ -28,6 +28,11 @@
         <p>
           This site is also open source, contributions on <a href="https://github.com/SocketCluster/socketcluster-website">Github</a> are welcome.
         </p>
+        <h2>For Games</h2>
+        <p>
+          SC is ideal for building multiplayer online games. To reduce bandwidth consumption, you may want to use SC with <a href="https://github.com/SocketCluster/sc-codec-min-bin">sc-codec-min-bin</a> - This codec will
+          compress SC messages and turn them into binary packets as they get sent over the wire. You may also write your own codec optimized for your specific game/application.
+        </p>
         <h2>Memory Leak Profile</h2>
         <p>
           SC has been tested for memory leaks. The last full memory profiling was done on v0.9.17 (Node.js v0.10.28) and included checks on worker and broker processes. No memory leaks were detected.

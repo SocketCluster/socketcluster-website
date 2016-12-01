@@ -216,13 +216,13 @@
   // should be passed to the current master process
   propagateErrors: true,
 
-  // Whether or not notices from child processes (workers and brokers)
+  // Whether or not warnings from child processes (workers and brokers)
   // should be passed to the current master process
-  propagateNotices: true,
+  propagateWarnings: true,
 
-  // Whether or not a 'notice' event should be emitted (and logged to console)
+  // Whether or not a 'warning' event should be emitted (and logged to console)
   // whenever an action is blocked by a middleware function
-  middlewareEmitNotices: true,
+  middlewareEmitWarnings: true,
 
   // Lets you specify a host name to bind to - Defaults to
   // 127.0.0.1 (localhost)

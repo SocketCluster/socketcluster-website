@@ -356,7 +356,7 @@
               This function returns an <a href="#!/docs/api-scchannel-client">SCChannel</a> object which lets you watch for incoming data on that channel.
               Since v4.0.0, you can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If waitForAuth is true, the channel
               will automatically wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
-              sometimes known as "private channels". The data property can be used to pass data along with the subscription.
+              sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - See <a href="http://socketcluster.io/#!/docs/authentication">authentication guide</a> for more details. The data property can be used to pass data along with the subscription.
               See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how to handle the data property.
             </td>
           </tr>

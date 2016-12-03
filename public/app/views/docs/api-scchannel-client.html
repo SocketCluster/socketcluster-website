@@ -79,7 +79,8 @@
             <td>Activate this channel so that it will receive all data published to it from the backend. You can provide an optional options object in the
               form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If waitForAuth is true, the channel
               will automatically wait for the underlying socket to become authenticated before trying to subscribe to the server - This channel will then
-              behave as a "private channel". The data property of the options object can be used to pass data along with the subscription.
+              behave as a "private channel" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - See <a href="http://socketcluster.io/#!/docs/authentication">authentication guide</a> for more details.
+              The data property of the options object can be used to pass data along with the subscription.
               See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how ot handle the data property.</td>
           </tr>
           <tr>

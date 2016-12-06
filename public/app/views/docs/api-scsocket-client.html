@@ -11,12 +11,12 @@
           These two objects have slightly different APIs. This page concerns the client socket.
         </p>
         <p>
-          One of the biggest differences between the two is that, unlike a server-side SCSocket, a client-side SCSocket is not ephemeral and does not need
-          to be discarded when it loses the connection - By default, it will try to reconnect automatically.
-        </p>
-        <p>
           The client-side SCSocket object allows you to interact with your backend and with other client sockets in real-time.
           The SCSocket object uses WebSockets the underlying transport (since v2.0.0, there is no polling fallback).
+        </p>
+        <p>
+          One of the biggest differences between the client-side SCSocket and server-side SCSocket is that a client-side SCSocket is not ephemeral and will not be
+          be discarded when it loses the connection - By default, it will try to reconnect automatically.
         </p>
 
         <h3>Inherits from:</h3>

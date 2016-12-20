@@ -130,9 +130,21 @@
               handle approximately (1/n)th of all channels (where n is the number of brokers). This is only for advanced use cases.
             </td>
           </tr>
+          <tr>
+            <td>send(data, mapIndex, callback)</td>
+            <td>
+              Send data to one or more brokers. mapIndex can be a number, a string, an array of strings or null.
+              If mapIndex is a number, it will cause the message to be sent to the broker with that id.
+              If mapIndex is a string, it will be hashed to a number and the message will be sent to the relevant broker.
+              If mapIndex is an array (of strings or numbers), the message will be sent to multiple brokers.
+              If mapIndex is null, the message will be sent to all brokers.
+              You can listen for the data on the broker (in broker.js) using <code>broker.on('message', function (data, respond) {})</code> -
+              The respond function is a callback which can be invoked with <code>respond(err, data)</code>.
+            </td>
+          </tr>
         </table>
         <p>
-          Because this object potentially handles a cluster of local brokers, you can optionally use the
+          Because the exchange object potentially handles a cluster of local brokers, you can optionally use the
           setMapper(mapperFn) method to set a function which will be used to map individual scBroker actions to one of your
           brokers (assuming you have more than one). Changing the default mapper is an advanced use case though and you generally don't need to do it.
           The mapperFn takes three arguments:

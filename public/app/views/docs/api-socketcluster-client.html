@@ -90,6 +90,15 @@
               </ul>
             </td>
           </tr>
+          <tr>
+            <td>
+              destroy([options])
+            </td>
+            <td>
+              Completely destroys a connection. You just need to pass the same options object which was passed to <code>socketCluster.connect(options)</code>.
+              If you didn't pass any options object on connect, then calling destroy() will cleanup the matching (default) socket.
+            </td>
+          </tr>
         </table>
       </div>
     </div>

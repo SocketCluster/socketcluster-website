@@ -271,6 +271,11 @@
   // how often this gets updated
   workerStatusInterval: 10000,
 
+  // This allows you to batch multiple messages together when passing them across
+  // message brokers. This may improve the efficiency of your pub/sub operations.
+  // This value is in milliseconds. 5 is generally a safe value to set this to.
+  pubSubBatchDuration: null,
+
   // The default clustering engine (Node.js module name) which provides the
   // SCWorker.exchange object and manages brokers behind the scenes.
   // You shouldn't need to change this unless you want to build your own

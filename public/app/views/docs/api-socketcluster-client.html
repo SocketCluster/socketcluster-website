@@ -80,6 +80,11 @@
                   the client. Defaults to 'arraybuffer'.</li>
                 <li><b>rejectUnauthorized</b>: Boolean - Set this to false during
                   debugging - Otherwise client connection will fail when using self-signed certificates.</li>
+                <li><b>cloneData</b>: Boolean - If you set this to true, any data/objects/arrays that you pass to the client socket
+                  will be cloned before being sent out. If the socket is disconnected and you emit an event, it will be added to a queue
+                  which will be processed upon reconnection. The cloneData option is false by default; this means that if you emit/publish an object
+                  and that object changes somewhere else in your code before the queue is processed, then the changed version of that object 
+                  will be sent out to the server.</li>
                 <li><b>codecEngine</b>: Object - Lets you set a custom codec engine. This allows you to specify how
                   data gets encoded before being sent over the wire and how it gets decoded once it reaches the other side.
                   The codecEngine must be an object which exposes an <code>encode(object)</code> and a <code>decode(encodedData)</code> function.

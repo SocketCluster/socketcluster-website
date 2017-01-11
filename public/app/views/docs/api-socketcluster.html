@@ -276,11 +276,11 @@
   // This value is in milliseconds. 5 is generally a safe value to set this to.
   pubSubBatchDuration: null,
 
-  // The default clustering engine (Node.js module name) which provides the
+  // The default clustering/brokering engine (Node.js module name) which provides the
   // SCWorker.exchange object and manages brokers behind the scenes.
   // You shouldn't need to change this unless you want to build your own
   // process clustering engine (which is difficult to do).
-  clusterEngine: 'sc-broker-cluster'
+  brokerEngine: 'sc-broker-cluster'
 }</pre>
             </td>
           </tr>

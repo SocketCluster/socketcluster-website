@@ -37,6 +37,10 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
       templateUrl: 'app/views/performance.html',
       controller: 'performanceController'
     })
+    .when('/services', {
+      templateUrl: 'app/views/services.html',
+      controller: 'servicesController'
+    })
     .when('/docs/introduction', {
       templateUrl: 'app/views/docs/introduction.html',
       controller: 'docsController'
@@ -237,6 +241,10 @@ socketclusterApp.controller('middlewareController', function($scope) {
 });
 
 socketclusterApp.controller('performanceController', function($scope) {
+  trackAnalyticsPageView();
+});
+
+socketclusterApp.controller('servicesController', function($scope) {
   trackAnalyticsPageView();
 });
 

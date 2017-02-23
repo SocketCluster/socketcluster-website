@@ -119,6 +119,8 @@
             <td>'badAuthToken'</td>
             <td>
               Emitted when the client tries to authenticate itself with an invalid (or expired) token.
+              Note that this event will typically be triggered as part of the socket handshake (before the socket is connected); therefore, it's generally
+              better to listen for the <code>'badSocketAuthToken'</code> event directly on the server instance instead.
               The argument passed along with this event is an object with the properties <code>authError</code> and <code>signedAuthToken</code>.
               The authError property holds an error object and the signedAuthToken property holds the auth token which failed the verification step.
             </td>

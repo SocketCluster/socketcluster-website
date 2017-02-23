@@ -119,9 +119,8 @@
             <td>'badAuthToken'</td>
             <td>
               Emitted when the client tries to authenticate itself with an invalid (or expired) token.
-              The argument passed along with this event is the JWT error object.
-              This error object has an additional ecryptedAuthToken property which holds the encrypted token
-              which failed the verification step.
+              The argument passed along with this event is an object with the properties <code>authError</code> and <code>signedAuthToken</code>.
+              The authError property holds an error object and the signedAuthToken property holds the auth token which failed the verification step.
             </td>
           </tr>
           <tr>

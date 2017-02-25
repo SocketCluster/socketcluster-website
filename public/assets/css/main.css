@@ -360,3 +360,25 @@ position: relative;
 .user-logo-webaula {
   max-height: 40px;
 }
+
+.consultant-paragraph {
+  padding-left: 20px;
+}
+
+.consultant-list-container {
+  padding-top: 20px;
+}
+
+.consultant-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.get-in-touch-paragraph {
+  padding-top: 30px;
+  font-size: 22px;
+}
+
+.final-paragraph {
+  padding-bottom: 40px;
+}

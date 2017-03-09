@@ -141,6 +141,15 @@
             <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the connection phase or it may be triggered intentionally by calling socket.disconnect() while the socket is connecting.</td>
           </tr>
           <tr>
+            <td>'connecting'</td>
+            <td>
+              Triggers whenever the socket initiates a connection to the server - This includes reconnects.
+              In order capture the very first 'connecting' event, you will need to set the initial <code>autoConnect</code> option
+              to <code>false</code> when you create the socket with <code>socketCluster.create(...)</code> - You will need to register the handler
+              before you call <code>socket.connect()</code>.
+            </td>
+          </tr>
+          <tr>
             <td>'raw'</td>
             <td>This gets triggered whenever the server socket on the other side calls socket.send(...).</td>
           </tr>

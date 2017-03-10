@@ -20,6 +20,23 @@
         <p>
           <a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a>
         </p>
+
+        <h3>Events:</h3>
+        <table class="table">
+          <tr>
+            <td>'subscribe'</td>
+            <td>When the subscription succeeds.</td>
+          </tr>
+          <tr>
+            <td>'subscribeFail'</td>
+            <td>Happens when the subscription fails. The first argument passed to the handler will be the error which caused the subscription to fail.</td>
+          </tr>
+          <tr>
+            <td>'unsubscribe'</td>
+            <td>When the socket becomes unsubscribed from a channel.</td>
+          </tr>
+        </table>
+
         <h3>Methods:</h3>
         <table class="table">
           <tr>
@@ -83,6 +100,12 @@
             <td>watchers(channel)</td>
             <td>
               Returns an array of all handler functions which are bound to channel.
+            </td>
+          </tr>
+          <tr>
+            <td>destroyChannel(channelName)</td>
+            <td>
+              Destroys the specified SCChannel object - This makes it unusable and will allow it to be garbage collected.
             </td>
           </tr>
           <tr>

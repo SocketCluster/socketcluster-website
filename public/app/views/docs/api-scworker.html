@@ -134,6 +134,49 @@
               of connected clients and also number of HTTP and real-time requests per minute.
             </td>
           </tr>
+
+          <tr>
+            <td>addMiddleware(type, middlewareFn)</td>
+            <td>
+              <p>
+                Lets you add middleware functions which can be used to control the worker bootstrap process.
+              </p>
+              <ul>
+                <li>
+                  <h5>type</h5>
+                  <p>
+                    A string representing the type of middleware to use, can be:
+                  </p>
+                  <br />
+                  <table class="table">
+                    <tr>
+                      <td>
+                        worker.MIDDLEWARE_START - 'start' - This middleware function is run before
+                        the worker's internal HTTP/WS server starts listening for connections.
+                      </td>
+                    </tr>
+                  </table>
+                </li>
+                <li>
+                  <h5>middlewareFn</h5>
+                  <p>
+                    A middleware function which can be used to delay the launch of the server.
+                    Middleware functions are all in the form <code>middlewareFn(options, next)</code>.
+                  </p>
+                  <table class="table">
+                    <tr>
+                      <td>MIDDLEWARE_START</td>
+                      <td>
+                        This middleware will run before SocketCluster's underlying HTTP/WS server starts listening for connections - It
+                        allows you to perform some async logic to prepare your worker before it starts handling connections.
+                        The options object passed to this middleware function will be the SC instance's internal options object.
+                      </td>
+                    </tr>
+                  </table>
+                </li>
+              </ul>
+            </td>
+          </tr>
         </table>
       </div>
     </div>

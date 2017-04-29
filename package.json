@@ -13,8 +13,8 @@
     "express": "4.10.7",
     "minimist": "1.1.0",
     "serve-static": "1.8.0",
-    "socketcluster": ">= 1.0.5",
-    "socketcluster-client": ">= 1.0.0"
+    "socketcluster": "~5.10.2",
+    "socketcluster-client": "~5.3.1"
   },
   "keywords": [
     "websocket",

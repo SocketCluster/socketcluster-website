@@ -56,7 +56,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
           If you block the connection by passing an error to the <code>next(err)</code> callback, the error string will show up in your browser's developer panel (Network tab in Chrome)
           but there is no way to handle this error in your code. If you try to listen to the 'connectAbort' event, the error code will always be 1006 and you won't be able to get any additional information about it.
           This is a limitation of the WebSocket RFC itself (and is intentional; see <a href="http://stackoverflow.com/questions/31002592/javascript-doesnt-catch-error-in-websocket-instantiation">the answers here for more details</a>) - For this reason, blocking connections with MIDDLEWARE_HANDSHAKE mostly makes sense for quickly and efficiently shutting down malicious connections.
-          If you want a more client-friendly way to kill a connection, you should wait for the 'connection' event to trigger on the server and then call <code>socket.disconnect(code, reasonStringOrData);</code> - Then you can handle
+          If you want a more client-friendly way to kill a connection, you should wait for the 'connection' event to trigger on the server and then call <code>socket.disconnect(code, reasonStringOrData)</code> - Then you can handle
           the error (with all the details you like) from the <code>'disconnect'</code> event on the client side.
         </p>
 

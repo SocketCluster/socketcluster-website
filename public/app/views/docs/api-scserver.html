@@ -192,7 +192,11 @@
                   <table class="table">
                     <tr>
                       <td>MIDDLEWARE_HANDSHAKE</td>
-                      <td>The req object is a Node.js HTTP request object.</td>
+                      <td>
+                        The req object is a Node.js HTTP request object. Note that unlike with other middleware lines, errors passed to the <code>next(error)</code>
+                        callback of this middleware cannot be handled from the client side due to WebSocket RFC restrictions. See the section on <code>MIDDLEWARE_HANDSHAKE</code>
+                        <a href="#!/docs/middleware-and-authorization">here</a> for more details.
+                      </td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_AUTHENTICATE</td>
@@ -217,7 +221,7 @@
                   </table>
                 </li>
               </ul>
-              
+
               <h5>Example:</h5>
               <p>
                 <a href="#!/docs/middleware-and-authorization">Middleware and authorization</a>

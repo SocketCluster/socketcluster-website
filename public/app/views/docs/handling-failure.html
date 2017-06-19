@@ -20,7 +20,7 @@
         <h3>Emitting</h3>
 
         <pre class="prettyprint">// Client code
-socket.emit('ping', 'This is a ping', function (err) {
+socket.emit('ping', 'This is a ping', function (err, responseData) {
   if (err) {
     // Failed to emit event, retry or let the user know and keep going?
   } else {
@@ -37,7 +37,10 @@ socket.emit('ping', 'This is a ping', function (err) {
 socket.on('ping', function (data, res) {
   // ...
   if (success) {
-    res(null, 'Success'); // Send back success message
+    // Send back success message. Note that the first argument is reserved for
+    // errors while the second can be used to pass back custom objects.
+    // The responseData parameter in the previous code snippet will be 'Success'.
+    res(null, 'Success');
   } else {
     res('Error message'); // Send back error
   }
@@ -81,7 +84,7 @@ pongChannel.watch(function (data) {
         <h3>Emitting</h3>
 
         <pre class="prettyprint">// Server code
-socket.emit('ping', 'This is a ping', function (err) {
+socket.emit('ping', 'This is a ping', function (err, responseData) {
   if (err) {
     // Failed to emit event, retry or log?
   } else {

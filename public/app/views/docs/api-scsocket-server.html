@@ -126,9 +126,16 @@
             </td>
           </tr>
           <tr>
+            <td>'authenticate'</td>
+            <td>
+              Triggers whenever the client becomes authenticated. The listener will receive the socket's authToken object as argument.
+            </td>
+          </tr>
+          <tr>
             <td>'deauthenticate'</td>
             <td>
-              Triggers whenever the client becomes unauthenticated.
+              Triggers whenever the client becomes unauthenticated. The listener will receive the socket's old authToken object as argument
+              (just before the deauthentication took place).
             </td>
           </tr>
           <tr>

@@ -81,17 +81,55 @@
           <tr>
             <td>'connection'</td>
             <td>
-              Emitted whenever a new socket connection is established. The listener to this event
-              receives an socket (SCSocket) object as argument which can be used
+              Emitted whenever a new socket connection is established with the server. The listener to this event
+              receives a socket (SCSocket) object as argument which can be used
               to interact with that client.
+            </td>
+          </tr>
+          <tr>
+            <td>'disconnection'</td>
+            <td>
+              Emitted whenever a socket connection which is attached to the server becomes disconnected. The listener to this event
+              receives a socket (SCSocket) object as argument.
+            </td>
+          </tr>
+          <tr>
+            <td>'subscription'</td>
+            <td>
+              Emitted whenever a socket connection which is attached to the server becomes subscribed to a channel. The listener to this event
+              receives a socket (SCSocket) object as the first argument. The second argument is the channelName.
+              The third argument is the channelOptions object.
+            </td>
+          </tr>
+          <tr>
+            <td>'unsubscription'</td>
+            <td>
+              Emitted whenever a socket connection which is attached to the server becomes unsubscribed from a channel. The listener to this event
+              receives a socket (SCSocket) object as the first argument. The second argument is the channelName.
+            </td>
+          </tr>
+          <tr>
+            <td>'authentication'</td>
+            <td>
+              Emitted whenever a socket connection which is attached to the server becomes authenticated. The listener to this event
+              receives a socket (SCSocket) object as the first argument. The second argument is the authToken object.
+            </td>
+          </tr>
+          <tr>
+            <td>'deauthentication'</td>
+            <td>
+              Emitted whenever a socket connection which is attached to the server becomes deauthenticated. The listener to this event
+              receives a socket (SCSocket) object as the first argument. The second argument is the old authToken object
+              (before the deauthentication took place).
             </td>
           </tr>
           <tr>
             <td>'badSocketAuthToken'</td>
             <td>
-              Emitted when a client tries to authenticate itself with an invalid (or expired) token.
-              The argument passed along with this event is an object with the properties <code>socket</code>, <code>authError</code> and <code>signedAuthToken</code>.
-              The socket property holds the socket which failed authentication, the authError is an error object and the signedAuthToken is the auth token which failed the verification step.
+              Emitted when a client which is attached to the server tries to authenticate itself with an invalid (or expired) token.
+              The first argument passed to the handler is the socket object which failed authentication. The second argument is
+              an object with the properties <code>authError</code> and <code>signedAuthToken</code>.
+              The authError is an error object and the signedAuthToken is the auth token which failed the verification step.
             </td>
           </tr>
           <tr>

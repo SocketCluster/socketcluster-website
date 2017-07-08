@@ -28,7 +28,7 @@
           simply put your SC instance behind an SSL/TLS terminating reverse proxy which supports WebSockets such as HAProxy or nginx.
         </p>
         <p>
-          To configure SC to use SSL/TLS, you need to set some <a href="http://socketcluster.io/#!/docs/api-socketcluster">boot options</a> - Set the
+          To configure SC to use SSL/TLS (without terminating proxy), you need to set some <a href="http://socketcluster.io/#!/docs/api-socketcluster">boot options</a> - Set the
           'protocol' to 'https' and provide an object containing your certificate and key to 'protocolOptions'.
           The protocolOptions object is exactly the same as the options object which is passed to Node.js's https
           server: <a href="https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener">See here</a>.

@@ -24,7 +24,8 @@
         <h3>SSL</h3>
         <p>
           Another important thing to consider when running SC in production is that some old corporate proxies may block WebSocket traffic.
-          To avoid this issue, you should deliver your app over HTTPS/WSS by providing a key/cert SSL pair to your SC instance(s).
+          To avoid this issue, you should deliver your app over HTTPS/WSS by providing a key/cert SSL pair to your SC instance(s)... Or you can
+          simply put your SC instance behind an SSL/TLS terminating reverse proxy which supports WebSockets such as HAProxy or nginx.
         </p>
         <p>
           To configure SC to use SSL/TLS, you need to set some <a href="http://socketcluster.io/#!/docs/api-socketcluster">boot options</a> - Set the

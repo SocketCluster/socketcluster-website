@@ -11,7 +11,7 @@
           This object's constructor accepts an 'options' object which allows you to configure your SC instance.
         </p>
         <p>
-          Note that since SC v2.2.38, this options object can be accessed from any backend process. E.g:
+          Note that since SC v2.2.38, the options object can be accessed from any backend process. E.g:
           socketCluster.options (in master process - server.js), worker.options (in workerController) and broker.options (in brokerController).
         </p>
         <p>
@@ -49,11 +49,11 @@
           </tr>
           <tr>
             <td>'workerStart'</td>
-            <td>Emitted whenever a worker is launched. This event's handler can take a worker object as argument (which is a handle to the worker child process). This worker object has an id property (the lead worker will always have id 0).</td>
+            <td>Emitted whenever a worker is launched. This event's handler can take a workerInfo object as argument. This workerInfo object has an id property (the lead worker will always have id 0), a pid property and a respawn property which indicates whether or not the worker respawned (not the first launch).</td>
           </tr>
           <tr>
             <td>'workerExit'</td>
-            <td>Emitted whenever a worker exits. This event's handler can take a workerInfo object as argument. This workerInfo object has an id property (the id of the worker), a code property (the exit code) and a signal property (if terminated using a signal).</td>
+            <td>Emitted whenever a worker exits. This event's handler can take a workerInfo object as argument. This workerInfo object has an id property (the id of the worker), a pid property, a code property (the exit code) and a signal property (if terminated using a signal).</td>
           </tr>
           <tr>
             <td>'workerMessage'</td>
@@ -63,6 +63,14 @@
               See sendToMaster() method in <a href="/#!/docs/api-scworker">SCWorker API</a> for details on how
               to send a message to master from inside a worker process.
             </td>
+          </tr>
+          <tr>
+            <td>'brokerStart'</td>
+            <td>Emitted whenever a broker is launched. This event's handler can take a brokerInfo object as argument. This brokerInfo object has an id property (the lead broker will always have id 0), a pid property and a respawn property which indicates whether or not the broker respawned (not the first launch).</td>
+          </tr>
+          <tr>
+            <td>'brokerExit'</td>
+            <td>Emitted whenever a broker exits. This event's handler can take a brokerInfo object as argument. This brokerInfo object has an id property (the id of the broker), a pid property, a code property (the exit code) and a signal property (if terminated using a signal).</td>
           </tr>
           <tr>
             <td>'brokerMessage'</td>

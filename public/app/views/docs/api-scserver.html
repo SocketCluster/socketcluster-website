@@ -246,7 +246,11 @@
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_PUBLISH_IN</td>
-                      <td>The req object has the following properties: <code>socket</code>, <code>channel</code> and <code>data</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method.</td>
+                      <td>
+                        The req object has the following properties: <code>socket</code>, <code>channel</code> and <code>data</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method.
+                        Note that you can send data back to the client from inside the middleware function by assigning an object/value to the <code>ackData</code> property of the req object - That way, if a callback is provided on the client in <code>socket.publish(channelName, data, callback)</code>, the <code>ackData</code> will be passed
+                        as the second argument to that callback (the first argument will be an error object; if an error has occurred). See the example for MIDDLEWARE_PUBLISH_IN <a href="/#!/docs/middleware-and-authorization">here</a>.
+                      </td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_PUBLISH_OUT</td>

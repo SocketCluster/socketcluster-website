@@ -101,10 +101,6 @@
               The worker may publish data to a channel on a broker when one of its client-side sockets asks to publish to that channel or
               when you call worker.exchange.publish(...) from the worker process.
               Note that if your SC instance has multiple brokers, then each broker will be responsible for a subset of all available channels within SC.
-              What this means is that if you try to publish data to a channel which does not belong to the current broker, it will be ignored.
-              To check if a channel belongs to the current broker, you can use the <a href="https://www.npmjs.com/package/sc-hasher">sc-hasher</a> module to hash
-              the channel name and then compare the returned number with the broker.id - If they match, then you know that the channel belongs to the current broker.
-              See <a href="https://github.com/SocketCluster/socketcluster/issues/245#issuecomment-261041729">this comment</a> for more details.
             </td>
           </tr>
           <tr>
@@ -123,13 +119,22 @@
           <tr>
             <td>publish(channelName, data)</td>
             <td>
-              Publish data (can be any valid JavaScript object/type) to channelName on the current broker.
-              <br />
-              For the purpose of scaling to multiple SC instances, this method allows you to inject external
-              channel data (from your remote cluster) into relevant SocketCluster channels.
-              <br />
-              Because this method publishes data directly from the broker itself, the broker will not emit a 'publish' event -
-              The 'publish' event only gets emitted when a worker publishes data.
+              <p>
+                Publish data (can be any valid JavaScript object/type) to channelName on the current broker.
+              </p>
+              <p>
+                For the purpose of scaling to multiple SC instances, this method allows you to inject external
+                channel data (from an external service) into relevant SocketCluster channels.
+                Because this method publishes data directly from the broker itself, the broker will not emit a 'publish' event -
+                The 'publish' event only gets emitted when a worker publishes data.
+              </p>
+              <p>
+                Note that if your SC instance has multiple brokers, then each broker will be responsible for a subset of all available channels within SC.
+                What this means is that if you try to publish data to a channel which does not belong to the current broker, it will be ignored (and is wasteful).
+                To check if a channel belongs to a broker, you can use the <a href="https://www.npmjs.com/package/sc-hasher">sc-hasher</a> module to hash
+                the channel name and then compare the returned number with a broker.id - If they match, then you know that the channel belongs to the broker.
+                See <a href="https://github.com/SocketCluster/socketcluster/issues/245#issuecomment-261041729">this comment</a> for more details.
+              </p>
             </td>
           </tr>
           <tr>

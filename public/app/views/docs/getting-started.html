@@ -7,8 +7,8 @@
       <div class="docs-content">
         <h1>Getting started</h1>
         <p>
-          To get started with SocketCluster, you need to have <a href="http://nodejs.org/" target="_blank">Node.js</a> installed.
-          You can follow <a href="https://github.com/joyent/node/wiki/installation" target="_blank">these instructions</a> to install NodeJS.
+          To get started with SocketCluster, you need to have <a href="https://nodejs.org/" target="_blank">Node.js</a> installed.
+          You can follow <a href="https://nodejs.org/en/download/package-manager/" target="_blank">these instructions</a> to install NodeJS.
           Alternatively, you can run SocketCluster inside Docker containers with Baasil.io - This is ideal if you plan to deploy your app to a Kubernetes environment - See guide <a href="https://docs.baasil.io/setting_up.html" target="_blank">here</a>.
         </p>
         <p>
@@ -27,18 +27,6 @@
           Once installed, the <code>socketcluster create</code> command will create a fresh SocketCluster installation. For example, <code>socketcluster create myApp</code> will create a directory inside your current working directory called <code>myApp</code>
         </p>
         <pre class="prettyprint">socketcluster create myApp</pre>
-        <p>
-          To install it in a bundled project (e.g. webpack):
-        </p>
-        <pre class="prettyprint">npm install --save socketcluster
-npm install --save socketcluster-client</pre>
-        <p>
-          Then on the server
-        </p>
-        <pre class="prettyprint">var SocketCluster = require('socketcluster').SocketCluster</pre>
-        <p>
-          And on the client
-        </p>
         <pre class="prettyprint">var SocketCluster = require('socketcluster-client')</pre>
 
         <h2>Serving SocketCluster</h2>

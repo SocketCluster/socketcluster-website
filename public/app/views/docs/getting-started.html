@@ -46,7 +46,7 @@ socket.emit('sampleClientEvent', {message: 'This is an object with a message pro
           You should get a 'Sample channel message: 1' message back - The server receives your sampleClientEvent event and then publishes a sample event to all clients which are listening to it.
         </p>
         <p>
-          The first argument is the event name - You can use any event name you like except for <a href="https://github.com/SocketCluster/socketcluster-client/blob/416982105e86494e4f6b12f0244b67b702618588/lib/scsocket.js#L56-L71">reserved events</a>.
+          The first argument is the event name - You can use any event name you like except for <a href="https://github.com/SocketCluster/socketcluster-client/blob/70403a7853897b1948368b13ec652b09b7fede0a/lib/scsocket.js#L59-L74">reserved events</a>.
           You can pass almost anything as the second argument to the emit and publish commands so long as it's compatible with JSON.
         </p>
         <p>

@@ -11,24 +11,8 @@
             Note that before proceeding with this tutorial, you should read the 'getting started' tutorial.
           </p>
           <p>
-            Once you have setup SocketCluster, you should have a JavaScript file called server.js:
+            Once you have setup SocketCluster, you should have a JavaScript file called server.js which looks like <a href="https://github.com/SocketCluster/socketcluster/blob/master/sample/server.js">this</a>.
           </p>
-
-          <pre class="prettyprint">// Server code
-var SocketCluster = require('socketcluster').SocketCluster;
-
-var socketCluster = new SocketCluster({
-  workers: 1,
-  brokers: 1,
-  port: 8000,
-  appName: 'app',
-  // Switch wsEngine to 'uws' for a MAJOR performance boost (beta)
-  wsEngine: 'ws',
-  workerController: __dirname + '/worker.js',
-  brokerController: __dirname + '/broker.js',
-  socketChannelLimit: 1000,
-  rebootWorkerOnCrash: true
-});</pre>
 
           <p>
             To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 3 different kinds of processes on the server:

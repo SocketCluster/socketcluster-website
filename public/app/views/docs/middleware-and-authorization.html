@@ -91,6 +91,10 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_HANDSHAKE,
   function (req, next) {
     // ...
     if (...) {
+      // If the client socket.publish(channelName, data, callback) has provided
+      // a callback as argument, what you set as data.ackData here will be passed back
+      // to that client as the second argument to the callback function(err, ackData).
+      data.ackData = {myMessage: 'This is a message'};
       next() // Allow
     } else {
       var err = MyCustomPublishInFailedError(req.socket.id + ' cannot publish channel ' + req.channel);

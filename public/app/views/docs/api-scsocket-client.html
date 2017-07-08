@@ -356,7 +356,9 @@
               Publish data to the specified channelName.
               The data argument can be any JSON-compatible object/array or primitive.
               The callback lets you check that the publish action reached the backend successfully.
-              Callback function is in the form callback(err) - On success, the err argument will be undefined.
+              Callback function is in the form callback(err, ackData) - On success, the err argument will be undefined.
+              The ackData argument will be a value which is passed back from back end middleware (undefined by default);
+              see the example about MIDDLEWARE_PUBLISH_IN for more details: <a href="/#!/docs/middleware-and-authorization">Middleware and authorization</a>.
             </td>
           </tr>
           <tr>
@@ -368,7 +370,7 @@
               This function returns an <a href="#!/docs/api-scchannel-client">SCChannel</a> object which lets you watch for incoming data on that channel.
               Since v4.0.0, you can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If waitForAuth is true, the channel
               will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
-              sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="http://socketcluster.io/#!/docs/authentication">here</a> for more details. The data property can be used to pass data along with the subscription.
+              sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="/#!/docs/authentication">here</a> for more details. The data property can be used to pass data along with the subscription.
               See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how to handle the data property.
             </td>
           </tr>

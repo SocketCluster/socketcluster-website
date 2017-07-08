@@ -37,8 +37,8 @@
           <tr>
             <td>options</td>
             <td>
-              This is the options object provided through the brokerOptions property when you initialize your SocketCluster instance (inside server.js).
-              This can be useful if you need to pass command line arguments from your master process to your broker when you run SC.
+              This is the options object provided to the SocketCluster master instance (inside server.js).
+              This can be useful if you need to pass command line arguments from your master process to your broker when launching SC (you can add custom properties to the options object in server.js).
             </td>
           </tr>
           <tr>
@@ -100,6 +100,11 @@
               This event will be emitted whenever a worker publishes data to a particular channel on the current broker.
               The worker may publish data to a channel on a broker when one of its client-side sockets asks to publish to that channel or
               when you call worker.exchange.publish(...) from the worker process.
+              Note that if your SC instance has multiple brokers, then each broker will be responsible for a subset of all available channels within SC.
+              What this means is that if you try to publish data to a channel which does not belong to the current broker, it will be ignored.
+              To check if a channel belongs to the current broker, you can use the <a href="https://www.npmjs.com/package/sc-hasher">sc-hasher</a> module to hash
+              the channel name and then compare the returned number with the broker.id - If they match, then you know that the channel belongs to the current broker.
+              See <a href="https://github.com/SocketCluster/socketcluster/issues/245#issuecomment-261041729">this comment</a> for more details.
             </td>
           </tr>
           <tr>

@@ -215,18 +215,22 @@
             <td>setAuthToken(data, [options])</td>
             <td>
               <p>
-                Authenticate the current socket's client by providing it with a secret token which validates their identity and/or access rights.
-                You should only call this method in response to a successful login attempt by the client (I.e. The client has provided
+                Authenticate the current socket's client by providing it some token data which you can use to validate their identity and/or access rights.
+                Generally, you should call this method in response to a successful login attempt by the client (I.e. The client has provided
                 a username and password combination which exists in your database).
               </p>
               <p>
+                When you call this method, a JWT (token) containing the specified data will be created and attached to both the current server socket and the client socket on the other side of the connection.
+                This method can be called multiple times to update the token with new data - Avoid modifying the socket.authToken property directly because otherwise, the change will not propagate to the client.
+              </p>
+              <p>
                 In the simplest case, the data argument to this method would be an object in the form {username: 'bob123'}.
-                For a more complex use case, you could store a list of authorized channel names inside the token (for convenience so that you can simply read the token instead of checking the database every time).
+                For a more complex use case, you could also store a list of authorized channel names inside the token (that way, you will be able to check access privileges directly from the socket's token instead of having to read the database every time).
               <p>
                 The optional <b>options</b> argument is an Object which can be used to modify the token's behavior - Valid properties include any
                 option accepted by the node-jsonwebtoken library's sign method.
-                <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options">See list here</a>.
-                Note that if you use a different algorithm than the default 'HS256', you may need to provide a authPrivateKey and authPublicKey instead of the default authKey.
+                <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback">See the list of options here</a>.
+                Note that if you use a different algorithm than the default 'HS256', you may need to provide an authPrivateKey and authPublicKey instead of the default authKey.
                 See authKey, authPrivateKey and authPublicKey options in SocketCluster constructor <a href="/#!/docs/api-socketcluster">here</a>.
               </p>
               <p>
@@ -235,8 +239,8 @@
                   <li>The user doesn't need to login again if their socket loses its connection - Works well with SC's auto-reconnect feature.</li>
                   <li>
                     An auth token is shared between sockets across multiple tabs in a browser (under the same domain name).
-                    If a user logs in on one tab, they will automatically be authenticated on any other tab that they may have open.
-                    Tokens allow you to glue multiple sockets together under a single user identity.
+                    If a user logs in on one tab, they will automatically be authenticated on any other tab that they have open.
+                    Tokens therefore allow you to attach a user's identity to multiple sockets.
                   </li>
                 </ul>
               </p>

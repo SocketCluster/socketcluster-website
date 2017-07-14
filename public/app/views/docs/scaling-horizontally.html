@@ -9,18 +9,23 @@
         <p>
           SocketCluster lets you scale both vertically (across multiple CPU cores on a machine/host) and horizontally (across multiple hosts).
           To scale horizontally, you can either use SCC (recommended) or implement your own solution from scratch.
-          If you use SCC, then you don't need to learn about the implementation details of how SC synchronizes channel data across machines.
+        </p>
+        </p>
+          If you use SCC, then you don't need to learn about the implementation details of how SC synchronizes channel data across machines (unless you really want to).
+          <b>If you use SCC, the work of scaling and sharding is handled for you automatically</b>; so you can ignore the <b>'Scaling Manually'</b> section below.
+          With SCC, you just have to tell it how many instances of each subservice you want (based on usage); or you can use K8's autoscale feature.
         </p>
 
         <h3>SCC</h3>
         <p>
-          SCC was introduced in September 2016 - It is a set of components for scaling SC across multiple hosts.
+          SCC is a set of components for scaling SC across multiple hosts - You can deploy apps written on top of SCC
+          to any Kubernetes cluster using a single command; see <a href="https://github.com/SocketCluster/baasil-cli">Baasil CLI</a>.
+          Baasil is currently optimized for <a href="http://rancher.com/">Rancher</a> but it has also been used successfully with <a href="https://github.com/kubernetes/kops">KOPS</a> and others.
+          Baasil also lets you run/debug your app from inside a container on your local machine so you can get a more consistent (containerized) development and production environment.
         </p>
         <p>
-          SCC is designed to be easy to setup and gives you horizontal scalability without you having to know much about what is happening behind the scenes.
-          If you run SCC on top of Kubernetes, scaling up and down will be handled for you automatically.
           The complete guide to using SCC is <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">here</a>.
-          If you use SCC, you don't need to read the section below about 'Scaling Manually'.
+          If you use SCC, you don't need to read the section below about 'Scaling Manually' in order to use and scale SCC.
         </p>
 
         <h3>Scaling Manually</h3>

@@ -10,7 +10,7 @@
           SocketCluster lets you scale both vertically (across multiple CPU cores on a machine/host) and horizontally (across multiple hosts).
           To scale horizontally, you can either use SCC (recommended) or implement your own solution from scratch.
         </p>
-        </p>
+        <p>
           If you use SCC, then you don't need to learn about the implementation details of how SC synchronizes channel data across machines (unless you really want to).
           If you use SCC, the work of scaling and sharding is handled for you <b>automatically</b>; so you can ignore the <b>'Scaling Manually'</b> section below.
           With SCC, you just have to tell it how many instances of each subservice you want (based on usage); or you can use K8's autoscale feature.

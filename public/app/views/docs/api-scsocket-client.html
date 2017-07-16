@@ -79,6 +79,15 @@
              </td>
            </tr>
            <tr>
+             <td>
+               channels
+             </td>
+             <td>
+               An object which holds all the channels (SCChannel object) attached to this socket (with the channel name as key).
+               This object also contains channels which are in the 'unsubscribed' state.
+             </td>
+           </tr>
+           <tr>
             <td>CONNECTING</td>
             <td><b>'connecting'</b> - A string constant which represents this socket's connecting state. See state property.</td>
           </tr>
@@ -115,7 +124,7 @@
             <td>
               <p>
                 Emitted whenever the socket connects to the server (includes reconnections).
-                Since v2.2.25, the handler receives a status object of the following form:
+                The handler receives two arguments; the first is a status object of the form:
               </p>
               <pre class="prettyprint">{
   // The socket's id
@@ -129,6 +138,8 @@
   // will be a JavaScript object.
   authError: {name: 'errorName', message: 'errorMessage'}
 }</pre>
+              The second argument is a callback function (<code>processSubscriptions</code>) which, when called, will send all pending channel subscriptions to the server (to start activating pending channels).
+              Note that this <code>processSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="/#!/docs/api-socketcluster-client">SocketCluster Client API</a>.
             </td>
           </tr>
           <tr>

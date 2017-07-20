@@ -42,14 +42,23 @@ socket.on('ping', function (data, res) {
     // The responseData parameter in the previous code snippet will be 'Success'.
     res(null, 'Success');
   } else {
-    res('Error message'); // Send back error
+    var err = new Error('Failed to do stuff...');
+    // As a convention, it may be a good idea to give each
+    // error a name. That way on the client side you can quickly
+    // check the error type with: if (err.name === 'MyCustomError')
+    err.name = 'MyCustomError';
+    // If you like, you can also add custom properties to the err object.
+    // and they will be accessible on the client side.
+    res(err); // Send back error
   }
 });</pre>
 
         <p>
-          The first argument to the res function is an error (can be any JSON-compatible type or object) - If you want to send back a regular message (no error),
-          you should set the first argument to null. Note that you can also send back an error with a message like this: res(123, 'This is the error message') - You
-          can use the first argument as the error code if you like.
+          The first argument to the res function is an error (can be any JSON-compatible type or object; but an instance of the Error object is recommended).
+          If you want to send back a regular message (no error), you should set the first argument to null.
+          If you pass an Error object as the first argument to res(err), the error will be dehydrated on the server and rehydrated on the client side; all
+          properties (except for the stack property) will be accessible on the client. The error's stack property will not be sent to the client for security reasons
+          but you can log the error on the server-side (the stack is visible from the server).
         </p>
 
         <h3>Publishing</h3>
@@ -100,7 +109,11 @@ socket.on('ping', function (data, res) {
   if (success) {
     res(null, 'Success'); // Send back success message
   } else {
-    res('Error message'); // Send back error
+    var err = new Error('Failed');
+    err.name = 'ItFailedError';
+    // Attach an object to a custom property to send along with the error.
+    err.customProperty = {foo: 'bar'};
+    res(err); // Send back error
   }
 });</pre>
 

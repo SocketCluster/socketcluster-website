@@ -65,6 +65,18 @@
             </td>
           </tr>
           <tr>
+            <td>'workerClusterStart'</td>
+            <td>Emitted whenever the workerCluster is launched (the workerCluster handles load balancing between workers). This event's handler can take a workerClusterInfo object as argument. This workerClusterInfo object has a pid property and a childProcess property which is a reference to the WorkerCluster process.</td>
+          </tr>
+          <tr>
+            <td>'workerClusterReady'</td>
+            <td>Emitted whenever the workerCluster is ready (after all of its child workers have launched). This event's handler can take a workerClusterInfo object as argument. This workerClusterInfo object has a pid property and a childProcess property which is a reference to the WorkerCluster process.</td>
+          </tr>
+          <tr>
+            <td>'workerClusterExit'</td>
+            <td>Emitted whenever the workerCluster exits. This event's handler can take a workerClusterInfo object as argument. This workerClusterInfo object has a pid property, a code property (the exit code) and a signal property (if terminated using a signal) and a childProcess property which is a reference to the WorkerCluster process.</td>
+          </tr>
+          <tr>
             <td>'brokerStart'</td>
             <td>Emitted whenever a broker is launched. This event's handler can take a brokerInfo object as argument. This brokerInfo object has an id property (the lead broker will always have id 0), a pid property and a respawn property which indicates whether or not the broker respawned (not the first launch).</td>
           </tr>

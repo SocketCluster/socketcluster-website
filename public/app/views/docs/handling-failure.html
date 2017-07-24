@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-        <h1>Handling failure</h1>
+        <h1>Handling event responses and failures</h1>
         <p>
           Real systems in production need to be able to handle cases where the system fails. One of the most common causes of failure which needs to be considered is the possibility of a bad connection.
         </p>
@@ -37,8 +37,9 @@ socket.emit('ping', 'This is a ping', function (err, responseData) {
 socket.on('ping', function (data, res) {
   // ...
   if (success) {
-    // Send back success message. Note that the first argument is reserved for
-    // errors while the second can be used to pass back custom objects.
+    // Send back a success message (can be any JSON-compatible object/type).
+    // Note that the first argument is reserved for errors while the second
+    // can be used to pass back custom objects.
     // The responseData parameter in the previous code snippet will be 'Success'.
     res(null, 'Success');
   } else {

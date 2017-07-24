@@ -7,13 +7,16 @@
       <div class="docs-content">
         <h1>Handling event responses and failures</h1>
         <p>
-          Real systems in production need to be able to handle cases where the system fails. One of the most common causes of failure which needs to be considered is the possibility of a bad connection.
+          Real systems in production need to be able to handle cases where the system or connection fails; for this reason,
+          you may sometimes want to specify a callback when emitting events across a network; that way you can track individually
+          whether or not an event was successfully delivered to the other side of the connection. Another use case is that
+          you may simply want to pass data back as responses to specific emitted events.
         </p>
         <p>
           Event-related methods in SC accept a 'callback' function as final argument which allow you to check when the action has been acknowledged by the server. When a method fails, the callback will receive an error as argument &mdash; In this case you may wish to retry calling the method or you can display a message to the user to let them know about the issue.
         </p>
         <p>
-          Here is how to handle various errors (sample code):
+          Here is how to handle various responses and errors (sample code):
         </p>
 
         <h2>Client-side</h2>

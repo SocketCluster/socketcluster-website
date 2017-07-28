@@ -3,7 +3,7 @@ var SocketCluster = require('socketcluster').SocketCluster;
 var socketCluster = new SocketCluster({
   workers: 1,
   brokers: 1,
-  port: 80,
+  port: 8000,
   appName: 'sc-website',
   workerController: __dirname + '/worker.js',
   balancerController: __dirname + '/balancer.js',

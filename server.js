@@ -13,5 +13,5 @@ var socketCluster = new SocketCluster({
   pingTimeout: 10000,
   pingInterval: 4000,
   rebootWorkerOnCrash: true,
-  downgradeToUser: 'ec2-user'
+  downgradeToUser: 'ubuntu'
 });

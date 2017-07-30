@@ -242,7 +242,11 @@
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_SUBSCRIBE</td>
-                      <td>The req object has the following properties: <code>socket</code> and <code>channel</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method.</td>
+                      <td>
+                        The req object has the following properties: <code>socket</code> and <code>channel</code>. If the socket had an auth token which has expired, the req object will also have an <code>authTokenExpiredError</code> property which you can optionally pass to the next() method (to block the subscription).
+                        The req object may also have a boolean <code>waitForAuth</code> property set to true if the channel is a private channel which requires authentication.
+                        Also, if the client passed custom data as part of the subscribe call, then the middleware req object will have a <code>data</code> poperty which holds that custom data.
+                      </td>
                     </tr>
                     <tr>
                       <td>MIDDLEWARE_PUBLISH_IN</td>

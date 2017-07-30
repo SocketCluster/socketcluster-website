@@ -35,8 +35,7 @@ scServer.MIDDLEWARE_EMIT</pre>
         </p>
         <p>
           Note that the <code>err</code> objects in the following examples are based on custom classes which inherit from JavaScript's <code>Error</code> object.
-          If you don't care about getting the stack trace on the server, you can also pass plain objects in the form
-          <code>{name: 'MyCustomError', message: 'This is a custom error'}</code> (or with additional custom properties) to the <code>next(err)</code>.
+          You can also create errors using <code>var error = new Error('Some error')</code> and then adding custom properties to that error like <code>error.name = 'MyError'</code>.
           Here are some sample code snippets showing how to use each kind of middleware:
         </p>
 

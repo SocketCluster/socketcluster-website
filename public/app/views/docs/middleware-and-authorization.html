@@ -47,7 +47,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
     // request (IncomingMessage).
     // ...
     if (...) {
-      next() // Allow
+      next(); // Allow
     } else {
       var err = new MyCustomHandshakeFailedError('Handshake failed');
       next(err); // Block
@@ -71,7 +71,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
     if (req.authTokenExpiredError) {
       next(req.authTokenExpiredError); // Fail with a default auth token expiry error
     } else if (...) {
-      next() // Allow
+      next(); // Allow
     } else {
       var socketId = req.socket.id;
       var err = new MyCustomSubscribeFailedError(socketId + ' cannot subscribe to channel ' + req.channel);
@@ -102,7 +102,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
       // a callback as argument, what you set as data.ackData here will be passed back
       // to that client as the second argument to the callback function(err, ackData).
       data.ackData = {myMessage: 'This is a message'};
-      next() // Allow
+      next(); // Allow
     } else {
       var err = MyCustomPublishInFailedError(req.socket.id + ' cannot publish channel ' + req.channel);
       next(err); // Block
@@ -116,7 +116,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
   function (req, next) {
     // ...
     if (...) {
-      next() // Allow
+      next(); // Allow
     } else {
       var err = MyCustomPublishOutFailedError('Blocked publishing message out to ' + req.socket.id);
       next(err); // Block with notice
@@ -130,7 +130,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
   function (req, next) {
     // ...
     if (...) {
-      next() // Allow
+      next(); // Allow
     } else {
       var err = MyCustomEmitFailedError(req.socket.id + ' is not allowed to emit event ' + req.event);
       next(err); // Block

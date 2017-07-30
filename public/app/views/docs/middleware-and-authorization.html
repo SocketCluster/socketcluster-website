@@ -10,7 +10,7 @@
           With SocketCluster, clients can share messages with one another by listening to and publishing data to particular channels. By default, anyone can listen to and publish data to any channel they like. While this might be OK for some systems, most systems need some degree of access control to regulate how users can interact with one another. Most systems also need a way to authenticate and authorize connections in order to enforce appropriate access rights. Middleware functions offer a clean, centralized way to do all this.
         </p>
         <p>
-          In SocketCluster, all real-time events have to pass through middleware functions before they can be handled by your server. SocketCluster offers different kinds of middleware lines to handle various kinds of interactions. The most useful middleware lines go in worker processes but there are also middleware lines exposed by load balancers (for HTTP). For this tutorial, we will focus on worker (real-time) middleware only.
+          In SocketCluster, all real-time events have to pass through middleware functions before they can be handled by your server. SocketCluster offers different kinds of middleware lines to handle various kinds of interactions. The most useful middleware lines go in worker processes but there are also middleware lines exposed by the master process. For this guide, we will focus on worker middleware only.
         </p>
         <p>
           The worker exposes middleware through our real-time scServer object &mdash; This object can be accessed using <code>worker.getSCServer()</code> or just <code>worker.scServer</code>.

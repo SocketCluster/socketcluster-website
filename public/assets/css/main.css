@@ -30,11 +30,21 @@ a {
   -webkit-transition:.2s;
 }
 
+.home-page-hero-button-container {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  text-align: center;
+}
+
 .get-started-button {
-  dispay: block;
-  float: left;
+  display: inline-block;
   margin-right: 10px;
-  margin-bottom: 10px;
+}
+
+.chat-button {
+  display: inline-block;
 }
 
 .jumbotron {
@@ -42,15 +52,15 @@ a {
   padding-bottom: 38px;
 }
 
-.chat-button {
-  dispay: block;
-  float: left;
-}
-
 .github-star-button-top {
   display: block;
   float: right;
   margin-top: 19px;
+}
+
+.home-main-column {
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 a:hover {

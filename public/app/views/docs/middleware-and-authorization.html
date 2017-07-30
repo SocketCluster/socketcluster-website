@@ -31,7 +31,7 @@ scServer.MIDDLEWARE_EMIT</pre>
 
         <p>
           The req argument passed to the middlewareFunction depends on the type of middleware used.
-          For details about the properties of the req object for different middleware lines, see the middleware API section near the bottom of <a href="/#!/docs/api-scserver">this page</a>.
+          For details about the properties of the req object for different middleware lines, see the addMiddleware method near the bottom of <a href="/#!/docs/api-scserver">this page</a>.
         </p>
         <p>
           Note that the <code>err</code> objects in the following examples are based on custom classes which inherit from JavaScript's <code>Error</code> object.
@@ -84,7 +84,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
   }
 );</pre>
         <p>
-          Scroll to the bottom of <a href="/#!/docs/api-scserver">this page</a> to see what properties are provided by the req object for each middleware type.
+          Scroll to the addMiddleware method near the bottom of <a href="/#!/docs/api-scserver">this page</a> to see what properties are provided by the req object for each middleware type.
         </p>
 
         <h3>Publish</h3>

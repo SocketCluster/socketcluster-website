@@ -319,7 +319,7 @@
               form <code>function (err, data) { /* ... */ }</code> - Note that the worker will need to respond
               to the 'masterMessage' event by invoking a <code>respond</code> function; this is an easy way to collect data back from a worker process.
               If the worker does not invoke the <code>respond</code> callback, then this callback will receive an instance of <code>TimeoutError</code> as the first argument.
-              The timeout is defined by the <code>ipcAckTimeout</code> option - Look at the start options above for details.
+              The timeout is defined by the <code>ipcAckTimeout</code> option - See the start options above for details.
             </td>
           </tr>
           <tr>
@@ -331,7 +331,7 @@
               form <code>function (err, data) { /* ... */ }</code> - Note that the broker will need to respond
               to the 'masterMessage' event by invoking a <code>respond</code> function; this is an easy way to collect data back from a broker process.
               If the broker does not invoke the <code>respond</code> callback, then this callback will receive an instance of <code>TimeoutError</code> as the first argument.
-              The timeout is defined by the <code>ipcAckTimeout</code> option - Look at the start options above for details.
+              The timeout is defined by the <code>ipcAckTimeout</code> option - See the start options above for details.
             </td>
           </tr>
           <tr>

@@ -208,6 +208,12 @@
   // (when callback is provided to emit)
   ackTimeout: 10000,
 
+  // In milliseconds, the timeout for calling res(err, data) when
+  // your sendToWorker, sendToBroker or sendToMaster (IPC) call
+  // expects an ACK response from the other process
+  // (when callback is provided)
+  ipcAckTimeout: 10000,
+
   // In milliseconds - If the socket cannot upgrade transport
   // within this period, it will stop trying
   socketUpgradeTimeout: 1000,
@@ -305,17 +311,27 @@
             </td>
           </tr>
           <tr>
-            <td>sendToWorker(workerId, data)</td>
+            <td>sendToWorker(workerId, data, [callback])</td>
             <td>
-              Send some data to a specific worker process from master. You can handle this message from inside the worker process by listening for the
+              Send some data to a specific worker process from master. You can handle this data from inside the worker process by listening for the
               'masterMessage' event. See <a href="/#!/docs/api-scworker">here</a> for more details.
+              Since SocketCluster v6.6.0, you can provide an optional callback as the third argument; it should be in the
+              form <code>function (err, data) { /* ... */ }</code> - Note that the worker will need to respond
+              to the 'masterMessage' event by invoking a <code>respond</code> function; this is an easy way to collect data back from a worker process.
+              If the worker does not invoke the <code>respond</code> callback, then this callback will receive an instance of <code>TimeoutError</code> as the first argument.
+              The timeout is defined by the <code>ipcAckTimeout</code> option - See the <a href="/#!/docs/api-socketcluster">SocketCluster (server) API</a> for details.
             </td>
           </tr>
           <tr>
-            <td>sendToBroker(brokerId, data)</td>
+            <td>sendToBroker(brokerId, data, [callback])</td>
             <td>
-              Send some data to a specific broker process from master. You can handle this message from inside the broker process by listening for the
+              Send some data to a specific broker process from master. You can handle this data from inside the broker process by listening for the
               'masterMessage' event. See <a href="/#!/docs/api-broker">here</a> for more details.
+              Since SocketCluster v6.6.0, you can provide an optional callback as the third argument; it should be in the
+              form <code>function (err, data) { /* ... */ }</code> - Note that the broker will need to respond
+              to the 'masterMessage' event by invoking a <code>respond</code> function; this is an easy way to collect data back from a broker process.
+              If the broker does not invoke the <code>respond</code> callback, then this callback will receive an instance of <code>TimeoutError</code> as the first argument.
+              The timeout is defined by the <code>ipcAckTimeout</code> option - See the <a href="/#!/docs/api-socketcluster">SocketCluster (server) API</a> for details.
             </td>
           </tr>
           <tr>

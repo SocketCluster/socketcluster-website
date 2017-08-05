@@ -78,9 +78,13 @@
             <td>'masterMessage'</td>
             <td>
               Emitted when the master process sends a message to this worker.
-              The only parameter passed to the handler is the object/message from master.
-              See sendToWorker() method in <a href="/#!/docs/api-socketcluster">master SocketCluster API</a> for details on how
-              to send a message to a worker from the master process.
+              Since SocketCluster version 6.6.0, the handler function accepts two arguments; the first is the data which was sent
+              by the master process, the second is a <code>respond</code> callback function which you can call to respond to the
+              event using IPC. The <code>respond</code> function should be invoked as <code>respond(error, data)</code>; it is recommended
+              that you pass an instance of the <code>Error</code> object as the first argument; if you don't want to send back an error,
+              then the first argument should be <code>null</code>: <code>respond(null, data)</code>.
+              See <code>sendToWorker(...)</code> method in <a href="/#!/docs/api-socketcluster">SocketCluster (master) API</a> for details on how
+              to send a message to a worker from the master process (and how to handle the response from the worker).
             </td>
           </tr>
         </table>
@@ -115,10 +119,15 @@
           </tr>
 
           <tr>
-            <td>sendToMaster(data)</td>
+            <td>sendToMaster(data, [callback])</td>
             <td>
-              Send some data to the master process from this worker. You can handle this message from inside the master process by listening for the
+              Send some data to the master process from this worker. You will be able to handle this data from inside the master process by listening for the
               'workerMessage' event. See <a href="/#!/docs/api-socketcluster">here</a> for more details.
+              Since SocketCluster v6.6.0, you can provide an optional callback as the second argument; it should be in the
+              form <code>function (err, data) { /* ... */ }</code> - Note that the master will need to respond
+              to the 'workerMessage' event by invoking a <code>respond</code> function; this is a convenient way to collect data back from the master process in response to this event.
+              If the master does not invoke the <code>respond</code> function, then this callback will receive an instance of <code>TimeoutError</code> as the first argument.
+              The timeout is defined by the <code>ipcAckTimeout</code> option - See the <a href="/#!/docs/api-socketcluster">SocketCluster (server) API</a> for details.
             </td>
           </tr>
 

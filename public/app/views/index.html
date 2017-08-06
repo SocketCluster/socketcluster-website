@@ -1,30 +1,23 @@
 <div class="page-index">
-  <!--<div class="header-container jumbotron">-->
-    <!--<div class="container">-->
-      <!--<h1>A <strong><em>scalable</em></strong> framework for real-time apps and services.</h1>-->
-      <!--<div class="powered-by-uws-container"><span>Powered by </span><a target="_blank" href="https://github.com/uWebSockets/uWebSockets"><img class="uws-header-logo" src="assets/img/uws.png" alt="uWebSockets"></a></div>-->
-      <!--<p><a class="btn btn-primary btn-lg get-started-button" role="button" href="/#!/docs/getting-started">Get Started</a></p>-->
-      <!--<p><a class="btn btn-default btn-lg chat-button" role="button" href="https://gitter.im/SocketCluster/socketcluster">Chat on Gitter</a></p>-->
-    <!--</div>-->
-      <!--//starts here-->
-    <div class="c-hero-wrapper">
-      <link rel="stylesheet" href="https://assets.ably.io/assets/application-d86e5b6ef0b467dc7a21188d1336e17eaab2579efaba4479a609fa472d0dd4c7.css" />
+
+  <div class="c-hero-wrapper" >
+      <link rel="stylesheet" href="../assets/css/ably.css" />
       <div class="c-hero c-hero--main">
-        <div class="c-hero__bg-video">
+        <div style="position: absolute; z-index: 0; height: 670px; top: 0; left: 0; width: 100%; overflow: hidden; display: block; box-sizing: inherit; color: white; background-color: rgba(221, 221, 221, 0.41)">
           <video autoplay="" loop="" data-hero-video="">
-            <source src="https://assets.ably.io/assets/homepage/hero-33e549ae5f20f8041795b37c0279af05c662da448d91b96bdc61d3323773e341.mp4" type="video/mp4">
-            <source src="https://assets.ably.io/assets/homepage/hero-ae037d87872b5e76c612a06d71f307ab5dc7cddd1b3e51d4a7247b9051a3d7bd.webm" type="video/webm">
-            <source src="https://assets.ably.io/assets/homepage/hero-9fe9bbfb0a292a909c4f2fcf19ba4480127f6f5ce5b6e32cde95a5a0e51b49b4.ogg" type="video/ogg">
+            <source src="../assets/vid/Clouds_Fly_By/Clouds_Fly_By.mp4" type="video/mp4">
+            <source src="../assets/img/Clouds_Fly_By/Clouds_Fly_By.webm" type="video/webm">
+            <source src="../assets/img/Clouds_Fly_By/Clouds_Fly_By.ogv" type="video/ogg">
           </video>
         </div>
 
         <div class="o-container o-grid">
           <div class="o-grid__row u-text-center" data-layout="center">
             <div class="o-grid__item">
-              <h1 class="c-hero__title u-color-brand--light">
-                Building realtime apps
+              <h1 style="font-size: 4.28571rem; line-height: 72px; color: white; font-weight: 500"; >
+                Now Build realtime apps
                 <br>
-                just got easier
+                for millions of users
               </h1>
 
               <p class="u-fs-2 u-m-b-medium">
@@ -40,80 +33,61 @@
       </div>
     </div>
 
-      <!--//Ends here-->
-  <!--</div>-->
-
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h2 class="header-light regular-pad">What is SocketCluster?</h2>
-        <p>SocketCluster is an open source real-time WebSocket framework for Node.js.</p>
-        <p>It supports both direct client-server communication (like Socket.io) and group communication via pub/sub channels.</p>
-        <p>It is designed to scale both vertically across multiple CPU cores and horizontally across multiple machines/instances.</p>
-        <p>It is optimized to run and autoscale on a K8s cluster. All K8s config files are available <a href="https://github.com/SocketCluster/socketcluster/tree/master/kubernetes">from our main repo</a>.
-          See the <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">Kubernetes guide</a> for more details.</p>
-        <p>It supports design patterns which allow you to implement flexible, resilient and scalable chat systems. See <a href="https://blog.baasil.io/socketcluster-design-patterns-for-chat-69e76a4b1966">SocketCluster Design Patterns for Chat</a>.</p>
-      </div>
-      <div class="col-md-6 text-center">
-        <img src="../assets/img/cloud.png" alt="" class="large-pad sc-server-img">
-      </div>
-    </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="header-light regular-pad">Technical Features</h2>
+          <ul class="features-list">
+            <li>Resilient on both the client and backend - Process crashes, lost connections and other failures are handled seamlessly.</li>
+            <li>Scales linearly as you add more CPU cores and workers.</li>
+            <li>Also designed to scale horizontally across multiple machines. See <a href="/#!/docs/scaling-horizontally">guide</a>.</li>
+            <li>Supports custom codecs for compressing messages during transmission. See <a href="https://github.com/SocketCluster/sc-codec-min-bin">min-bin</a>.</li>
+            <li>Support for both pub/sub channels and direct client-server communication.</li>
+            <li>Authentication engine compliant with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a> (JWT). See <a href="https://www.youtube.com/watch?v=5xbEynJzwzk">video</a>.</li>
+            <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake interactions).</li>
+            <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
+            <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
+            <li>SC uses uWebSockets as its default engine (this is the fastest available).</li>
+            <li>Designed to work alongside any database/datastore (Redis, MySql, PostgreSQL, MongoDB, Cassandra, etc...).</li>
+            <li>Open source alternative to PubNub and Pusher.</li>
+            <li>Optimized to run and autoscale on Kubernetes.</li>
+          </ul>
+        </div>
 
-    <!--<div feel-demo></div>-->
+        <div class="col-md-6">
 
-    <div class="row">
-      <div class="col-md-12">
-        <h2 class="header-light regular-pad">What is it good for?</h2>
-        <ul class="features-list">
-          <li>
-            Single-page apps which needs to display data in real-time.
-          </li>
-          <li>
-            Chatbots and other chat-related applications.
-          </li>
-          <li>
-            IoT devices.
-          </li>
-          <li>
-            Finance/trading applications.
-          </li>
-          <li>
-            Mobile apps built with web technologies such as React Native.
-          </li>
-          <li>
-            Multiplayer Online Games (see <a href="https://github.com/SocketCluster/sc-phaser-sample">sc-phaser-sample</a>).
-          </li>
-          <li>
-            Any kind of real-time app or service which needs to scale to millions of users.
-          </li>
-        </ul>
-      </div>
-    </div>
+          <h2 class="header-light regular-pad">Why SocketCluster?</h2>
+          <img src="../assets/img/cloud.png" alt="" class="large-pad sc-server-img">
+          <p>It is optimized to run and autoscale on a K8s cluster. All K8s config files are available <a href="https://github.com/SocketCluster/socketcluster/tree/master/kubernetes">from our main repo</a>.
+            See the <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">Kubernetes guide</a> for more details.</p>
 
-    <hr>
+          <h2 class="header-light regular-pad">What is it good for?</h2>
+          <ul class="features-list">
+            <li>
+              Single-page apps which needs to display data in real-time.
+            </li>
+            <li>
+              Chatbots and other chat-related applications.
+            </li>
+            <li>
+              IoT devices.
+            </li>
+            <li>
+              Finance/trading applications.
+            </li>
+            <li>
+              Mobile apps built with web technologies such as React Native.
+            </li>
+            <li>
+              Multiplayer Online Games (see <a href="https://github.com/SocketCluster/sc-phaser-sample">sc-phaser-sample</a>).
+            </li>
+            <li>
+              Any kind of real-time app or service which needs to scale to millions of users.
+            </li>
+          </ul>
+        </div>
 
-    <div class="row large-pad">
-      <div class="col-md-4">
-        <h2 class="header-light header-technical-features">Technical Features</h2>
       </div>
-      <div class="col-md-8">
-        <ul class="features-list">
-          <li>Resilient on both the client and backend - Process crashes, lost connections and other failures are handled seamlessly.</li>
-          <li>Scales linearly as you add more CPU cores and workers.</li>
-          <li>Also designed to scale horizontally across multiple machines. See <a href="/#!/docs/scaling-horizontally">guide</a>.</li>
-          <li>Supports custom codecs for compressing messages during transmission. See <a href="https://github.com/SocketCluster/sc-codec-min-bin">min-bin</a>.</li>
-          <li>Support for both pub/sub channels and direct client-server communication.</li>
-          <li>Authentication engine compliant with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a> (JWT). See <a href="https://www.youtube.com/watch?v=5xbEynJzwzk">video</a>.</li>
-          <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake interactions).</li>
-          <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
-          <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
-          <li>SC uses uWebSockets as its default engine (this is the fastest available).</li>
-          <li>Designed to work alongside any database/datastore (Redis, MySql, PostgreSQL, MongoDB, Cassandra, etc...).</li>
-          <li>Open source alternative to PubNub and Pusher.</li>
-          <li>Optimized to run and autoscale on Kubernetes.</li>
-        </ul>
-      </div>
-    </div>
 
   </div>
 

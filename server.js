@@ -14,3 +14,6 @@ var socketCluster = new SocketCluster({
   pingInterval: 4000,
   rebootWorkerOnCrash: true
 });
+
+//todo add meta tags to the pages for SEO optimization, available at http://tools.seobook.com/meta-medic/
+//todo add team member cards under services, available at https://themes.getbootstrap.com/

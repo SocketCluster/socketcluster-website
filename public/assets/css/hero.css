@@ -81,3 +81,18 @@
 a.home-hero-link:hover {
   color: #77CCFF;
 }
+
+home-hero-wrapper *::-webkit-media-controls-panel {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+home-hero-wrapper *::--webkit-media-controls-play-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+home-hero-wrapper *::-webkit-media-controls-start-playback-button {
+  display: none!important;
+  -webkit-appearance: none;
+}

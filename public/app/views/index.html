@@ -2,19 +2,17 @@
 
   <div class="home-hero-wrapper" >
       <div class="home-hero-video">
-        <video autoplay loop>
-          <source src="../assets/vid/busy-people/busy.mp4" type="video/mp4">
-          <source src="../assets/vid/busy-people/busy.webm" type="video/webm">
-          <source src="../assets/vid/busy-people/busy.ogv" type="video/ogg">
+        <video autoplay loop muted playsinline>
+          <source src="../assets/vid/real-time-network/real-time-network.webm" type="video/webm">
+          <source src="../assets/vid/real-time-network/real-time-network.mp4" type="video/mp4">
         </video>
       </div>
 
       <div class="home-hero-container">
         <div class="home-hero-content">
           <h1 class="home-hero-title">
-            Build real-time apps
-            <br>
-            for any number of users
+            Build real-time apps<br>
+            that scale
           </h1>
 
           <p class="home-hero-text">
@@ -41,14 +39,14 @@
             <li>Scales linearly as you add more CPU cores and workers.</li>
             <li>Also designed to scale horizontally across multiple machines. See <a href="/#!/docs/scaling-horizontally">guide</a>.</li>
             <li>Supports custom codecs for compressing messages during transmission. See <a href="https://github.com/SocketCluster/sc-codec-min-bin">min-bin</a>.</li>
-            <li>Support for both pub/sub channels and direct client-server communication.</li>
+            <li>Supports both pub/sub channels and direct client-server communication.</li>
             <li>Authentication engine compliant with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a> (JWT). See <a href="https://www.youtube.com/watch?v=5xbEynJzwzk">video</a>.</li>
             <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake interactions).</li>
             <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
             <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
-            <li>SC uses uWebSockets as its default engine (this is the fastest available).</li>
+            <li>Uses uWebSockets as its default engine (this is the fastest available).</li>
             <li>Designed to work alongside any database/datastore (Redis, MySql, PostgreSQL, MongoDB, Cassandra, etc...).</li>
-            <li>Open source alternative to PubNub and Pusher.</li>
+            <li>Open source alternative to pub/sub 'as-a-service' solutions.</li>
             <li>Optimized to run and autoscale on Kubernetes.</li>
           </ul>
         </div>
@@ -60,10 +58,13 @@
           <p>It is optimized to run and autoscale on a K8s cluster. All K8s config files are available <a href="https://github.com/SocketCluster/socketcluster/tree/master/kubernetes">from our main repo</a>.
             See the <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">Kubernetes guide</a> for more details.</p>
 
-          <h2 class="header-light regular-pad">What is it good for?</h2>
+          <h2 class="home-use-cases header-light regular-pad">What is it good for?</h2>
           <ul class="features-list">
             <li>
-              Single-page apps which needs to display data in real-time.
+              Single-page apps which need to render live data.
+            </li>
+            <li>
+              Finance, cryptocurrencies and other blockchain applications. See <a href="https://lisk.io/" target="_blank">Lisk.io</a>.
             </li>
             <li>
               Chatbots and other chat-related applications.
@@ -72,13 +73,10 @@
               IoT devices.
             </li>
             <li>
-              Finance/trading applications.
+              Mobile apps built with web technologies such as React Native or Ionic/Cordova.
             </li>
             <li>
-              Mobile apps built with web technologies such as React Native.
-            </li>
-            <li>
-              Multiplayer Online Games (see <a href="https://github.com/SocketCluster/sc-phaser-sample">sc-phaser-sample</a>).
+              Multiplayer Online Games.
             </li>
             <li>
               Any kind of real-time app or service which needs to scale to millions of users.
@@ -129,7 +127,7 @@
 
     <div id="sponsors" style="text-align: center; padding: 25px 40px 45px; background-color: #F6F6F6;">
         <div class="inner" style="max-width: 700px; margin: 0px auto; text-align: center; font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif ; font-size: 15px; -webkit-font-smoothing: antialiased; color: #34495e" >
-            <h3>PROUDLY SPONSORED BY</h3>
+            <h3 class="home-sponsored-by-heading">PROUDLY SPONSORED BY</h3>
             <a href="https://lisk.io/" target="_blank" style="width: 180px">
                 <img style="width: 180px" src="../assets/img/lisk_logo_text.png">
             </a>

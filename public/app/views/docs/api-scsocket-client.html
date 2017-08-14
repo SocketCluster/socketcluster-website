@@ -59,7 +59,7 @@
               authState
             </td>
             <td>
-              The authentication state of the socket as a string. Can be either socket.AUTHENTICATED, socket.UNAUTHENTICATED or socket.PENDING.
+              The last known authentication state of the socket as a string. Can be either 'authenticated' (socket.AUTHENTICATED) or 'unauthenticated' (socket.UNAUTHENTICATED).
             </td>
           </tr>
           <tr>
@@ -106,10 +106,6 @@
           <tr>
             <td>UNAUTHENTICATED</td>
             <td><b>'unauthenticated'</b> - A string constant which represents this socket's unauthenticated authState.</td>
-          </tr>
-          <tr>
-            <td>PENDING</td>
-            <td><b>'pending'</b> - A string constant which represents this socket's pending auth state. This state signifies that the authentication status of the socket is not yet known.</td>
           </tr>
         </table>
 
@@ -182,7 +178,7 @@
           <tr>
             <td>'authStateChange'</td>
             <td>
-              Triggers whenever the client's authState changes. This includes changes between socket.PENDING and socket.AUTHENTICATED/UNAUTHENTICATED states.
+              Triggers whenever the client's authState changes between socket.AUTHENTICATED and socket.UNAUTHENTICATED states.
               The handler will receive as an argument an object which has at least two properties: <code>oldState</code> and <code>newState</code>.
               If <code>newState</code> is 'authenticated', the argument to the handler will also have an additional <code>signedAuthToken</code> property which
               will be the base64 signed JWT auth token as a string and an <code>authToken</code> property which will represent the token as a plain Object.

@@ -261,6 +261,7 @@ ul.features-list li {
 @media (min-width: 1200px) {
   .sc-server-img {
     margin-top: 60px;
+    margin-bottom: 34px;
     max-width: 438px;
     width: 100%;
   }
@@ -400,5 +401,5 @@ position: relative;
 }
 
 .home-use-cases {
-  margin-bottom: 20px;
+  margin-top: 25px;
 }

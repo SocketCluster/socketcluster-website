@@ -214,6 +214,7 @@ ul.features-list li {
 .sc-server-img {
   width: 100%;
 }
+
 .features-list {
   padding: 0;
 }
@@ -259,6 +260,7 @@ ul.features-list li {
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .sc-server-img {
+    margin-top: 60px;
     max-width: 438px;
     width: 100%;
   }

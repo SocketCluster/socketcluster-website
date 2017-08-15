@@ -35,25 +35,24 @@
         <div class="col-md-6 home-main-column">
           <h2 class="header-light regular-pad">Technical Features</h2>
           <ul class="features-list">
-            <li>Resilient on both the client and backend - Process crashes, lost connections and other failures are handled seamlessly.</li>
             <li>Scales linearly as you add more CPU cores and workers.</li>
-            <li>Also designed to scale horizontally across multiple machines. See <a href="/#!/docs/scaling-horizontally">guide</a>.</li>
+            <li>Scales horizontally across multiple machines. See <a href="/#!/docs/scaling-horizontally">guide</a>.</li>
+            <li>Resilient on both the client and backend - Process crashes, lost connections and other failures are handled seamlessly.</li>
             <li>Supports custom codecs for compressing messages during transmission. See <a href="https://github.com/SocketCluster/sc-codec-min-bin">min-bin</a>.</li>
             <li>Supports both pub/sub channels and direct client-server communication.</li>
             <li>Authentication engine compliant with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a> (JWT). See <a href="https://www.youtube.com/watch?v=5xbEynJzwzk">video</a>.</li>
-            <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake interactions).</li>
+            <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake).</li>
             <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
             <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
-            <li>Uses uWebSockets as its default engine (this is the fastest available).</li>
-            <li>Designed to work alongside any database/datastore (Redis, MySql, PostgreSQL, MongoDB, Cassandra, etc...).</li>
-            <li>Open source alternative to pub/sub 'as-a-service' solutions.</li>
+            <li>Uses uWebSockets as its default engine (it's fast).</li>
+            <li>Designed to work alongside any database/datastore.</li>
+            <li>Open source alternative to pub/sub 'as-a-service'.</li>
             <li>Optimized to run and autoscale on Kubernetes.</li>
           </ul>
         </div>
 
         <div class="col-md-6 home-main-column">
 
-          <h2 class="header-light regular-pad">Why SocketCluster?</h2>
           <img src="../assets/img/cloud.png" alt="" class="large-pad sc-server-img">
           <p>It is optimized to run and autoscale on a K8s cluster. All K8s config files are available <a href="https://github.com/SocketCluster/socketcluster/tree/master/kubernetes">from our main repo</a>.
             See the <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">Kubernetes guide</a> for more details.</p>

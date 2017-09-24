@@ -31,6 +31,10 @@
             <td>A boolean which indicates whether or not this channel will wait for socket authentication before subscribing to the server. It will remain in the 'pending' state until the socket becomes authenticated.</td>
           </tr>
           <tr>
+            <td>batch</td>
+            <td>A boolean which indicates whether or not this channel's subscribe and unsubscribe requests will be batched together with that of other subscriptions (for a performance boost). False by default. If false, then the subscribe/unsubscribe requests will be sent individually and immediately (assuming that the socket is online) instead of batched asynchronously.</td>
+          </tr>
+          <tr>
             <td>SUBSCRIBED</td>
             <td>A string constant which is used to indicate that this channel is in a subscribed state. See the state property above.</td>
           </tr>

@@ -69,9 +69,11 @@
                   If this is true, you need to make sure that this property is also set to true on the server-side.</li>
                 <li><b>multiplex</b>: Boolean - Defaults to true; multiplexing allows you
                   to reuse a socket instead of creating a second socket to the same address.</li>
-                <li><b>pubSubBatchDuration</b>: Number - Defaults to null (0 milliseconds); This property affects channel subscription batching;
+                <li><b>pubSubBatchDuration</b>: Number - Defaults to null (0 milliseconds); this property affects channel subscription batching;
                 it determines the period in milliseconds for batching multiple subscription requests together. It only affects channels that have the <code>batch</code> option set to true.
-                A value of null or 0 means that all subscribe or unsubscribe requests which were made within the same call stack will be batched together.</li>
+                A value of null or 0 means that all subscribe or unsubscribe requests which were made within the same call stack will be batched together.
+                This property was introduced on the client-side in SC version 8 (both the client and server versions need to be >= 8.0.0).
+                Note that there is also a separate property with the same name which can be configured on the server.</li>
                 <li><b>timestampRequests</b>: Boolean - Whether or not to add a timestamp
                   to the WebSocket handshake request.</li>
                 <li><b>timestampParam</b>: String - The query parameter name to use to

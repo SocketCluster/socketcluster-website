@@ -375,9 +375,9 @@
             <td>
               Subscribe to a particular channel.
               This function returns an <a href="#!/docs/api-scchannel-client">SCChannel</a> object which lets you watch for incoming data on that channel.
-              Since v4.0.0, you can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData, batch: false}</code> (all properties are optional) - If waitForAuth is true, the channel
+              Since v4.0.0, you can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData, batch: false}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel
               will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
-              sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="/#!/docs/authentication">here</a> for more details. The data property can be used to pass data along with the subscription.
+              sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="/#!/docs/authentication">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
               See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how to handle the data property.
               The <code>batch</code> property was introduced in SC v8 (both the client and the server must be at least version 8 in order to use this feature) - It's false by default; if set to true, then the subscription request will be batched together with other subscriptions instead of being sent off immediately and individually. By the default, the batch duration is 0 (which will batch subscribe calls that are within the same call stack).
               Note that the <code>pubSubBatchDuration</code> can be specified on a per-socket basis as an option when creating/connecting the socket for the first time.

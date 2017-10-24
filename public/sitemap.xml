@@ -2,94 +2,94 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://socketcluster.io/</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/introduction</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/getting-started</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/basic-usage</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/debugging</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/middleware-and-authorization</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/handling-failure</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/full-stack</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/running-in-production</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/scaling-horizontally</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/performance</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/authentication</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scsocket-client</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scchannel-client</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scchannel-server</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-socketcluster</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-socketcluster-client</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scworker</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scserver</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-scsocket-server</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-exchange</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-session</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
   <url>
     <loc>http://socketcluster.io/#!/docs/api-store</loc>
-    <lastmod>2017-10-07</lastmod>
+    <lastmod>2017-10-24</lastmod>
   </url>
 </urlset>

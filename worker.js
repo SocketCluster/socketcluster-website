@@ -26,17 +26,39 @@ module.exports.run = function (worker) {
   var templateTagsRegex = /\{{2,3}[^{}]*\}{2,3}/g;
   var escapedFragmentRegex = /^\/[?]_escaped_fragment_=(.*)/;
   var fragment, page;
-  app.use(function (req, res, next) {
-    fragment = req.url.match(escapedFragmentRegex);
-    if (fragment) {
-      res.writeHead(404, {
-        'Content-Type': 'text/html'
-      });
-      res.end();
-    } else {
-      next();
-    }
-  });
+  // app.use(function (req, res, next) {
+  //   fragment = req.url.match(escapedFragmentRegex);
+  //   if (fragment) {
+  //     page = fragment[1];
+  //     if (page == '/' || page == '') {
+  //       page = '/index';
+  //     }
+  //     var resourcePath = path.normalize(publicDir + 'app/views' + page + '.html');
+  //
+  //     if (resourcePath.indexOf(publicDir) > -1) {
+  //       fs.readFile(resourcePath, {encoding: 'utf8'}, function (err, data) {
+  //         if (err) {
+  //           data = '';
+  //         }
+  //         var content = (navContent + data).replace(templateTagsRegex, '');
+  //
+  //         res.writeHead(200, {
+  //           'Content-Type': 'text/html'
+  //         });
+  //         res.end(content);
+  //       });
+  //     } else {
+  //       res.writeHead(403, {
+  //         'Content-Type': 'text/html'
+  //       });
+  //       res.end('Access denied');
+  //     }
+  //   } else {
+  //     next();
+  //   }
+  // });
+  
+  app.use(require('prerender-node'));
 
   app.use(serveStatic(__dirname + '/public'));
 

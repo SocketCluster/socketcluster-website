@@ -36,7 +36,7 @@
     </script>
   </head>
 
-  <body onload="prettyPrint()">
+  <body>
     <!--[if lt IE 7]>
           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
@@ -71,6 +71,9 @@
     <link rel="stylesheet" href="assets/js/vendor/prettify/tomorrow-night.css">
 
     <script type='text/javascript'>
+      document.body.addEventListener('load', function() {
+        prettyPrint();
+      });
       document.addEventListener('DOMContentLoaded', function() {
         prettyPrint();
       });

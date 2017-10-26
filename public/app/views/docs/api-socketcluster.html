@@ -59,7 +59,7 @@
             <td>'workerMessage'</td>
             <td>
               Emitted when a worker process sends a message to this master process.
-              The first parameter passed to the handler is the worker id, the second parameter is the data/object sent by the worker.
+              The first parameter passed to the handler is the worker id, the second parameter is the data/object sent by the worker, the third parameter is the respond callback.
               See sendToMaster() method in <a href="/#!/docs/api-scworker">SCWorker API</a> for details on how
               to send a message to master from inside a worker process.
             </td>
@@ -88,7 +88,7 @@
             <td>'brokerMessage'</td>
             <td>
               Emitted when a broker process sends a message to this master process.
-              The first parameter passed to the handler is the broker id, the second parameter is the data/object sent by the broker.
+              The first parameter passed to the handler is the broker id, the second parameter is the data/object sent by the broker, the third parameter is the respond callback.
               See sendToMaster() method in <a href="/#!/docs/api-broker">Broker API</a> for details on how
               to send a message to master from inside a broker process.
             </td>

@@ -186,12 +186,6 @@
   // This is the same as the object provided to Node.js's https server
   protocolOptions: null,
 
-  // This allows you to provide a custom server to use as the underlying HTTP server for SC.
-  // This should be the path (string) to your custom HTTP server module.
-  // This module needs to export a createServer(protocolOptions) function which should return a customized Node.js HTTP server.
-  // The protocolOptions argument passed to the createServer function will be whatever you specify as the protocolOptions above.
-  httpServerModule: null,
-
   // A log level of 3 will log everything, 2 will show notices and errors,
   // 1 will only log errors, 0 will log nothing
   logLevel: 2,
@@ -260,8 +254,8 @@
   // The path to a file used to bootstrap broker processes
   brokerController: null,
 
-  // The path to a file used to bootstrap either worker or broker process.
-  initController: null,
+  // The path to a file used to bootstrap the workerCluster process
+  workerClusterController: null,
 
   // By default, SC will reboot all workers when it receives a 'SIGUSR2' signal -
   // This can be used for updating workers with fresh source code in production
@@ -347,49 +341,6 @@
             <td>Log a message internally, time is optional. You generally don't need to call this - It's mostly used internally by SC.</td>
           </tr>
         </table>
-        <h3>Note about <code>options.initController</code></h3>
-        <p>
-          The <code>options.initController</code> is a module that is to be run before the worker or broker process start.
-          It is therefore very important to know, that both the <code>broker</code> and <code>worker</code> object both have a property named <code>type</code>.
-          This property allows you to know what kind of process you are bootstrapping.
-        </p>
-        <p>
-          The <code>initController</code> can be used to allow custom scripting languages to be used within SocketCluster. The following example illustrates usage of such with CoffeeScript:
-          <pre class="prettyprint">
-// entry.js : We start SocketCluster here.
-var SC = new SocketCluster({
-  // ... options ...
-  initController: "./init.js",
-  workerController: "./worker.coffee",
-  brokerController: "./broker.coffee"
-});
-
-// init.js : This script runs on all processes, before they start.
-//           In here, we modify the global namespace, so that SocketCluster can require our .coffee files.
-module.exports.run = function(thisProcess) {
-  require("coffee-script/register");
-}
-
-// worker.coffee : An example CoffeeScript that runs a basic server.
-module.exports.run = (worker) ->
-  server = worker.getHTTPServer()
-  server.on "request", (req, res) ->
-    console.log req.method, req.url
-    data = 'hi\n'
-    res.writeHead 200,
-      'Content-Type':     'text/plain'
-      'Content-Length':   data.length
-    res.end data
-
-// broker.coffee : Just a simple worker.
-module.exports.run = (broker) ->
-  console.log "Broker on : ", process.pid
-          </pre>
-        </p>
-        <p>
-          As you can see, we can access the process object and modify the global environment.
-          If you decide to use this feature, please be aware that you are intercepting the current environment in which also SocketCluster runs.
-        </p>
       </div>
     </div>
   </div>

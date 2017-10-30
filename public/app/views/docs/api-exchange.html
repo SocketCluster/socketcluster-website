@@ -5,14 +5,14 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-        <h1>API - Exchange (scBroker)</h1>
+        <h1>API - SCExchange (SCBroker)</h1>
         <p>
-          Can be accessed using scWorker.exchange property.
+          Can be accessed using SCWorker.exchange property.
         </p>
         <p>
           The exchange object is a top-level scBroker client which lets you publish events and manipulate data within your brokers - It represents a cluster of 1 or more brokers.
           You can use any method of an scBroker client on instances of this object (see <a href="https://github.com/SocketCluster/sc-broker#client-methods">scBroker Client</a>).
-          Note that the hashing function used by the Exchange object to shard actions/channels accross brokers can be found in the <a href="https://www.npmjs.com/package/sc-hasher">sc-hasher</a>
+          Note that the hashing function used by the SCExchange object to shard actions/channels accross brokers can be found in the <a href="https://www.npmjs.com/package/sc-hasher">sc-hasher</a>
           module - You can use this function in your code to help with sharding (advanced use case).
           See <a href="https://github.com/SocketCluster/socketcluster/issues/245#issuecomment-261041729">this comment</a> for details.
         </p>
@@ -44,7 +44,7 @@
               <p>
                 <i style="color: #999;">
                   If you're running the full version of SC (not just the standalone <a href="https://github.com/SocketCluster/socketcluster-server">socketcluster-server</a>),
-                  this <code>Exchange</code> object will inherit all the methods of the scBroker Client documented <a href="https://github.com/SocketCluster/sc-broker#client-methods">here</a>.
+                  this <code>SCExchange</code> object will inherit all the methods of the scBroker Client documented <a href="https://github.com/SocketCluster/sc-broker#client-methods">here</a>.
                   So for example, if you want to store data to share accross all your worker processes, you could call
                   <code>worker.exchange.set('myCustomVariable', {foo: 'Hello world'}, function (err) { /*...*/ })</code>.
                   Then <code>worker.exchange.get('myCustomVariable', function (err, data) { /* data will be {foo: 'Hello world'} */ })</code>.

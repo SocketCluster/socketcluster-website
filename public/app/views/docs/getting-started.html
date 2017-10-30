@@ -63,7 +63,7 @@ socket.emit('sampleClientEvent', {message: 'This is an object with a message pro
         </p>
 
         <p>Here is a sample (basic) <code>server.js</code> file (note that the default one which comes with the framework might be more detailed - See <a href="https://github.com/SocketCluster/socketcluster/blob/master/sample/server.js">here</a>).</p>
-        <pre class="prettyprint">var SocketCluster = require('socketcluster').SocketCluster;
+        <pre class="prettyprint">var SocketCluster = require('socketcluster');
 var socketCluster = new SocketCluster({
   workers: 1, // Number of worker processes
   brokers: 1, // Number of broker processes

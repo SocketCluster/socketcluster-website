@@ -17,7 +17,7 @@
           <p>
             To make sense of some of these options, it's important to consider that SocketCluster runs as a cluster of 3 different kinds of processes on the server:
           </p>
-          <h3>Master process (server.js and master.js [since v6.5.0])</h3>
+          <h3>Master process (server.js)</h3>
           <p>
             This is where everything starts
           </p>
@@ -32,7 +32,7 @@
 
           <h2>Boilerplate app</h2>
           <p>
-            If you open your <code>workerController</code> file (worker.js), you should see some code where your httpServer and your scServer are being setup to accept requests/connections. By default, the httpServer is hooked to Express (with static server middleware) which serves the content of the <code>public/</code> folder:
+            If you open your <code>workerController</code> file (worker.js), inside the <code>run()</code> method, you should see some code where your httpServer and your scServer are being setup to accept requests/connections. By default, the httpServer is hooked to Express (with static server middleware) which serves the content of the <code>public/</code> folder:
           </p>
 
           <pre class="prettyprint">// Server code

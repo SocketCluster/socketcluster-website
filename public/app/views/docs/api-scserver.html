@@ -31,14 +31,31 @@
           <tr>
             <td>clients</td>
             <td>
-              An object which holds all connected clients in the current worker. Keys are socket
-              IDs and the values are SCSocket instances.
+              An object which holds all fully connected clients in the current worker (only those who have completed the handshake).
+              Keys are socket IDs and the values are SCSocket instances.
             </td>
           </tr>
           <tr>
             <td>clientsCount</td>
             <td>
               The number of clients currently connected to this server.
+            </td>
+          </tr>
+          <tr>
+            <td>pendingClients [since v9.1.0]</td>
+            <td>
+              An object which holds all pending clients in the current worker.
+              Keys are socket IDs and the values are SCSocket instances.
+              Pending clients are those whose <code>socket.state</code> is 'connecting'; this means
+              all sockets which are in the middle of the handshake phase.
+              Once a socket completes its handshake, it will be removed from the <code>pendingClients</code> object
+              and it will be added to the <code>clients</code> object.
+            </td>
+          </tr>
+          <tr>
+            <td>pendingClientsCount [since v9.1.0]</td>
+            <td>
+              The number of pending clients currently connected to this server.
             </td>
           </tr>
           <tr>
@@ -85,18 +102,26 @@
             </td>
           </tr>
           <tr>
+            <td>'connectionAbort' [since v9.1.0]</td>
+            <td>
+              Emitted whenever a socket becomes disconnected during the handshake phase. The listener to this event
+              receives a socket (SCSocket) object as argument.
+            </td>
+          </tr>
+          <tr>
             <td>'connection'</td>
             <td>
-              Emitted whenever a new socket connection is established with the server. The listener to this event
-              receives a socket (SCSocket) object as argument which can be used
-              to interact with that client.
+              Emitted whenever a new socket connection is established with the server (and the handshake has completed).
+              The listener to this event receives a socket (SCSocket) object as argument which can be used
+              to interact with that client. The second argument to the handler is the socket connection status object.
             </td>
           </tr>
           <tr>
             <td>'disconnection'</td>
             <td>
-              Emitted whenever a socket connection which is attached to the server becomes disconnected. The listener to this event
-              receives a socket (SCSocket) object as argument.
+              Emitted whenever a connected socket becomes disconnected (after the handshake phase). The listener to this event
+              receives a socket (SCSocket) object as argument. Note that if the socket connection was not fully established (e.g. during the SC handshake phase), then the
+              <code>'connectionAbort'</code> event will be triggered instead.
             </td>
           </tr>
           <tr>

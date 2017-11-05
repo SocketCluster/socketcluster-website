@@ -125,6 +125,13 @@
             </td>
           </tr>
           <tr>
+            <td>'closure' [since v9.1.1]</td>
+            <td>
+              Emitted whenever a connected socket becomes disconnected (at any stage of the handshake/connection cycle). The listener to this event
+              receives a socket (SCSocket) object as argument. Note that this event is a catch-all for both <code>'disconnection'</code> and <code>'connectionAbort'</code> events.
+            </td>
+          </tr>
+          <tr>
             <td>'subscription'</td>
             <td>
               Emitted whenever a socket connection which is attached to the server becomes subscribed to a channel. The listener to this event

@@ -125,6 +125,13 @@
             </td>
           </tr>
           <tr>
+            <td>'close' [since v9.1.1]</td>
+            <td>
+              Happens when the client disconnects from the server at any stage of the handshake/connection cycle.
+              Note that this event is a catch-all for both <code>'disconnect'</code> and <code>'connectAbort'</code> events.
+            </td>
+          </tr>
+          <tr>
             <td>'subscribe'</td>
             <td>Emitted when the matching client socket successfully subscribes to a channel.</td>
           </tr>

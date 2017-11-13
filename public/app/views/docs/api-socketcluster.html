@@ -157,6 +157,7 @@
   // Server object. So if you're using 'ws' as the engine, you can pass an object instead of
   // a boolean. Search for perMessageDeflate here:
   // https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketserveroptions-callback
+  // Note that by default, per-message deflate only kicks in for messages > 1024 bytes.
   perMessageDeflate: false,
 
   // If using an RSA or ECDSA algorithm to sign the authToken, you will need

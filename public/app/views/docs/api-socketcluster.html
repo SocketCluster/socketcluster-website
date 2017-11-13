@@ -153,8 +153,10 @@
   // and authPublicKey instead of authKey.
   authKey: null,
 
-  // perMessageDeflate compression. Note that if you set it to true, you
-  // should also set it to true when instantiating the client socket.
+  // perMessageDeflate compression. Note that this option is passed directly to the wsEngine's
+  // Server object. So if you're using 'ws' as the engine, you can pass an object instead of
+  // a boolean. Search for perMessageDeflate here:
+  // https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketserveroptions-callback
   perMessageDeflate: false,
 
   // If using an RSA or ECDSA algorithm to sign the authToken, you will need

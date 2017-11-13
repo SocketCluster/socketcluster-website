@@ -65,8 +65,10 @@
                 <li><b>autoReconnectOptions</b>: Object - Valid properties are: initialDelay
                   (milliseconds), randomness (milliseconds), multiplier (decimal;
                   default is 1.5) and maxDelay (milliseconds).</li>
-                <li><b>perMessageDeflate</b>: Boolean - Defaults to false; Turn on/off per-message deflate compression.
-                  If this is true, you need to make sure that this property is also set to true on the server-side.</li>
+                <li><b>perMessageDeflate</b>: Boolean - Turn on/off per-message deflate compression.
+                  If this is true, you need to make sure that this property is also set to true on the server-side. Note that this option is
+                  only relevant when running the client from Node.js. Most modern browsers will automatically use perMessageDeflate so you only
+                  need to turn it on from the server-side.</li>
                 <li><b>multiplex</b>: Boolean - Defaults to true; multiplexing allows you
                   to reuse a socket instead of creating a second socket to the same address.</li>
                 <li><b>pubSubBatchDuration</b>: Number - Defaults to null (0 milliseconds); this property affects channel subscription batching;

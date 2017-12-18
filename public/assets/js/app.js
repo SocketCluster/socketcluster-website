@@ -142,9 +142,9 @@ socketclusterApp.config(function($routeProvider, $locationProvider) {
     });
 });
 
-socketclusterApp.directive('feelDemo', function() {
+socketclusterApp.directive('tryDemo', function() {
   return {
-    templateUrl: 'app/shared/feel-demo.html',
+    templateUrl: 'app/shared/try-demo.html',
     link: function ($scope) {
 
       var socket = socketCluster.connect({

@@ -406,8 +406,15 @@ position: relative;
 
 .footer-copyright {
   float: left;
+  margin-right: 20px;
 }
 
 .footer-lisk-donations {
   float: right;
+}
+
+@media screen and (max-width: 767px) {
+  .footer-lisk-donations {
+    float: left;
+  }
 }

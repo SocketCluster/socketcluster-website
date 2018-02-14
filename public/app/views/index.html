@@ -1,176 +1,229 @@
 <div class="page-index">
 
-  <div class="home-hero-wrapper" >
-      <div class="home-hero-video">
-        <video autoplay loop muted playsinline>
-          <source src="../assets/vid/real-time-network/real-time-network.webm" type="video/webm">
-          <source src="../assets/vid/real-time-network/real-time-network.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <div class="home-hero-container">
-        <div class="home-hero-content">
-          <h1 class="home-hero-title">
-            Build real-time apps<br>
-            that scale
-          </h1>
-
-          <p class="home-hero-text">
-              SocketCluster is an open source real-time framework for Node.js.
-              It supports both direct client-server communication and group communication via pub/sub channels.
-              It is designed to easily scale to any number of processes/hosts and is ideal for building chat systems.
-              See <a class="home-hero-link" href="https://blog.baasil.io/socketcluster-design-patterns-for-chat-69e76a4b1966" target="_blank">SocketCluster Design Patterns for Chat</a>
-          </p>
-
-          <div class="home-page-hero-button-container">
-            <a class="btn btn-primary btn-lg get-started-button" role="button" href="/#!/docs/getting-started">Get Started</a>
-            <a class="btn btn-default btn-lg chat-button" role="button" href="https://gitter.im/SocketCluster/socketcluster">Chat on Gitter</a>
-          </div>
+    <div class="home-hero-wrapper">
+        <div class="home-hero-video">
+            <video autoplay loop muted playsinline>
+                <source src="../assets/vid/realtime-network-compressed/real-time-network.mp4" type="video/mp4">
+                <source src="../assets/vid/realtime-network-compressed/real-time-network1.webm" type="video/webm">
+            </video>
         </div>
-      </div>
+
+        <div class="home-hero-container">
+            <div class="home-hero-content">
+                <h1 class="home-hero-title">
+                    Build real-time apps<br>
+                    that scale
+                </h1>
+
+                <p class="home-hero-text">
+                    SocketCluster is an open source real-time framework for Node.js.
+                    It supports both direct client-server communication and group communication via pub/sub channels.
+                    It is designed to easily scale to any number of processes/hosts and is ideal for building chat
+                    systems.
+                    See <a class="home-hero-link"
+                           href="https://blog.baasil.io/socketcluster-design-patterns-for-chat-69e76a4b1966"
+                           target="_blank">SocketCluster Design Patterns for Chat</a>
+                </p>
+
+                <div class="home-page-hero-button-container">
+                    <a class="btn btn-primary btn-lg get-started-button" role="button" href="/#!/docs/getting-started">Get
+                        Started</a>
+                    <a class="btn btn-default btn-lg chat-button" role="button"
+                       href="https://gitter.im/SocketCluster/socketcluster">Chat on Gitter</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-  <div class="container home-content-wrapper">
-      <div class="row">
-        <div class="col-md-6 home-main-column">
-          <h2 class="header-light regular-pad">Technical Features</h2>
-          <ul class="features-list">
-            <li>Scales linearly as you add more CPU cores and workers.</li>
-            <li>Scales horizontally across multiple machines. See <a href="/#!/docs/scaling-horizontally">guide</a>.</li>
-            <li>Resilient on both the client and backend - Process crashes, lost connections and other failures are handled seamlessly.</li>
-            <li>Supports custom codecs for compressing messages during transmission. See <a href="https://github.com/SocketCluster/sc-codec-min-bin">min-bin</a>.</li>
-            <li>Supports both pub/sub channels and direct client-server communication.</li>
-            <li>Authentication engine compliant with <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a> (JWT). See <a href="https://www.youtube.com/watch?v=5xbEynJzwzk">video</a>.</li>
-            <li>Authorization via middleware functions (access control for emit, publish in, publish out, subscribe and handshake).</li>
-            <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
-            <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
-            <li>Uses uWebSockets as its default engine (it's fast).</li>
-            <li>Designed to work alongside any database/datastore.</li>
-            <li>Open source alternative to pub/sub 'as-a-service'.</li>
-            <li>Optimized to run and autoscale on Kubernetes.</li>
-          </ul>
-        </div>
-
-        <div class="col-md-6 home-main-column">
-
-          <img src="../assets/img/cloud.png" alt="" class="large-pad sc-server-img">
-          <p>It is optimized to run and autoscale on a K8s cluster. All K8s config files are available <a href="https://github.com/SocketCluster/socketcluster/tree/master/kubernetes">from our main repo</a>.
-            See the <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">Kubernetes guide</a> for more details.</p>
-
-          <h2 class="home-use-cases header-light regular-pad">What is it good for?</h2>
-          <ul class="features-list">
-            <li>
-              Single-page apps which need to render live data.
-            </li>
-            <li>
-              Finance, cryptocurrencies and other blockchain applications. See <a href="https://lisk.io/" target="_blank">Lisk.io</a>.
-            </li>
-            <li>
-              Chatbots and other chat-related applications.
-            </li>
-            <li>
-              IoT devices.
-            </li>
-            <li>
-              Mobile apps built with web technologies such as React Native or Ionic/Cordova.
-            </li>
-            <li>
-              Multiplayer Online Games.
-            </li>
-            <li>
-              Any kind of real-time app or service which needs to scale to millions of users.
-            </li>
-          </ul>
-        </div>
-
-      </div>
-      </div>
-    <div class="container" style="margin-top: 40px;     margin-bottom: 75px">
-
-      <div class="row row-padded homepage-grid row-bordered p-t text-center">
-          <h2 class="header-light regular-pad" style="margin-bottom: 40px">Realtime SDKs simplified</h2>
-          <div class="col-sm-3">
-              <a href="https://github.com/SocketCluster/socketcluster-client">
-                  <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/136/136530.svg" style="width: 25%; height: 25%">
-              </a>
-              <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>Js client</strong></h5>
-              <!--<p class="text-muted">Each theme features new components built to the same level of quality as Bootstrap and highlighted with several example pages.</p>-->
-          </div>
-
-          <div class="col-sm-3">
-              <a href="https://github.com/sacOO7/socketcluster-client-java">
-                  <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/226/226770.svg" style="width: 25%; height: 25%">
-              </a>
-              <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>Java/Android Client</strong></h5>
-              <!--<p class="text-muted">Theme components inherit much of their style from variables, exactly like Bootstrap. Change a few values and the theme adapts.</p>-->
-          </div>
-
-          <div class="col-sm-3">
-              <a href="https://github.com/sacOO7/socketcluster-client-python">
-                  <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/180/180867.svg" style="width: 25%; height: 25%">
-              </a>
-              <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>Python Client</strong></h5>
-              <!--<p class="text-muted">Each Bootstrap theme includes all the source and compiled files you'll need, including npm and Gulp based build tools.</p>-->
+    <div class="container home-content-wrapper">
+        <div class="row">
+            <div class="col-md-6 home-main-column">
+                <h2 class="header-light regular-pad">Technical Features</h2>
+                <ul class="features-list">
+                    <li>Scales linearly as you add more CPU cores and workers.</li>
+                    <li>Scales horizontally across multiple machines. See <a
+                            href="/#!/docs/scaling-horizontally">guide</a>.
+                    </li>
+                    <li>Resilient on both the client and backend - Process crashes, lost connections and other failures
+                        are handled seamlessly.
+                    </li>
+                    <li>Supports custom codecs for compressing messages during transmission. See <a
+                            href="https://github.com/SocketCluster/sc-codec-min-bin">min-bin</a>.
+                    </li>
+                    <li>Supports both pub/sub channels and direct client-server communication.</li>
+                    <li>Authentication engine compliant with <a
+                            href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32">JSON Web Token</a>
+                        (JWT). See <a href="https://www.youtube.com/watch?v=5xbEynJzwzk">video</a>.
+                    </li>
+                    <li>Authorization via middleware functions (access control for emit, publish in, publish out,
+                        subscribe and handshake).
+                    </li>
+                    <li>Client sockets automatically reconnect (by default) if they lose the connection.</li>
+                    <li>SocketCluster is a pure WebSocket (no polling hack) solution.</li>
+                    <li>Uses uWebSockets as its default engine (it's fast).</li>
+                    <li>Designed to work alongside any database/datastore.</li>
+                    <li>Open source alternative to pub/sub 'as-a-service'.</li>
+                    <li>Optimized to run and autoscale on Kubernetes.</li>
+                </ul>
             </div>
 
-          <div class="col-sm-3">
-              <a href="https://github.com/sacOO7/SocketclusterClientDotNet" >
-                  <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/376/376105.svg" style="width: 25%; height: 25%">
-              </a>
-              <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>.Net Client</strong></h5>
-              <!--<p class="text-muted">Each Bootstrap theme includes all the source and compiled files you'll need, including npm and Gulp based build tools.</p>-->
-          </div>
-      </div>
+            <div class="col-md-6 home-main-column">
 
-  </div>
+                <img src="../assets/img/cloud.png" alt="" class="large-pad sc-server-img">
+                <p>It is optimized to run and autoscale on a K8s cluster. All K8s config files are available <a
+                        href="https://github.com/SocketCluster/socketcluster/tree/master/kubernetes">from our main
+                    repo</a>.
+                    See the <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">Kubernetes
+                        guide</a> for more details.</p>
+
+                <h2 class="home-use-cases header-light regular-pad">What is it good for?</h2>
+                <ul class="features-list">
+                    <li>
+                        Single-page apps which need to render live data.
+                    </li>
+                    <li>
+                        Finance, cryptocurrencies and other blockchain applications. See <a href="https://lisk.io/"
+                                                                                            target="_blank">Lisk.io</a>.
+                    </li>
+                    <li>
+                        Chatbots and other chat-related applications.
+                    </li>
+                    <li>
+                        IoT devices.
+                    </li>
+                    <li>
+                        Mobile apps built with web technologies such as React Native or Ionic/Cordova.
+                    </li>
+                    <li>
+                        Multiplayer Online Games.
+                    </li>
+                    <li>
+                        Any kind of real-time app or service which needs to scale to millions of users.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="container" style="margin-top: 40px;     margin-bottom: 75px">
+
+        <div class="row row-padded homepage-grid row-bordered p-t text-center">
+            <h2 class="header-light regular-pad" style="margin-bottom: 40px">Realtime SDKs simplified</h2>
+            <div class="col-sm-2">
+                <a href="https://github.com/SocketCluster/socketcluster-client">
+                    <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/136/136530.svg"
+                         style="width: 25%; height: 25%">
+                </a>
+                <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>Js client</strong></h5>
+                <!--<p class="text-muted">Each theme features new components built to the same level of quality as Bootstrap and highlighted with several example pages.</p>-->
+            </div>
+
+            <div class="col-sm-2">
+                <a href="https://github.com/sacOO7/socketcluster-client-java">
+                    <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/226/226770.svg"
+                         style="width: 25%; height: 25%">
+                </a>
+                <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>Java/Android Client</strong></h5>
+                <!--<p class="text-muted">Theme components inherit much of their style from variables, exactly like Bootstrap. Change a few values and the theme adapts.</p>-->
+            </div>
+
+            <div class="col-sm-2">
+                <a href="https://github.com/sacOO7/socketcluster-client-python">
+                    <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/180/180867.svg"
+                         style="width: 25%; height: 25%">
+                </a>
+                <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>Python Client</strong></h5>
+                <!--<p class="text-muted">Each Bootstrap theme includes all the source and compiled files you'll need, including npm and Gulp based build tools.</p>-->
+            </div>
+
+            <div class="col-sm-2">
+                <a href="https://github.com/sacOO7/SocketclusterClientDotNet">
+                    <img class="homepage-grid-icon" src="https://image.flaticon.com/icons/svg/376/376105.svg"
+                         style="width: 25%; height: 25%">
+                </a>
+                <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>.Net Client</strong></h5>
+                <!--<p class="text-muted">Each Bootstrap theme includes all the source and compiled files you'll need, including npm and Gulp based build tools.</p>-->
+            </div>
+
+            <div class="col-sm-2">
+                <a href="https://github.com/sacOO7/socketcluster-client-go">
+                    <img class="homepage-grid-icon"
+                         src="https://github.com/egonelbre/gophers/raw/master/.thumb/animation/gopher-dance-long-3x.gif"
+                         style="width: 25%; height: 25%">
+                </a>
+                <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>GO client</strong></h5>
+                <!--<p class="text-muted">Each Bootstrap theme includes all the source and compiled files you'll need, including npm and Gulp based build tools.</p>-->
+            </div>
+
+            <div class="col-sm-2">
+                <a href="https://github.com/sacOO7/socketcluster-client-swift">
+                    <img class="homepage-grid-icon" src="https://png.icons8.com/ios/40/d35400/swift-filled.png"
+                         style="width: 25%; height: 25%">
+                </a>
+                <h5 style="margin-top: 20px; margin-bottom: 40px"><strong>Swift/iOS client</strong></h5>
+                <!--<p class="text-muted">Each Bootstrap theme includes all the source and compiled files you'll need, including npm and Gulp based build tools.</p>-->
+            </div>
+        </div>
+
+    </div>
 
     <div id="sponsors" style="text-align: center; padding: 25px 40px 45px; background-color: #F6F6F6;">
-        <div class="inner" style="max-width: 700px; margin: 0px auto; text-align: center; font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif ; font-size: 15px; -webkit-font-smoothing: antialiased; color: #34495e" >
+        <div class="inner"
+             style="max-width: 700px; margin: 0px auto; text-align: center; font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif ; font-size: 15px; -webkit-font-smoothing: antialiased; color: #34495e">
             <h3 class="home-sponsored-by-heading">PROUDLY SPONSORED BY</h3>
             <a href="https://lisk.io/" target="_blank" style="width: 180px">
                 <img style="width: 180px" src="../assets/img/lisk_logo_text.png">
             </a>
-         </div>
+        </div>
     </div>
 
-  <div class="jumbotron jumbo-blue">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h2 class="header-light">Community</h2>
-        </div>
-        <div class="col-md-6">
-          <a href="https://github.com/SocketCluster/socketcluster" target="_blank">
-            <div class="community-label center">
-              <img src="assets/img/github-logo.png">
-            </div>
-          </a>
-          <div style="text-align:center">
-            <iframe src="//ghbtns.com/github-btn.html?user=socketcluster&repo=socketcluster&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <a href="https://twitter.com/SocketCluster" target="_blank">
-            <div class="community-label center">
-              <img src="assets/img/twitter-logo.png">
-            </div>
-          </a>
-          <div style="text-align:center">
-            <iframe
-              src="//platform.twitter.com/widgets/follow_button.html?screen_name=SocketCluster"
-              style="width: 250px; height: 30px;"
-              allowtransparency="true"
-              frameborder="0"
-              scrolling="no"
-              data-width="220px"
-              data-size="large"
-              data-show-count="true">
-            </iframe>
-          </div>
+    <div class="jumbotron jumbo-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="header-light">Community</h2>
+                </div>
+                <div class="col-md-6">
+                    <a href="https://github.com/SocketCluster/socketcluster" target="_blank">
+                        <div class="community-label center">
+                            <img src="assets/img/github-logo.png">
+                        </div>
+                    </a>
+                    <div style="text-align:center">
+                        <iframe src="//ghbtns.com/github-btn.html?user=socketcluster&repo=socketcluster&type=watch&count=true&size=large"
+                                allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <a href="https://twitter.com/SocketCluster" target="_blank">
+                        <div class="community-label center">
+                            <img src="assets/img/twitter-logo.png">
+                        </div>
+                    </a>
+                    <div style="text-align:center">
+                        <iframe
+                                src="//platform.twitter.com/widgets/follow_button.html?screen_name=SocketCluster"
+                                style="width: 250px; height: 30px;"
+                                allowtransparency="true"
+                                frameborder="0"
+                                scrolling="no"
+                                data-width="220px"
+                                data-size="large"
+                                data-show-count="true">
+                        </iframe>
+                    </div>
 
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    <script>!function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + '://platform.twitter.com/widgets.js';
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, 'script', 'twitter-wjs');</script>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

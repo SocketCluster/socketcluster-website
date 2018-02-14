@@ -97,8 +97,8 @@
             <td>
               Emitted as soon as a new SCSocket object is created on the server - This occurs at
               the beginning of the client handshake, before the 'connection' event.
-              You should not try to send events to the socket while it is in this
-              state.
+              The argument passed to the listener is the socket object which is performing the handshake.
+              You should not try to send events to the socket while it is in this state.
             </td>
           </tr>
           <tr>

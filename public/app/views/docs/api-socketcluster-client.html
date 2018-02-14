@@ -19,8 +19,8 @@
             <td>The SC client version number.</td>
           </tr>
           <tr>
-            <td>connections</td>
-            <td>An object which holds all current SC connections.</td>
+            <td>clients</td>
+            <td>An object which holds all current SC clients/sockets.</td>
           </tr>
         </table>
 
@@ -28,9 +28,10 @@
         <table class="table">
           <tr>
             <td>
-              connect([options])
+              create([options])
             </td>
             <td>
+              This method was called <code>connect</code> before socketcluster-client v10.0.0.
               Creates and returns a new socket connection to the specified host (or origin if not
               specified). The options argument is optional - If omitted, the socket
               will try to connect to the origin server on the current port. For cross
@@ -118,11 +119,11 @@
           </tr>
           <tr>
             <td>
-              destroy([options])
+              destroy(socket)
             </td>
             <td>
-              Completely destroys a connection. You just need to pass the same options object which was passed to <code>socketCluster.connect(options)</code>.
-              If you didn't pass any options object on connect, then calling destroy() will cleanup the matching (default) socket.
+              Completely destroys a socket. You just need to pass the socket object which you want to destroy. This is the same as calling <code>socket.destroy()</code>.
+              Note that this method has changed since <code>socketcluster-client</code> v10.0.0.
             </td>
           </tr>
         </table>

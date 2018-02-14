@@ -61,7 +61,9 @@
           A sample WebSocket-based authentication flow might look like this:
         </p>
         <pre class="prettyprint">// Client code
-socket = socketCluster.connect();
+// Use socketCluster.connect() if
+// socketcluster-client < v10.0.0
+socket = socketCluster.create();
 
 // The 'connect' event carries a status object which has a
 // boolean 'isAuthenticated' property - It will be true if the socket carried

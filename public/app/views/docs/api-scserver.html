@@ -222,8 +222,15 @@
                   <table class="table">
                     <tr>
                       <td>
-                        scServer.MIDDLEWARE_HANDSHAKE - 'handshake' - This middleware function is run before
-                        a connection is established during handshake stage.
+                        scServer.MIDDLEWARE_HANDSHAKE_WS - 'handshakeWS' - This middleware function is run before
+                        a connection is established during WebSocket handshake stage (as part of the HTTP upgrade).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        scServer.MIDDLEWARE_HANDSHAKE_SC - 'handshakeSC' - This middleware function is run as part of
+                        the SocketCluster protocol handshake. It is similar to the MIDDLEWARE_HANDSHAKE_WS handshake except
+                        that when the connection is killed, you can pass back custom status codes and errors to the client.
                       </td>
                     </tr>
                     <tr>
@@ -267,11 +274,22 @@
                   </p>
                   <table class="table">
                     <tr>
-                      <td>MIDDLEWARE_HANDSHAKE</td>
+                      <td>MIDDLEWARE_HANDSHAKE_WS</td>
                       <td>
                         The req object is a Node.js HTTP request object. Note that unlike with other middleware lines, errors passed to the <code>next(error)</code>
-                        callback of this middleware cannot be handled from the client side due to WebSocket RFC restrictions. See the section on <code>MIDDLEWARE_HANDSHAKE</code>
+                        callback of this middleware cannot be handled from the client side due to WebSocket RFC restrictions. See the section on <code>MIDDLEWARE_HANDSHAKE_WS</code>
                         <a href="#!/docs/middleware-and-authorization">here</a> for more details.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>MIDDLEWARE_HANDSHAKE_SC</td>
+                      <td>
+                        <td>
+                          The req object has a <code>socket</code> property which is the socket which is currently performing the handshake.
+                          The callback is in the form: <code>next(error, statusCode)</code> (both arguments are optional) - If provided, the first
+                          argument should be an Error object or string. The second argument should be a disconnect status code to send back to the client socket.
+                          See <a href="#!/docs/middleware-and-authorization">here</a> for more details.
+                        </td>
                       </td>
                     </tr>
                     <tr>

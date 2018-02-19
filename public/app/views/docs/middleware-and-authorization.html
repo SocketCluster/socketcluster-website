@@ -76,7 +76,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_SC,
       var err = new MyCustomHandshakeFailedError('Handshake failed');
       // Block and close socket with custom 4500 status code.
       // The status code will be passed as the first argument to the client socket's
-      // 'disconnect' event handler. The second argument (reason) will be the stringified err object.
+      // 'connectAbort' event handler. The second argument (reason) will be the stringified err object.
       next(err, 4500);
       // next(true, 4500); // Blocks quietly (without raising a warning on the server-side)
     }
@@ -87,7 +87,7 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_SC,
           It is similar to MIDDLEWARE_HANDSHAKE_WS except that it happens later; after the SC socket has been instantiated.
           Because it runs at a higher level in the protocol stack, unlike the MIDDLEWARE_HANDSHAKE_WS middleware, it is
           possible to pass back custom status codes when blocking the middleware with an error. The status code will be
-          passed as the first argument to the 'disconnect' event handler.
+          passed as the first argument to the 'connectAbort' event handler.
           If an err object is passed without a status code is provided, then the default <code>4008</code> (<code>'Server
           rejected handshake from client'</code>) will be used. For custom status codes, it is recommended that you use codes in
           the range 4500 to 4999 - These codes cannot be reserved by either the WebSocket or SocketCluster protocols

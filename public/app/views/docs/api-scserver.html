@@ -230,7 +230,8 @@
                       <td>
                         scServer.MIDDLEWARE_HANDSHAKE_SC - 'handshakeSC' - This middleware function is run as part of
                         the SocketCluster protocol handshake. It is similar to the MIDDLEWARE_HANDSHAKE_WS handshake except
-                        that when the connection is killed, you can pass back custom status codes and errors to the client.
+                        that when the connection is killed, you can pass back custom status codes and errors to the client's
+                        'connectAbort' event handler.
                       </td>
                     </tr>
                     <tr>
@@ -287,7 +288,7 @@
                         <td>
                           The req object has a <code>socket</code> property which is the socket which is currently performing the handshake.
                           The callback is in the form: <code>next(error, statusCode)</code> (both arguments are optional) - If provided, the first
-                          argument should be an Error object or string. The second argument should be a disconnect status code to send back to the client socket.
+                          argument should be an Error object or string. The second argument should be a close status code to send back to the client socket.
                           See <a href="#!/docs/middleware-and-authorization">here</a> for more details.
                         </td>
                       </td>

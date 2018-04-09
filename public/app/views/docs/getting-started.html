@@ -44,7 +44,8 @@
           To test SocketCluster's real-time features, you can open your browser's developer console and enter this:
         </p>
         <pre class="prettyprint">// Client side
-var socket = socketCluster.connect();
+// Use socketCluster.connect() if socketcluster-client < v10.0.0
+var socket = socketCluster.create();
 socket.emit('sampleClientEvent', {message: 'This is an object with a message property'});</pre>
         <p>
           You should get a 'Sample channel message: 1' message back - The server receives your sampleClientEvent event and then publishes a sample event to all clients which are listening to it.
@@ -54,7 +55,7 @@ socket.emit('sampleClientEvent', {message: 'This is an object with a message pro
           You can pass almost anything as the second argument to the emit and publish commands so long as it's compatible with JSON.
         </p>
         <p>
-          Note that you can provide an optional options object to the socketCluster.connect() method on the client side.
+          Note that you can provide an optional options object to the socketCluster.create() method on the client side.
           See <a href="#!/docs/api-socketcluster-client" target="_blank">socketCluster</a> for details.
           For more details about the main SocketCluster JavaScript client, <a href="https://github.com/SocketCluster/socketcluster-client">click here</a>.
         </p>
@@ -63,7 +64,7 @@ socket.emit('sampleClientEvent', {message: 'This is an object with a message pro
         </p>
 
         <p>Here is a sample (basic) <code>server.js</code> file (note that the default one which comes with the framework might be more detailed - See <a href="https://github.com/SocketCluster/socketcluster/blob/master/sample/server.js">here</a>).</p>
-        <pre class="prettyprint">var SocketCluster = require('socketcluster').SocketCluster;
+        <pre class="prettyprint">var SocketCluster = require('socketcluster');
 var socketCluster = new SocketCluster({
   workers: 1, // Number of worker processes
   brokers: 1, // Number of broker processes

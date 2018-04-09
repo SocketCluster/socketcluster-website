@@ -102,9 +102,33 @@
             </td>
           </tr>
           <tr>
+            <td>'connect'</td>
+            <td>
+              Triggers when the socket completes the SC handshake phase and is fully connected. The argument passed to the handler is
+              the socket connection status object. Note that if you capture socket inside the `scServer.on('connection', handler)` handler,
+              then the 'connect' event will already have occurred and therefore won't trigger again. The 'connect' event handler can be attached
+              inside the `scServer.on('handshake', handler)` handler instead.
+            </td>
+          </tr>
+          <tr>
             <td>'disconnect'</td>
             <td>
-              Happens when the matching client socket becomes disconnected from the server.
+              Happens when the client becomes disconnected from the server. Note that if the socket becomes disconnected during the SC handshake stage,
+              then the <code>'connectAbort'</code> event will be triggered instead.
+            </td>
+          </tr>
+          <tr>
+            <td>'connectAbort' [since v9.1.0]</td>
+            <td>
+              Happens when the client disconnects from the server before the SocketCluster handshake has completed (I.e. while <code>socket.state</code> was 'connecting').
+              Note that the <code>'connectAbort'</code> event can only be triggered during the socket's handshake phase before the server's <code>'connection'</code> event is triggered.
+            </td>
+          </tr>
+          <tr>
+            <td>'close' [since v9.1.1]</td>
+            <td>
+              Happens when the client disconnects from the server at any stage of the handshake/connection cycle.
+              Note that this event is a catch-all for both <code>'disconnect'</code> and <code>'connectAbort'</code> events.
             </td>
           </tr>
           <tr>

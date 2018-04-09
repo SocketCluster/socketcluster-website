@@ -23,7 +23,8 @@
         <p>
           The middleware types available on scServer include:
         </p>
-        <pre class="prettyprint lang-js">scServer.MIDDLEWARE_HANDSHAKE
+        <pre class="prettyprint lang-js">scServer.MIDDLEWARE_HANDSHAKE_WS
+scServer.MIDDLEWARE_HANDSHAKE_SC
 scServer.MIDDLEWARE_SUBSCRIBE
 scServer.MIDDLEWARE_PUBLISH_IN
 scServer.MIDDLEWARE_PUBLISH_OUT
@@ -39,9 +40,9 @@ scServer.MIDDLEWARE_EMIT</pre>
           Here are some sample code snippets showing how to use each kind of middleware:
         </p>
 
-        <h3>Handshake</h3>
+        <h3>Handshake WS</h3>
         <pre class="prettyprint">// For WebSocket handshakes
-scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
+scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_WS,
   function (req, next) {
     // Note that the req object in this middleware is a Node.js HTTP
     // request (IncomingMessage).
@@ -56,12 +57,44 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
   }
 );</pre>
         <p>
-          Note that the MIDDLEWARE_HANDSHAKE middleware is special because it happens before the underlying WebSocket has been created (at the HTTP handshake stage).
+          Note that the MIDDLEWARE_HANDSHAKE_WS middleware is special because it happens before the underlying WebSocket has been created (at the HTTP/WS handshake stage).
           If you block the connection by passing an error to the <code>next(err)</code> callback, the error string will show up in your browser's developer panel (Network tab in Chrome)
           but there is no way to handle this error in your code. If you try to listen to the 'connectAbort' event, the error code will always be 1006 and you won't be able to get any additional information about it.
-          This is a limitation of the WebSocket RFC itself (and is intentional; see <a href="http://stackoverflow.com/questions/31002592/javascript-doesnt-catch-error-in-websocket-instantiation">the answers here for more details</a>) - For this reason, blocking connections with MIDDLEWARE_HANDSHAKE mostly makes sense for quickly and efficiently shutting down malicious connections.
-          If you want a more client-friendly way to kill a connection, you should wait for the 'connection' event to trigger on the server and then call <code>socket.disconnect(code, reasonStringOrData)</code> - Then you can handle
-          the error (with all the details you like) from the <code>'disconnect'</code> event on the client side.
+          This is a limitation of the WebSocket RFC itself (and is intentional; see <a href="http://stackoverflow.com/questions/31002592/javascript-doesnt-catch-error-in-websocket-instantiation">the answers here for
+          more details</a>) - For this reason, blocking connections with MIDDLEWARE_HANDSHAKE_WS mostly makes sense for quickly and efficiently shutting down malicious connections.
+          If you want a more client-friendly way to kill a connection, you should use the <code>MIDDLEWARE_HANDSHAKE_SC</code> middleware instead.
+        </p>
+
+        <h3>Handshake SC</h3>
+        <pre class="prettyprint">// For SocketCluster handshakes
+scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_SC,
+  function (req, next) {
+    // ...
+    if (...) {
+      next(); // Allow
+    } else {
+      var err = new MyCustomHandshakeFailedError('Handshake failed');
+      // Block and close socket with custom 4500 status code.
+      // The status code will be passed as the first argument to the client socket's
+      // 'connectAbort' event handler. The second argument (reason) will be the stringified err object.
+      next(err, 4500);
+      // next(true, 4500); // Blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);</pre>
+        <p>
+          The MIDDLEWARE_HANDSHAKE_SC middleware line gets executed during a SocketCluster protocol handshake.
+          It is similar to MIDDLEWARE_HANDSHAKE_WS except that it happens later; after the SC socket has been instantiated.
+          Because it runs at a higher level in the protocol stack, it is possible to pass back custom status codes when
+          blocking the middleware with an error.
+          The status code will be passed to the client as the first argument to the <code>'connectAbort'</code> event handler.
+          If an err object is passed without a status code, then the default <code>4008</code> (<code>'Server
+          rejected handshake from client'</code>) will be used. For custom status codes, it is recommended that you use integers in
+          the range 4500 to 4999 - These codes cannot be reserved by either the WebSocket or SocketCluster protocols
+          so they are ideal as custom application level status codes.
+        </p>
+        <p>
+          Scroll to the addMiddleware method near the bottom of <a href="/#!/docs/api-scserver">this page</a> to see what properties are provided by the req object for each middleware type.
         </p>
 
         <h3>Subscribe</h3>
@@ -82,9 +115,6 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE,
     }
   }
 );</pre>
-        <p>
-          Scroll to the addMiddleware method near the bottom of <a href="/#!/docs/api-scserver">this page</a> to see what properties are provided by the req object for each middleware type.
-        </p>
 
         <h3>Publish</h3>
         <p>SC supports two different middleware lines for publish. MIDDLEWARE_PUBLISH_IN captures inbound published messages as

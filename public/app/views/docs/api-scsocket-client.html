@@ -147,6 +147,10 @@
             <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the connection phase or it may be triggered intentionally by calling socket.disconnect() while the socket is connecting.</td>
           </tr>
           <tr>
+            <td>'close'</td>
+            <td>Triggers when a socket is disconnected or the connection is aborted - This is a catch-all event for both <code>'disconnect'</code> and <code>'connectAbort'</code>.</td>
+          </tr>
+          <tr>
             <td>'connecting'</td>
             <td>
               Triggers whenever the socket initiates a connection to the server - This includes reconnects.
@@ -455,6 +459,14 @@
             <td>
               Check if socket is subscribed to channelName.
               If includePending is true, pending subscriptions will also be included in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              destroy()
+            </td>
+            <td>
+              Disconnects and destroys the socket so that it can be garbage collected.
             </td>
           </tr>
         </table>

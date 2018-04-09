@@ -5,22 +5,33 @@
     </div>
     <div class="col-md-9">
       <div class="docs-content">
-        <h1>API - Broker</h1>
+        <h1>API - SCBroker</h1>
         <p>
           The broker object allows you to interact directly with SocketCluster's internal data and pub/sub channels.
-          This object can be accessed from inside the brokerController (broker.js file by default).
+          This object should be instantiated inside the brokerController (broker.js file by default).
           The broker's main purpose is to allow you to synchronise SocketCluster's internal channels with external
           channels from a third-party system - This is useful if you need to scale SocketCluster horizontally across
-          multiple machines.
-        </p>
-        <p>
-          Some third-party systems which can be used to achieve horizontal scalability include RabbitMQ, Redis (as a distributed cluster),
-          and various other AMQP and MQTT solutions - Or you can just use <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md#scc-guide">SCC</a>.
+          multiple machines. See <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md#scc-guide">SCC</a>.
         </p>
         <p>
           When reading this documentation, it's important to keep in mind that your SocketCluster system could have multiple brokers; in
           such a case, each broker will only manage a subset of all available channels (responsibilities will be somewhat evenly
           distributed between each broker).
+        </p>
+        <p>
+          Example broker controller:
+
+          <pre class="prettyprint">var SCBroker = require('socketcluster/scbroker');
+
+class Broker extends SCBroker {
+  // Override the run function.
+  // It will be executed when the broker is ready.
+  run() {
+    // Broker logic goes here.
+  }
+}
+
+new Broker();</pre>
         </p>
 
         <h3>Inherits from:</h3>

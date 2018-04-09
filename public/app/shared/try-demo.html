@@ -1,18 +1,18 @@
 <div class="row regular-pad" ng-show="hasWebSocketSupport">
   <div class="col-md-12">
-    <h2 class="header-light feel-it-header">See how it works [
+    <h2 class="header-light try-it-header">See how it works [
       <a
         href="javascript:void(0);"
-        class="feel-it-info"
+        class="try-it-info"
         tooltip="Things to try: Use the disconnect and connect buttons to see how individual channels respond to changes in connection state. Also, maybe pull your Ethernet cable out (or kill your Wi-Fi) and see how channels automatically regain state after your plug it back in (expect short delays for ping timeout and reconnect)."
         tooltip-placement="top"
-        tooltip-trigger="mouseenter" 
+        tooltip-trigger="mouseenter"
       >
         ?
       </a>
       ]
     </h2>
-    <div class="feel-demo-wrapper container-fluid">
+    <div class="try-demo-wrapper container-fluid">
       <div ng-repeat="channel in channels" class="row channels-row">
         <div class="col col-sm-3 channel-name">
           <span
@@ -48,7 +48,7 @@
             ng-keyup="$event.keyCode == 13 ? addChannel() : null"
             tooltip="Enter a new channel name"
             tooltip-placement="top"
-            tooltip-trigger="mouseenter" 
+            tooltip-trigger="mouseenter"
           />
         </div>
         <div class="col col-sm-3">
@@ -95,4 +95,3 @@
     </div>
   </div>
 </div>
-

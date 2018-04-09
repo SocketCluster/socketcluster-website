@@ -31,14 +31,31 @@
           <tr>
             <td>clients</td>
             <td>
-              An object which holds all connected clients in the current worker. Keys are socket
-              IDs and the values are SCSocket instances.
+              An object which holds all fully connected clients in the current worker (only those who have completed the handshake).
+              Keys are socket IDs and the values are SCSocket instances.
             </td>
           </tr>
           <tr>
             <td>clientsCount</td>
             <td>
               The number of clients currently connected to this server.
+            </td>
+          </tr>
+          <tr>
+            <td>pendingClients [since v9.1.0]</td>
+            <td>
+              An object which holds all pending clients in the current worker.
+              Keys are socket IDs and the values are SCSocket instances.
+              Pending clients are those whose <code>socket.state</code> is 'connecting'; this means
+              all sockets which are in the middle of the handshake phase.
+              Once a socket completes its handshake, it will be removed from the <code>pendingClients</code> object
+              and it will be added to the <code>clients</code> object.
+            </td>
+          </tr>
+          <tr>
+            <td>pendingClientsCount [since v9.1.0]</td>
+            <td>
+              The number of pending clients currently connected to this server.
             </td>
           </tr>
           <tr>
@@ -80,23 +97,38 @@
             <td>
               Emitted as soon as a new SCSocket object is created on the server - This occurs at
               the beginning of the client handshake, before the 'connection' event.
-              You should not try to send events to the socket while it is in this
-              state.
+              The argument passed to the listener is the socket object which is performing the handshake.
+              You should not try to send events to the socket while it is in this state.
+            </td>
+          </tr>
+          <tr>
+            <td>'connectionAbort' [since v9.1.0]</td>
+            <td>
+              Emitted whenever a socket becomes disconnected during the handshake phase. The listener to this event
+              receives a socket (SCSocket) object as argument.
             </td>
           </tr>
           <tr>
             <td>'connection'</td>
             <td>
-              Emitted whenever a new socket connection is established with the server. The listener to this event
-              receives a socket (SCSocket) object as argument which can be used
-              to interact with that client.
+              Emitted whenever a new socket connection is established with the server (and the handshake has completed).
+              The listener to this event receives a socket (SCSocket) object as argument which can be used
+              to interact with that client. The second argument to the handler is the socket connection status object.
             </td>
           </tr>
           <tr>
             <td>'disconnection'</td>
             <td>
-              Emitted whenever a socket connection which is attached to the server becomes disconnected. The listener to this event
-              receives a socket (SCSocket) object as argument.
+              Emitted whenever a connected socket becomes disconnected (after the handshake phase). The listener to this event
+              receives a socket (SCSocket) object as argument. Note that if the socket connection was not fully established (e.g. during the SC handshake phase), then the
+              <code>'connectionAbort'</code> event will be triggered instead.
+            </td>
+          </tr>
+          <tr>
+            <td>'closure' [since v9.1.1]</td>
+            <td>
+              Emitted whenever a connected socket becomes disconnected (at any stage of the handshake/connection cycle). The listener to this event
+              receives a socket (SCSocket) object as argument. Note that this event is a catch-all for both <code>'disconnection'</code> and <code>'connectionAbort'</code> events.
             </td>
           </tr>
           <tr>
@@ -190,8 +222,16 @@
                   <table class="table">
                     <tr>
                       <td>
-                        scServer.MIDDLEWARE_HANDSHAKE - 'handshake' - This middleware function is run before
-                        a connection is established during handshake stage.
+                        scServer.MIDDLEWARE_HANDSHAKE_WS - 'handshakeWS' - This middleware function is run before
+                        a connection is established during WebSocket handshake stage (as part of the HTTP upgrade).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        scServer.MIDDLEWARE_HANDSHAKE_SC - 'handshakeSC' - This middleware function is run as part of
+                        the SocketCluster protocol handshake. It is similar to the MIDDLEWARE_HANDSHAKE_WS handshake except
+                        that when the connection is killed, you can pass back custom status codes and errors to the client's
+                        'connectAbort' event handler.
                       </td>
                     </tr>
                     <tr>
@@ -235,11 +275,20 @@
                   </p>
                   <table class="table">
                     <tr>
-                      <td>MIDDLEWARE_HANDSHAKE</td>
+                      <td>MIDDLEWARE_HANDSHAKE_WS</td>
                       <td>
                         The req object is a Node.js HTTP request object. Note that unlike with other middleware lines, errors passed to the <code>next(error)</code>
-                        callback of this middleware cannot be handled from the client side due to WebSocket RFC restrictions. See the section on <code>MIDDLEWARE_HANDSHAKE</code>
+                        callback of this middleware cannot be handled from the client side due to WebSocket RFC restrictions. See the section on <code>MIDDLEWARE_HANDSHAKE_WS</code>
                         <a href="#!/docs/middleware-and-authorization">here</a> for more details.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>MIDDLEWARE_HANDSHAKE_SC</td>
+                      <td>
+                        The req object has a <code>socket</code> property which is the socket that is currently performing the handshake.
+                        The callback is in the form: <code>next(error, statusCode)</code> (both arguments are optional) - If provided, the first
+                        argument should be an Error object or string. The second argument should be a close status code to send back to the client socket.
+                        See <a href="#!/docs/middleware-and-authorization">here</a> for more details.
                       </td>
                     </tr>
                     <tr>

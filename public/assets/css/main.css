@@ -271,12 +271,12 @@ ul.features-list li {
   font-size: 14px;
 }
 
-.feel-demo {
+.try-demo {
   width: 100%;
   height: 300px;
 }
 
-.feel-demo-wrapper {
+.try-demo-wrapper {
 position: relative;
   margin-top: 30px;
   padding: 30px;
@@ -286,68 +286,68 @@ position: relative;
   -webkit-border-radius: 10px 10px 10px 10px;
 }
 
-.feel-it-header a:link,
-.feel-it-header a:visited,
-.feel-it-header a:hover,
-.feel-it-header a:active {
+.try-it-header a:link,
+.try-it-header a:visited,
+.try-it-header a:hover,
+.try-it-header a:active {
   text-decoration: none;
 }
 
-.feel-demo-wrapper .col {
+.try-demo-wrapper .col {
   margin-bottom: 10px;
 }
 
-.feel-demo-wrapper .row-add-channel {
+.try-demo-wrapper .row-add-channel {
   margin-top: 30px;
 }
 
-.feel-demo-wrapper .add-channel-label {
+.try-demo-wrapper .add-channel-label {
   line-height: 34px;
 }
 
-.feel-demo-wrapper .add-channel-error-wrapper {
+.try-demo-wrapper .add-channel-error-wrapper {
   line-height: 34px;
 }
 
-.feel-demo-wrapper .add-channel-error {
+.try-demo-wrapper .add-channel-error {
   display: inline-block;
   line-height: 1.2em;
   color: #bb0000;
 }
 
-.feel-demo-wrapper .row-publish {
+.try-demo-wrapper .row-publish {
   margin-top: 30px;
 }
 
 @media screen and (min-width: 767px) {
-  .feel-demo-wrapper .btn-publish {
+  .try-demo-wrapper .btn-publish {
     margin-top: 20px;
   }
 }
 
-.feel-demo-wrapper .row-connect-disconnect {
+.try-demo-wrapper .row-connect-disconnect {
   margin-top: 30px;
 }
 
-.feel-demo-wrapper .btn-medium {
+.try-demo-wrapper .btn-medium {
   width: 100%;
 }
 
-.feel-demo-wrapper .channel-name {
+.try-demo-wrapper .channel-name {
   line-height: 34px;
 }
 
-.feel-demo-wrapper .channel-name-label {
+.try-demo-wrapper .channel-name-label {
   display: inline-block;
   line-height: 1.2em;
 }
 
-.feel-demo-wrapper .socket-state {
+.try-demo-wrapper .socket-state {
   line-height: 34px;
 }
 
 @media screen and (max-width: 767px) {
-  .feel-demo-wrapper .channels-row {
+  .try-demo-wrapper .channels-row {
     margin-bottom: 10px;
   }
 }
@@ -402,4 +402,19 @@ position: relative;
 
 .home-use-cases {
   margin-top: 25px;
+}
+
+.footer-copyright {
+  float: left;
+  margin-right: 20px;
+}
+
+.footer-lisk-donations {
+  float: right;
+}
+
+@media screen and (max-width: 767px) {
+  .footer-lisk-donations {
+    float: left;
+  }
 }

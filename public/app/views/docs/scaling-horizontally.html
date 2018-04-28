@@ -12,82 +12,20 @@
         </p>
         <p>
           If you use SCC, then you don't need to learn about the implementation details of how SC synchronizes channel data across machines (unless you really want to).
-          If you use SCC, the work of scaling and sharding is handled for you <b>automatically</b>; so you can ignore the <b>'Scaling Manually'</b> section below.
-          With SCC, you just have to tell it how many instances of each subservice you want (based on usage); or you can use K8's autoscale feature.
+          If you use SCC, the work of scaling and sharding is handled for you <b>automatically</b>.
+          With SCC, you just have to tell it how many instances of each subservice you want (depending on usage).
+          If running SCC on Kubernetes, you can also configure it to autoscale services on demand.
         </p>
 
         <h3>SCC</h3>
         <p>
-          SCC is a set of components for scaling SC across multiple hosts - You can deploy apps written on top of SCC
-          to any Kubernetes cluster using a single command; see <a href="https://github.com/SocketCluster/baasil-cli">Baasil CLI</a>.
-          Baasil is currently optimized for <a href="http://rancher.com/">Rancher</a> but it has also been used successfully with <a href="https://github.com/kubernetes/kops">KOPS</a> and others.
-          Baasil also lets you run/debug your app from inside a container on your local machine so you can get a more consistent (containerized) development and production environment.
+          SCC is a set of components for scaling SC across multiple hosts.
+          You can run SCC manually with Node.js by lauching each component individually or you can deploy SCC to a Kubernetes cluster.
+          It's possible to deploy an SCC application to any Kubernetes cluster using a single command; see <a href="https://github.com/SocketCluster/baasil-cli">Baasil CLI</a>.
+          The baasil CLI tool also lets you run/debug your app from inside a container on your local machine so that you can get a more consistent (containerized) development and production environment.
         </p>
         <p>
           The complete guide to using SCC is here: <a href="https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md">SCC guide</a>.
-          If you use SCC, you don't need to read the section below about 'Scaling Manually' in order to use and scale SCC.
-        </p>
-
-        <h3>Scaling Manually</h3>
-        <p>
-          The goal of horizontal scalability is to spread traffic between all available machines in an optimal way.
-          In the context of SocketCluster, horizontal scalability boils down to two specific problems:
-        </p>
-        <ol>
-          <li>How to select which host to send incoming client connections to?</li>
-          <li>When one client publishes data to a channel, how can you make sure that other clients which are subscribed to that channel on a different host also receive the channel data in real-time?</li>
-        </ol>
-        <p>
-          There are at several ways to approach the first challenge, for example:
-        </p>
-        <ul>
-          <li>
-            You can send each client directly to one of your hosts by randomly selecting a host URL and passing it as an option to the <a href="#!/docs/api-scsocket-client">client socket's</a> connect() method.
-          </li>
-          <li>
-            <p>
-              You can use a load balancer to evenly distribute incoming connections to target hosts - You can use a third party service, or you can set it up yourself.
-              Note that if you are using SocketCuster v1.x.x, you will need to use a sticky load balancer (e.g. stickiness based on IP address) - You do not need stickiness for versions v2.0.0 and above (this is because we do not have to support stateful HTTP polling).
-              The load balancer you use needs to support WebSockets; HAProxy and new versions of NGINX should do. There is also <a href="http://github.com/SocketCluster/loadbalancer">LoadBalancer.js</a> if you want something that is
-              easy to setup and optimized to work with SC.
-            </p>
-          </li>
-        </ul>
-        <p>
-          In order to allow clients which are connected to different machines to share the same pub/sub channels, there needs to be an efficient way to synchronize channels between separate SocketCluster instances (hosts) in real-time.
-          To achieve this, SocketCluster exposes a <a href="#!/docs/api-broker">Broker</a> object inside its brokerController file (broker.js) which lets you do exactly that.
-          SocketCluster only provides you the interface for synchronizing instance channels - It doesn't care what technology/implementation you use behind the scenes to make this work;
-          so long as it supports pub/sub and can run as a distributed cluster - MQTT (e.g. Mosquitto), AMQP (e.g. RabbitMQ), ZeroMQ and Redis are all possible options.
-          The details of how to set up such a service is outside the scope of this guide - You should read up some of these technologies/protocols or use a third-party service.
-        </p>
-        <p>
-          Assuming that you have a working pub/sub cluster which can scale across multiple machines, the actual synchronization between SC instances/machines is pretty simple -
-          It can be done through SocketCluster's broker processes - Read the section on events in the <a href="#!/docs/api-broker">Broker API</a> for more info.
-          In effect, your MQ service behaves like a glue between your SocketCluster instances - It also allows external services to interact with SocketCluser channels as though they were part of the same system.
-        </p>
-        <p>
-          Once you have your distributed MQ service running, all you have to do is relay events between your broker processes and your message queue service using a client of your choice.
-          Setting this up is simple:
-        </p>
-        <ul>
-          <li>When a 'subscribe' event is emitted on a Broker instance, you need to use your MQ client subscribe to the corresponding channel in your MQ service.</li>
-          <li>When the broker emits the 'unsubscribe' event, you need to also unsubscribe form the corresponding channel in the MQ service.</li>
-          <li>Whenever you receive some channel data from your MQ client, you call broker.publish(channelName, data)</li>
-        </ul>
-        <p>
-          Note that the 'subscribe' and 'unsubscribe' events do not get triggered for individual client sockets - They are initiated by a worker process.
-          The worker chooses when it needs to subscribe/unsubscribe to/from the broker. When you get a 'subscribe' event, all it means is that the current broker is
-          responsible for that channel - Following the same train of thought; the 'unsubscribe' event signifies that this broker is no longer responsible for this channel.
-        </p>
-        <p>
-          It's important to note that your SC instances could each have multiple broker processes - In this case, each broker will be responsible for a subset of all channels used by end-clients.
-          When you're writing your adapter, you should never assume that all your channels will pass through the same broker.
-        </p>
-        <p>
-          The final consideration is that it's best to deploy your MQ service in close proximity to your SC instances (or inside the same data center if possible) to minimize latency.
-        </p>
-        <p>
-          For more info about SocketCluster scalability, you can read <a href="https://hackernoon.com/socketcluster-scalability-considerations-1b3355ab2fd8">this article</a>.
         </p>
       </div>
     </div>

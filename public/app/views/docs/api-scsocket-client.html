@@ -191,6 +191,7 @@
           <tr>
             <td>'authTokenChange' <b>[Removed from socketcluster-client v12.0.0]</b></td>
             <td>
+              This event was removed from socketcluster-client v12.0.0 onwards - The alternative is now to bind handlers to both the 'authenticate' and 'deauthenticate' events.
               Triggers whenever the client's signedAuthToken and authToken properties are updated (including if the client is already authenticated).
               The argument passed to the handler is the signedAuthToken. You can use <code>socket.authToken</code> to get the token in plaintext.
             </td>

@@ -121,6 +121,14 @@ new Worker();</pre>
         <h3>Methods:</h3>
         <table class="table">
           <tr>
+            <td>constructor([options])</td>
+            <td>
+              Create the worker instance. You can pass an optional options object.
+              Since SocketCluster v14.2.0, the options object can be used to override properties from the main options object which was passed to the SocketCluster master instance.
+              You can also use the options object to pass a custom <code>authEngine</code> and <code>codecEngine</code> to the SCWorker instance.
+            </td>
+          </tr>
+          <tr>
             <td>getSCServer()</td>
             <td>
               Returns the SCServer instance associated with this worker.
@@ -138,8 +146,9 @@ new Worker();</pre>
             </td>
           </tr>
           <tr>
-            <td>setAuthEngine(authEngine)</td>
+            <td>setAuthEngine(authEngine) <b>[Deprecated]</b></td>
             <td>
+              This feature is deprecated, the recommended approach is to pass the <code>authEngine</code> as a property of the options object when constructing the SCWorker instance.
               Set a custom auth engine for use throughout SC. This new engine will be used internally to create/sign and verify auth tokens.
               The provided auth engine will become accessible from the 'worker.auth' property inside your workerController (worker.js).
               The provided authEngine needs to provide a 'verifyToken' and a 'signToken' method - See the

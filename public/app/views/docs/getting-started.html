@@ -64,7 +64,8 @@ socket.emit('sampleClientEvent', {message: 'This is an object with a message pro
         </p>
 
         <p>Here is a sample (basic) <code>server.js</code> file (note that the default one which comes with the framework might be more detailed - See <a href="https://github.com/SocketCluster/socketcluster/blob/master/sample/server.js">here</a>).</p>
-        <pre class="prettyprint">var SocketCluster = require('socketcluster');
+        <pre class="prettyprint">var path = require('path');
+var SocketCluster = require('socketcluster');
 var socketCluster = new SocketCluster({
   workers: 1, // Number of worker processes
   brokers: 1, // Number of broker processes
@@ -77,12 +78,12 @@ var socketCluster = new SocketCluster({
   /* A JS file which you can use to configure each of your
    * workers/servers - This is where most of your backend code should go
    */
-  workerController: __dirname + '/worker.js',
+  workerController: path.join(__dirname, '/worker.js'),
 
   /* JS file which you can use to configure each of your
    * brokers - Useful for scaling horizontally across multiple machines (optional)
    */
-  brokerController: __dirname + '/broker.js',
+  brokerController: path.join(__dirname, '/broker.js'),
 
   // Whether or not to reboot the worker in case it crashes (defaults to true)
   rebootWorkerOnCrash: true

@@ -25,6 +25,7 @@
         </p>
         <pre class="prettyprint lang-js">scServer.MIDDLEWARE_HANDSHAKE_WS
 scServer.MIDDLEWARE_HANDSHAKE_SC
+scServer.MIDDLEWARE_AUTHENTICATE
 scServer.MIDDLEWARE_SUBSCRIBE
 scServer.MIDDLEWARE_PUBLISH_IN
 scServer.MIDDLEWARE_PUBLISH_OUT
@@ -95,6 +96,26 @@ scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_SC,
         </p>
         <p>
           Scroll to the addMiddleware method near the bottom of <a href="/#!/docs/api-scserver">this page</a> to see what properties are provided by the req object for each middleware type.
+        </p>
+
+        <h3>Authenticate</h3>
+        <pre class="prettyprint">
+scServer.addMiddleware(scServer.MIDDLEWARE_AUTHENTICATE,
+  function (req, next) {
+    // ...
+    if (...) {
+      next(); // Allow
+    } else {
+      var err = new MyCustomAuthenticationFailedError('Authentication failed');
+      // Prevent the socket from becoming authenticated (socket.authToken will be null).
+      // The socket will still be allowed to connect.
+      next(err);
+    }
+  }
+);</pre>
+        <p>
+          The MIDDLEWARE_AUTHENTICATE middleware line gets executed after a socket's JWT has been validated but before the resulting authToken is attached to the socket; it also runs before any authentication events are triggered.
+          This middleware allows you to perform additional checks before authenticating the socket  (e.g. checking the token against credentials stored in a database).
         </p>
 
         <h3>Subscribe</h3>

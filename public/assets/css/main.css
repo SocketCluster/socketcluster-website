@@ -247,7 +247,7 @@ ul.features-list li {
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .sc-server-img {
-    margin-top: 60px;
+    margin-top: 20px;
     margin-bottom: 34px;
     max-width: 438px;
     width: 100%;
@@ -383,12 +383,12 @@ position: relative;
   padding-bottom: 40px;
 }
 
-.home-sponsored-by-heading {
-  margin-bottom: 20px;
+.home-content-wrapper {
+  margin-top: 40px;
 }
 
-.home-use-cases {
-  margin-top: 25px;
+.home-sponsored-by-heading {
+  margin-bottom: 20px;
 }
 
 .footer-copyright {

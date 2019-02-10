@@ -44,7 +44,7 @@ cd myapp
 
 Note that all of the commands documented below assume that `myapp` is your working directory. If you want to run commands from a different directory, you will need to provide your project path explicitly to each command. See `asyngular --help` for details.
 
-## Run app inside a Docker container locally
+## Run the app inside a Docker container locally
 
 During development, you may want to run your app locally inside a container (as an alternative to running it directly with the `node server` command). The `asyngular` CLI tool lets you do this with a single command (make sure that you are inside the `myapp` directory when you execute this command):
 
@@ -70,7 +70,7 @@ asyngular logs -f
 asyngular stop
 ```
 
-## Deploy app to a Kubernetes cluster (initial deployment)
+## Deploy the app to a Kubernetes cluster (initial deployment)
 
 In this example, we will describe how to deploy to the [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) for simplicity.
 
@@ -126,7 +126,7 @@ To scale the brokers up to 2 replicas:
 kubectl scale deployment agc-broker --replicas=2
 ```
 
-## Undeploy app
+## Undeploy the app
 
 This will destroy all deployments and services from your Kubernetes cluster:
 
@@ -134,6 +134,6 @@ This will destroy all deployments and services from your Kubernetes cluster:
 asyngular undeploy
 ```
 
-## Customize the Kubernetes .yaml files
+## Customize Kubernetes .yaml files
 
 As you build up your app, feel free to modify the default K8s `.yaml` files inside your `myapp/kubernetes/` directory. Once your app directory is created, the `asyngular` CLI will not make any further changes to them so you are free to modify them as you like.

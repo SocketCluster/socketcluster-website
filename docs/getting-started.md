@@ -75,7 +75,7 @@ asyngular stop
 
 ### [Server] Listen for inbound socket connections
 
-Inside `server.js`, find the `for-await-of` loop which is handling inbound connections. It should look like this:
+Inside `server.js`, you can find the `for-await-of` loop which is handling inbound connections. It should look like this:
 
 ```js
 // --- in server.js ---
@@ -88,9 +88,23 @@ Inside `server.js`, find the `for-await-of` loop which is handling inbound conne
 })();
 ```
 
-### [Server] Listen for inbound messages
+### [Client] Connect to the server
 
-You can use a `socket.receiver(...)` within a `for-await-of` loop to handle messages from a socket:
+Inside `public/index.html`, a client connects to the server like this:
+
+```js
+// --- in public/index.html ---
+
+let socket = asyngularClient.create();
+```
+
+^ If the connection succeeds, this will cause the `connection` loop on the server side to iterate once.
+
+!! You can pass an `options` object to the `asyngularClient.create(...)` function.
+
+### [Server] Listen for inbound messages on the socket
+
+You can use a `socket.receiver(...)` within a `for-await-of` loop to handle messages on a socket:
 
 ```js
 // --- in server.js ---
@@ -110,14 +124,27 @@ You can use a `socket.receiver(...)` within a `for-await-of` loop to handle mess
 })();
 ```
 
-^ The receiver's `for-await-of` loop needs to be in a separate async closure because we don't want it to block the main server connection loop.
-This approach makes it clear that the `customRemoteEvent` receiver loop runs in parallel with the main `connection` listener loop.
+^ The receiver's `for-await-of` loop needs to be in its own async function because we don't want it to block the main server connection loop.
 
 !! You can also register `socket.receiver(receiverName)` handlers on a client socket using the same syntax.
 
-### [Server] Listen for inbound RPCs
+### [Client] transmit messages through the socket
 
-You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPCs from a socket:
+```js
+// --- in public/index.html ---
+
+// ... After the socket is created.
+socket.transmit('customRemoteEvent', 123);
+```
+
+^ If the message reaches the server, this will cause the `customRemoteEvent` loop on the server side to iterate once.
+
+!! You can also use the same syntax to transmit from the server socket. Transmit can never fail, so you don’t need to wrap it in a `try-catch` block.
+
+### [Server] Listen for inbound RPCs on the socket
+
+Unlike messages, RPCs expect a response from the other side.
+You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPCs on a socket:
 
 ```js
 // --- in server.js ---
@@ -127,16 +154,16 @@ You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPC
   for await (let {socket} of agServer.listener('connection')) {
 
     (async () => {
-      // Set up a loop to handle and respond to RPCs for a procedure.
-      for await (let req of socket.procedure('customProc')) {
-        if (req.data && req.data.bad) {
-          let error = new Error('Server failed to execute the procedure');
-          error.name = 'BadCustomError';
-          req.error(error);
+      // Set up a loop to handle and respond to RPCs.
+      for await (let request of socket.procedure('customProc')) {
+        if (request.data && request.data.bad) {
+          let badCustomError = new Error('Server failed to execute the procedure');
+          badCustomError.name = 'BadCustomError';
+          request.error(badCustomError);
 
           continue;
         }
-        req.end('Success');
+        request.end('Success');
       }
     })();
 
@@ -146,29 +173,7 @@ You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPC
 
 !! You can also register `socket.procedure(procedureName)` handlers on a client socket using the same syntax.
 
-### [Client] Connect to the server
-
-```js
-// --- in public/index.html ---
-
-// This logic should already be in public/index.html by default.
-let socket = asyngularClient.create();
-```
-
-!! You can pass an optional object to the `asyngularClient.create(...)` function to modify socket options.
-
-### [Client] transmit messages
-
-```js
-// --- in public/index.html ---
-
-// ... After the socket is created.
-socket.transmit('customRemoteEvent', 123);
-```
-
-!! You can also transmit to receivers which are registered on the client socket from the server socket using the same syntax. Transmit can never fail, so you don’t need a `try-catch` block.
-
-### [Client] Invoke procedures (RPCs)
+### [Client] Invoke RPCs through the socket
 
 ```js
 // --- in public/index.html ---
@@ -180,7 +185,7 @@ socket.transmit('customRemoteEvent', 123);
 })();
 ```
 
-!! You should always add a `try-catch` block around the `socket.invoke(...)` call to capture any async errors:
+!! You should always add a `try-catch` block around the `socket.invoke(...)` call to capture async errors:
 
 ```js
 // --- in public/index.html ---
@@ -213,11 +218,11 @@ socket.transmit('customRemoteEvent', 123);
 ### [Client] Publish to a channel without waiting for acknowledgement
 
 ```js
-// Publish data; do not wait for acknowledgement from server.
+// Publish data; do not wait for an acknowledgement from the server.
 socket.transmitPublish('foo', 'This is some data');
 ```
 
-!! You can also call `transmitPublish` on an `AGChannel` object; in this case, you omit the first parameter, for example:
+!! You can also call `transmitPublish` on an `AGChannel` object; in this case, you should omit the first argument, for example:
 
 ```js
 let fooChannel = socket.channel('foo');
@@ -229,24 +234,24 @@ fooChannel.transmitPublish('This is some data');
 ```js
 (async () => {
   try {
-    // Publish data; wait for acknowledgement from server.
+    // Publish data; wait for an acknowledgement from the server.
     await socket.invokePublish('foo', 'This is some more data');
   } catch (error) {
-    // ... Handle potential error if server does not acknowledge on time.
+    // ... Handle potential error if server does not acknowledge before timeout.
   }
 })();
 ```
 
-!! You can also call `invokePublish` on an `AGChannel` object; in this case, you omit the first parameter, for example:
+!! You can also call `invokePublish` on an `AGChannel` object; in this case, you should omit the first argument, for example:
 
 ```js
 (async () => {
   let fooChannel = socket.channel('foo');
   try {
-    // Publish data; wait for acknowledgement from server.
+    // Publish data; wait for an acknowledgement from the server.
     await fooChannel.invokePublish('This is some more data');
   } catch (error) {
-    // ... Handle potential error if server does not acknowledge on time.
+    // ... Handle potential error if server does not acknowledge before timeout.
   }
 })();
 ```
@@ -254,7 +259,7 @@ fooChannel.transmitPublish('This is some data');
 ### [Server] Publish to a channel without waiting for acknowledgement
 
 ```js
-// Publish data; do not wait for acknowledgement from back end broker (if there is one).
+// Publish data; do not wait for an acknowledgement from the back end broker (if there is one).
 agServer.exchange.transmitPublish('foo', 'This is some data');
 ```
 
@@ -263,10 +268,10 @@ agServer.exchange.transmitPublish('foo', 'This is some data');
 ```js
 (async () => {
   try {
-    // Publish data; wait for acknowledgement from back end broker (if there is one).
+    // Publish data; wait for an acknowledgement from the back end broker (if there is one).
     await agServer.exchange.invokePublish('foo', 'This is some more data');
   } catch (error) {
-    // ... Handle potential error if broker does not acknowledge on time.
+    // ... Handle potential error if broker does not acknowledge before timeout.
   }
 })();
 ```
@@ -275,7 +280,7 @@ agServer.exchange.transmitPublish('foo', 'This is some data');
 
 Asyngular supports 4 different middleware lines which allow you to block, delay or preprocess specific actions. Middleware functions in Asyngular work differently from those in SocketCluster. In Asyngular, a middleware function can handle multiple different types of actions (represented by an `AGAction` instance which has a `type` property).
 
-This is how to setup a middleware (this example shows the `MIDDLEWARE_INBOUND` middleware handling `TRANSMIT` and `INVOKE` actions):
+This is how to setup a middleware (this example shows the `MIDDLEWARE_INBOUND` line handling `TRANSMIT` and `INVOKE` actions):
 
 ```js
 agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND,
@@ -308,9 +313,9 @@ agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND,
 
 !! In Asyngular, you can only have one middleware function for each middleware line.
 
-The following middleware lines and actions are supported:
+The following middleware lines are supported:
 
-- `AGServer.MIDDLEWARE_HANDSHAKE`: The `for-await-of` loop iterates whenever a socket handshake occurs. The `action.type` property can be either `AGAction.HANDSHAKE_WS` or `AGAction.HANDSHAKE_AG`.
+- `AGServer.MIDDLEWARE_HANDSHAKE`: The `for-await-of` loop for this middleware line iterates whenever a socket handshake occurs. The `action.type` property can be either `AGAction.HANDSHAKE_WS` or `AGAction.HANDSHAKE_AG`.
 - `AGServer.MIDDLEWARE_INBOUND_RAW`: The `for-await-of` loop iterates whenever an inbound message (I.e. from client -> server) is received by the server. This includes all raw messages and operations; including those which are not recognized by Asyngular. The `action.type` property will always be `AGAction.MESSAGE`.
 - `AGServer.MIDDLEWARE_INBOUND`: The `for-await-of` loop iterates whenever an inbound operation (I.e. a recognized operation from client -> server) occurs. The `action.type` property can be `AGAction.TRANSMIT`, `AGAction.INVOKE`, `AGAction.SUBSCRIBE`, `AGAction.PUBLISH_IN` or `AGAction.AUTHENTICATE`.
 - `AGServer.MIDDLEWARE_OUTBOUND`: The `for-await-of` loop iterates whenever an outbound operation (I.e. server -> client) occurs. The `action.type` property will always be `AGAction.PUBLISH_OUT`.

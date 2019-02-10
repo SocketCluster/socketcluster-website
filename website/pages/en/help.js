@@ -21,17 +21,17 @@ function Help(props) {
 
   const supportLinks = [
     {
-      content: `Learn more using the [documentation on this site.](${docUrl(
-        'doc1.html',
+      content: `Learn more by following the [guides](${docUrl(
+        'guides.html',
       )})`,
-      title: 'Browse Docs',
+      title: 'Browse guides',
     },
     {
-      content: 'Ask questions about the documentation and project',
+      content: 'Ask questions about the documentation and project on [Gitter.im](https://gitter.im/SocketCluster/asyngular)',
       title: 'Join the community',
     },
     {
-      content: "Find out what's new with this project",
+      content: "Find out what's new with this project by following us on [Twitter](https://twitter.com/SocketCluster)",
       title: 'Stay up to date',
     },
   ];

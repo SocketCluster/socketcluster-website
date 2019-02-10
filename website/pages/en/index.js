@@ -64,7 +64,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href={docUrl('doc1.html')}>Get started</Button>
+            <Button href={docUrl('getting-started.html')}>Get started</Button>
             <Button
               href="https://gitter.im/SocketCluster/asyngular"
               target="_blank"
@@ -109,106 +109,77 @@ class Index extends React.Component {
       </Container>
     );
 
-    const Description = () => (
-      <div>
-        <BlockWithHeading layout="fourColumn" heading="Supported clients" background="dark">
-          {[
-            {
-              content:
-                '...',
-              title: 'Client A',
-            },
-            {
-              content:
-                '...',
-              title: 'Client B',
-            },
-            {
-              content:
-                '...',
-              title: 'Client C',
-            },
-            {
-              content:
-                '...',
-              title: 'Client D',
-            },
-          ]}
-        </BlockWithHeading>
-      </div>
-    );
-
     const Features = () => (
       <Block layout="fourColumn">
         {[
           {
-            content: 'The content of my second feature',
+            content: 'Pub/sub channels are extremely cheap. You can have millions of unique channels without worrying about memory or CPU usage.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Handle unlimited pub/sub channels',
           },
           {
-            content: 'The content of my second feature',
+            content: 'The asyngular CLI tool exposes some kubectl (Kubernetes) shortcut commands to make deploying your app to any Kubernetes cluster really fast easy. All Kubernetes .yaml files are in your app\'s kubernetes/ directory.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Deploy easily',
           },
           {
-            content: 'The content of my second feature',
+            content: 'After depoying your app to a Kubernetes cluster. You can scale indefinitely by using the `kubectl scale deployment` command to add more agc-worker and agc-broker instances as needed.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Scale easily',
           },
           {
-            content: 'The content of my second feature',
+            content: 'You can perform asynchronous operations anywhere along a socket\'s inbound or outbound stream without any risk of disrupting the message order.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Guarantee message delivery order',
           },
           {
-            content: 'The content of my second feature',
+            content: 'Awaiting for asynchronous actions along a socket\'s inbound or outbout streams can cause messages to pile up. This can be easily monitored on the back end using `socket.inboundBackpressure` and `socket.outboundBackpressure`.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Monitor message backpressure',
           },
           {
-            content: 'The content of my second feature',
+            content: 'Asyngular supports JWT authentication. This form of authentication is ideal for WebSockets because the token expiry can be made arbitrarily short and renewed often on an interval for very little performance cost while saving many database lookups.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
-            title: 'Support token authentication',
+            title: 'Support efficient authentication',
           },
           {
-            content: 'The content of my second feature',
+            content: 'Middleware streams allow you to block socket connections using the `MIDDLEWARE_HANDSHAKE` line and block individual socket actions using the `MIDDLEWARE_INBOUND` and `MIDDLEWARE_OUTBOUND` lines.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Enforce access control using middleware streams',
           },
           {
-            content: 'The content of my second feature',
+            content: 'Every data packet which is received or is about to be sent out to a client socket can be delayed or transformed using `MIDDLEWARE_INBOUND_RAW`, `MIDDLEWARE_INBOUND` or `MIDDLEWARE_OUTBOUND` lines.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Throttle and transform data using middleware streams',
           },
           {
-            content: 'The content of my second feature',
+            content: 'Clients are optimized to handle lost connections seamlessly. For example, if a client socket loses the connection, channels attached to that socket will be put in a `pending` state and automatically resubscribe after the socket reconnects .',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Seamlessly recover from lost connections',
           },
           {
-            content: 'This is the content of my feature',
-            image: `${baseUrl}img/docusaurus.svg`,
-            imageAlign: 'top',
-            title: 'Write declarative logic',
-          },
-          {
-            content: 'The content of my second feature',
+            content: 'Data and events can be consumed using async loops (e.g. `for-await-of` loops). Event listener callbacks are no longer supported; this solves many problems related to code readability.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Avoid event listener callback hell',
           },
           {
-            content: 'The content of my second feature',
+            content: 'Without callbacks, asynchronous serial logic can always be executed from the top down. This makes it more obvious which parts of the code are serial and which parts are parallel and it encourages a more declarative style of programming.',
+            image: `${baseUrl}img/docusaurus.svg`,
+            imageAlign: 'top',
+            title: 'Write declarative code',
+          },
+          {
+            content: 'Sockets and channels do not need to be destroyed explicitly. They will be automatically marked for garbage collection as soon as they stop being used and are no longer referenced in the code.',
             image: `${baseUrl}img/docusaurus.svg`,
             imageAlign: 'top',
             title: 'Avoid memory leaks',
@@ -251,7 +222,6 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Features />
-          <Description />
         </div>
       </div>
     );

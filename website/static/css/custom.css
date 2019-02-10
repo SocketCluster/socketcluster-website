@@ -14,3 +14,11 @@
 
 @media only screen and (min-width: 1500px) {
 }
+
+.mainContainer {
+  padding-bottom: 0;
+}
+
+.blockHeading {
+  margin-top: 0;
+}

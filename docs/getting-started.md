@@ -88,9 +88,9 @@ Inside `server.js`, find the `for-await-of` loop which is handling inbound conne
 })();
 ```
 
-### [Server] Listen for inbound messages (transmitted)
+### [Server] Listen for inbound messages
 
-You can add nested `for-await-of` loops to handle messages within the main connection loop using a `socket.receiver(...)` stream.
+You can use a `socket.receiver(...)` within a `for-await-of` loop to handle messages from a socket:
 
 ```js
 // --- in server.js ---
@@ -113,9 +113,11 @@ You can add nested `for-await-of` loops to handle messages within the main conne
 ^ The receiver's `for-await-of` loop needs to be in a separate async closure because we don't want it to block the main server connection loop.
 This approach makes it clear that the `customRemoteEvent` receiver loop runs in parallel with the main `connection` listener loop.
 
-### [Server] Listen for inbound RPCs (invoked)
+!! You can also register `socket.receiver(receiverName)` handlers on a client socket using the same syntax.
 
-You can add nested `for-await-of` loops to handle RPCs within the main connection loop using a `socket.procedure(...)` stream.
+### [Server] Listen for inbound RPCs
+
+You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPCs from a socket:
 
 ```js
 // --- in server.js ---
@@ -142,7 +144,7 @@ You can add nested `for-await-of` loops to handle RPCs within the main connectio
 })();
 ```
 
-!! Note that you can also register `socket.procedure(procedureName)` and `socket.receiver(receiverName)` handlers on a client socket using the same syntax.
+!! You can also register `socket.procedure(procedureName)` handlers on a client socket using the same syntax.
 
 ### [Client] Connect to the server
 
@@ -164,7 +166,7 @@ let socket = asyngularClient.create();
 socket.transmit('customRemoteEvent', 123);
 ```
 
-!! Note that you can also transmit to receivers which are registered on the client socket from the server socket using the same syntax. Transmit can never fail, so you don’t need a `try-catch` block.
+!! You can also transmit to receivers which are registered on the client socket from the server socket using the same syntax. Transmit can never fail, so you don’t need a `try-catch` block.
 
 ### [Client] Invoke procedures (RPCs)
 
@@ -195,7 +197,7 @@ socket.transmit('customRemoteEvent', 123);
 })();
 ```
 
-!! Note that you can also invoke procedures which are registered on the client socket from the server socket using the same syntax.
+!! You can also use the same syntax on server sockets.
 
 ### [Client] Subscribe to a channel and watch for messages
 

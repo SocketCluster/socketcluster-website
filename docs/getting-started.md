@@ -102,7 +102,7 @@ let socket = asyngularClient.create();
 
 !! You can pass an `options` object to the `asyngularClient.create(...)` function.
 
-### [Server] Listen for inbound messages on the socket
+### [Server] Listen for inbound messages on a socket
 
 You can use a `socket.receiver(...)` within a `for-await-of` loop to handle messages on a socket:
 
@@ -124,11 +124,9 @@ You can use a `socket.receiver(...)` within a `for-await-of` loop to handle mess
 })();
 ```
 
-^ The receiver's `for-await-of` loop needs to be in its own async function because we don't want it to block the main server connection loop.
+!! You can also iterate over a `socket.receiver(receiverName)` stream on a client socket using the same syntax.
 
-!! You can also register `socket.receiver(receiverName)` handlers on a client socket using the same syntax.
-
-### [Client] transmit messages through the socket
+### [Client] transmit messages through a socket
 
 ```js
 // --- in public/index.html ---
@@ -137,11 +135,11 @@ You can use a `socket.receiver(...)` within a `for-await-of` loop to handle mess
 socket.transmit('customRemoteEvent', 123);
 ```
 
-^ If the message reaches the server, this will cause the `customRemoteEvent` loop on the server side to iterate once.
+^ If the message reaches the server, this will cause the `customRemoteEvent` loop on the server side to iterate once; `data` will be `123`.
 
 !! You can also use the same syntax to transmit from the server socket. Transmit can never fail, so you don’t need to wrap it in a `try-catch` block.
 
-### [Server] Listen for inbound RPCs on the socket
+### [Server] Listen for inbound RPCs on a socket
 
 Unlike messages, RPCs expect a response from the other side.
 You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPCs on a socket:
@@ -171,9 +169,9 @@ You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPC
 })();
 ```
 
-!! You can also register `socket.procedure(procedureName)` handlers on a client socket using the same syntax.
+!! You can also iterate over a `socket.procedure(procedureName)` stream on a client socket using the same syntax.
 
-### [Client] Invoke RPCs through the socket
+### [Client] Invoke RPCs through a socket
 
 ```js
 // --- in public/index.html ---

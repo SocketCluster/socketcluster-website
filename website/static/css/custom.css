@@ -22,3 +22,12 @@
 .blockHeading {
   margin-top: 0;
 }
+
+.imageAlignTop .blockImage {
+  margin-top: 30px;
+  margin-bottom: -20px;
+}
+
+.container.paddingTop {
+  padding-top: 20px;
+}

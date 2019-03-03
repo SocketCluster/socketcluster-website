@@ -115,7 +115,7 @@ class Index extends React.Component {
             content: 'Pub/sub channels are extremely cheap. You can have millions of unique channels without worrying about memory or CPU usage.',
             image: `${baseUrl}img/icons/unlimited-channels.png`,
             imageAlign: 'top',
-            title: 'Handle unlimited pub/sub channels',
+            title: 'Handle unlimited channels',
           },
           {
             content: 'The asyngular CLI tool exposes some kubectl (Kubernetes) shortcut commands to make deploying your app to any Kubernetes cluster really fast easy. All Kubernetes .yaml files are in your app\'s kubernetes/ directory.',
@@ -133,7 +133,7 @@ class Index extends React.Component {
             content: 'You can perform asynchronous operations anywhere along a socket\'s inbound or outbound stream without any risk of disrupting the message order.',
             image: `${baseUrl}img/icons/delivery-order.png`,
             imageAlign: 'top',
-            title: 'Guarantee message delivery order',
+            title: 'Guarantee delivery order',
           },
           {
             content: 'Awaiting for asynchronous actions along a socket\'s inbound or outbout streams can cause messages to pile up. This can be easily monitored on the back end using `socket.inboundBackpressure` and `socket.outboundBackpressure`.',
@@ -163,13 +163,13 @@ class Index extends React.Component {
             content: 'Data and events can be consumed using async loops (e.g. `for-await-of` loops). Event listener callbacks are no longer supported; this solves many problems related to code readability.',
             image: `${baseUrl}img/icons/tangled-hell.png`,
             imageAlign: 'top',
-            title: 'Avoid event listener callback hell',
+            title: 'Avoid callback hell',
           },
           {
             content: 'Clients are optimized to handle lost connections seamlessly. For example, if a client socket loses the connection, channels attached to that socket will be put in a `pending` state and automatically resubscribe after the socket reconnects .',
             image: `${baseUrl}img/icons/recover.png`,
             imageAlign: 'top',
-            title: 'Seamlessly recover from lost connections',
+            title: 'Recover from failure',
           },
           {
             content: 'Without callbacks, asynchronous serial logic can always be executed from the top down. This makes it more obvious which parts of the code are serial and which parts are parallel and it encourages a more declarative style of programming.',

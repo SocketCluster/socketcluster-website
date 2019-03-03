@@ -26,7 +26,7 @@ or for convenience you can also use Asyngular's `agServer.auth.signToken(...)` f
 ```js
 // Sample token data, don't store any sensitive/secret data here
 // it will be signed but not encrypted.
-var myTokenData = {
+let myTokenData = {
   username: 'bob',
   language: 'English',
   company: 'Google',
@@ -47,10 +47,15 @@ try {
 }
 
 // The signedTokenString variable is the signed JWT token; you can send it
-// to your frontend however you like (e.g. in HTTP response). Once it reaches
-// the frontend, you should add it to localStorage under the key
-// 'asyngular.authToken'- By doing this, the Asyngular client will automatically
-// pick up the JWT token when doing its handshake/connection.
+// to your frontend however you like (e.g. in HTTP response).
+```
+
+Once you have the JWT token on the frontend, you should add it to localStorage under the key `'asyngular.authToken'` - By doing this, the Asyngular client will automatically pick up the JWT token when doing its handshake/connection.
+
+In the browser, you can add the token to localStorage like this:
+
+```js
+localStorage.setItem('asyngular.authToken', token);
 ```
 
 ### WebSocket flow
@@ -81,20 +86,105 @@ Assume that the user is not authenticated and so they are sent to the login scre
 ```js
 // Client code
 
-var credentials = {
+let credentials = {
   username: 'alice123',
   password: 'thisisapassword654'
 };
 
 try {
-  await Promise.race([
-    socket.emit('login', credentials),
-    socket.listener('authenticate').once()
-  ]);
+  // Invoke a custom 'login' procedure (RPC) on our server socket.
+  await socket.invoke('login', credentials);
 } catch (error) {
   // showLoginError(err);
   return;
 }
 
+// If this runs, it means that our custom login RPC was successful, so now we
+// wait for the 'authenticate' to complete on the client socket.
+// Note that using the default client side authEngine (which stores the token in
+// localStorage), this action will always trigger and cannot fail at this point.
+await socket.listener('authenticate').once();
+
 // goToMainScreen();
 ```
+
+On the server, we would need some code to process the login:
+
+```js
+// Server code
+
+// This is a slightly simplified version of what it might look
+// like if you were using MySQL as a database.
+
+(async () => {
+  for await (let request of socket.procedure('login')) {
+    let passwordHash = sha256(credentials.password);
+
+    let userQuery = 'SELECT * FROM Users WHERE username = ?';
+    let userData;
+    try {
+      let rows = await mySQLClient.query(userQuery, [credentials.username]);
+      userData = rows[0];
+    } catch (error) {
+      let loginError = new Error(`Could not find a ${credentials.username} user`);
+      loginError.name = 'LoginError';
+      request.error(loginError);
+
+      return;
+    }
+
+    let isValidLogin = userData && userData.password === passwordHash;
+    if (!isValidLogin) {
+      let loginError = new Error('Invalid user credentials');
+      loginError.name = 'LoginError';
+      request.error(loginError);
+
+      return;
+    }
+
+    // End the 'login' request successfully.
+    request.end();
+
+    // This will give the client a token so that they won't
+    // have to login again if they lose their connection
+    // or revisit the app at a later time.
+    socket.setAuthToken({username: credentials.username, channels: userData.channels});
+  }
+})();
+```
+
+### Verify and read the JWT token
+
+You can verify and read the JWT token in the same way regardless of whether you used the HTTP or WebSocket auth flow. Once the token has been set/captured by Asyngular,
+you can access it from inside your middleware functions (example using a `PUBLISH_IN` action inside the `MIDDLEWARE_INBOUND` middleware):
+
+```js
+// Server code
+
+agServer.addMiddleware(agServer.MIDDLEWARE_INBOUND, async (middlewareStream) => {
+  for await (let action of middlewareStream) {
+
+    if (action.type === action.PUBLISH_IN) {
+      let authToken = action.socket.authToken;
+      if (
+        !authToken ||
+        !Array.isArray(authToken.channels) ||
+        authToken.channels.indexOf(action.channel) === -1
+      ) {
+        let publishError = new Error(
+          `You are not authorized to publish to the ${action.channel} channel`
+        );
+        publishError.name = 'PublishError';
+        action.block(publishError);
+
+        continue; // Go to the start of the loop to process the next inbound action.
+      }
+    }
+
+    // Any unhandled case will be allowed by default.
+    action.allow();
+  }
+});
+```
+
+!! Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't really need to store the `channels` list inside the JWT - An alternative approach would have been to fetch the user account details from the database using the username from the JWT (but it would require an extra database lookup; bad for performance). See the section on middleware and authorization for more info about middleware in Asyngular.

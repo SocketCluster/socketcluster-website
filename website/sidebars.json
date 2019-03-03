@@ -1,9 +1,12 @@
 {
   "docs": {
-    "Docusaurus": ["guides"],
-    "Documentation": ["api"]
-  },
-  "docs-other": {
-    "Documentation": ["guides", "api"]
+    "Guides": [
+      "getting-started",
+      "streams-and-backpressure",
+      "authentication",
+      "middleware-and-authorization",
+      "deploying-to-kubernetes"
+    ],
+    "API": []
   }
 }

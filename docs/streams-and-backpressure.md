@@ -42,7 +42,7 @@ Note that this section only documents the most important/common methods for mana
 The full API offers much more granularity/flexibility when it comes to measuring and closing/killing specific streams.
 For the full API, please see the API docs for the relevant class.
 
-### Measuring socket backpressure
+### Measure socket backpressure
 
 ```js
 // This will get the total (max) backpressure of the socket.
@@ -72,7 +72,7 @@ socket.getAllChannelsBackpressure();
 
 !! If you create channels on the server side (e.g. using `agServer.exchange.subscribe('myChannel');`), you can track the aggregate channel backpressure on the `agServer.exchange` client using the same method: `agServer.exchange.getAllChannelsBackpressure()`.
 
-### Measuring channel (AGChannel) backpressure
+### Measure channel (AGChannel) backpressure
 
 The `AGChannel` class is used on both the client and server side, therefore, channels have the same API everywhere.
 
@@ -88,9 +88,9 @@ fooChannel.getAllListenersBackpressure();
 fooChannel.getOutputBackpressure();
 ```
 
-!! If backpressure for a specific channel gets too high, you can quickly close that channel using `fooChannel.kill()`.
+!! If backpressure for a specific channel gets too high, you can quickly kill that channel and all its listeners using `fooChannel.kill()`. The `fooChannel.close()` method is similar except that it will allow current pending data and events to finish processing before closing consumers.
 
-### Measuring agServer (AGServer) backpressure
+### Measure agServer (AGServer) backpressure
 
 You should generally avoid awaiting on listeners directly from the main `agServer` instance because this can cause backpressure to build up on the agServer itself.
 Backpressure on agServer listeners means that sockets will have to wait in line (one at a time) before they can be handled by your code (I.e. because the next `'connection'` event could be delayed between each socket); this can lead to a situation whereby a new socket cannot interact with the server until the previous socket has completed a specific initialization task. This feature can be desirable for some systems but it creates an interdependency between sockets which is not suitable for the vast majority of publicly-exposed systems as it could open up a DoS vulnerability.

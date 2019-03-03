@@ -7,7 +7,7 @@ sidebar_label: Middleware and authorization
 ## Design overview
 
 Like SocketCluster, Asyngular allows you to perform access control from the server side using middleware functions.
-Unlike SocketCluster however, middleware functions in Asyngular work by iterating over [asyncIterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables) streams; the advantage of this approach is that performing async operations directly inside a middleware loop will not disrupt the order of messages (e.g. if async operations for some messages take longer than others). This means that it's possible to guarantee that actions and messages will always be processed by your server side receivers/procedures in the same order that they were sent by the client socket.
+Unlike SocketCluster however, middleware functions in Asyngular work by iterating over [asyncIterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables) streams; the advantage of this approach is that performing async operations directly inside a middleware loop will not disrupt the order of messages (e.g. if async operations for some messages take longer than others). This means that it's possible to guarantee that actions and messages will always be processed by your receivers/procedures in the same order that they were sent by the client socket.
 
 ## API overview
 
@@ -21,32 +21,30 @@ Asyngular supports 4 different middleware lines which allow you to block, delay 
 This is how to setup a middleware (this example shows the `MIDDLEWARE_INBOUND` line handling `TRANSMIT` and `INVOKE` actions):
 
 ```js
-agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND,
-  async (middlewareStream) => {
-    for await (let action of middlewareStream) {
-      if (action.type === action.TRANSMIT) {
-        if (!action.data) {
-          let error = new Error(
-            'Transmit action must have a data object'
-          );
-          error.name = 'InvalidActionError';
-          action.block(error);
-          continue;
-        }
-      } else if (action.type === action.INVOKE) {
-        if (!action.data) {
-          let error = new Error(
-            'Invoke action must have a data object'
-          );
-          error.name = 'InvalidActionError';
-          action.block(error);
-          continue;
-        }
+agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND, async (middlewareStream) => {
+  for await (let action of middlewareStream) {
+    if (action.type === action.TRANSMIT) {
+      if (!action.data) {
+        let error = new Error(
+          'Transmit action must have a data object'
+        );
+        error.name = 'InvalidActionError';
+        action.block(error);
+        continue;
       }
-      action.allow();
+    } else if (action.type === action.INVOKE) {
+      if (!action.data) {
+        let error = new Error(
+          'Invoke action must have a data object'
+        );
+        error.name = 'InvalidActionError';
+        action.block(error);
+        continue;
+      }
     }
+    action.allow();
   }
-);
+});
 ```
 
 !! In Asyngular, you can only have one middleware function for each middleware line.

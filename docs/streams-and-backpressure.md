@@ -31,7 +31,7 @@ Because a stream in Asyngular can have multiple loops (aka consumers) iterating 
 
 Some backpressure is OK, but too much backpressure can lead to the following problems:
 
-- Increased message latency because data may spend more time waiting in the stream's buffer if there is a lot of backpressure.
+- Increased message latency because data may spend more time waiting in the stream's buffer.
 - It can be exploited by malicious clients to carry out DoS attacks against the server by intentionally filling up the server's memory with spam messages faster than they can be consumed.
 
 For these reasons, Asyngular exposes a simple API for tracking stream backpressure and it lets you immediately kill streams or groups of streams which are becoming overly congested. Asyngular lets you measure the backpressure of individual streams within a socket and also the aggregate backpressure of all streams within the socket.
@@ -45,19 +45,19 @@ For the full API, please see the API docs for the relevant class.
 ### Measure socket backpressure
 
 ```js
-// This will get the total (max) backpressure of the socket.
+// This will get the aggregate/max backpressure of the socket.
 // It accounts for all inbound (middlewares, receivers and procedures),
 // outbound (middlewares) and listener backpressure caused by
 // all consumers of the socket object.
 socket.getBackpressure();
 
-// This will get the total backpressure of all listeners on the socket.
+// This will get the aggregate backpressure of all listeners on the socket.
 socket.getAllListenersBackpressure();
 
-// This will get the total backpressure of all receivers on the socket.
+// This will get the aggregate backpressure of all receivers on the socket.
 socket.getAllReceiversBackpressure();
 
-// This will get the total backpressure of all procedures on the socket.
+// This will get the aggregate backpressure of all procedures on the socket.
 socket.getAllProceduresBackpressure();
 ```
 
@@ -70,21 +70,21 @@ Because client sockets also handle channels, they expose an additional method fo
 socket.getAllChannelsBackpressure();
 ```
 
-!! If you create channels on the server side (e.g. using `agServer.exchange.subscribe('myChannel');`), you can track the aggregate channel backpressure on the `agServer.exchange` client using the same method: `agServer.exchange.getAllChannelsBackpressure()`.
+!! If you create channels on the server side (e.g. using `agServer.exchange.subscribe('myChannel')`), you can track the aggregate channel backpressure on the `agServer.exchange` client using the same method: `agServer.exchange.getAllChannelsBackpressure()`.
 
 ### Measure channel (AGChannel) backpressure
 
 The `AGChannel` class is used on both the client and server side, therefore, channels have the same API everywhere.
 
 ```js
-// This will get the total backpressure of the channel which accounts for all output
+// This will get the aggregate backpressure of the channel which accounts for all output
 // and listener backpressure caused by all consumers of the channel object.
 fooChannel.getBackpressure();
 
-// This will get the total backpressure of all listeners on the channel.
+// This will get the aggregate backpressure of all listeners on the channel.
 fooChannel.getAllListenersBackpressure();
 
-// This will get the total backpressure of the channel's output stream.
+// This will get the aggregate backpressure of the channel's output stream.
 fooChannel.getOutputBackpressure();
 ```
 
@@ -92,8 +92,9 @@ fooChannel.getOutputBackpressure();
 
 ### Measure agServer (AGServer) backpressure
 
-You should generally avoid awaiting on listeners directly from the main `agServer` instance because this can cause backpressure to build up on the agServer itself.
-Backpressure on agServer listeners means that sockets will have to wait in line (one at a time) before they can be handled by your code (I.e. because the next `'connection'` event could be delayed between each socket); this can lead to a situation whereby a new socket cannot interact with the server until the previous socket has completed a specific initialization task. This feature can be desirable for some systems but it creates an interdependency between sockets which is not suitable for the vast majority of publicly-exposed systems as it could open up a DoS vulnerability.
+You should generally avoid awaiting on listeners directly from the main `agServer` instance because this can cause backpressure to build up on the `agServer` itself.
+
+Backpressure on `agServer` listeners could mean that sockets will have to wait in line (one at a time) before they can be handled by your code (I.e. because `'connection'` events would be getting increasingly delayed); this can lead to a situation whereby a new socket cannot interact with the server until the previous socket has released the listener stream. This feature can be desirable for some systems but it creates an interdependency between different sockets which is not suitable for the vast majority of user-facing systems (it could open up a DoS vulnerability).
 
 If you do not `await` directly on listeners of the `agServer` instance, then you do not need to monitor backpressure on the `agServer` instance at all (since it will always be 0). If you do, then you can use this method to get the total listeners backpressure on the `agServer` instance:
 

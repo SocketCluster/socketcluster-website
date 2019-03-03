@@ -2,9 +2,9 @@
   "docs": {
     "Guides": [
       "getting-started",
-      "streams-and-backpressure",
       "authentication",
       "middleware-and-authorization",
+      "streams-and-backpressure",
       "deploying-to-kubernetes"
     ],
     "API": []

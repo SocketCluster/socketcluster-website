@@ -153,7 +153,7 @@ On the server, we would need some code to process the login:
 })();
 ```
 
-### Verify and read the JWT token
+### Verify and use the JWT token
 
 You can verify and read the JWT token in the same way regardless of whether you used the HTTP or WebSocket auth flow. Once the token has been set/captured by Asyngular,
 you can access it from inside your middleware functions (example using a `PUBLISH_IN` action inside the `MIDDLEWARE_INBOUND` middleware):

@@ -257,7 +257,7 @@ fooChannel.transmitPublish('This is some data');
 ### [Server] Publish to a channel without waiting for acknowledgement
 
 ```js
-// Publish data; do not wait for an acknowledgement from the back end broker (if there is one).
+// Publish data; do not wait for an acknowledgement from the back end broker.
 agServer.exchange.transmitPublish('foo', 'This is some data');
 ```
 
@@ -266,7 +266,7 @@ agServer.exchange.transmitPublish('foo', 'This is some data');
 ```js
 (async () => {
   try {
-    // Publish data; wait for an acknowledgement from the back end broker (if there is one).
+    // Publish data; wait for an acknowledgement from the back end broker (if it exists).
     await agServer.exchange.invokePublish('foo', 'This is some more data');
   } catch (error) {
     // ... Handle potential error if broker does not acknowledge before timeout.

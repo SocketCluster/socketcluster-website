@@ -4,7 +4,7 @@ title: Streams and backpressure
 sidebar_label: Streams and backpressure
 ---
 
-## Design overview
+## Feature overview
 
 Asyngular lets you to consume data and events by iterating over asynchrounous streams.
 The socket object (AGServerSocket) is composed of the following main streams (and substreams):

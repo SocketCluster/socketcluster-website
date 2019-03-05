@@ -4,9 +4,9 @@ title: Authentication
 sidebar_label: Authentication
 ---
 
-## Design overview
+## Feature overview
 
-The default authentication mechanism in Asyngular is JWT; it is essentially the same as it was in SocketCluster; the main difference is that any function which used to accept a callback will now return a `Promise` instead. Like in SocketCluster, you can use either the HTTP-based flow or the WebSocket-based flow for doing authentication. See the [SocketCluster guide](https://socketcluster.io/#!/docs/authentication) for more details.
+The default authentication mechanism in Asyngular is JWT; it is essentially the same as it was in SocketCluster; the main difference is that any function which accepted a callback will now return a `Promise` instead. Like in SocketCluster, you can use either the HTTP-based flow or the WebSocket-based flow for doing authentication. See the [SocketCluster guide](https://socketcluster.io/#!/docs/authentication) for more details.
 
 The custom `authKey` string which you pass as an option to the `AGServer` constructor will be used to sign and verify JWT tokens from client sockets.
 The initial authentication phase occurs automatically as part of the socket handshake. Authentication can also be done at runtime on a connected socket using the client's `socket.authenticate(...)` method.
@@ -47,10 +47,10 @@ try {
 }
 
 // The signedTokenString variable is the signed JWT token; you can send it
-// to your frontend however you like (e.g. in HTTP response).
+// to your front end however you like (e.g. in HTTP response).
 ```
 
-Once you have the JWT token on the frontend, you should add it to localStorage under the key `'asyngular.authToken'` - By doing this, the Asyngular client will automatically pick up the JWT token when doing its handshake/connection.
+Once you have the JWT token on the front end, you should add it to localStorage under the key `'asyngular.authToken'` - By doing this, the Asyngular client will automatically pick up the JWT token when doing its handshake/connection.
 
 In the browser, you can add the token to localStorage like this:
 
@@ -187,4 +187,4 @@ agServer.addMiddleware(agServer.MIDDLEWARE_INBOUND, async (middlewareStream) => 
 });
 ```
 
-!! Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't really need to store the `channels` list inside the JWT - An alternative approach would have been to fetch the user account details from the database using the username from the JWT (but it would require an extra database lookup; bad for performance). See the section on middleware and authorization for more info about middleware in Asyngular.
+!! Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't really need to store the `channels` list inside the JWT - An alternative approach would have been to fetch the user account details from the database using the username from the JWT (but it would require an extra database lookup; bad for performance). See the section on [middleware and authorization](middleware-and-authorization.md) for more info about middleware in Asyngular.

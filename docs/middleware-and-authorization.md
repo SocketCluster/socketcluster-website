@@ -4,7 +4,7 @@ title: Middleware and authorization
 sidebar_label: Middleware and authorization
 ---
 
-## Design overview
+## Feature overview
 
 Like SocketCluster, Asyngular allows you to perform access control from the server side using middleware functions.
 Unlike SocketCluster however, middleware functions in Asyngular work by iterating over [asyncIterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables) streams; the advantage of this approach is that performing async operations directly inside a middleware loop will not disrupt the order of messages (e.g. if async operations for some messages take longer than others). This means that it's possible to guarantee that actions and messages will always be processed by your receivers/procedures in the same order that they were sent by the client socket.

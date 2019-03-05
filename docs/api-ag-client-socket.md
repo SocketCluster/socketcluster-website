@@ -10,7 +10,7 @@ sidebar_label: AGClientSocket
 
 ### Properties
 
-<table class="table">
+<table>
   <tr>
     <td>id</td>
     <td>The socket id.</td>
@@ -64,15 +64,6 @@ sidebar_label: AGClientSocket
      </td>
    </tr>
    <tr>
-     <td>
-       channels
-     </td>
-     <td>
-       An object which holds all the channels (AGChannel object) attached to this socket (with the channel name as key).
-       This object also contains channels which are in the 'unsubscribed' state.
-     </td>
-   </tr>
-   <tr>
     <td>CONNECTING</td>
     <td><b>'connecting'</b> - A string constant which represents this socket's connecting state. See state property.</td>
   </tr>
@@ -96,7 +87,7 @@ sidebar_label: AGClientSocket
 
 ### Events
 
-<table class="table">
+<table>
   <tr>
     <td>'error'</td>
     <td>This gets triggered when an error occurs on this socket. Argument is the error object.</td>
@@ -108,20 +99,24 @@ sidebar_label: AGClientSocket
         Emitted whenever the socket connects to the server (includes reconnections).
         The handler receives two arguments; the first is a status object in the form:
       </p>
-      <pre class="prettyprint">{
-// The socket's id
-id: 'RM11Szl-tPn7p1BhAAAA',
 
-// Whether or not the current socket is authenticated with the server
-// (has a valid auth token)
-isAuthenticated: true,
+```js
+{
+  // The socket's id
+  id: 'RM11Szl-tPn7p1BhAAAA',
 
-// If the client has a token, but it was invalid, authError
-// will be a JavaScript object.
-authError: {name: 'errorName', message: 'errorMessage'}
-}</pre>
-      The second argument is a callback function (<code>processSubscriptions</code>) which, when called, will send all pending channel subscriptions to the server (to start activating pending channels).
-      Note that this <code>processSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="/#!/docs/api-socketcluster-client">SocketCluster Client API</a>.
+  // Whether or not the current socket is authenticated
+  // with the server (has a valid auth token)
+  isAuthenticated: true,
+
+  // If the client has a token, but it was invalid, authError
+  // will be a JavaScript object.
+  authError: {name: 'errorName', message: 'errorMessage'}
+}
+```
+
+The second argument is a callback function (<code>processSubscriptions</code>) which, when called, will send all pending channel subscriptions to the server (to start activating pending channels).
+      Note that this <code>processSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See [Asyngular client API](api-asyngular-client.md).
     </td>
   </tr>
   <tr>
@@ -141,7 +136,7 @@ authError: {name: 'errorName', message: 'errorMessage'}
     <td>
       Triggers whenever the socket initiates a connection to the server - This includes reconnects.
       In order capture the very first 'connecting' event, you will need to set the initial <code>autoConnect</code> option
-      to <code>false</code> when you create the socket with <code>socketCluster.create(...)</code> - You will need to register the handler
+      to <code>false</code> when you create the socket with <code>asyngularClient.create(...)</code> - You will need to register the handler
       before you call <code>socket.connect()</code>.
     </td>
   </tr>
@@ -169,24 +164,16 @@ authError: {name: 'errorName', message: 'errorMessage'}
     <td>'authStateChange'</td>
     <td>
       Triggers whenever the client's authState changes between socket.AUTHENTICATED and socket.UNAUTHENTICATED states.
-      The handler will receive as an argument an object which has at least two properties: <code>oldState</code> and <code>newState</code>.
-      If <code>newState</code> is 'authenticated', the argument to the handler will also have an additional <code>signedAuthToken</code> property which
+      The handler will receive as an argument an object which has at least two properties: <code>oldAuthState</code> and <code>newAuthState</code>.
+      If <code>newAuthState</code> is 'authenticated', the argument to the handler will also have an additional <code>signedAuthToken</code> property which
       will be the base64 signed JWT auth token as a string and an <code>authToken</code> property which will represent the token as a plain Object.
-    </td>
-  </tr>
-  <tr>
-    <td>'authTokenChange' <b>[Removed from socketcluster-client v12.0.0]</b></td>
-    <td>
-      This event was removed from socketcluster-client v12.0.0 onwards - The alternative is now to bind handlers to both the 'authenticate' and 'deauthenticate' events.
-      Triggers whenever the client's signedAuthToken and authToken properties are updated (including if the client is already authenticated).
-      The argument passed to the handler is the signedAuthToken. You can use <code>socket.authToken</code> to get the token in plaintext.
     </td>
   </tr>
   <tr>
     <td>'subscribeStateChange'</td>
     <td>
       Triggers whenever a pub/sub channel's state transitions between 'pending', 'subscribed' and 'unsubscribed' states.
-      The handler will receive as an argument an object which has three properties: channel, oldState and newState.
+      The handler will receive as an argument an object which has three properties: channel, oldChannelState and newChannelState.
     </td>
   </tr>
   <tr>
@@ -217,7 +204,7 @@ authError: {name: 'errorName', message: 'errorMessage'}
 ### Errors
 
 <p>
-  For the list of all Asyngular errors (and their properties) <a href="https://github.com/SocketCluster/sc-errors/blob/master/index.js">click here</a>.
+  For the list of all Asyngular errors (and their properties) <a href="https://github.com/SocketCluster/sc-errors/blob/master/index.js">see sc-errors</a>.
   To check the type of an error in Asyngular, you should use the <code>name</code> property of the error (do not use the instanceof statement).
   Errors which are sent to the client from the server will be dehydrated on the server and rehydrated on the client - As a result they will be cast
   to plain <code>Error</code> objects.
@@ -225,7 +212,7 @@ authError: {name: 'errorName', message: 'errorMessage'}
 
 ### Methods
 
-<table class="table">
+<table>
   <tr>
     <td>
       connect()
@@ -265,6 +252,57 @@ authError: {name: 'errorName', message: 'errorMessage'}
   </tr>
   <tr>
     <td>
+      listener(eventName)
+    </td>
+    <td>
+      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      closeListener(eventName)
+    </td>
+    <td>
+      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for the <code>eventName</code> listener to <code>break</code> after they have finished consuming the current backlog of events.
+      This method is the recommended way to stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer may choose to immediately resume consumption of the stream like this:
+
+```js
+while (exitConditionIsNotMet) {
+  for await (
+    let event of socket.listener('message')
+  ) {
+    // Consume event...
+  }
+}
+```
+</td>
+  </tr>
+  <tr>
+    <td>
+      closeAllListeners()
+    </td>
+    <td>
+      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for all listeners to <code>break</code> after they have finished consuming their respective backlogs of events.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killListener(eventName)
+    </td>
+    <td>
+      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for the <code>eventName</code> listener to <code>break</code> immediately and will reset the backpressure for that listener to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllListeners()
+    </td>
+    <td>
+      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for all listeners to <code>break</code> immediately and will reset the aggregate backpressure for all listeners to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
       disconnect([code, data])
     </td>
     <td>
@@ -275,35 +313,20 @@ authError: {name: 'errorName', message: 'errorMessage'}
   </tr>
   <tr>
     <td>
-      emit(event, data, [callback])
+      transmit(receiverName, data)
     </td>
     <td>
-      Emit the specified event on the corresponding server-side socket.
-      Note that you cannot emit any of the reserved AGSocket events.
-      This is the same as Socket.io's emit function except that if a callback is provided, your server-side socket will need to respond to this event - <a href="#!/docs/handling-failure">See example</a>.
-      Also note that Asyngular has a default timeout of 10 seconds for responding to events on the other side. You can increase this limit by setting <code>ackTimeout</code> when initiating SocketCluster on the server side. See <a href="#!/docs/api-socketcluster">here</a>.
+      Transmit the specified event to the corresponding server-side socket `receiver`. You can pass any JSON-compatible object as data.
+      This method doesn't return anything and doesn't throw or reject.
     </td>
   </tr>
   <tr>
     <td>
-      on(event, handler)
+      invoke(procedureName, data)
     </td>
     <td>
-      Add a handler for a particular event (those emitted from a corresponding socket on the server). The handler is a function
-      in the form: handler(data, res) - The res argument is a function which can be used to send a response to the server socket which
-      emitted the event (assuming that the server is expecting a response - I.e. A callback was provided to the emit method).
-      The res function is in the form: res(err, message) - To send back an error, you can do either: res('This is an error') or
-      res(1234, 'This is the error message for error code 1234').
-      To send back a normal non-error response: res(null, 'This is a normal response message').
-      Note that both arguments provided to res can be of any JSON-compatible type.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      off([event, handler])
-    </td>
-    <td>
-      Unbind a previously attached event handler.
+      Invoke the specified `procedure` (RPC) on the corresponding server-side socket. You can pass any JSON-compatible object as data. This method returns a `Promise`.
+      Note that there is a default timeout of 10 seconds to receive a response from the server. You can increase this limit by setting <code>ackTimeout</code> when instantiating the client. If the client does not receive a response in time, the returned `Promise` will reject with an error.
     </td>
   </tr>
   <tr>
@@ -311,7 +334,7 @@ authError: {name: 'errorName', message: 'errorMessage'}
       send(data, [options]);
     </td>
     <td>
-      Send some raw data to the server. This will trigger a 'raw' event on the server which will carry the provided data.
+      Send some raw data to the server. This will trigger a 'raw' event on the server side which will carry the provided data.
     </td>
   </tr>
   <tr>
@@ -324,7 +347,7 @@ authError: {name: 'errorName', message: 'errorMessage'}
       Typically, you should perform server-initiated authentication using the socket.setAuthToken() method from the server side.
       This method is useful if, for example, you received the token from a different browser tab via localStorage and you want to immediately
       authenticate the current socket without having to reconnect the socket. It may also be useful if you're getting the token from a third-party
-      JWT-based system and you're using the same authKey (see boot options for SocketCluster) - In which case they should be compatible.
+      JWT-based system and you're using the same authKey (see the `authKey` option passed to the <a href="api-ag-server">AGServer</a> constructor).
     </td>
   </tr>
   <tr>
@@ -342,7 +365,7 @@ authError: {name: 'errorName', message: 'errorMessage'}
         <i style="color: #999;">
           All of the following methods are related to pub/sub features of Asyngular.<br />
           Asyngular lets you interact with channels either directly through the socket or through
-          AGChannel objects.
+          <a href="api-ag-channel">AGChannel</a> objects.
         </i>
       </p>
     </td>
@@ -376,11 +399,9 @@ authError: {name: 'errorName', message: 'errorMessage'}
     </td>
     <td>
       Subscribe to a particular channel.
-      This function returns an [AGChannel](api-ag-channel.md) object which lets you watch for incoming data on that channel.
-      Since v4.0.0, you can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel
-      will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
-      sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="/#!/docs/authentication">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
-      See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how to handle the data property.
+      This function returns an <a href="api-ag-channel">AGChannel</a> object which lets you watch for incoming data on that channel.
+      You can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
+      sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
     </td>
   </tr>
   <tr>
@@ -388,8 +409,8 @@ authError: {name: 'errorName', message: 'errorMessage'}
       unsubscribe(channelName)
     </td>
     <td>
-      Unsubscribe from the specified channel. This makes any associated AGChannel object inactive.
-      You can reactivate the [AGChannel](api-ag-channel.md) object by calling subscribe(channelName) again at a later time.
+      Unsubscribe from the specified channel. This makes any associated <a href="api-ag-channel">AGChannel</a> object inactive.
+      You can reactivate the <a href="api-ag-channel">AGChannel</a> object by calling subscribe(channelName) again at a later time.
     </td>
   </tr>
   <tr>
@@ -397,9 +418,9 @@ authError: {name: 'errorName', message: 'errorMessage'}
       channel(channelName)
     </td>
     <td>
-      Returns an [AGChannel](api-ag-channel.md) instance. This is different from subscribe() in that it will not try to subscribe to that channel.
+      Returns an <a href="api-ag-channel">AGChannel</a> instance. This is different from subscribe() in that it will not try to subscribe to that channel.
       The returned channel will be inactive initially.
-      You can call channel.subscribe() later to activate that channel when required.
+      You can call <code>channel.subscribe()</code> later to activate that channel when required.
     </td>
   </tr>
   <tr>
@@ -407,7 +428,7 @@ authError: {name: 'errorName', message: 'errorMessage'}
       watch(channelName, handler)
     </td>
     <td>
-      Lets you watch a channel directly from the AGSocket object.
+      Lets you watch a channel directly from the <a href="api-ag-server-socket">AGServerSocket</a> object.
       The handler accepts a single data argument which holds the data which was published to the channel.
     </td>
   </tr>
@@ -434,8 +455,8 @@ authError: {name: 'errorName', message: 'errorMessage'}
       destroyChannel(channelName)
     </td>
     <td>
-      This will cause AGSocket to unsubscribe that channel and remove any watchers from it.
-      Any AGChannel object which is associated with that channelName will be disabled permanently (ready to be cleaned up by garbage collector).
+      This will cause <a href="api-ag-server-socket">AGServerSocket</a> to unsubscribe that channel and remove any watchers from it.
+      Any <a href="api-ag-channel">AGChannel</a> object which is associated with that channelName will be disabled permanently (ready to be cleaned up by garbage collector).
     </td>
   </tr>
   <tr>

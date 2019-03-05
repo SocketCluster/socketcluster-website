@@ -7,6 +7,14 @@
       "streams-and-backpressure",
       "deploying-to-kubernetes"
     ],
-    "API": []
+    "API": [
+      "api-asyngular-client",
+      "api-ag-client-socket",
+      "api-ag-channel",
+      "api-ag-server",
+      "api-ag-server-socket",
+      "api-ag-exchange",
+      "api-ag-action"
+    ]
   }
 }

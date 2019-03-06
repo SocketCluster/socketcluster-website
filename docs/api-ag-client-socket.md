@@ -13,7 +13,11 @@ sidebar_label: AGClientSocket
 <table>
   <tr>
     <td>id</td>
-    <td>The socket id.</td>
+    <td>The id of the socket connection. This is <code>null</code> initially and will change each time a new underlying connection is made.</td>
+  </tr>
+  <tr>
+    <td>clientId</td>
+    <td>The id of the client socket. This does not change between connections.</td>
   </tr>
   <tr>
     <td>state</td>
@@ -343,14 +347,12 @@ while (exitConditionIsNotMet) {
     </td>
   </tr>
   <tr>
-    <td colspan="2">
-      <p>
-        <i style="color: #999;">
-          All of the following methods are related to pub/sub features of Asyngular.<br />
-          Asyngular lets you interact with channels either directly through the socket or through
-          <a href="api-ag-channel">AGChannel</a> objects.
-        </i>
-      </p>
+    <td colspan="2" style="padding-top: 20px; padding-bottom: 20px;">
+      <i style="color: #999;">
+        All of the following methods are related to pub/sub features of Asyngular.<br />
+        Asyngular lets you interact with channels either directly through the socket or through
+        <a href="api-ag-channel">AGChannel</a> objects.
+      </i>
     </td>
   </tr>
   <tr>

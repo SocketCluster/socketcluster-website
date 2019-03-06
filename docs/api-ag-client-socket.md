@@ -218,7 +218,7 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
       connect()
     </td>
     <td>
-      Reconnects the client socket to its origin server.
+      Connects/reconnects the client socket to its origin server.
     </td>
   </tr>
   <tr>
@@ -232,22 +232,6 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
         <li><b>'open'</b> - socket.OPEN</li>
         <li><b>'closed'</b> - socket.CLOSED</li>
       </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      getAuthToken()
-    </td>
-    <td>
-      Returns the auth token as a plain JavaScript object.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      getSignedAuthToken()
-    </td>
-    <td>
-      Returns the signed auth token as a string in the JWT format.
     </td>
   </tr>
   <tr>
@@ -316,7 +300,7 @@ while (exitConditionIsNotMet) {
       transmit(receiverName, data)
     </td>
     <td>
-      Transmit the specified event to the corresponding server-side socket `receiver`. You can pass any JSON-compatible object as data.
+      Transmit the specified event to the corresponding server-side socket <code>receiver</code>. You can pass any JSON-compatible object as data.
       This method doesn't return anything and doesn't throw or reject.
     </td>
   </tr>
@@ -325,8 +309,7 @@ while (exitConditionIsNotMet) {
       invoke(procedureName, data)
     </td>
     <td>
-      Invoke the specified `procedure` (RPC) on the corresponding server-side socket. You can pass any JSON-compatible object as data. This method returns a `Promise`.
-      Note that there is a default timeout of 10 seconds to receive a response from the server. You can increase this limit by setting <code>ackTimeout</code> when instantiating the client. If the client does not receive a response in time, the returned `Promise` will reject with an error.
+      Invoke the specified <code>procedure</code> (RPC) on the corresponding server-side socket. You can pass any JSON-compatible object as data. This method returns a <code>Promise</code>. Note that there is a default timeout of 10 seconds to receive a response from the server. You can change this limit by setting <code>ackTimeout</code> when instantiating the client. If the client does not receive a response in time, the returned <code>Promise</code> will reject with a <code>TimeoutError</code>.
     </td>
   </tr>
   <tr>
@@ -347,16 +330,15 @@ while (exitConditionIsNotMet) {
       Typically, you should perform server-initiated authentication using the socket.setAuthToken() method from the server side.
       This method is useful if, for example, you received the token from a different browser tab via localStorage and you want to immediately
       authenticate the current socket without having to reconnect the socket. It may also be useful if you're getting the token from a third-party
-      JWT-based system and you're using the same authKey (see the `authKey` option passed to the <a href="api-ag-server">AGServer</a> constructor).
+      JWT-based system and you're using the same authKey (see the <code>authKey</code> option passed to the <a href="api-ag-server">AGServer</a> constructor).
     </td>
   </tr>
   <tr>
     <td>
-      deauthenticate([callback]);
+      deauthenticate();
     </td>
     <td>
       Perform client-initiated deauthentication - Deauthenticate (logout) the current socket.
-      The callback will receive an error as the first argument if the operation fails.
     </td>
   </tr>
   <tr>
@@ -388,8 +370,8 @@ while (exitConditionIsNotMet) {
       Publish data to the specified channelName. Expect a response from the server.
       The channelName argument must be a string.
       The data argument can be any JSON-compatible object/array or primitive.
-      This method returns a promise which will be rejected if the operation fails.
-      For example, it can be rejected if the (MIDDLEWARE_INBOUND)[middleware-and-authorization.md] middleware blocks the action on the server side.
+      This method returns a <code>Promise</code> which will be rejected if the operation fails.
+      For example, it can be rejected if the <code>MIDDLEWARE_INBOUND</code> middleware blocks the action on the server side.
       The promise will resolve once the server has processed the publish action.
     </td>
   </tr>
@@ -400,8 +382,7 @@ while (exitConditionIsNotMet) {
     <td>
       Subscribe to a particular channel.
       This function returns an <a href="api-ag-channel">AGChannel</a> object which lets you watch for incoming data on that channel.
-      You can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
-      sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
+      You can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are called "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
     </td>
   </tr>
   <tr>
@@ -418,7 +399,8 @@ while (exitConditionIsNotMet) {
       channel(channelName)
     </td>
     <td>
-      Returns an <a href="api-ag-channel">AGChannel</a> instance. This is different from subscribe() in that it will not try to subscribe to that channel.
+      Returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a>.
+      This method is different from subscribe() in that it will not try to subscribe to that channel.
       The returned channel will be inactive initially.
       You can call <code>channel.subscribe()</code> later to activate that channel when required.
     </td>
@@ -452,15 +434,6 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
-      destroyChannel(channelName)
-    </td>
-    <td>
-      This will cause <a href="api-ag-server-socket">AGServerSocket</a> to unsubscribe that channel and remove any watchers from it.
-      Any <a href="api-ag-channel">AGChannel</a> object which is associated with that channelName will be disabled permanently (ready to be cleaned up by garbage collector).
-    </td>
-  </tr>
-  <tr>
-    <td>
       subscriptions(includePending)
     </td>
     <td>
@@ -475,14 +448,6 @@ while (exitConditionIsNotMet) {
     <td>
       Check if socket is subscribed to channelName.
       If includePending is true, pending subscriptions will also be included in the list.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      destroy()
-    </td>
-    <td>
-      Disconnects and destroys the socket so that it can be garbage collected.
     </td>
   </tr>
 </table>

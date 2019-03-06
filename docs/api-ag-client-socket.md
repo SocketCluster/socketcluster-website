@@ -247,8 +247,8 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
       closeListener(eventName)
     </td>
     <td>
-      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for the <code>eventName</code> listener to <code>break</code> after they have finished consuming the current backlog of events.
-      This method is the recommended way to stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer may choose to immediately resume consumption of the stream like this:
+      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over the current backlog of events.
+      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In Asyngular, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
 
 ```js
 while (exitConditionIsNotMet) {
@@ -322,15 +322,16 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
-      authenticate(encryptedTokenString, [callback]);
+      authenticate(encryptedTokenString);
     </td>
     <td>
       Perform client-initiated authentication - This is useful if you already have a valid encrypted auth token string and would like to use
-      it to authenticate directly with the server (without having to ask the user to login details).
+      it to authenticate directly with the server (without having to ask the user for login details).
       Typically, you should perform server-initiated authentication using the socket.setAuthToken() method from the server side.
       This method is useful if, for example, you received the token from a different browser tab via localStorage and you want to immediately
       authenticate the current socket without having to reconnect the socket. It may also be useful if you're getting the token from a third-party
       JWT-based system and you're using the same authKey (see the <code>authKey</code> option passed to the <a href="api-ag-server">AGServer</a> constructor).
+      This method returns a <code>Promise</code> which resolves on success and rejects with an <code>Error</code> on failure (e.g. if the token was invalid).
     </td>
   </tr>
   <tr>
@@ -381,9 +382,19 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       Subscribe to a particular channel.
-      This function returns an <a href="api-ag-channel">AGChannel</a> object which lets you watch for incoming data on that channel.
+      This function returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> and lets you consume data that is published to the channel.
       You can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are called "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
-    </td>
+
+To consume a channel, it is recommended to use a `for-await-of` loop like this:
+
+```js
+for await (
+  let data of socket.channel('myChannel')
+) {
+  // Consume channel data...
+}
+```
+</td>
   </tr>
   <tr>
     <td>
@@ -407,29 +418,79 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
-      watch(channelName, handler)
+      closeChannel(channelName)
     </td>
     <td>
-      Lets you watch a channel directly from the <a href="api-ag-server-socket">AGServerSocket</a> object.
-      The handler accepts a single data argument which holds the data which was published to the channel.
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>channelName</code> channel and all of its listeners) to <code>break</code> after they have finished iterating over the current backlog of events.
+      This method is the recommended way to gracefully stop consuming channel data; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the channel stream like this (note that no data will be missed):
+
+```js
+while (exitConditionIsNotMet) {
+  for await (
+    let data of socket.channel('myChannel')
+  ) {
+    // Consume channel data...
+  }
+}
+```
+</td>
+  </tr>
+  <tr>
+    <td>
+      channelCloseOutput(channelName)
+    </td>
+    <td>
+      This method is like <code>closeChannel(channelName)</code> except that it only closes the main channel (output) stream. Listener consumers on the channel will not be affected.
     </td>
   </tr>
   <tr>
     <td>
-      unwatch(channelName, [handler])
+      channelCloseAllListeners(channelName)
     </td>
     <td>
-      Stop handling data which is published on the specified channel. This is different from unsubscribe in that the
-      socket will still receive channel data but the specified handler will no longer capture it.
-      If the handler argument is not provided, all handlers for that channelName will be removed.
+      This method is like <code>closeChannel(channelName)</code> except that it only closes listener streams on the channel. The main channel output stream will not be affected.
+      To close specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
     </td>
   </tr>
   <tr>
     <td>
-      watchers(channelName)
+      closeAllChannels()
     </td>
     <td>
-      Returns an array of listener functions which are watching for data on the specified channel.
+      This method will signal to all consuming <code>for-await-of</code> loops for all channels (and all of their listeners) to <code>break</code> after they have finished consuming their respective backlogs of events.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killChannel(channelName)
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for the <code>channelName</code> channel (and all of its listeners) to <code>break</code> immediately. This will reset the backpressure for that channel (and all of its event listeners) to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      channelKillOutput(channelName)
+    </td>
+    <td>
+      This method is like <code>killChannel(channelName)</code> except that it only kills the main channel (output) stream. Listener consumers on the channel will not be affected.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      channelKillAllListeners(channelName)
+    </td>
+    <td>
+      This method is like <code>killChannel(channelName)</code> except that it only kills listener streams on the channel. The main channel output stream will not be affected.
+      To kill specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllChannels()
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for all channels (and all of of their listeners) to <code>break</code> immediately. This will reset the aggregate backpressure for all channels (and all of their event listeners) to 0.
     </td>
   </tr>
   <tr>

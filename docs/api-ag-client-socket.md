@@ -243,7 +243,7 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
       listener(eventName)
     </td>
     <td>
-      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+      This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
     </td>
   </tr>
   <tr>
@@ -251,7 +251,7 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
       closeListener(eventName)
     </td>
     <td>
-      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over the current backlog of events.
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over the current backlog of events.
       This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In Asyngular, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
 
 ```js
@@ -270,7 +270,7 @@ while (exitConditionIsNotMet) {
       closeAllListeners()
     </td>
     <td>
-      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for all listeners to <code>break</code> after they have finished consuming their respective backlogs of events.
+      This method will signal to all consuming <code>for-await-of</code> loops for all listeners to <code>break</code> after they have finished consuming their respective backlogs of events.
     </td>
   </tr>
   <tr>
@@ -278,7 +278,7 @@ while (exitConditionIsNotMet) {
       killListener(eventName)
     </td>
     <td>
-      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for the <code>eventName</code> listener to <code>break</code> immediately and will reset the backpressure for that listener to 0.
+      This method will signal to all consuming <code>for-await-of</code> loops for the <code>eventName</code> listener to <code>break</code> immediately and will reset the backpressure for that listener to 0.
     </td>
   </tr>
   <tr>
@@ -286,7 +286,119 @@ while (exitConditionIsNotMet) {
       killAllListeners()
     </td>
     <td>
-      This method is inherited from <a href="https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter">AsyncStreamEmitter</a>. It will signal to all consuming <code>for-await-of</code> loops for all listeners to <code>break</code> immediately and will reset the aggregate backpressure for all listeners to 0.
+      This method will signal to all consuming <code>for-await-of</code> loops for all listeners to <code>break</code> immediately and will reset the aggregate backpressure for all listeners to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      receiver(receiverName)
+    </td>
+    <td>
+      This method returns a receiver stream for the specified <code>receiverName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      closeReceiver(receiverName)
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>receiverName</code> receiver) to <code>break</code> after they have finished iterating over the current backlog of data.
+      This method is the recommended way to gracefully stop consuming data from a receiver; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the stream like this (note that no data will be missed):
+
+```js
+while (exitConditionIsNotMet) {
+  for await (
+    let data of socket.receiver('foo')
+  ) {
+    // Consume data...
+  }
+}
+```
+</td>
+  </tr>
+  <tr>
+    <td>
+      closeAllReceivers()
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for all receivers to <code>break</code> after they have finished consuming their respective backlogs of data.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killReceiver(receiverName)
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for the <code>receiverName</code> receiver to <code>break</code> immediately and will reset the backpressure for that receiver to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllReceivers()
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for all receivers to <code>break</code> immediately and will reset the aggregate backpressure for all receivers to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      procedure(procedureName)
+    </td>
+    <td>
+      This method returns a procedure stream for the specified <code>procedureName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      closeProcedure(procedureName)
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>procedureName</code> procedure) to <code>break</code> after they have finished iterating over the current backlog of data.
+      This method is the recommended way to gracefully stop consuming data from a procedure; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the stream like this (note that no data will be missed):
+
+```js
+while (exitConditionIsNotMet) {
+  for await (
+    let request of socket.procedure('myProc')
+  ) {
+    // Handle RPC request...
+    if (request.data.foo) {
+      let error = new Error('Foo error');
+      error.name = 'FooError';
+      // Send back an error.
+      request.error(error);
+    } else {
+      // Success. Custom data can be passed
+      // as an argument.
+      request.end();
+    }
+  }
+}
+```
+</td>
+  </tr>
+  <tr>
+    <td>
+      closeAllProcedures()
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for all procedures to <code>break</code> after they have finished consuming their respective backlogs of data.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killProcedure(procedureName)
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for the <code>procedureName</code> procedure to <code>break</code> immediately and will reset the backpressure for that procedure to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllProcedures()
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for all procedures to <code>break</code> immediately and will reset the aggregate backpressure for all procedures to 0.
     </td>
   </tr>
   <tr>
@@ -318,7 +430,7 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
-      send(data, [options]);
+      send(data, [options])
     </td>
     <td>
       Send some raw data to the server. This will trigger a 'raw' event on the server side which will carry the provided data.
@@ -326,7 +438,7 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
-      authenticate(encryptedTokenString);
+      authenticate(encryptedTokenString)
     </td>
     <td>
       Perform client-initiated authentication - This is useful if you already have a valid encrypted auth token string and would like to use
@@ -340,10 +452,50 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
-      deauthenticate();
+      deauthenticate()
     </td>
     <td>
       Perform client-initiated deauthentication - Deauthenticate (logout) the current socket.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure for all streams on the current socket. The aggregate backpressure represents the highest backpressure of all consumers.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllListenersBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure of all <code>listener</code> streams on the current socket.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllReceiversBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure of all <code>receiver</code> streams on the current socket.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllProceduresBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure of all <code>procedure</code> streams on the current socket.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllChannelsBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure of all <code>channel</code> streams on the current socket.
     </td>
   </tr>
   <tr>

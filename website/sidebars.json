@@ -2,6 +2,7 @@
   "docs": {
     "Guides": [
       "getting-started",
+      "basic-usage",
       "authentication",
       "middleware-and-authorization",
       "streams-and-backpressure",

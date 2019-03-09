@@ -76,92 +76,79 @@ sidebar_label: AGServer
 <table>
   <tr>
     <td>'error'</td>
-    <td>This gets triggered when fatal error occurs on this server.</td>
+    <td>This gets triggered when fatal error occurs on this server. The object produced by the listener will have an <code>error</code> property.</td>
   </tr>
   <tr>
     <td>'warning'</td>
-    <td>A warning is a non-fatal error which does not require restarting the server. <code>AGServerSocket</code> errors are emitted as warnings on the <code>AGServer</code> instance.</td>
+    <td>A warning is a non-fatal error which does not require restarting the server. <code>AGServerSocket</code> errors are emitted as warnings on the <code>AGServer</code> instance. The object produced by the listener will have a <code>warning</code> property.</td>
   </tr>
   <tr>
     <td>'handshake'</td>
     <td>
       Emitted as soon as a new <code>AGServerSocket</code> object is created on the server - This occurs at
       the beginning of the client handshake, before the 'connection' event.
-      The object produced by the listener will contain the <code>socket</code> object which is performing the handshake.
-      You should not try to send events to the socket while it is in this state.
+      You should not try to send events to the socket while it is in this state. The object produced by the listener will have a <code>socket</code> property.
     </td>
   </tr>
   <tr>
     <td>'connectionAbort'</td>
     <td>
-      Emitted whenever a socket becomes disconnected during the handshake phase. The listener to this event
-      receives a socket (<code>AGServerSocket</code>) object.
+      Emitted whenever a socket becomes disconnected during the handshake phase. The object produced by the listener will have a <code>socket</code>, <code>code</code> and <code>reason</code> property.
     </td>
   </tr>
   <tr>
     <td>'connection'</td>
     <td>
-      Emitted whenever a new socket connection is established with the server (and the handshake has completed).
-      The object produced by the listener will contain a <code>socket</code> (<code>AGServerSocket</code>) object which can be used
-      to interact with the client.
+      Emitted whenever a new socket connection is established with the server (and the handshake has completed). The object produced by the listener will have a <code>socket</code>, <code>id</code>, <code>pingTimeout</code> and <code>isAuthenticated</code> property. If an authentication error occured during the socket handshake phase, the event object will also have an <code>authError</code> property. The <code>socket</code> object of type <a href="api-ag-server-socket">AGServerSocket</a> and can be used to interact with the corresponding client.
     </td>
   </tr>
   <tr>
     <td>'disconnection'</td>
     <td>
-      Emitted whenever a connected socket becomes disconnected (after the handshake phase). The listener to this event
-      receives a socket (<code>AGServerSocket</code>) object. Note that if the socket connection was not fully established (e.g. during the Asyngular handshake phase), then the <code>'connectionAbort'</code> event will be triggered instead.
+      Emitted whenever a connected socket becomes disconnected (after the handshake phase). Note that if the socket connection was not fully established (e.g. during the Asyngular handshake phase), then the <code>'connectionAbort'</code> event will be triggered instead. The object produced by the listener will have a <code>socket</code>, <code>code</code> and <code>reason</code> property.
     </td>
   </tr>
   <tr>
     <td>'closure'</td>
     <td>
-      Emitted whenever a connected socket becomes disconnected (at any stage of the handshake/connection cycle). The listener to this event
-      receives a socket (<code>AGServerSocket</code>) object. Note that this event is a catch-all for both <code>'disconnection'</code> and <code>'connectionAbort'</code> events.
+      Emitted whenever a connected socket becomes disconnected (at any stage of the handshake/connection cycle). Note that this event is a catch-all for both <code>'disconnection'</code> and <code>'connectionAbort'</code> events. The object produced by the listener will have a <code>socket</code>, <code>code</code> and <code>reason</code> property.
     </td>
   </tr>
   <tr>
     <td>'subscription'</td>
     <td>
-      Emitted whenever a socket connection which is attached to the server becomes subscribed to a channel. The listener to this event
-      will produce an object which contains a <code>socket</code> (<code>AGServerSocket</code>), a <code>channel</code> and a <code>channelOptions</code> property.
+      Emitted whenever a socket connection which is attached to the server becomes subscribed to a channel. The object produced by the listener will have a <code>socket</code> (<code>AGServerSocket</code>), a <code>channel</code> and <code>channelOptions</code> property.
     </td>
   </tr>
   <tr>
     <td>'unsubscription'</td>
     <td>
-      Emitted whenever a socket connection which is attached to the server becomes unsubscribed from a channel. The object produced listeners to this event
-      will contain a <code>socket</code> (<code>AGServerSocket</code>) and a <code>channel</code> property.
+      Emitted whenever a socket connection which is attached to the server becomes unsubscribed from a channel. The object produced by the listener will have a <code>socket</code> and <code>channel</code> property.
     </td>
   </tr>
   <tr>
     <td>'authentication'</td>
     <td>
-      Emitted whenever a socket connection which is attached to the server becomes authenticated. The listener to this event
-      receives a socket (<code>AGServerSocket</code>) object as the first argument. The second argument is the <code>authToken</code> object.
+      Emitted whenever a socket connection which is attached to the server becomes authenticated. The object produced by the listener will have a <code>socket</code> and <code>authToken</code> property.
     </td>
   </tr>
   <tr>
     <td>'deauthentication'</td>
     <td>
-      Emitted whenever a socket connection which is attached to the server becomes deauthenticated. The listener to this event
-      receives a socket (<code>AGServerSocket</code>) object as the first argument. The second argument is the old <code>authToken</code> object
-      (before the deauthentication took place).
+      Emitted whenever a socket connection which is attached to the server becomes deauthenticated. The object produced by the listener will have a <code>socket</code> and <code>oldAuthToken</code> property.
     </td>
   </tr>
   <tr>
     <td>'authenticationStateChange'</td>
     <td>
-      Triggers whenever the <code>authState</code> of a socket which is attached to the server changes (e.g. transitions between authenticated and unauthenticated states).
+      Triggers whenever the <code>authState</code> of a socket which is attached to the server changes (e.g. transitions between authenticated and unauthenticated states). The object produced by the listener will have a <code>socket</code>, <code>oldAuthState</code> and <code>newAuthState</code> property.
     </td>
   </tr>
   <tr>
     <td>'badSocketAuthToken'</td>
     <td>
       Emitted when a client which is attached to the server tries to authenticate itself with an invalid (or expired) token.
-      The first argument passed to the handler is the socket object which failed authentication. The second argument is
-      an object with the properties <code>authError</code> and <code>signedAuthToken</code>.
-      The authError is an error object and the <code>signedAuthToken</code> is the auth token which failed the verification step.
+      The object produced by the listener will have a <code>socket</code>, <code>authError</code> and <code>signedAuthToken</code> property.
     </td>
   </tr>
   <tr>
@@ -190,14 +177,14 @@ sidebar_label: AGServer
       to various features of the AGServer. This is useful for monitoring
       real-time data flows and also to block access to restricted channels
       and resources. Note that only actions from clients pass through middleware.
-      Server side calls to <code>agServer.exchange.transmitPublish(...)</code> or <code>agServer.exchange.invokePublish(...)</code> do not. See <a href="middleware-and-authorization">Middleware and authorization</a> guide for a list of all available middleware types and actions.
+      Server side calls on the <a href="api-ag-exchange">AGExchange</a> client such as <code>agServer.exchange.transmitPublish(...)</code> or <code>agServer.exchange.invokePublish(...)</code> do not. See <a href="middleware-and-authorization">Middleware and authorization</a> guide for a list of all available middleware types and actions.
     </td>
   </tr>
   <tr>
     <td>removeMiddleware(type, middlewareFn)</td>
     <td>
       <p>
-        Lets you remove middleware functions previously added with the setMiddleware() method.
+        Lets you remove a middleware function which was previously added using the <code>setMiddleware(...)</code> method.
       </p>
     </td>
   </tr>
@@ -206,7 +193,12 @@ sidebar_label: AGServer
       listener(eventName)
     </td>
     <td>
-      This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+      <p>
+        This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+      </p>
+      <p>
+        See <a href="basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+      </p>
     </td>
   </tr>
   <tr>

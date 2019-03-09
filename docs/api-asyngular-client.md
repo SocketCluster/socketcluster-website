@@ -4,7 +4,7 @@ title: asyngularClient
 sidebar_label: asyngularClient
 ---
 
-### Properties
+## Properties
 <table>
   <tr>
     <td>version</td>
@@ -12,7 +12,7 @@ sidebar_label: asyngularClient
   </tr>
 </table>
 
-### Methods
+## Methods
 <table>
   <tr>
     <td>

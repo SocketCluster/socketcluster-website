@@ -4,11 +4,11 @@ title: AGClientSocket
 sidebar_label: AGClientSocket
 ---
 
-### Inherits from
+## Inherits from
 
 [AsyncStreamEmitter](https://github.com/SocketCluster/async-stream-emitter#async-stream-emitter)
 
-### Properties
+## Properties
 
 <table>
   <tr>
@@ -89,51 +89,37 @@ sidebar_label: AGClientSocket
   </tr>
 </table>
 
-### Events
+## Events
 
 <table>
   <tr>
     <td>'error'</td>
-    <td>This gets triggered when an error occurs on this socket. Argument is the error object.</td>
+    <td>This gets triggered when an error occurs on this socket. The object produced by the listener will have an <code>error</code> property which contains the <code>Error</code> object.</td>
   </tr>
   <tr>
     <td>'connect'</td>
     <td>
       <p>
         Emitted whenever the socket connects to the server (includes reconnections).
-        The handler receives two arguments; the first is a status object in the form:
+        The object produced by the listener will have an <code>id</code>, <code>isAuthenticated</code>, <code>authToken</code>, <code>pingTimeout</code> and <code>processPendingSubscriptions</code> property. If an issue occurred as part of the handshake, there will also be an <code>authError</code> property which will hold an <code>Error</code> object.
       </p>
-
-```js
-{
-  // The socket's id
-  id: 'RM11Szl-tPn7p1BhAAAA',
-
-  // Whether or not the current socket is authenticated
-  // with the server (has a valid auth token)
-  isAuthenticated: true,
-
-  // If the client has a token, but it was invalid, authError
-  // will be a JavaScript object.
-  authError: {name: 'errorName', message: 'errorMessage'}
-}
-```
-
-The second argument is a callback function (<code>processSubscriptions</code>) which, when called, will send all pending channel subscriptions to the server (to start activating pending channels).
-      Note that this <code>processSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See [Asyngular client API](api-asyngular-client.md).
+      <p>
+        The <code>processPendingSubscriptions</code> property represents a callback function which, when called, will send all pending channel subscriptions to the server (to activate pending channels).
+        Note that this <code>processPendingSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="api-asyngular-client">Asyngular client API</a>.
+      </p>
     </td>
   </tr>
   <tr>
     <td>'disconnect'</td>
-    <td>Happens when this socket becomes disconnected from the server.</td>
+    <td>Happens when this socket becomes disconnected from the server. The object produced by the listener will have a <code>code</code> and <code>reason</code> property.</td>
   </tr>
   <tr>
     <td>'connectAbort'</td>
-    <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the connection phase or it may be triggered intentionally by calling socket.disconnect() while the socket is connecting.</td>
+    <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the connection phase or it may be triggered intentionally by calling socket.disconnect() while the socket is connecting. The object produced by the listener will have a <code>code</code> and <code>reason</code> property.</td>
   </tr>
   <tr>
     <td>'close'</td>
-    <td>Triggers when a socket is disconnected or the connection is aborted - This is a catch-all event for both <code>'disconnect'</code> and <code>'connectAbort'</code>.</td>
+    <td>Triggers when a socket is disconnected or the connection is aborted - This is a catch-all event for both <code>'disconnect'</code> and <code>'connectAbort'</code>. The object produced by the listener will have a <code>code</code> and <code>reason</code> property.</td>
   </tr>
   <tr>
     <td>'connecting'</td>
@@ -146,30 +132,30 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
   </tr>
   <tr>
     <td>'raw'</td>
-    <td>This gets triggered whenever the server socket on the other side calls socket.send(...).</td>
+    <td>This gets triggered whenever the server socket on the other side calls socket.send(...). The object produced by the listener will have a <code>message</code> property.</td>
   </tr>
   <tr>
     <td>'kickOut'</td>
-    <td>Occurs when this socket is kicked out of a particular channel by the backend. Arguments are (message, channelName).</td>
+    <td>Occurs when this socket is kicked out of a particular channel by the backend. Arguments are (message, channelName). The object produced by the listener will have a <code>channel</code> and <code>message</code> property.</td>
   </tr>
   <tr>
     <td>'subscribe'</td>
-    <td>When the subscription succeeds.</td>
+    <td>When the subscription succeeds. The object produced by the listener will have a <code>channel</code> and <code>subscriptionOptions</code> property.</td>
   </tr>
   <tr>
     <td>'subscribeFail'</td>
-    <td>Happens when the subscription fails. The first argument passed to the handler will be the error which caused the subscription to fail.</td>
+    <td>Happens when the subscription fails. The first argument passed to the handler will be the error which caused the subscription to fail. The object produced by the listener will have an <code>error</code>, <code>channel</code> and <code>subscriptionOptions</code> property.</td>
   </tr>
   <tr>
     <td>'unsubscribe'</td>
-    <td>When the socket becomes unsubscribed from a channel.</td>
+    <td>When the socket becomes unsubscribed from a channel. The object produced by the listener will have a <code>channel</code> property.</td>
   </tr>
   <tr>
     <td>'authStateChange'</td>
     <td>
       Triggers whenever the client's authState changes between socket.AUTHENTICATED and socket.UNAUTHENTICATED states.
-      The handler will receive as an argument an object which has at least two properties: <code>oldAuthState</code> and <code>newAuthState</code>.
-      If <code>newAuthState</code> is 'authenticated', the argument to the handler will also have an additional <code>signedAuthToken</code> property which
+      The object produced by the listener will have at least two properties: <code>oldAuthState</code> and <code>newAuthState</code>.
+      If <code>newAuthState</code> is 'authenticated', the object will also have an additional <code>signedAuthToken</code> property which
       will be the base64 signed JWT auth token as a string and an <code>authToken</code> property which will represent the token as a plain Object.
     </td>
   </tr>
@@ -177,35 +163,39 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
     <td>'subscribeStateChange'</td>
     <td>
       Triggers whenever a pub/sub channel's state transitions between 'pending', 'subscribed' and 'unsubscribed' states.
-      The handler will receive as an argument an object which has three properties: channel, oldChannelState and newChannelState.
+      The object produced by the listener will have a <code>channel</code>, <code>oldChannelState</code>, <code>newChannelState</code> and <code>subscriptionOptions</code> property.
     </td>
   </tr>
   <tr>
     <td>'subscribeRequest'</td>
-    <td>Emits the channel name when a `subscribe` action is invoked by the client.</td>
+    <td>
+      Emits the channel name when a `subscribe` action is invoked by the client. The object produced by the listener will have a <code>channel</code> and <code>subscriptionOptions</code> property.
+    </td>
   </tr>
   <tr>
     <td>'authenticate'</td>
     <td>
-      Triggers whenever the client is successfully authenticated by the server - The data argument passed along
-      with this event is the base64 signed JWT auth token as a string.
+      Triggers whenever the client is successfully authenticated by the server.
+      The object produced by the listener will have a <code>signedAuthToken</code> and <code>authToken</code> property.
     </td>
   </tr>
   <tr>
     <td>'deauthenticate'</td>
     <td>
       Triggers whenever the client becomes unauthenticated.
+      The object produced by the listener will have a <code>oldSignedAuthToken</code> and <code>oldAuthToken</code> property.
     </td>
   </tr>
   <tr>
     <td>'message'</td>
     <td>
       All data that arrives on this socket is emitted through this event as a string.
+      The object produced by the listener will have a <code>message</code> property.
     </td>
   </tr>
 </table>
 
-### Errors
+## Errors
 
 <p>
   For the list of all Asyngular errors (and their properties) <a href="https://github.com/SocketCluster/sc-errors/blob/master/index.js">see sc-errors</a>.
@@ -214,7 +204,7 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
   to plain <code>Error</code> objects.
 </p>
 
-### Methods
+## Methods
 
 <table>
   <tr>
@@ -251,7 +241,7 @@ The second argument is a callback function (<code>processSubscriptions</code>) w
       closeListener(eventName)
     </td>
     <td>
-      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over the current backlog of events.
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over their current backlogs of events.
       This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In Asyngular, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
 
 ```js
@@ -302,7 +292,7 @@ while (exitConditionIsNotMet) {
       closeReceiver(receiverName)
     </td>
     <td>
-      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>receiverName</code> receiver) to <code>break</code> after they have finished iterating over the current backlog of data.
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>receiverName</code> receiver) to <code>break</code> after they have finished iterating over their current backlogs of data.
       This method is the recommended way to gracefully stop consuming data from a receiver; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the stream like this (note that no data will be missed):
 
 ```js
@@ -353,7 +343,7 @@ while (exitConditionIsNotMet) {
       closeProcedure(procedureName)
     </td>
     <td>
-      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>procedureName</code> procedure) to <code>break</code> after they have finished iterating over the current backlog of data.
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>procedureName</code> procedure) to <code>break</code> after they have finished iterating over their current backlogs of data.
       This method is the recommended way to gracefully stop consuming data from a procedure; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the stream like this (note that no data will be missed):
 
 ```js
@@ -575,7 +565,7 @@ for await (
       closeChannel(channelName)
     </td>
     <td>
-      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>channelName</code> channel and all of its listeners) to <code>break</code> after they have finished iterating over the current backlog of events.
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>channelName</code> channel and all of its listeners) to <code>break</code> after they have finished iterating over their current backlogs of events.
       This method is the recommended way to gracefully stop consuming channel data; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the channel stream like this (note that no data will be missed):
 
 ```js

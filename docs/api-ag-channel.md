@@ -4,13 +4,13 @@ title: AGChannel
 sidebar_label: AGChannel
 ---
 
-### Inherits from
+## Inherits from
 
 [WritableConsumableStream](https://github.com/SocketCluster/writable-consumable-stream)
 
-### Properties
+## Properties
 
-<table class="table">
+<table>
   <tr>
     <td>name</td>
     <td>The channel's name. Must be a string.</td>
@@ -44,8 +44,9 @@ sidebar_label: AGChannel
   </tr>
 </table>
 
-<h3>Events:</h3>
-<table class="table">
+## Events
+
+<table>
   <tr>
     <td>'dropOut'</td>
     <td>This is emitted whenever the subscription to this channel is lost.</td>
@@ -68,8 +69,9 @@ sidebar_label: AGChannel
   </tr>
 </table>
 
-<h3>Methods:</h3>
-<table class="table">
+## Methods
+
+<table>
   <tr>
     <td>getState()</td>
     <td>Returns the state of the channel as a string. Can be channel.SUBSCRIBED, channel.PENDING or channel.UNSUBSCRIBED.</td>
@@ -79,9 +81,8 @@ sidebar_label: AGChannel
     <td>Activate this channel so that it will receive all data published to it from the backend. You can provide an optional options object in the
       form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If waitForAuth is true, the channel
       will wait for the underlying socket to become authenticated before trying to subscribe to the server - This channel will then
-      behave as a "private channel" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="http://socketcluster.io/#!/docs/authentication">here</a> for more details.
+      behave as a "private channel" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication">here</a> for more details.
       The data property of the options object can be used to pass data along with the subscription.
-      See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how ot handle the data property.</td>
   </tr>
   <tr>
     <td>unsubscribe()</td>
@@ -125,7 +126,7 @@ sidebar_label: AGChannel
       closeListener(eventName)
     </td>
     <td>
-      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over the current backlog of events.
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over their current backlogs of events.
       This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In Asyngular, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
 
 ```js
@@ -184,7 +185,7 @@ while (exitConditionIsNotMet) {
       close()
     </td>
     <td>
-      This method will signal to all consuming <code>for-await-of</code> loops for the channel's streams (including all listener streams) to <code>break</code> after they have finished consuming their backlogs of data.
+      This method will signal to all consuming <code>for-await-of</code> loops for all of the channel's streams (including all listener streams) to <code>break</code> after they have finished consuming their backlogs of data.
     </td>
   </tr>
   <tr>
@@ -192,7 +193,7 @@ while (exitConditionIsNotMet) {
       kill()
     </td>
     <td>
-      This method will signal to all consuming <code>for-await-of</code> loops for the channel's streams (including all listener streams) to <code>break</code> immediately and will reset the aggregate backpressure for the channel to 0.
+      This method will signal to all consuming <code>for-await-of</code> loops for all of the channel's streams (including all listener streams) to <code>break</code> immediately and will reset the aggregate backpressure for the channel to 0.
     </td>
   </tr>
   <tr>

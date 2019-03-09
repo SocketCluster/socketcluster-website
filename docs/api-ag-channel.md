@@ -48,16 +48,12 @@ sidebar_label: AGChannel
 
 <table>
   <tr>
-    <td>'dropOut'</td>
-    <td>This is emitted whenever the subscription to this channel is lost.</td>
-  </tr>
-  <tr>
     <td>'subscribe'</td>
-    <td>When the subscription succeeds.</td>
+    <td>When the subscription succeeds. The object produced by the listener will have a <code>subscriptionOptions</code> property.</td>
   </tr>
   <tr>
     <td>'subscribeFail'</td>
-    <td>Happens when the subscription fails.</td>
+    <td>Happens when the subscription fails. The object produced by the listener will have an <code>error</code> and <code>subscriptionOptions</code> property.</td>
   </tr>
   <tr>
     <td>'unsubscribe'</td>
@@ -65,7 +61,7 @@ sidebar_label: AGChannel
   </tr>
   <tr>
     <td>'subscribeStateChange'</td>
-    <td>Whenever the channel's subscription state changes. The handler received an object with three properties: channel, oldState and newState.</td>
+    <td>Whenever the channel's subscription state changes. The object produced by the listener will have an <code>oldChannelState</code>, <code>newChannelState</code> and <code>subscriptionOptions</code> property.</td>
   </tr>
 </table>
 
@@ -73,16 +69,12 @@ sidebar_label: AGChannel
 
 <table>
   <tr>
-    <td>getState()</td>
-    <td>Returns the state of the channel as a string. Can be channel.SUBSCRIBED, channel.PENDING or channel.UNSUBSCRIBED.</td>
-  </tr>
-  <tr>
     <td>subscribe([options])</td>
     <td>Activate this channel so that it will receive all data published to it from the backend. You can provide an optional options object in the
       form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If waitForAuth is true, the channel
       will wait for the underlying socket to become authenticated before trying to subscribe to the server - This channel will then
       behave as a "private channel" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication">here</a> for more details.
-      The data property of the options object can be used to pass data along with the subscription.
+      The <code>data</code> property of the <code>options</code> object can be used to pass data along with the subscription.
   </tr>
   <tr>
     <td>unsubscribe()</td>

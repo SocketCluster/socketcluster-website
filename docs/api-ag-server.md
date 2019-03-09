@@ -21,7 +21,7 @@ sidebar_label: AGServer
   <tr>
     <td>clients</td>
     <td>
-      An object which holds all fully connected clients on the current server (only those who have completed the handshake).
+      An object which holds all fully connected clients on the current server (only those which have completed the handshake).
       Keys are socket IDs and the values are <a href="api-ag-server-socket">AGServerSocket</a> instances.
     </td>
   </tr>

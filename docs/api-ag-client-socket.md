@@ -17,12 +17,12 @@ sidebar_label: AGClientSocket
   </tr>
   <tr>
     <td>clientId</td>
-    <td>The id of the client socket. This does not change between connections.</td>
+    <td>The id of the socket client. This does not change between connections.</td>
   </tr>
   <tr>
     <td>state</td>
     <td>
-      The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN or socket.CLOSED.
+      The current state of the socket as a string - Can be <code>socket.CONNECTING</code>, <code>socket.OPEN</code> or <code>socket.CLOSED</code>.
     </td>
   </tr>
   <tr>
@@ -40,7 +40,7 @@ sidebar_label: AGClientSocket
   <tr>
     <td>connectAttempts</td>
     <td>
-      The number of automatic connect/reconnect attempts which the socket has executed (including the current latest attempt).
+      The number of automatic connect/reconnect attempts which the socket has executed (including the current latest attempt). This value resets upon a successful connection.
     </td>
   </tr>
   <tr>
@@ -48,7 +48,7 @@ sidebar_label: AGClientSocket
       authState
     </td>
     <td>
-      The last known authentication state of the socket as a string. Can be either 'authenticated' (socket.AUTHENTICATED) or 'unauthenticated' (socket.UNAUTHENTICATED).
+      The last known authentication state of the socket as a string. Can be either 'authenticated' (<code>socket.AUTHENTICATED</code>) or 'unauthenticated' (<code>socket.UNAUTHENTICATED</code>).
     </td>
   </tr>
   <tr>
@@ -56,7 +56,7 @@ sidebar_label: AGClientSocket
        authToken
      </td>
      <td>
-       The auth token (as a plain Object) currently associated with the socket. This property will be null if no token is associated with this socket.
+       The auth token (as a plain Object) currently associated with the socket. This property will be <code>null</code> if no token is associated with this socket.
      </td>
    </tr>
    <tr>
@@ -64,7 +64,7 @@ sidebar_label: AGClientSocket
        signedAuthToken
      </td>
      <td>
-       The signed auth token currently associated with the socket (encoded and signed in the JWT format). This property will be null if no token is associated with this socket.
+       The signed auth token currently associated with the socket (encoded and signed in the JWT format). This property will be <code>null</code> if no token is associated with this socket.
      </td>
    </tr>
    <tr>
@@ -94,14 +94,14 @@ sidebar_label: AGClientSocket
 <table>
   <tr>
     <td>'error'</td>
-    <td>This gets triggered when an error occurs on this socket. The object produced by the listener will have an <code>error</code> property which contains the <code>Error</code> object.</td>
+    <td>This gets triggered when an error occurs on this socket. The object produced by the listener will have an <code>error</code> property which contains an error object.</td>
   </tr>
   <tr>
     <td>'connect'</td>
     <td>
       <p>
         Emitted whenever the socket connects to the server (includes reconnections).
-        The object produced by the listener will have an <code>id</code>, <code>isAuthenticated</code>, <code>authToken</code>, <code>pingTimeout</code> and <code>processPendingSubscriptions</code> property. If an issue occurred as part of the handshake, there will also be an <code>authError</code> property which will hold an <code>Error</code> object.
+        The object produced by the listener will have an <code>id</code>, <code>isAuthenticated</code>, <code>authToken</code>, <code>pingTimeout</code> and <code>processPendingSubscriptions</code> property. If an issue occurred as part of the handshake, there will also be an <code>authError</code> property which will hold an error object.
       </p>
       <p>
         The <code>processPendingSubscriptions</code> property represents a callback function which, when called, will send all pending channel subscriptions to the server (to activate pending channels).
@@ -115,7 +115,7 @@ sidebar_label: AGClientSocket
   </tr>
   <tr>
     <td>'connectAbort'</td>
-    <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the connection phase or it may be triggered intentionally by calling socket.disconnect() while the socket is connecting. The object produced by the listener will have a <code>code</code> and <code>reason</code> property.</td>
+    <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the connection phase or it may be triggered intentionally by calling <code>socket.disconnect()</code> while the socket is connecting. The object produced by the listener will have a <code>code</code> and <code>reason</code> property.</td>
   </tr>
   <tr>
     <td>'close'</td>
@@ -132,11 +132,11 @@ sidebar_label: AGClientSocket
   </tr>
   <tr>
     <td>'raw'</td>
-    <td>This gets triggered whenever the server socket on the other side calls socket.send(...). The object produced by the listener will have a <code>message</code> property.</td>
+    <td>This gets triggered whenever the server socket on the other side calls <code>socket.send(...)</code>. The object produced by the listener will have a <code>message</code> property.</td>
   </tr>
   <tr>
     <td>'kickOut'</td>
-    <td>Occurs when this socket is kicked out of a particular channel by the backend. Arguments are (message, channelName). The object produced by the listener will have a <code>channel</code> and <code>message</code> property.</td>
+    <td>Occurs when this socket is kicked out of a particular channel by the backend. The object produced by the listener will have a <code>channel</code> and <code>message</code> property.</td>
   </tr>
   <tr>
     <td>'subscribe'</td>
@@ -144,7 +144,7 @@ sidebar_label: AGClientSocket
   </tr>
   <tr>
     <td>'subscribeFail'</td>
-    <td>Happens when the subscription fails. The first argument passed to the handler will be the error which caused the subscription to fail. The object produced by the listener will have an <code>error</code>, <code>channel</code> and <code>subscriptionOptions</code> property.</td>
+    <td>Happens when the subscription fails. The object produced by the listener will have an <code>error</code>, <code>channel</code> and <code>subscriptionOptions</code> property.</td>
   </tr>
   <tr>
     <td>'unsubscribe'</td>
@@ -153,7 +153,7 @@ sidebar_label: AGClientSocket
   <tr>
     <td>'authStateChange'</td>
     <td>
-      Triggers whenever the client's authState changes between socket.AUTHENTICATED and socket.UNAUTHENTICATED states.
+      Triggers whenever the client's authState changes between <code>socket.AUTHENTICATED</code> and <code>socket.UNAUTHENTICATED</code> states.
       The object produced by the listener will have at least two properties: <code>oldAuthState</code> and <code>newAuthState</code>.
       If <code>newAuthState</code> is 'authenticated', the object will also have an additional <code>signedAuthToken</code> property which
       will be the base64 signed JWT auth token as a string and an <code>authToken</code> property which will represent the token as a plain Object.
@@ -169,7 +169,7 @@ sidebar_label: AGClientSocket
   <tr>
     <td>'subscribeRequest'</td>
     <td>
-      Emits the channel name when a `subscribe` action is invoked by the client. The object produced by the listener will have a <code>channel</code> and <code>subscriptionOptions</code> property.
+      Emits the channel name when a subscribe action is invoked by the client. The object produced by the listener will have a <code>channel</code> and <code>subscriptionOptions</code> property.
     </td>
   </tr>
   <tr>
@@ -199,8 +199,8 @@ sidebar_label: AGClientSocket
 
 <p>
   For the list of all Asyngular errors (and their properties) <a href="https://github.com/SocketCluster/sc-errors/blob/master/index.js">see sc-errors</a>.
-  To check the type of an error in Asyngular, you should use the <code>name</code> property of the error (do not use the instanceof statement).
-  Errors which are sent to the client from the server will be dehydrated on the server and rehydrated on the client - As a result they will be cast
+  To check the type of an error in Asyngular, you should use the <code>name</code> property of the error (do not use the <code>instanceof</code> statement).
+  Errors which are sent to the client from the server will be dehydrated on the server and rehydrated on the client - As a result, they will be cast
   to plain <code>Error</code> objects.
 </p>
 
@@ -217,23 +217,15 @@ sidebar_label: AGClientSocket
   </tr>
   <tr>
     <td>
-      getState()
-    </td>
-    <td>
-      Returns the state of the socket as a string constant.
-      <ul>
-        <li><b>'connecting'</b> - socket.CONNECTING</li>
-        <li><b>'open'</b> - socket.OPEN</li>
-        <li><b>'closed'</b> - socket.CLOSED</li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>
       listener(eventName)
     </td>
     <td>
-      This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+      <p>
+        This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
+      </p>
+      <p>
+        See <a href="basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+      </p>
     </td>
   </tr>
   <tr>
@@ -502,9 +494,9 @@ while (exitConditionIsNotMet) {
       transmitPublish(channelName, data)
     </td>
     <td>
-      Publish data to the specified channelName. Do not expect a response from the server.
-      The channelName argument must be a string.
-      The data argument can be any JSON-compatible object/array or primitive.
+      Publish data to the specified <code>channelName</code>. Do not expect a response from the server.
+      The <code>channelName</code> argument must be a string.
+      The <code>data</code> argument can be any JSON-compatible object/array or primitive.
     </td>
   </tr>
   <tr>
@@ -512,9 +504,9 @@ while (exitConditionIsNotMet) {
       invokePublish(channelName, data)
     </td>
     <td>
-      Publish data to the specified channelName. Expect a response from the server.
-      The channelName argument must be a string.
-      The data argument can be any JSON-compatible object/array or primitive.
+      Publish data to the specified <code>channelName</code>. Expect a response from the server.
+      The <code>channelName</code> argument must be a string.
+      The <code>data</code> argument can be any JSON-compatible object/array or primitive.
       This method returns a <code>Promise</code> which will be rejected if the operation fails.
       For example, it can be rejected if the <code>MIDDLEWARE_INBOUND</code> middleware blocks the action on the server side.
       The promise will resolve once the server has processed the publish action.
@@ -538,6 +530,18 @@ for await (
   // Consume channel data...
 }
 ```
+
+Because the `socket.subscribe(...)` method returns an `AGChannel` instance, you can also consume it directly like this:
+
+```js
+for await (
+  let data of socket.subscribe('myChannel')
+) {
+  // Consume channel data...
+}
+```
+
+Note that `socket.subscribe(...)` can be called multiple times for the same channel; if already subscribed, the method will only return the channel.
 </td>
   </tr>
   <tr>
@@ -555,7 +559,7 @@ for await (
     </td>
     <td>
       Returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a>.
-      This method is different from subscribe() in that it will not try to subscribe to that channel.
+      This method is different from <code>socket.subscribe(...)</code> in that it will not try to subscribe to that channel.
       The returned channel will be inactive initially.
       You can call <code>channel.subscribe()</code> later to activate that channel when required.
     </td>

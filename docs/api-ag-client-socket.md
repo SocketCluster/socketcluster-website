@@ -398,7 +398,7 @@ while (exitConditionIsNotMet) {
       transmit(receiverName, data)
     </td>
     <td>
-      Transmit the specified event to the corresponding server-side socket <code>receiver</code>. You can pass any JSON-compatible object as data.
+      Transmit the specified event to the corresponding server side socket <code>receiver</code>. You can pass any JSON-compatible object as data.
       This method doesn't return anything and doesn't throw or reject.
     </td>
   </tr>
@@ -407,7 +407,7 @@ while (exitConditionIsNotMet) {
       invoke(procedureName, data)
     </td>
     <td>
-      Invoke the specified <code>procedure</code> (RPC) on the corresponding server-side socket. You can pass any JSON-compatible object as data. This method returns a <code>Promise</code>. Note that there is a default timeout of 10 seconds to receive a response from the server. You can change this limit by setting <code>ackTimeout</code> when instantiating the client. If the client does not receive a response in time, the returned <code>Promise</code> will reject with a <code>TimeoutError</code>.
+      Invoke the specified <code>procedure</code> (RPC) on the corresponding server side socket. You can pass any JSON-compatible object as data. This method returns a <code>Promise</code>. Note that there is a default timeout of 10 seconds to receive a response from the server. You can change this limit by setting <code>ackTimeout</code> when instantiating the client. If the client does not receive a response in time, the returned <code>Promise</code> will reject with a <code>TimeoutError</code>.
     </td>
   </tr>
   <tr>
@@ -519,7 +519,7 @@ while (exitConditionIsNotMet) {
     <td>
       Subscribe to a particular channel.
       This function returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> and lets you consume data that is published to the channel.
-      You can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are called "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
+      You can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are called "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
 
 To consume a channel, it is recommended to use a `for-await-of` loop like this:
 

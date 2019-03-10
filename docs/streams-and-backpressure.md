@@ -7,7 +7,7 @@ sidebar_label: Streams and backpressure
 ## Feature overview
 
 Asyngular lets you to consume data and events by iterating over asynchrounous streams.
-The socket object (AGServerSocket) is composed of the following main streams (and substreams):
+The socket object (`AGServerSocket`) is composed of the following main streams (and substreams):
 
 - Inbound stream
   - Inbound middleware stream
@@ -39,7 +39,7 @@ For these reasons, Asyngular exposes a simple API for tracking stream backpressu
 ## API overview
 
 Note that this section only documents the most important/common methods for managing backpressure.
-The full API offers much more granularity/flexibility when it comes to measuring and closing/killing specific streams.
+The full API offers more granularity/flexibility when it comes to measuring and closing/killing specific streams.
 For the full API, please see the API docs for the relevant class.
 
 ### Measure socket backpressure
@@ -61,7 +61,7 @@ socket.getAllReceiversBackpressure();
 socket.getAllProceduresBackpressure();
 ```
 
-!! The `socket.getBackpressure()` function is very important because it can be used to quickly identify if a client is trying to overload the server socket with actions/messages. If a socket builds up too much backpressure, you should `socket.disconnect()` it. By default, disconnecting a socket will cause all of its streams to be killed immediately and therefore drop the backpressure on that socket to 0. One of the best places to measure backpressure is inside the `MIDDLEWARE_INBOUND` middleware because all inbound actions and messages from the client socket pass through that middleware stream.
+!! The `socket.getBackpressure()` function is very important because it can be used to quickly identify if a client is trying to overload the server socket with actions/messages. If a socket builds up too much backpressure, you should `socket.disconnect()` it. By default, disconnecting a socket will cause all of its streams to be killed immediately and therefore drop the backpressure on that socket to 0. One of the best places to measure backpressure is inside the `MIDDLEWARE_INBOUND_RAW` middleware because all inbound actions and messages from the client socket pass through that middleware stream.
 
 Because client sockets also handle channels, they expose an additional method for monitoring aggregate channel backpressure on the client:
 

@@ -254,7 +254,14 @@ ul.features-list li {
   }
 }
 
-.footer p {
+.footer {
+  width: 100%;
+  margin-top: -5px;
+}
+
+.footer span {
+  display: block;
+  float: left;
   font-size: 14px;
 }
 
@@ -396,6 +403,10 @@ position: relative;
   margin-right: 20px;
 }
 
+.footer-separator {
+  margin-right: 20px;
+}
+
 .footer-lisk-donations {
   float: right;
 }
@@ -404,4 +415,12 @@ position: relative;
   .footer-lisk-donations {
     float: left;
   }
+}
+
+.link-important {
+  color: #00AA00;
+}
+
+.link-important:hover {
+  color: #008800;
 }

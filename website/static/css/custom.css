@@ -35,6 +35,10 @@
   }
 }
 
+.postHeader h1 {
+  margin-top: 0;
+}
+
 .blockHeading {
   margin-top: 0;
 }

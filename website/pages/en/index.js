@@ -129,7 +129,7 @@ class Index extends React.Component {
             title: 'Deploy easily',
           },
           {
-            content: 'After depoying your app to a Kubernetes cluster. You can scale indefinitely by using the `kubectl scale deployment` command to add more `agc-worker` and `agc-broker` instances as needed.',
+            content: 'After deploying your app to a Kubernetes cluster. You can scale indefinitely by using the `kubectl scale deployment` command to add more `agc-worker` and `agc-broker` instances as needed.',
             image: `${baseUrl}img/icons/scale.png`,
             imageAlign: 'top',
             title: 'Scale easily',

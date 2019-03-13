@@ -117,7 +117,7 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: 'Pub/sub channels are extremely cheap. You can have millions of unique channels without worrying about memory or CPU usage. Channels are automatically cleaned up when they are no longer used.',
+            content: 'Pub/sub channels are very cheap. You can have millions of unique channels without worrying about memory or CPU usage. Channels are automatically cleaned up when they are no longer used.',
             image: `${baseUrl}img/icons/unlimited-channels.png`,
             imageAlign: 'top',
             title: 'Handle unlimited channels',

@@ -23,7 +23,7 @@ const users = [
 const siteConfig = {
   title: 'Asyngular', // Title for your website.
   tagline: 'Highly scalable realtime framework optimized for async/await (compatible with SocketCluster)',
-  url: 'https://your-docusaurus-test-site.com', // Your website URL
+  url: 'https://asyngular.io', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',

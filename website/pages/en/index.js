@@ -37,7 +37,17 @@ class HomeSplash extends React.Component {
 
     const ProjectTitle = () => (
       <h2 className="projectTitle">
-        {siteConfig.title}
+        {siteConfig.title} <a
+          className="github-button"
+          href="https://github.com/SocketCluster/asyngular"
+          data-icon="octicon-star"
+          data-count-href="https://github.com/SocketCluster/asyngular/stargazers"
+          data-show-count="true"
+          data-count-aria-label="# stargazers on GitHub"
+          data-size="large"
+          aria-label="Star this project on GitHub">
+          Star
+        </a>
         <small>{siteConfig.tagline}</small>
       </h2>
     );

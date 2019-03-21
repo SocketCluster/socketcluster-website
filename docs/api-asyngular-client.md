@@ -62,7 +62,7 @@ sidebar_label: asyngularClient
           clicks a link to leave the page, or types a new URL into the address bar.
           Defaults to true.</li>
         <li><b>wsOptions</b>: Object - This object will be passed to the constructor of the <code>ws</code> <code>WebSocket</code> instance.
-          The list of supported properties is here: https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketaddress-protocols-options</li>
+          The list of supported properties is <a href="https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketaddress-protocols-options">here</a>.</li>
         <li><b>batchOnHandshake</b>: Boolean - Whether or not to start batching messages immediately after the connection handshake completes. This is useful for handling connection recovery when the client tries to resubscribe to a large number of channels in a very short amount of time. Defaults to false.</li>
         <li><b>batchOnHandshakeDuration</b>: Number - The amount of time in milliseconds after the handshake completes during which all socket messages will be batched. Defaults to 100.</li>
         <li><b>batchInterval</b>: Number - The amount of milliseconds to wait before flushing each batch of messages. Defaults to 50.</li>

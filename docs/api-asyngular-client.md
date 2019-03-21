@@ -54,17 +54,15 @@ sidebar_label: asyngularClient
           the socket as soon as it is created. Default is true.</li>
         <li><b>autoReconnect</b>: Boolean - Whether or not to automatically reconnect
           the socket when it loses the connection.</li>
-        <li><b>autoReconnectOptions</b>: Object - Valid properties are: initialDelay
-          (milliseconds), randomness (milliseconds), multiplier (decimal;
-          default is 1.5) and maxDelay (milliseconds).</li>
+        <li><b>autoReconnectOptions</b>: Object - Valid properties are: <code>initialDelay</code>
+          (milliseconds), <code>randomness</code> (milliseconds), <code>multiplier</code> (decimal;
+          default is 1.5) and <code>maxDelay</code> (milliseconds).</li>
         <li><b>disconnectOnUnload</b>: Boolean - Whether or not a client automatically disconnects on page unload.
           If enabled, the client will disconnect when a user navigates away from the page. This can happen when a user closes the tab/window,
           clicks a link to leave the page, or types a new URL into the address bar.
           Defaults to true.</li>
-        <li><b>perMessageDeflate</b>: Boolean - Turn on/off per-message deflate compression.
-          If this is true, you need to make sure that this property is also set to true on the server-side. Note that this option is
-          only relevant when running the client from Node.js. Most modern browsers will automatically use perMessageDeflate so you only
-          need to turn it on from the server-side.</li>
+        <li><b>wsOptions</b>: Object - This object will be passed to the constructor of the <code>ws</code> <code>WebSocket</code> instance.
+          The list of supported properties is here: https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketaddress-protocols-options</li>
         <li><b>batchOnHandshake</b>: Boolean - Whether or not to start batching messages immediately after the connection handshake completes. This is useful for handling connection recovery when the client tries to resubscribe to a large number of channels in a very short amount of time. Defaults to false.</li>
         <li><b>batchOnHandshakeDuration</b>: Number - The amount of time in milliseconds after the handshake completes during which all socket messages will be batched. Defaults to 100.</li>
         <li><b>batchInterval</b>: Number - The amount of milliseconds to wait before flushing each batch of messages. Defaults to 50.</li>
@@ -79,8 +77,6 @@ sidebar_label: asyngularClient
           name); defaults to 'asyngular.authToken'.</li>
         <li><b>binaryType</b>: String - The type to use to represent binary on
           the client. Defaults to 'arraybuffer'.</li>
-        <li><b>rejectUnauthorized</b>: Boolean - Set this to false during
-          debugging - Otherwise client connection will fail when using self-signed certificates.</li>
         <li><b>cloneData</b>: Boolean - If you set this to true, any data/objects/arrays that you pass to the client socket
           will be cloned before being sent/queued up. If the socket is disconnected and you emit an event, it will be added to a queue
           which will be processed upon reconnection. The cloneData option is false by default; this means that if you emit/publish an object

@@ -432,3 +432,84 @@ while (exitConditionIsNotMet) {
     </td>
   </tr>
 </table>
+
+## Stream management methods
+
+These methods should only be used for advanced use cases when you need more control over stream management; for example, when you want to <code>break</code> out of a specific consumer loop without affecting any other consumer.
+These methods can also be useful to check that consumers are being cleaned up properly and to selectively kill specific consumers which are causing backpressure to build up.
+For most use cases, you should try to stick to the methods in the table above as it will lead to cleaner logic.
+
+<table>
+  <tr>
+    <td>
+      getListenerConsumerStatsList(eventName)
+    </td>
+    <td>
+      Get the list of consumers which are consuming data from the specified event listener. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllListenersConsumerStatsList()
+    </td>
+    <td>
+      Get the list of all consumers which are consuming data from any listener on the socket. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killListenerConsumer(consumerId)
+    </td>
+    <td>
+      This will cause the target listener consumer's <code>for-await-of</code> loop to <code>break</code> immediately.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getReceiverConsumerStatsList(receiverName)
+    </td>
+    <td>
+      Get the list of consumers which are consuming data from the specified receiver. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllReceiversConsumerStatsList()
+    </td>
+    <td>
+      Get the list of all consumers which are consuming data from all receivers on the socket. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killReceiverConsumer(consumerId)
+    </td>
+    <td>
+      This will cause the target receiver consumer's <code>for-await-of</code> loop to <code>break</code> immediately.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getProcedureConsumerStatsList(procedureName)
+    </td>
+    <td>
+      Get the list of consumers which are consuming data from the specified procedure. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllProceduresConsumerStatsList()
+    </td>
+    <td>
+      Get the list of all consumers which are consuming data from all procedures on the socket. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killProcedureConsumer(consumerId)
+    </td>
+    <td>
+      This will cause the target procedure consumer's <code>for-await-of</code> loop to <code>break</code> immediately.
+    </td>
+  </tr>
+</table>

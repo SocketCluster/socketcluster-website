@@ -643,6 +643,22 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
+      killAllChannelOutputs()
+    </td>
+    <td>
+      This method is similar to <code>killAllChannels()</code> except that it only kills channel output streams; channel event listeners will not be affected. This will reset the aggregate backpressure for all channel output streams to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllChannelListeners()
+    </td>
+    <td>
+      This method is similar to <code>killAllChannels()</code> except that it only kills channel listener streams; channel output streams will not be affected. This will reset the aggregate backpressure for all channel listener streams to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
       subscriptions(includePending)
     </td>
     <td>

@@ -62,7 +62,7 @@ let data of agServer.exchange.channel('myChannel')
 }
 ```
 
-Because the `socket.subscribe(...)` method returns an `AGChannel` instance, you can also consume it directly like this:
+Because the `agServer.exchange.subscribe(...)` method returns an `AGChannel` instance, you can also consume it directly like this:
 
 ```js
 for await (
@@ -86,9 +86,102 @@ Note that `agServer.exchange.subscribe(...)` can be called multiple times for th
     <td>channel(channelName)</td>
     <td>
       Returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a>.
-      This method is different from <code>socket.subscribe(...)</code> in that it will not try to subscribe to that channel.
+      This method is different from <code>exchange.subscribe(...)</code> in that it will not try to subscribe to that channel.
       The returned channel will be inactive initially.
       You can call <code>channel.subscribe()</code> later to activate that channel when required.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      closeChannel(channelName)
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops (for the <code>channelName</code> channel and all of its listeners) to <code>break</code> after they have finished iterating over their current backlogs of events.
+      This method is the recommended way to gracefully stop consuming channel data; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the channel stream like this (note that no data will be missed):
+
+```js
+while (exitConditionIsNotMet) {
+  for await (
+    let data of agServer.exchange.channel('myChannel')
+  ) {
+    // Consume channel data...
+  }
+}
+```
+</td>
+  </tr>
+  <tr>
+    <td>
+      channelCloseOutput(channelName)
+    </td>
+    <td>
+      This method is like <code>closeChannel(channelName)</code> except that it only closes the main channel (output) stream. Listener consumers on the channel will not be affected.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      channelCloseAllListeners(channelName)
+    </td>
+    <td>
+      This method is like <code>closeChannel(channelName)</code> except that it only closes listener streams on the channel. The main channel output stream will not be affected.
+      To close specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      closeAllChannels()
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for all channels (and all of their listeners) to <code>break</code> after they have finished consuming their respective backlogs of events.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killChannel(channelName)
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for the <code>channelName</code> channel (and all of its listeners) to <code>break</code> immediately. This will reset the backpressure for that channel (and all of its event listeners) to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      channelKillOutput(channelName)
+    </td>
+    <td>
+      This method is like <code>killChannel(channelName)</code> except that it only kills the main channel (output) stream. Listener consumers on the channel will not be affected.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      channelKillAllListeners(channelName)
+    </td>
+    <td>
+      This method is like <code>killChannel(channelName)</code> except that it only kills listener streams on the channel. The main channel output stream will not be affected.
+      To kill specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllChannels()
+    </td>
+    <td>
+      This method will signal to all consuming <code>for-await-of</code> loops for all channels (and all of of their listeners) to <code>break</code> immediately. This will reset the aggregate backpressure for all channels (and all of their event listeners) to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllChannelOutputs()
+    </td>
+    <td>
+      This method is similar to <code>killAllChannels()</code> except that it only kills channel output streams; channel event listeners will not be affected. This will reset the aggregate backpressure for all channel output streams to 0.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      killAllChannelListeners()
+    </td>
+    <td>
+      This method is similar to <code>killAllChannels()</code> except that it only kills channel listener streams; channel output streams will not be affected. This will reset the aggregate backpressure for all channel listener streams to 0.
     </td>
   </tr>
   <tr>

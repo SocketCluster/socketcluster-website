@@ -163,7 +163,7 @@ For most use cases, you should try to stick to the methods in the table above as
       getAllChannelOutputsConsumerStatsList()
     </td>
     <td>
-      Get the list of all consumers which are consuming output data from all channels which are bound to the exchange instance. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+      Get the list of all consumers which are consuming output data from any channel which is bound to the exchange instance. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
     </td>
   </tr>
   <tr>

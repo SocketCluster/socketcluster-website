@@ -56,9 +56,9 @@ To consume a channel, it is recommended to use a `for-await-of` loop like this:
 
 ```js
 for await (
-let data of exchange.channel('myChannel')
+  let data of exchange.channel('myChannel')
 ) {
-// Consume channel data...
+  // Consume channel data...
 }
 ```
 
@@ -66,9 +66,9 @@ Because the `agServer.exchange.subscribe(...)` method returns an `AGChannel` ins
 
 ```js
 for await (
-let data of exchange.subscribe('myChannel')
+  let data of exchange.subscribe('myChannel')
 ) {
-// Consume channel data...
+  // Consume channel data...
 }
 ```
 

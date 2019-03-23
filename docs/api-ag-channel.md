@@ -242,7 +242,7 @@ For most use cases, you should try to stick to the methods in the table above as
       getAllListenersConsumerStatsList()
     </td>
     <td>
-      Get the list of all consumers which are consuming data from any listener on the channel. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
+      Get the list of all consumers which are consuming events from any listener on the channel. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
     </td>
   </tr>
   <tr>
@@ -263,26 +263,10 @@ For most use cases, you should try to stick to the methods in the table above as
   </tr>
   <tr>
     <td>
-      getAllListenersConsumerStatsList()
-    </td>
-    <td>
-      Get the list of all consumers which are consuming events from any listener on the channel. This method returns a list of objects which have an <code>id</code> and <code>backpressure</code> property.
-    </td>
-  </tr>
-  <tr>
-    <td>
       killOutputConsumer(consumerId)
     </td>
     <td>
       This will cause the target channel output consumer's <code>for-await-of</code> loop to <code>break</code> immediately.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      killListenerConsumer(consumerId)
-    </td>
-    <td>
-      This will cause the target channel listener consumer's <code>for-await-of</code> loop to <code>break</code> immediately.
     </td>
   </tr>
 </table>

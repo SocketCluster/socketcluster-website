@@ -12,7 +12,7 @@ For the operating system, Linux or OSX is recommended. In addition to this, the 
 - `docker` CLI. [Install Docker](https://docs.docker.com/install/).
 - `kubectl` CLI. [Install Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 
-If using, GKE as your Kubernetes cluster, you will also need to install the gcloud command: https://cloud.google.com/sdk/install
+If using GKE as your Kubernetes cluster, you will also need to install the gcloud command: https://cloud.google.com/sdk/install
 
 !! If you want to setup your Kubernetes cluster from scratch, consider using [Rancher](https://rancher.com/) or [kops](https://github.com/kubernetes/kops).
 
@@ -72,7 +72,7 @@ asyngular stop
 
 ## Deploy the app to a Kubernetes cluster (initial deployment)
 
-In this example, we will describe how to deploy to the [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) for simplicity.
+In this example, we will describe how to deploy to the [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) for simplicity. Note that if you are using GKE, it is highly recommended that you also read the `Google Kubernetes Engine (GKE)` section below.
 
 By default, the Asyngular app is configured to be served over TLS/HTTPS/WSS so you will either need to disable TLS on the Ingress resource or you will need to provide the path to a private key and cert to use for TLS (the files need to be on your local machine; you may want to use a self-signed key and cert pair for maximum simplicity).
 
@@ -98,7 +98,26 @@ Just follow the prompts. The first deployment will prompt you for a lot of info.
 
 !! Subsequent deployments using `asyngular deploy-update` should be much faster; often less than a minute.
 
-!! On GKE, by default, the ingress load balancer has a connection timeout of `30` seconds; this is not ideal for WebSockets, so you may want to increase it to a bigger value like `86400` (one day). See [this page](https://cloud.google.com/load-balancing/docs/backend-service#timeout-setting) for steps.
+### Google Kubernetes Engine (GKE)
+
+The default ingress on GKE can be problematic for a number of reasons:
+
+- It can take a relatively long time (several minutes) for the ingress to start working after the initial deployment.
+- The default GKE ingress has a very short connection timeout which kills the WebSocket connection after only 30 seconds (although the timeout can be configured through the control panel; `86400` seconds or higher is recommended; see [this page](https://cloud.google.com/load-balancing/docs/backend-service#timeout-setting) for steps).
+- Latency tends to be unpredictable and can sometimes exceed 200ms.
+
+An alternative to using the default ingress is to use the [Kubernetes NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/).
+
+To use it, you just need to run the following additional commands:
+
+- `kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)`
+- `kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/master/deploy/mandatory.yaml`
+- `kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/master/deploy/provider/cloud-generic.yaml`
+
+!! These commands can be executed after deployment even while your other services are running.
+Note that the NGINX Ingress Controller relies on the existing `kubernetes/agc-ingress.yaml` file which comes with Asyngular so you don't need to modify those.
+
+Once nginx is running, you can access your Asyngular app online by navigating to the `Services` tab of your GKE control panel and then opening the relevant ip:port link next to the `ingress-nginx` (`Load balancer`) entry.
 
 ## Deploy updates
 

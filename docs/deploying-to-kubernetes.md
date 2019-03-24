@@ -108,11 +108,19 @@ The default ingress on GKE can be problematic for a number of reasons:
 
 An alternative to using the default ingress is to use the [Kubernetes NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/).
 
-To use it, you just need to run the following additional commands:
+To use it, you just need to run the following 3 additional commands:
 
-- `kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)`
-- `kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/master/deploy/mandatory.yaml`
-- `kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/master/deploy/provider/cloud-generic.yaml`
+```bash
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
+```
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/master/deploy/mandatory.yaml
+```
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/master/deploy/provider/cloud-generic.yaml
+```
 
 !! These commands can be executed after deployment even while your other services are running.
 Note that the NGINX Ingress Controller relies on the existing `kubernetes/agc-ingress.yaml` file which comes with Asyngular so you don't need to modify those.

@@ -123,7 +123,7 @@ kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/m
 ```
 
 !! These commands can be executed after deployment even while your other services are running.
-Note that the NGINX Ingress Controller relies on the existing `kubernetes/agc-ingress.yaml` file which comes with Asyngular so you don't need to modify those.
+Note that the NGINX Ingress Controller relies on the existing `kubernetes/agc-ingress.yaml` file which comes with Asyngular so you don't need to modify it.
 
 Once nginx is running, you can access your Asyngular app online by navigating to the `Services` tab of your GKE control panel and then opening the relevant ip:port link next to the `ingress-nginx` (`Load balancer`) entry.
 

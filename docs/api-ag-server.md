@@ -361,7 +361,7 @@ while (exitConditionIsNotMet) {
     </td>
   </tr>
   <tr>
-    <td>
+    <td style="word-break: break-all;">
       getAllListenersBackpressure()
     </td>
     <td>
@@ -369,8 +369,8 @@ while (exitConditionIsNotMet) {
     </td>
   </tr>
   <tr>
-    <td>
-      getListenerBackpressure(<br/>&nbsp;&nbsp;eventName<br/>)
+    <td style="word-break: break-all;">
+      getListenerBackpressure(eventName)
     </td>
     <td>
       Get the aggregate backpressure for the <code>eventName</code> listener stream on the server instance. The aggregate backpressure represents the highest backpressure of all consumers for that listener.

@@ -465,6 +465,14 @@ while (exitConditionIsNotMet) {
   </tr>
   <tr>
     <td>
+      getListenerBackpressure(eventName)
+    </td>
+    <td>
+      Get the aggregate backpressure for the <code>eventName</code> listener stream on the current socket. The aggregate backpressure represents the highest backpressure of all consumers for that listener.
+    </td>
+  </tr>
+  <tr>
+    <td>
       getAllReceiversBackpressure()
     </td>
     <td>

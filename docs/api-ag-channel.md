@@ -217,7 +217,7 @@ while (exitConditionIsNotMet) {
       getListenerBackpressure(eventName)
     </td>
     <td>
-      Get the aggregate backpressure for the <code>eventName</code> listener stream on the current channel. The aggregate backpressure represents the highest backpressure of all consumers.
+      Get the aggregate backpressure for the <code>eventName</code> listener stream on the current channel. The aggregate backpressure represents the highest backpressure of all consumers for that listener.
     </td>
   </tr>
 </table>

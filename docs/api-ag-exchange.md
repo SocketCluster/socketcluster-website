@@ -207,7 +207,7 @@ while (exitConditionIsNotMet) {
       getBackpressure()
     </td>
     <td>
-      Get the aggregate backpressure for all streams on the current exchange instance. The aggregate backpressure represents the highest backpressure of all consumers.
+      Get the aggregate backpressure for all streams on the exchange instance. The aggregate backpressure represents the highest backpressure of all consumers.
     </td>
   </tr>
   <tr>
@@ -215,7 +215,15 @@ while (exitConditionIsNotMet) {
       getAllListenersBackpressure()
     </td>
     <td>
-      Get the aggregate backpressure of all <code>listener</code> streams on the current exchange instance.
+      Get the aggregate backpressure of all <code>listener</code> streams on the exchange instance.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getListenerBackpressure(eventName)
+    </td>
+    <td>
+      Get the aggregate backpressure for the <code>eventName</code> listener stream on the exchange instance. The aggregate backpressure represents the highest backpressure of all consumers for that listener.
     </td>
   </tr>
   <tr>
@@ -223,7 +231,7 @@ while (exitConditionIsNotMet) {
       getAllChannelsBackpressure()
     </td>
     <td>
-      Get the aggregate backpressure of all <code>channel</code> streams on the current exchange instance.
+      Get the aggregate backpressure of all <code>channel</code> streams on the exchange instance.
     </td>
   </tr>
 </table>

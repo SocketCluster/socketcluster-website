@@ -368,6 +368,14 @@ while (exitConditionIsNotMet) {
       Returns the aggregate backpressure for the server's event listener streams.
     </td>
   </tr>
+  <tr>
+    <td>
+      getListenerBackpressure(eventName)
+    </td>
+    <td>
+      Get the aggregate backpressure for the <code>eventName</code> listener stream on the server instance. The aggregate backpressure represents the highest backpressure of all consumers for that listener.
+    </td>
+  </tr>
 </table>
 
 ## Stream management methods

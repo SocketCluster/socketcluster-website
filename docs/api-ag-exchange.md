@@ -202,6 +202,30 @@ while (exitConditionIsNotMet) {
       If <code>includePending</code> is true, pending subscriptions will also be included in the list.
     </td>
   </tr>
+  <tr>
+    <td>
+      getBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure for all streams on the current exchange instance. The aggregate backpressure represents the highest backpressure of all consumers.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllListenersBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure of all <code>listener</code> streams on the current exchange instance.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllChannelsBackpressure()
+    </td>
+    <td>
+      Get the aggregate backpressure of all <code>channel</code> streams on the current exchange instance.
+    </td>
+  </tr>
 </table>
 
 ## Stream management methods

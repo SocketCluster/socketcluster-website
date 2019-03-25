@@ -431,6 +431,54 @@ while (exitConditionIsNotMet) {
       Check if socket is subscribed to channelName.
     </td>
   </tr>
+  <tr>
+    <td>
+      getBackpressure()
+    </td>
+    <td>
+      Returns the aggregate backpressure for all streams associated with the socket.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getInboundBackpressure()
+    </td>
+    <td>
+      Returns the aggregate backpressure for the socket's inbound stream.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getOutboundBackpressure()
+    </td>
+    <td>
+      Returns the aggregate backpressure for the socket's outbound stream.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllListenersBackpressure()
+    </td>
+    <td>
+      Returns the aggregate backpressure for the socket's event listener streams.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllReceiversBackpressure()
+    </td>
+    <td>
+      Returns the aggregate backpressure for the socket's receiver streams.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      getAllProceduresBackpressure()
+    </td>
+    <td>
+      Returns the aggregate backpressure for the socket's procedure streams.
+    </td>
+  </tr>
 </table>
 
 ## Stream management methods

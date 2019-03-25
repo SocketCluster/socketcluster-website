@@ -360,6 +360,14 @@ while (exitConditionIsNotMet) {
       This method will signal to all consuming <code>for-await-of</code> loops for all listeners to <code>break</code> immediately and will reset the aggregate backpressure for all listeners to 0.
     </td>
   </tr>
+  <tr>
+    <td>
+      getAllListenersBackpressure()
+    </td>
+    <td>
+      Returns the aggregate backpressure for the server's event listener streams.
+    </td>
+  </tr>
 </table>
 
 ## Stream management methods

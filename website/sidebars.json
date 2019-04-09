@@ -3,7 +3,7 @@
     "Guides": [
       "getting-started",
       "basic-usage",
-      "consumers-and-consumables",
+      "consumables-and-consumers",
       "authentication",
       "middleware-and-authorization",
       "streams-and-backpressure",

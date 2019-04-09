@@ -1,7 +1,7 @@
 ---
-id: consumers-and-consumables
-title: Consumers and Consumables
-sidebar_label: Consumers and Consumables
+id: consumables-and-consumers
+title: Consumables and Consumers
+sidebar_label: Consumables and Consumers
 ---
 
 In Asyngular, streams returned by functions such as `socket.listener(...)`, `socket.receiver(...)`, `socket.producer(...)` and `socket.channel(...)` are all [async iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables).

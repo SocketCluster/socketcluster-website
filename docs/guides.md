@@ -6,7 +6,7 @@ sidebar_label: Guides
 
 - [Getting started](getting-started.md)
 - [Basic usage](basic-usage.md)
-- [Consumers and Consumables](consumers-and-consumables.md)
+- [Consumables and Consumers](consumables-and-consumers.md)
 - [Authentication](authentication.md)
 - [Middleware and authorization](middleware-and-authorization.md)
 - [Streams and backpressure](streams-and-backpressure.md)

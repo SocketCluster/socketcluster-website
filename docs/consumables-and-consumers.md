@@ -54,7 +54,8 @@ for await (let event of socket.listener('connect')) {
 }
 ```
 
-In this case, the `socket.receiver('foo')` stream on the back end will not receive our client's `123` message - This is because the `receiver` stream will only create a new `Consumer`/`async iterator` when the `for-await-of` loop starts iterating; and because we added an `await doSomethingWhichTakesAFewSeconds()` statement before the `for-await-of` loop, any event transmitted by the client during this time period will be ignored/missed.
+In this case, the `socket.receiver('foo')` stream on the back end will not receive our client's `123` message; this is because we added an `await doSomethingWhichTakesAFewSeconds()` statement before the `for await (let data of socket.receiver('foo')) {...}` loop.
+Any message which arrives on the socket before the loop begins iterating will be ignored/missed (and not buffered).
 
 Note that simply instantiating the stream sooner and putting it inside a variable will **not** fix the issue:
 
@@ -81,7 +82,7 @@ Note that simply instantiating the stream sooner and putting it inside a variabl
 })();
 ```
 
-To fix this issue, you need to explicitly tell the Asyngular stream when to create the consumer. This can be done using the `stream.createConsumable()` method like this:
+To fix this issue, you need to explicitly tell the Asyngular stream when to create the consumer/consumable. This can be done using the `stream.createConsumable()` method like this:
 
 ```js
 // Back end.

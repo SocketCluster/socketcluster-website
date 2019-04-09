@@ -15,7 +15,7 @@ for await (let data of socket.receiver('foo')) {
 ```
 
 Whenever you start iterating over a stream, a new async iterator will be created implicitly with a new (empty) message/event buffer.
-This feature allows you to iterate over a single stream using multiple loops at the same time; each loop can `await` and process messages/events at its own pace.
+This feature allows you to iterate over a single stream using multiple loops in parallel; each loop can `await` and process messages/events at its own pace.
 
 ## Consumables
 

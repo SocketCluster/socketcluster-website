@@ -54,7 +54,7 @@ for await (let event of socket.listener('connect')) {
 }
 ```
 
-In this case, the `socket.receiver('foo')` stream on the back end will not receive our client's `123` message; so the `for-await-of` loop will **not** iterate.
+In this case, the `socket.receiver('foo')` stream on the back end will not receive our client's `123` message (the `for-await-of` loop will **not** iterate).
 The reason this happens is because the `receiver` stream will only create a new `Consumer`/`async iterator` (and therefore start buffering) when the `for-await-of` loop starts iterating; and because we added an `await` statement before the `for-await-of` loop, any event transmitted by the client during this time period will be ignored/missed.
 
 Note that simply instantiating the stream sooner and putting it inside a variable will **not** fix the issue:

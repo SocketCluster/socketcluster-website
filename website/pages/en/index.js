@@ -45,8 +45,8 @@ class HomeSplash extends React.Component {
           data-show-count="true"
           data-count-aria-label="# stargazers on GitHub"
           data-size="large"
+          data-text="Star"
           aria-label="Star this project on GitHub">
-          Star
         </a>
         <small>{siteConfig.tagline}</small>
       </h2>
@@ -94,7 +94,7 @@ class HomeSplash extends React.Component {
 class Index extends React.Component {
   render() {
     const {config: siteConfig, language = ''} = this.props;
-    const {baseUrl} = siteConfig;
+    const {baseUrl, docsUrl} = siteConfig;
 
     const Block = props => (
       <Container
@@ -203,30 +203,15 @@ class Index extends React.Component {
     );
 
     // const Showcase = () => {
-    //   if ((siteConfig.users || []).length === 0) {
-    //     return null;
-    //   }
-    //
-    //   const showcase = siteConfig.users
-    //     .filter(user => user.pinned)
-    //     .map(user => (
-    //       <a href={user.infoLink} key={user.infoLink}>
-    //         <img src={user.image} alt={user.caption} title={user.caption} />
-    //       </a>
-    //     ));
-    //
-    //   const pageUrl = page => baseUrl + (language ? `${language}/` : '') + page;
+    //   const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
+    //   const langPart = `${language ? `${language}/` : ''}`;
+    //   const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
     //
     //   return (
     //     <div className="productShowcaseSection paddingBottom">
-    //       <h2>Who is Using This?</h2>
-    //       <p>This project is used by all these people</p>
-    //       <div className="logos">{showcase}</div>
-    //       <div className="more-users">
-    //         <a className="button" href="">
-    //           More {siteConfig.title} Users
-    //         </a>
-    //       </div>
+    //       <a href={docUrl('deploying-to-kubernetes.html')}>
+    //         <img style={{width: '500px', marginTop: '100px'}} src={`${baseUrl}img/kubernetes-horizontal.png`} />
+    //       </a>
     //     </div>
     //   );
     // };

@@ -37,6 +37,7 @@ class HomeSplash extends React.Component {
 
     const ProjectTitle = () => (
       <h2 className="projectTitle">
+        <img className="titleLogo" src="img/asyngular-logo-blue.png" />
         {siteConfig.title} <a
           className="github-button"
           href="https://github.com/SocketCluster/asyngular"
@@ -220,16 +221,16 @@ class Index extends React.Component {
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="splashSubsection">
-          <a className="splashSubsectionLink" href={`${docsUrl}/deploying-to-kubernetes`}>
-            <div className="splashSubsectionItem">
-              <img className="splashLogo splashLogoK8s" src={`${baseUrl}img/k8s-logo.png`} />
-              <div>Runs and scales on Kubernetes</div>
-            </div>
-          </a>
           <a className="splashSubsectionLink" href="https://socketcluster.io/">
             <div className="splashSubsectionItem">
               <img className="splashLogo splashLogoSC" src={`${baseUrl}img/sc-logo.png`} />
-              <div>Compatible with SocketCluster</div>
+              <div className="splashSubsectionCaption">Compatible with SocketCluster</div>
+            </div>
+          </a>
+          <a className="splashSubsectionLink" href={`${docsUrl}/deploying-to-kubernetes`}>
+            <div className="splashSubsectionItem">
+              <img className="splashLogo splashLogoK8s" src={`${baseUrl}img/k8s-logo.png`} />
+              <div className="splashSubsectionCaption">Runs and scales on Kubernetes</div>
             </div>
           </a>
         </div>

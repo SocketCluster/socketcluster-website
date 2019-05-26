@@ -221,7 +221,7 @@ class Index extends React.Component {
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="splashSubsection">
-          <a className="splashSubsectionLink" href="https://socketcluster.io/">
+          <a className="splashSubsectionLink" href="https://github.com/SocketCluster/asyngular#compatibility-mode">
             <div className="splashSubsectionItem">
               <img className="splashLogo splashLogoSC" src={`${baseUrl}img/sc-logo.png`} />
               <div className="splashSubsectionCaption">Compatible with SocketCluster</div>

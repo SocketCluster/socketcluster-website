@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
   title: 'Asyngular', // Title for your website.
-  tagline: 'Highly scalable realtime framework optimized for async/await (compatible with SocketCluster)',
+  tagline: 'Highly scalable realtime framework optimized for async/await',
   url: 'https://asyngular.io', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
@@ -54,7 +54,7 @@ const siteConfig = {
 
   /* Colors for website */
   colors: {
-    primaryColor: '#3071a9',
+    primaryColor: '#3399dd',
     secondaryColor: '#4B9ACA',
   },
 

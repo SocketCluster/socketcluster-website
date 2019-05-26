@@ -114,7 +114,7 @@ class Index extends React.Component {
         padding={['bottom', 'top']}
         id={props.id}
         background={props.background}>
-        <h1 class="blockHeading" align="center">{props.heading}</h1>
+        <h1 className="blockHeading" align="center">{props.heading}</h1>
         <GridBlock
           align="center"
           contents={props.children}
@@ -219,6 +219,20 @@ class Index extends React.Component {
     return (
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
+        <div className="splashSubsection">
+          <a className="splashSubsectionLink" href={`${docsUrl}/deploying-to-kubernetes`}>
+            <div className="splashSubsectionItem">
+              <img className="splashLogo splashLogoK8s" src={`${baseUrl}img/k8s-logo.png`} />
+              <div>Runs and scales on Kubernetes</div>
+            </div>
+          </a>
+          <a className="splashSubsectionLink" href="https://socketcluster.io/">
+            <div className="splashSubsectionItem">
+              <img className="splashLogo splashLogoSC" src={`${baseUrl}img/sc-logo.png`} />
+              <div>Compatible with SocketCluster</div>
+            </div>
+          </a>
+        </div>
         <div className="mainContainer">
           <Features />
         </div>

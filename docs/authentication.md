@@ -92,21 +92,22 @@ let credentials = {
 };
 
 try {
-  // Invoke a custom 'login' procedure (RPC) on our server socket.
-  await socket.invoke('login', credentials);
+  // Invoke a custom 'login' procedure (RPC) on our server socket
+  // then wait for the socket to be authenticated.
+  await Promise.all([
+    socket.invoke('login', credentials),
+    socket.listener('authenticate').once()
+  ]);
 } catch (error) {
   // showLoginError(err);
   return;
 }
 
-// If this runs, it means that our custom login RPC was successful, so now we
-// wait for the 'authenticate' to complete on the client socket.
-// Note that using the default client side authEngine (which stores the token in
-// localStorage), this action will always trigger and cannot fail at this point.
-await socket.listener('authenticate').once();
-
+// Socket is authenticated!
 // goToMainScreen();
 ```
+
+Note that since Asyngular v6, you typically don't need to wait for the socket <code>authenticate</code> event as shown above (assuming that your <code>login</code> procedure is written as shown in the example below). Nonetheless, using `Promise.all` as shown above is the surest way to check for authentication regardless of how the <code>login</code> procedure is implemented.
 
 On the server, we would need some code to process the login:
 

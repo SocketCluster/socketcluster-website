@@ -15,14 +15,14 @@ sidebar_label: AGServer
     <td>exchange</td>
     <td>
       A client which lets you interact with pub/sub channels from the server side.
-      (See API section on the <a href="api-ag-exchange">AGExchange</a> object for details).
+      (See API section on the <a href="/docs/api-ag-exchange">AGExchange</a> object for details).
     </td>
   </tr>
   <tr>
     <td>clients</td>
     <td>
       An object which holds all fully connected clients on the current server (only those which have completed the handshake).
-      Keys are socket IDs and the values are <a href="api-ag-server-socket">AGServerSocket</a> instances.
+      Keys are socket IDs and the values are <a href="/docs/api-ag-server-socket">AGServerSocket</a> instances.
     </td>
   </tr>
   <tr>
@@ -99,7 +99,7 @@ sidebar_label: AGServer
   <tr>
     <td>'connection'</td>
     <td>
-      Emitted whenever a new socket connection is established with the server (and the handshake has completed). The object produced by the listener will have a <code>socket</code>, <code>id</code>, <code>pingTimeout</code> and <code>isAuthenticated</code> property. If an authentication error occured during the socket handshake phase, the event object will also have an <code>authError</code> property. The <code>socket</code> object of type <a href="api-ag-server-socket">AGServerSocket</a> and can be used to interact with the corresponding client.
+      Emitted whenever a new socket connection is established with the server (and the handshake has completed). The object produced by the listener will have a <code>socket</code>, <code>id</code>, <code>pingTimeout</code> and <code>isAuthenticated</code> property. If an authentication error occured during the socket handshake phase, the event object will also have an <code>authError</code> property. The <code>socket</code> object of type <a href="/docs/api-ag-server-socket">AGServerSocket</a> and can be used to interact with the corresponding client.
     </td>
   </tr>
   <tr>
@@ -292,7 +292,7 @@ socketStreamCleanupMode: 'kill'
       to various features of the AGServer. This is useful for monitoring
       real-time data flows and also to block access to restricted channels
       and resources. Note that only actions from clients pass through middleware.
-      Server side calls on the <a href="api-ag-exchange">AGExchange</a> client such as <code>agServer.exchange.transmitPublish(...)</code> or <code>agServer.exchange.invokePublish(...)</code> do not. See <a href="middleware-and-authorization">Middleware and authorization</a> guide for a list of all available middleware types and actions.
+      Server side calls on the <a href="/docs/api-ag-exchange">AGExchange</a> client such as <code>agServer.exchange.transmitPublish(...)</code> or <code>agServer.exchange.invokePublish(...)</code> do not. See <a href="/docs/middleware-and-authorization">Middleware and authorization</a> guide for a list of all available middleware types and actions.
     </td>
   </tr>
   <tr>
@@ -312,7 +312,7 @@ socketStreamCleanupMode: 'kill'
         This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
       </p>
       <p>
-        See <a href="basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
       </p>
     </td>
   </tr>

@@ -105,7 +105,7 @@ sidebar_label: AGClientSocket
       </p>
       <p>
         The <code>processPendingSubscriptions</code> property represents a callback function which, when called, will send all pending channel subscriptions to the server (to activate pending channels).
-        Note that this <code>processPendingSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="api-asyngular-client">Asyngular client API</a>.
+        Note that this <code>processPendingSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="/docs/api-asyngular-client">Asyngular client API</a>.
       </p>
     </td>
   </tr>
@@ -224,7 +224,7 @@ sidebar_label: AGClientSocket
         This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
       </p>
       <p>
-        See <a href="basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
       </p>
     </td>
   </tr>
@@ -428,7 +428,7 @@ while (exitConditionIsNotMet) {
       Typically, you should perform server-initiated authentication using the socket.setAuthToken() method from the server side.
       This method is useful if, for example, you received the token from a different browser tab via localStorage and you want to immediately
       authenticate the current socket without having to reconnect the socket. It may also be useful if you're getting the token from a third-party
-      JWT-based system and you're using the same authKey (see the <code>authKey</code> option passed to the <a href="api-ag-server">AGServer</a> constructor).
+      JWT-based system and you're using the same authKey (see the <code>authKey</code> option passed to the <a href="/docs/api-ag-server">AGServer</a> constructor).
       This method returns a <code>Promise</code> which resolves on success and rejects with an <code>Error</code> on failure (e.g. if the token was invalid).
     </td>
   </tr>
@@ -493,7 +493,7 @@ while (exitConditionIsNotMet) {
       <i style="color: #999;">
         All of the following methods are related to pub/sub features of Asyngular.<br />
         Asyngular lets you interact with channels either directly through the socket or through
-        <a href="api-ag-channel">AGChannel</a> objects.
+        <a href="/docs/api-ag-channel">AGChannel</a> objects.
       </i>
     </td>
   </tr>
@@ -526,8 +526,8 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       Subscribe to a channel.
-      This function returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> and lets you consume data that is published to the channel.
-      You can provide an optional <code>options</code> object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are called "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server side <code>socket.setAuthToken(tokenData)</code> function <a href="authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
+      This function returns an <a href="/docs/api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> and lets you consume data that is published to the channel.
+      You can provide an optional <code>options</code> object in the form <code>{waitForAuth: true, data: someCustomData}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are called "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server side <code>socket.setAuthToken(tokenData)</code> function <a href="/docs/authentication#websocket-flow">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
 
 To consume a channel, it is recommended to use a `for-await-of` loop like this:
 
@@ -557,8 +557,8 @@ Note that `socket.subscribe(...)` can be called multiple times for the same chan
       unsubscribe(channelName)
     </td>
     <td>
-      Unsubscribe from the specified channel. This makes any associated <a href="api-ag-channel">AGChannel</a> object inactive.
-      You can reactivate the <a href="api-ag-channel">AGChannel</a> object by calling <code>subscribe(channelName)</code> again at a later time.
+      Unsubscribe from the specified channel. This makes any associated <a href="/docs/api-ag-channel">AGChannel</a> object inactive.
+      You can reactivate the <a href="/docs/api-ag-channel">AGChannel</a> object by calling <code>subscribe(channelName)</code> again at a later time.
     </td>
   </tr>
   <tr>
@@ -566,7 +566,7 @@ Note that `socket.subscribe(...)` can be called multiple times for the same chan
       channel(channelName)
     </td>
     <td>
-      Returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a>.
+      Returns an <a href="/docs/api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a>.
       This method is different from <code>socket.subscribe(...)</code> in that it will not try to subscribe to that channel.
       The returned channel will be inactive initially.
       You can call <code>channel.subscribe()</code> later to activate that channel when required.
@@ -605,7 +605,7 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       This method is like <code>closeChannel(channelName)</code> except that it only closes listener streams on the channel. The main channel output stream will not be affected.
-      To close specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
+      To close specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="/docs/api-ag-channel">AGChannel API</a>.
     </td>
   </tr>
   <tr>
@@ -638,7 +638,7 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       This method is like <code>killChannel(channelName)</code> except that it only kills listener streams on the channel. The main channel output stream will not be affected.
-      To kill specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
+      To kill specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="/docs/api-ag-channel">AGChannel API</a>.
     </td>
   </tr>
   <tr>

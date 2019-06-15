@@ -22,7 +22,7 @@ sidebar_label: AGAction
   <tr>
     <td>socket</td>
     <td>
-      This field exists on all action types except for the <code>HANDSHAKE_WS</code> action. It holds the <a href="api-ag-server-socket">AGServerSocket</a> whose corresponding client initiated the action.
+      This field exists on all action types except for the <code>HANDSHAKE_WS</code> action. It holds the <a href="/docs/api-ag-server-socket">AGServerSocket</a> whose corresponding client initiated the action.
     </td>
   </tr>
   <tr>

@@ -179,7 +179,7 @@ sidebar_label: AGServerSocket
         This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
       </p>
       <p>
-        See <a href="basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
       </p>
     </td>
   </tr>
@@ -383,7 +383,7 @@ while (exitConditionIsNotMet) {
         option accepted by the node-jsonwebtoken library's sign method.
         <a href="https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback">See the list of options here</a>.
         Note that if you use a different algorithm than the default 'HS256', you may need to provide an authPrivateKey and authPublicKey instead of the default authKey.
-        See <code>authKey</code>, <code>authPrivateKey</code> and <code>authPublicKey</code> options in <code>AGServer</code> constructor <a href="api-ag-server#methods">here</a>.
+        See <code>authKey</code>, <code>authPrivateKey</code> and <code>authPublicKey</code> options in <code>AGServer</code> constructor <a href="/docs/api-ag-server#methods">here</a>.
       </p>
       <p>
         Using auth tokens has the following advantages:

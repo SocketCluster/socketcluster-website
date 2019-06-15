@@ -84,7 +84,7 @@ sidebar_label: asyngularClient
           will be sent out to the server.</li>
         <li><b>autoSubscribeOnConnect</b>: Boolean - This is true by default. If you set this to false, then the socket will not automatically
           try to subscribe to pending subscriptions on connect - Instead, you will have to manually invoke the <code>processSubscriptions</code> callback
-          from inside the <code>'connect'</code> event handler on the client side. See <a href="api-ag-client-socket">AGClientSocket API</a>.
+          from inside the <code>'connect'</code> event handler on the client side. See <a href="/docs/api-ag-client-socket">AGClientSocket API</a>.
           This gives you more fine-grained control with regards to when pending subscriptions are processed after the socket connection is established (or re-established).</li>
         <li><b>codecEngine</b>: Object - Lets you set a custom codec engine. This allows you to specify how
           data gets encoded before being sent over the wire and how it gets decoded once it reaches the other side.

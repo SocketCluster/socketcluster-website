@@ -50,7 +50,7 @@ sidebar_label: AGExchange
     <td>subscribe(channelName)</td>
     <td>
       Subscribe to a channel.
-      This function returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> and lets you consume data that is published to the channel.
+      This function returns an <a href="/docs/api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> and lets you consume data that is published to the channel.
 
 To consume a channel, it is recommended to use a `for-await-of` loop like this:
 
@@ -78,14 +78,14 @@ Note that `agServer.exchange.subscribe(...)` can be called multiple times for th
   <tr>
     <td>unsubscribe(channelName)</td>
     <td>
-      Unsubscribe from the specified channel. This makes any associated <a href="api-ag-channel">AGChannel</a> object inactive.
-      You can reactivate the <a href="api-ag-channel">AGChannel</a> object by calling <code>subscribe(channelName)</code> again at a later time.
+      Unsubscribe from the specified channel. This makes any associated <a href="/docs/api-ag-channel">AGChannel</a> object inactive.
+      You can reactivate the <a href="/docs/api-ag-channel">AGChannel</a> object by calling <code>subscribe(channelName)</code> again at a later time.
     </td>
   </tr>
   <tr>
     <td>channel(channelName)</td>
     <td>
-      Returns an <a href="api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a>.
+      Returns an <a href="/docs/api-ag-channel">AGChannel</a> instance - This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a>.
       This method is different from <code>exchange.subscribe(...)</code> in that it will not try to subscribe to that channel.
       The returned channel will be inactive initially.
       You can call <code>channel.subscribe()</code> later to activate that channel when required.
@@ -124,7 +124,7 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       This method is like <code>closeChannel(channelName)</code> except that it only closes listener streams on the channel. The main channel output stream will not be affected.
-      To close specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
+      To close specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="/docs/api-ag-channel">AGChannel API</a>.
     </td>
   </tr>
   <tr>
@@ -157,7 +157,7 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       This method is like <code>killChannel(channelName)</code> except that it only kills listener streams on the channel. The main channel output stream will not be affected.
-      To kill specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="api-ag-channel">AGChannel API</a>.
+      To kill specific listeners (by <code>eventName</code>) on a specific channel, it's recommended that you use the <a href="/docs/api-ag-channel">AGChannel API</a>.
     </td>
   </tr>
   <tr>

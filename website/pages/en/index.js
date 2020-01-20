@@ -85,6 +85,11 @@ class HomeSplash extends React.Component {
               target="_blank"
               rel="noreferrer noopener"
             >Chat on Gitter</Button>
+            <Button
+              href="https://github.com/SocketCluster/socketcluster-website/tree/old/public/app/views/docs"
+              target="_blank"
+              rel="noreferrer noopener"
+            >Browse old docs</Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -140,7 +145,7 @@ class Index extends React.Component {
             title: 'Deploy easily',
           },
           {
-            content: 'After deploying your app to a Kubernetes cluster, you can scale indefinitely by using the `kubectl scale deployment` command to add more `agc-worker` and `agc-broker` instances as needed.',
+            content: 'After deploying your app to a Kubernetes cluster, you can scale indefinitely by using the `kubectl scale deployment` command to add more `scc-worker` and `scc-broker` instances as needed.',
             image: `${baseUrl}img/icons/scale.png`,
             imageAlign: 'top',
             title: 'Scale easily',

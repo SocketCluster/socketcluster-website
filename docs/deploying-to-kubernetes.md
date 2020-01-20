@@ -76,7 +76,7 @@ In this example, we will describe how to deploy to the [Google Kubernetes Engine
 
 By default, the SocketCluster app is configured to be served over TLS/HTTPS/WSS so you will either need to disable TLS on the Ingress resource or you will need to provide the path to a private key and cert to use for TLS (the files need to be on your local machine; you may want to use a self-signed key and cert pair for maximum simplicity).
 
-If you want to save yourself the hassle of generating a TLS key and cert pair, it may be easier to simply disable TLS; to do this, you just need to edit `myapp/kubernetes/agc-ingress.yaml` and remove the `tls` section under `spec` and the `annotations` section under `metadata`.
+If you want to save yourself the hassle of generating a TLS key and cert pair, it may be easier to simply disable TLS; to do this, you just need to edit `myapp/kubernetes/scc-ingress.yaml` and remove the `tls` section under `spec` and the `annotations` section under `metadata`.
 
 To deploy your app to your Kubernetes cluster, you will first need to add your cluster config to your `kubectl` `~/.kube/config file`. For GKE, you can just use this command:
 
@@ -123,7 +123,7 @@ kubectl apply -f https://raw.githubusercontent.com/socketcluster/ingress-nginx/m
 ```
 
 !! These commands can be executed after deployment even while your other services are running.
-Note that the NGINX Ingress Controller relies on the existing `kubernetes/agc-ingress.yaml` file which comes with SocketCluster so you don't need to modify it.
+Note that the NGINX Ingress Controller relies on the existing `kubernetes/scc-ingress.yaml` file which comes with SocketCluster so you don't need to modify it.
 
 Once nginx is running, you can access your SocketCluster app online by navigating to the `Services` tab of your GKE control panel and then opening the relevant ip:port link next to the `ingress-nginx` (`Load balancer`) entry.
 
@@ -139,18 +139,18 @@ To try it out, you can change some of the back end code in `server.js` or front 
 
 ## Scale with kubectl
 
-You can easily scale your SocketCluster app using the `kubectl scale deployment` commands. Note that you should only need to scale your `agc-worker` and `agc-broker` deployments. The number of clients/users that your cluster can handle should scale linearly as you increase the number of worker and broker instances. An SocketCluster cluster should be able to support thousands of worker and broker replicas.
+You can easily scale your SocketCluster app using the `kubectl scale deployment` commands. Note that you should only need to scale your `scc-worker` and `scc-broker` deployments. The number of clients/users that your cluster can handle should scale linearly as you increase the number of worker and broker instances. An SocketCluster cluster should be able to support thousands of worker and broker replicas.
 
 To scale workers up to 2 replicas, you can use this command:
 
 ```bash
-kubectl scale deployment agc-worker --replicas=2
+kubectl scale deployment scc-worker --replicas=2
 ```
 
 To scale the brokers up to 2 replicas:
 
 ```bash
-kubectl scale deployment agc-broker --replicas=2
+kubectl scale deployment scc-broker --replicas=2
 ```
 
 ## Undeploy the app

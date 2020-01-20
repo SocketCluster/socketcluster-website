@@ -96,7 +96,7 @@
 .titleLogo {
   width: 34px;
   height: 34px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {

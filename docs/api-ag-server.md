@@ -50,7 +50,7 @@ sidebar_label: AGServer
   </tr>
   <tr>
     <td>sourcePort</td>
-    <td>The public port on which clients connect to Asyngular (e.g. 80 for
+    <td>The public port on which clients connect to SocketCluster (e.g. 80 for
       HTTP).</td>
   </tr>
   <tr>
@@ -105,7 +105,7 @@ sidebar_label: AGServer
   <tr>
     <td>'disconnection'</td>
     <td>
-      Emitted whenever a connected socket becomes disconnected (after the handshake phase). Note that if the socket connection was not fully established (e.g. during the Asyngular handshake phase), then the <code>'connectionAbort'</code> event will be triggered instead. The object produced by the listener will have a <code>socket</code>, <code>code</code> and <code>reason</code> property.
+      Emitted whenever a connected socket becomes disconnected (after the handshake phase). Note that if the socket connection was not fully established (e.g. during the SocketCluster handshake phase), then the <code>'connectionAbort'</code> event will be triggered instead. The object produced by the listener will have a <code>socket</code>, <code>code</code> and <code>reason</code> property.
     </td>
   </tr>
   <tr>
@@ -243,7 +243,7 @@ middlewareEmitFailures: true,
 
 // The URL path reserved by SocketCluster clients to
 // interact with the server.
-path: '/asyngular/',
+path: '/socketcluster/',
 
 // Whether or not clients are allowed to publish messages
 // to channels.
@@ -312,7 +312,7 @@ socketStreamCleanupMode: 'kill'
         This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
       </p>
       <p>
-        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which SocketCluster uses to implement listener streams).
       </p>
     </td>
   </tr>
@@ -322,7 +322,7 @@ socketStreamCleanupMode: 'kill'
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over their current backlogs of events.
-      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In Asyngular, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
+      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In SocketCluster, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
 
 ```js
 while (exitConditionIsNotMet) {

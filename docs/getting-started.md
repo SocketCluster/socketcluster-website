@@ -19,16 +19,16 @@ sidebar_label: Getting started
 
 ### Install the CLI tool
 
-The easiest way to get started with Asyngular is to install the CLI tool from npm (you may need to add `sudo` at the front of the command):
+The easiest way to get started with SocketCluster is to install the CLI tool from npm (you may need to add `sudo` at the front of the command):
 
 ```bash
-npm install -g asyngular
+npm install -g socketcluster
 ```
 
 Use this command to check if the installation was successful:
 
 ```bash
-asyngular --help
+socketcluster --help
 ```
 
 ^ This should display a list of all available subcommands.
@@ -36,7 +36,7 @@ asyngular --help
 ### Create an app
 
 ```bash
-asyngular create myapp
+socketcluster create myapp
 ```
 
 ^ This will create a new project directory called `myapp`.
@@ -53,10 +53,10 @@ node server
 
 ### Start the app with Docker
 
-If you have `docker` installed, you can also run your Asyngular app inside a container on your local machine using the following shortcut command (make sure that `myapp/` is your working directory):
+If you have `docker` installed, you can also run your SocketCluster app inside a container on your local machine using the following shortcut command (make sure that `myapp/` is your working directory):
 
 ```bash
-asyngular run
+socketcluster run
 ```
 
 !! You can interact with the app by opening http://localhost:8000/ in your browser.
@@ -66,5 +66,5 @@ asyngular run
 The app docker container runs in the background. To stop it, use:
 
 ```bash
-asyngular stop
+socketcluster stop
 ```

@@ -10,7 +10,7 @@
       "deploying-to-kubernetes"
     ],
     "API": [
-      "api-asyngular-client",
+      "api-socket-cluster-client",
       "api-ag-client-socket",
       "api-ag-channel",
       "api-ag-server",

@@ -6,7 +6,7 @@ sidebar_label: Streams and backpressure
 
 ## Feature overview
 
-Asyngular lets you to consume data and events by iterating over asynchrounous streams.
+SocketCluster lets you to consume data and events by iterating over asynchrounous streams.
 The socket object (`AGServerSocket`) is composed of the following main streams (and substreams):
 
 - Inbound stream
@@ -27,14 +27,14 @@ This feature allows us to perform async/await operations at any point in the str
 A side effect of this feature is that whenever we interrupt a stream's flow using `await`, new data/messages can start to build up in the stream's buffer.
 This buildup of data/messages within a stream is called backpressure.
 
-Because a stream in Asyngular can have multiple loops (aka consumers) iterating over it, and because each loop can consume data from the stream at a different rate, the slowest consumer will determine the backpressure of the stream.
+Because a stream in SocketCluster can have multiple loops (aka consumers) iterating over it, and because each loop can consume data from the stream at a different rate, the slowest consumer will determine the backpressure of the stream.
 
 Some backpressure is OK, but too much backpressure can lead to the following problems:
 
 - Increased message latency because data may spend more time waiting in the stream's buffer.
 - It can be exploited by malicious clients to carry out DoS attacks against the server by intentionally filling up the server's memory with spam messages faster than they can be consumed.
 
-For these reasons, Asyngular exposes a simple API for tracking stream backpressure and it lets you immediately kill streams or groups of streams which are becoming overly congested. Asyngular lets you measure the backpressure of individual streams within a socket and also the aggregate backpressure of all streams within the socket.
+For these reasons, SocketCluster exposes a simple API for tracking stream backpressure and it lets you immediately kill streams or groups of streams which are becoming overly congested. SocketCluster lets you measure the backpressure of individual streams within a socket and also the aggregate backpressure of all streams within the socket.
 
 ## API overview
 

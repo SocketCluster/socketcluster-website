@@ -4,7 +4,7 @@ title: Consumables and Consumers
 sidebar_label: Consumables and Consumers
 ---
 
-In Asyngular, streams returned by functions such as `socket.listener(...)`, `socket.receiver(...)`, `socket.producer(...)` and `socket.channel(...)` are all [async iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables).
+In SocketCluster, streams returned by functions such as `socket.listener(...)`, `socket.receiver(...)`, `socket.producer(...)` and `socket.channel(...)` are all [async iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables).
 
 This means that you can iterate over any stream directly like this:
 
@@ -47,7 +47,7 @@ Assume that your client has this logic:
 ```js
 // Front end.
 
-let socket = asyngularClient.create();
+let socket = socketClusterClient.create();
 
 for await (let event of socket.listener('connect')) {
   socket.transmit('foo', 123);
@@ -82,7 +82,7 @@ Note that simply instantiating the stream sooner and putting it inside a variabl
 })();
 ```
 
-To fix this issue, you need to explicitly tell the Asyngular stream when to create the consumer/consumable. This can be done using the `stream.createConsumable()` method like this:
+To fix this issue, you need to explicitly tell the SocketCluster stream when to create the consumer/consumable. This can be done using the `stream.createConsumable()` method like this:
 
 ```js
 // Back end.
@@ -111,7 +111,7 @@ Note that a consumable is an async iterable; therefore, it should only be consum
 
 ## Consumer
 
-A [Consumer](https://github.com/SocketCluster/writable-consumable-stream/blob/master/consumer.js) is an async iterator. Using a `Consumer` directly is the most flexible, but most verbose way of consuming messages in Asyngular.
+A [Consumer](https://github.com/SocketCluster/writable-consumable-stream/blob/master/consumer.js) is an async iterator. Using a `Consumer` directly is the most flexible, but most verbose way of consuming messages in SocketCluster.
 
 Using `Consumer` instances allows you to iterate over streams using regular `for` and `while` loops and to handle messages in more advanced ways.
 

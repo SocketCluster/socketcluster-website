@@ -6,7 +6,7 @@ sidebar_label: API
 
 ### Core API
 
-- [asyngularClient](api-asyngular-client.md)
+- [socketClusterClient](api-socket-cluster-client.md)
 - [AGClientSocket](api-ag-client-socket.md)
 - [AGChannel](api-ag-channel.md)
 - [AGServer](api-ag-server.md)

@@ -4,4 +4,4 @@ author: Jonathan Gros-Dubois
 authorURL: https://twitter.com/jgrosdubois
 ---
 
-Asyngular.io website is now online.
+SocketCluster.io website is now online.

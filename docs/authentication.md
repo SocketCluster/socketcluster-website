@@ -6,7 +6,7 @@ sidebar_label: Authentication
 
 ## Feature overview
 
-The default authentication mechanism in Asyngular is JWT; it is essentially the same as it was in SocketCluster; the main difference is that any function which accepted a callback will now return a `Promise` instead. Like in SocketCluster, you can use either the HTTP-based flow or the WebSocket-based flow for doing authentication. See the [SocketCluster guide](https://socketcluster.io/#!/docs/authentication) for more details.
+The default authentication mechanism in SocketCluster is JWT; it is essentially the same as it was in SocketCluster; the main difference is that any function which accepted a callback will now return a `Promise` instead. Like in SocketCluster, you can use either the HTTP-based flow or the WebSocket-based flow for doing authentication. See the [SocketCluster guide](https://socketcluster.io/#!/docs/authentication) for more details.
 
 The custom `authKey` string which you pass as an option to the `AGServer` constructor will be used to sign and verify JWT tokens from client sockets.
 The initial authentication phase occurs automatically as part of the socket handshake. Authentication can also be done at runtime on a connected socket using the client's `socket.authenticate(...)` method.
@@ -15,13 +15,13 @@ The initial authentication phase occurs automatically as part of the socket hand
 
 ### HTTP flow
 
-The best (and also simplest) way to do authentication in Asyngular over HTTP is by creating and signing a new JWT token from express and then sending it to the client side (as a string in the HTTP response). Once you have the token on the client side, you need to add it to localStorage under the key `'asyngular.authToken'` (this is the default JWT localStorage key for Asyngular). The Asyngular client socket will automatically pick up the JWT from local storage when a new connection is created.
+The best (and also simplest) way to do authentication in SocketCluster over HTTP is by creating and signing a new JWT token from express and then sending it to the client side (as a string in the HTTP response). Once you have the token on the client side, you need to add it to localStorage under the key `'socketcluster.authToken'` (this is the default JWT localStorage key for SocketCluster). The SocketCluster client socket will automatically pick up the JWT from local storage when a new connection is created.
 
-When you create and sign the JWT token inside your HTTP express route, you need to use the same key which was specified as `authKey` when you instantiated the Asyngular `AGServer`.
+When you create and sign the JWT token inside your HTTP express route, you need to use the same key which was specified as `authKey` when you instantiated the SocketCluster `AGServer`.
 
 You can create the JWT token however you like (so long as it meets JWT specifications). In Node.js, you can use the `jsonwebtoken` module directly: https://www.npmjs.com/package/jsonwebtoken
 
-or for convenience you can also use Asyngular's `agServer.auth.signToken(...)` function like this:
+or for convenience you can also use SocketCluster's `agServer.auth.signToken(...)` function like this:
 
 ```js
 // Sample token data, don't store any sensitive/secret data here
@@ -33,7 +33,7 @@ let myTokenData = {
   groups: ['engineering', 'science', 'mathematics']
 };
 
-// agServer.signatureKey below is the key which Asyngular uses to sign the token.
+// agServer.signatureKey below is the key which SocketCluster uses to sign the token.
 // By default, agServer.signatureKey is equal to agServer.options.authKey
 // (and also equal to agServer.verificationKey); but these may differ if you
 // switch to a different JWT algorithm in the future.
@@ -50,12 +50,12 @@ try {
 // to your front end however you like (e.g. in HTTP response).
 ```
 
-Once you have the JWT token on the front end, you should add it to localStorage under the key `'asyngular.authToken'` - By doing this, the Asyngular client will automatically pick up the JWT token when doing its handshake/connection.
+Once you have the JWT token on the front end, you should add it to localStorage under the key `'socketcluster.authToken'` - By doing this, the SocketCluster client will automatically pick up the JWT token when doing its handshake/connection.
 
 In the browser, you can add the token to localStorage like this:
 
 ```js
-localStorage.setItem('asyngular.authToken', token);
+localStorage.setItem('socketcluster.authToken', token);
 ```
 
 ### WebSocket flow
@@ -64,7 +64,7 @@ A sample WebSocket-based authentication flow might look like this:
 
 ```js
 // Client code
-socket = asyngularClient.create();
+socket = socketClusterClient.create();
 
 // The 'connect' event carries a status object which has a
 // boolean 'isAuthenticated' property - It will be true if the client socket carried
@@ -107,7 +107,7 @@ try {
 // goToMainScreen();
 ```
 
-Note that since Asyngular v6, you typically don't need to wait for the socket <code>authenticate</code> event as shown above (assuming that your <code>login</code> procedure is written as shown in the example below). Nonetheless, using `Promise.all` as shown above is the surest way to check for authentication regardless of how the <code>login</code> procedure is implemented.
+Note that since SocketCluster v6, you typically don't need to wait for the socket <code>authenticate</code> event as shown above (assuming that your <code>login</code> procedure is written as shown in the example below). Nonetheless, using `Promise.all` as shown above is the surest way to check for authentication regardless of how the <code>login</code> procedure is implemented.
 
 On the server, we would need some code to process the login:
 
@@ -156,7 +156,7 @@ On the server, we would need some code to process the login:
 
 ### Verify and use the JWT token
 
-You can verify and read the JWT token in the same way regardless of whether you used the HTTP or WebSocket auth flow. Once the token has been set/captured by Asyngular,
+You can verify and read the JWT token in the same way regardless of whether you used the HTTP or WebSocket auth flow. Once the token has been set/captured by SocketCluster,
 you can access it from inside your middleware functions (example using a `PUBLISH_IN` action inside the `MIDDLEWARE_INBOUND` middleware):
 
 ```js
@@ -188,4 +188,4 @@ agServer.addMiddleware(agServer.MIDDLEWARE_INBOUND, async (middlewareStream) => 
 });
 ```
 
-!! Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't really need to store the `channels` list inside the JWT - An alternative approach would have been to fetch the user account details from the database using the username from the JWT (but it would require an extra database lookup; bad for performance). See the section on [middleware and authorization](middleware-and-authorization.md) for more info about middleware in Asyngular.
+!! Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't really need to store the `channels` list inside the JWT - An alternative approach would have been to fetch the user account details from the database using the username from the JWT (but it would require an extra database lookup; bad for performance). See the section on [middleware and authorization](middleware-and-authorization.md) for more info about middleware in SocketCluster.

@@ -13,7 +13,7 @@ Inside `server.js`, you can find the `for-await-of` loop which is handling inbou
 ```js
 // --- in server.js ---
 
-// Asyngular/WebSocket connection handling loop.
+// SocketCluster/WebSocket connection handling loop.
 (async () => {
   for await (let {socket} of agServer.listener('connection')) {
     // Handle socket connection.
@@ -28,12 +28,12 @@ Inside `public/index.html`, a client connects to the server like this:
 ```js
 // --- in public/index.html ---
 
-let socket = asyngularClient.create();
+let socket = socketClusterClient.create();
 ```
 
 ^ If the connection succeeds, this will cause the `connection` loop on the server side to iterate once.
 
-!! You can pass an `options` object to the `asyngularClient.create(...)` function.
+!! You can pass an `options` object to the `socketClusterClient.create(...)` function.
 
 ### [Server] Listen for inbound messages on a socket
 
@@ -42,7 +42,7 @@ You can use a `socket.receiver(...)` within a `for-await-of` loop to handle mess
 ```js
 // --- in server.js ---
 
-// Asyngular/WebSocket connection handling loop.
+// SocketCluster/WebSocket connection handling loop.
 (async () => {
   for await (let {socket} of agServer.listener('connection')) {
 
@@ -80,7 +80,7 @@ You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPC
 ```js
 // --- in server.js ---
 
-// Asyngular/WebSocket connection handling loop.
+// SocketCluster/WebSocket connection handling loop.
 (async () => {
   for await (let {socket} of agServer.listener('connection')) {
 
@@ -211,7 +211,7 @@ agServer.exchange.transmitPublish('foo', 'This is some data');
 
 ## External documentation
 
-- https://github.com/SocketCluster/asyngular
-- https://github.com/SocketCluster/asyngular-server
-- https://github.com/SocketCluster/asyngular-client
+- https://github.com/SocketCluster/socketcluster
+- https://github.com/SocketCluster/socketcluster-server
+- https://github.com/SocketCluster/socketcluster-client
 - https://socketcluster.io/

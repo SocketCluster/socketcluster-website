@@ -105,7 +105,7 @@ sidebar_label: AGClientSocket
       </p>
       <p>
         The <code>processPendingSubscriptions</code> property represents a callback function which, when called, will send all pending channel subscriptions to the server (to activate pending channels).
-        Note that this <code>processPendingSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="/docs/api-asyngular-client">Asyngular client API</a>.
+        Note that this <code>processPendingSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="/docs/api-socket-cluster-client">SocketCluster client API</a>.
       </p>
     </td>
   </tr>
@@ -126,7 +126,7 @@ sidebar_label: AGClientSocket
     <td>
       Triggers whenever the socket initiates a connection to the server - This includes reconnects.
       In order capture the very first 'connecting' event, you will need to set the initial <code>autoConnect</code> option
-      to <code>false</code> when you create the socket with <code>asyngularClient.create(...)</code> - You will need to register the handler
+      to <code>false</code> when you create the socket with <code>socketClusterClient.create(...)</code> - You will need to register the handler
       before you call <code>socket.connect()</code>.
     </td>
   </tr>
@@ -198,8 +198,8 @@ sidebar_label: AGClientSocket
 ## Errors
 
 <p>
-  For the list of all Asyngular errors (and their properties) <a href="https://github.com/SocketCluster/sc-errors/blob/master/index.js">see sc-errors</a>.
-  To check the type of an error in Asyngular, you should use the <code>name</code> property of the error (do not use the <code>instanceof</code> statement).
+  For the list of all SocketCluster errors (and their properties) <a href="https://github.com/SocketCluster/sc-errors/blob/master/index.js">see sc-errors</a>.
+  To check the type of an error in SocketCluster, you should use the <code>name</code> property of the error (do not use the <code>instanceof</code> statement).
   Errors which are sent to the client from the server will be dehydrated on the server and rehydrated on the client - As a result, they will be cast
   to plain <code>Error</code> objects.
 </p>
@@ -224,7 +224,7 @@ sidebar_label: AGClientSocket
         This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
       </p>
       <p>
-        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which SocketCluster uses to implement listener streams).
       </p>
     </td>
   </tr>
@@ -234,7 +234,7 @@ sidebar_label: AGClientSocket
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over their current backlogs of events.
-      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In Asyngular, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
+      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In SocketCluster, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
 
 ```js
 while (exitConditionIsNotMet) {
@@ -491,8 +491,8 @@ while (exitConditionIsNotMet) {
   <tr>
     <td colspan="2" style="padding-top: 20px; padding-bottom: 20px;">
       <i style="color: #999;">
-        All of the following methods are related to pub/sub features of Asyngular.<br />
-        Asyngular lets you interact with channels either directly through the socket or through
+        All of the following methods are related to pub/sub features of SocketCluster.<br />
+        SocketCluster lets you interact with channels either directly through the socket or through
         <a href="/docs/api-ag-channel">AGChannel</a> objects.
       </i>
     </td>

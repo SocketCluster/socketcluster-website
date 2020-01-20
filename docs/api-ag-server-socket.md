@@ -87,7 +87,7 @@ sidebar_label: AGServerSocket
   <tr>
     <td>'connect'</td>
     <td>
-      Triggers when the socket completes the Asyngular handshake phase and is fully connected.
+      Triggers when the socket completes the SocketCluster handshake phase and is fully connected.
       Note that if you capture a socket using the <code>agServer.listener('connection')</code> listener, then the socket-level 'connect' event will already have occurred by that point so you won't be able to capture it on the socket. The 'connect' event can only be handled from a socket which was captured from an <code>agServer.listener('handshake')</code> listener instead.
       The object produced by the listener will have an <code>id</code>, <code>pingTimeout</code> and <code>isAuthenticated</code> property. If an authentication error occured during the socket handshake phase, the event object will also have an <code>authError</code> property.
     </td>
@@ -95,14 +95,14 @@ sidebar_label: AGServerSocket
   <tr>
     <td>'disconnect'</td>
     <td>
-      Happens when the client becomes disconnected from the server. Note that if the socket becomes disconnected during the Asyngular handshake stage,
+      Happens when the client becomes disconnected from the server. Note that if the socket becomes disconnected during the SocketCluster handshake stage,
       then the <code>'connectAbort'</code> event will be triggered instead. The object produced by the listener will have a <code>code</code> and <code>reason</code> property.
     </td>
   </tr>
   <tr>
     <td>'connectAbort'</td>
     <td>
-      Happens when the client disconnects from the server before the Asyngular handshake has completed (I.e. while <code>socket.state</code> was 'connecting').
+      Happens when the client disconnects from the server before the SocketCluster handshake has completed (I.e. while <code>socket.state</code> was 'connecting').
       Note that the <code>'connectAbort'</code> event can only be triggered during the socket's handshake phase before the server's <code>'connection'</code> event is triggered.
       The object produced by the listener will have a <code>code</code> and <code>reason</code> property.
     </td>
@@ -179,7 +179,7 @@ sidebar_label: AGServerSocket
         This method returns an event listener stream for the specified <code>eventName</code>. This object is an <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">asyncIterable</a> which can be consumed with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of">for-await-of loop</a>.
       </p>
       <p>
-        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which Asyngular uses to implement listener streams).
+        See <a href="/docs/basic-usage">basic usage guide</a> for examples of how to consume listener streams. For more advanced usage, see <a href="https://github.com/SocketCluster/stream-demux#usage">StreamDemux</a> (this is the library which SocketCluster uses to implement listener streams).
       </p>
     </td>
   </tr>
@@ -189,7 +189,7 @@ sidebar_label: AGServerSocket
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over their current backlogs of events.
-      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In Asyngular, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
+      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In SocketCluster, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
 
 ```js
 while (exitConditionIsNotMet) {
@@ -388,7 +388,7 @@ while (exitConditionIsNotMet) {
       <p>
         Using auth tokens has the following advantages:
         <ul>
-          <li>The user doesn't need to login again if their socket loses its connection - Works well with Asyngular's auto-reconnect feature.</li>
+          <li>The user doesn't need to login again if their socket loses its connection - Works well with SocketCluster's auto-reconnect feature.</li>
           <li>
             An auth token is shared between sockets across multiple tabs in a browser (under the same domain name).
             If a user logs in on one tab, they will automatically be authenticated on any other tab that they have open.

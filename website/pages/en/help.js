@@ -27,7 +27,7 @@ function Help(props) {
       title: 'Browse guides',
     },
     {
-      content: 'Ask questions about the documentation and project on [Gitter.im](https://gitter.im/SocketCluster/asyngular)',
+      content: 'Ask questions about the documentation and project on [Gitter.im](https://gitter.im/SocketCluster/socketcluster)',
       title: 'Join the community',
     },
     {

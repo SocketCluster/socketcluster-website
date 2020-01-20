@@ -1,14 +1,14 @@
 ---
-id: api-asyngular-client
-title: asyngularClient
-sidebar_label: asyngularClient
+id: api-socket-cluster-client
+title: socketClusterClient
+sidebar_label: socketClusterClient
 ---
 
 ## Properties
 <table>
   <tr>
     <td>version</td>
-    <td>The Asyngular client version number.</td>
+    <td>The SocketCluster client version number.</td>
   </tr>
 </table>
 
@@ -44,8 +44,8 @@ sidebar_label: asyngularClient
         <li><b>secure:</b> Boolean - Defaults to false</li>
         <li><b>port</b>: Number - Defaults to 80 if !secure otherwise defaults
           to 443.</li>
-        <li><b>path</b>: String - The URL which Asyngular uses to make the initial handshake
-          for the WebSocket. Defaults to '/asyngular/'.</li>
+        <li><b>path</b>: String - The URL which SocketCluster uses to make the initial handshake
+          for the WebSocket. Defaults to '/socketcluster/'.</li>
         <li><b>query</b>: Object - A map of key-value pairs which will be used as query
           parameters for the initial HTTP handshake which will initiate the WebSocket connection.</li>
         <li><b>ackTimeout</b>: Number (milliseconds) - This is the timeout for
@@ -74,7 +74,7 @@ sidebar_label: asyngularClient
           loading JWT auth tokens on the client side.</li>
         <li><b>authTokenName</b>: String - The name of the JWT auth token (provided
           to the authEngine - By default this is the localStorage variable
-          name); defaults to 'asyngular.authToken'.</li>
+          name); defaults to 'socketcluster.authToken'.</li>
         <li><b>binaryType</b>: String - The type to use to represent binary on
           the client. Defaults to 'arraybuffer'.</li>
         <li><b>cloneData</b>: Boolean - If you set this to true, any data/objects/arrays that you pass to the client socket
@@ -92,11 +92,11 @@ sidebar_label: asyngularClient
           The encode function can return any data type - Commonly a string or a Buffer/ArrayBuffer.
           The decode function needs to return a JavaScript object which adheres to the
           <a href="https://github.com/SocketCluster/socketcluster/blob/master/socketcluster-protocol.md">SC protocol</a>.
-          The idea of using a custom codec is that it allows you to compress Asyngular packets in any format you like (optimized for any use case) -
-          By decoding these packets back into their original protocol form, Asyngular will be able process them appropriately.
+          The idea of using a custom codec is that it allows you to compress SocketCluster packets in any format you like (optimized for any use case) -
+          By decoding these packets back into their original protocol form, SocketCluster will be able process them appropriately.
           Note that if you provide a codecEngine when creating a client socket, you will need to make sure that the server uses the same codec
           by passing the same engine to the <code>AGServer</code> constructor (using the <code>codecEngine</code> option).
-          The default codec engine used by Asyngular is <a href="https://github.com/SocketCluster/sc-formatter/blob/master/index.js">here</a>.</li>
+          The default codec engine used by SocketCluster is <a href="https://github.com/SocketCluster/sc-formatter/blob/master/index.js">here</a>.</li>
       </ul>
     </td>
   </tr>

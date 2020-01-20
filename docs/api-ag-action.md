@@ -67,7 +67,7 @@ sidebar_label: AGAction
   </tr>
   <tr>
     <td>promise</td>
-    <td>A <code>Promise</code> which will resolve or reject depending on whether the action was allowed or blocked. This property is mostly meant for internal use by Asyngular middleware.</td>
+    <td>A <code>Promise</code> which will resolve or reject depending on whether the action was allowed or blocked. This property is mostly meant for internal use by SocketCluster middleware.</td>
   </tr>
   <tr>
     <td>HANDSHAKE_WS</td>
@@ -75,7 +75,7 @@ sidebar_label: AGAction
   </tr>
   <tr>
     <td>HANDSHAKE_AG</td>
-    <td>A string constant which is used to indicate that an action is an Asyngular handshake action. See the <code>type</code> property above.</td>
+    <td>A string constant which is used to indicate that an action is an SocketCluster handshake action. See the <code>type</code> property above.</td>
   </tr>
   <tr>
     <td>MESSAGE</td>

@@ -37,12 +37,12 @@ class HomeSplash extends React.Component {
 
     const ProjectTitle = () => (
       <h2 className="projectTitle">
-        <img className="titleLogo" src="img/asyngular-logo-blue.png" />
+        <img className="titleLogo" src="img/socketcluster-logo-blue.png" />
         {siteConfig.title} <a
           className="github-button"
-          href="https://github.com/SocketCluster/asyngular"
+          href="https://github.com/SocketCluster/socketcluster"
           data-icon="octicon-star"
-          data-count-href="https://github.com/SocketCluster/asyngular/stargazers"
+          data-count-href="https://github.com/SocketCluster/socketcluster/stargazers"
           data-show-count="true"
           data-count-aria-label="# stargazers on GitHub"
           data-size="large"
@@ -76,12 +76,12 @@ class HomeSplash extends React.Component {
           <PromoSection>
             <Button href={docUrl('getting-started.html')}>Get started</Button>
             <Button
-              href="https://github.com/SocketCluster/asyngular"
+              href="https://github.com/SocketCluster/socketcluster"
               target="_blank"
               rel="noreferrer noopener"
             >Browse GitHub</Button>
             <Button
-              href="https://gitter.im/SocketCluster/asyngular"
+              href="https://gitter.im/SocketCluster/socketcluster"
               target="_blank"
               rel="noreferrer noopener"
             >Chat on Gitter</Button>
@@ -134,7 +134,7 @@ class Index extends React.Component {
             title: 'Handle unlimited channels',
           },
           {
-            content: 'The `asyngular` CLI tool exposes `kubectl` (Kubernetes) shortcut commands to make deploying your app to any Kubernetes cluster really easy. All necessary Kubernetes `.yaml` files are provided.',
+            content: 'The `socketcluster` CLI tool exposes `kubectl` (Kubernetes) shortcut commands to make deploying your app to any Kubernetes cluster really easy. All necessary Kubernetes `.yaml` files are provided.',
             image: `${baseUrl}img/icons/deploy-containers.png`,
             imageAlign: 'top',
             title: 'Deploy easily',
@@ -158,7 +158,7 @@ class Index extends React.Component {
             title: 'Monitor message backpressure',
           },
           {
-            content: 'Asyngular supports JWT authentication. This form of authentication is ideal for WebSockets because the token expiry can be made arbitrarily short and renewed often on an interval for very little performance cost while saving many database lookups.',
+            content: 'SocketCluster supports JWT authentication. This form of authentication is ideal for WebSockets because the token expiry can be made arbitrarily short and renewed often on an interval for very little performance cost while saving many database lookups.',
             image: `${baseUrl}img/icons/authentication.png`,
             imageAlign: 'top',
             title: 'Support efficient authentication',
@@ -221,12 +221,6 @@ class Index extends React.Component {
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="splashSubsection">
-          <a className="splashSubsectionLink" href="https://github.com/SocketCluster/asyngular#compatibility-mode">
-            <div className="splashSubsectionItem">
-              <img className="splashLogo splashLogoSC" src={`${baseUrl}img/sc-logo.png`} />
-              <div className="splashSubsectionCaption">Compatible with SocketCluster</div>
-            </div>
-          </a>
           <a className="splashSubsectionLink" href={`${docsUrl}/deploying-to-kubernetes`}>
             <div className="splashSubsectionItem">
               <img className="splashLogo splashLogoK8s" src={`${baseUrl}img/k8s-logo.png`} />

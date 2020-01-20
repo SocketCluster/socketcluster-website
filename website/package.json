@@ -3,7 +3,7 @@
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
     "build": "docusaurus-build",
-    "build:prod": "docusaurus-build && rm -Rf /var/www/html/ && cp -Rf ./build/asyngular-website/ /var/www/html/",
+    "build:prod": "docusaurus-build && rm -Rf /var/www/html/ && cp -Rf ./build/socketcluster-website/ /var/www/html/",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",

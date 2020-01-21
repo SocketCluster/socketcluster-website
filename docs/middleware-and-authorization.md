@@ -11,7 +11,7 @@ Middleware functions in SocketCluster v15+ work by iterating over [asyncIterable
 
 ## API overview
 
-In Ayngular v15, unlike previous versions, you can only register a single function using the `agServer.setMiddleware(...)` method.
+In SocketCluster v15, unlike previous versions, you can only register a single function using the `agServer.setMiddleware(...)` method.
 Another major difference from previous versions is that each middleware line in v15+ can support multiple types of actions. In order to make decisions about which specific actions should be allowed to pass and which should be blocked, it's important to check the `action.type` property first.
 
 ### Register middleware functions

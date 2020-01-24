@@ -16,7 +16,7 @@ sidebar_label: AGAction
   <tr>
     <td>request</td>
     <td>
-      This field only exists on actions of type <code>HANDSHAKE_WS</code> and <code>HANDSHAKE_AG</code>. It holds a Node.js <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">http.IncomingMessage</a> object.
+      This field only exists on actions of type <code>HANDSHAKE_WS</code> and <code>HANDSHAKE_SC</code>. It holds a Node.js <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">http.IncomingMessage</a> object.
     </td>
   </tr>
   <tr>
@@ -28,7 +28,7 @@ sidebar_label: AGAction
   <tr>
     <td>data</td>
     <td>
-      This field exists on all action types except for <code>HANDSHAKE_WS</code>, <code>HANDSHAKE_AG</code> and <code>AUTHENTICATE</code> actions. It holds the payload associated with the action.
+      This field exists on all action types except for <code>HANDSHAKE_WS</code>, <code>HANDSHAKE_SC</code> and <code>AUTHENTICATE</code> actions. It holds the payload associated with the action.
     </td>
   </tr>
   <tr>
@@ -74,7 +74,7 @@ sidebar_label: AGAction
     <td>A string constant which is used to indicate that an action is a low level WebSocket handshake action. See the <code>type</code> property above.</td>
   </tr>
   <tr>
-    <td>HANDSHAKE_AG</td>
+    <td>HANDSHAKE_SC</td>
     <td>A string constant which is used to indicate that an action is an SocketCluster handshake action. See the <code>type</code> property above.</td>
   </tr>
   <tr>

@@ -53,7 +53,7 @@ The following middleware lines are supported:
 
 | Middleware type | Description |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `agServer.MIDDLEWARE_HANDSHAKE` | The `for-await-of` loop for this middleware line iterates whenever a socket handshake occurs. The `action.type` property can be either `AGAction.HANDSHAKE_WS` or `AGAction.HANDSHAKE_AG`. |
+| `agServer.MIDDLEWARE_HANDSHAKE` | The `for-await-of` loop for this middleware line iterates whenever a socket handshake occurs. The `action.type` property can be either `AGAction.HANDSHAKE_WS` or `AGAction.HANDSHAKE_SC`. |
 | `agServer.MIDDLEWARE_INBOUND_RAW` | The `for-await-of` loop iterates whenever an inbound message (I.e. from client -> server) is received by the server. This includes all raw messages and operations; including those which are not recognized by SocketCluster. The `action.type` property will always be `AGAction.MESSAGE`. |
 | `agServer.MIDDLEWARE_INBOUND` | The `for-await-of` loop iterates whenever an inbound operation (I.e. a recognized operation from client -> server) occurs. The `action.type` property can be `AGAction.TRANSMIT`, `AGAction.INVOKE`, `AGAction.SUBSCRIBE`, `AGAction.PUBLISH_IN` or `AGAction.AUTHENTICATE`. |
 | `agServer.MIDDLEWARE_OUTBOUND` | The `for-await-of` loop iterates whenever an outbound operation (I.e. server -> client) occurs. The `action.type` property will always be `AGAction.PUBLISH_OUT`. |
@@ -63,7 +63,7 @@ Each `action` object (`AGAction`) which is streamed through the middleware has d
 | Action type | Available properties |
 |-------------------------|------------------------------------------------------|
 | `AGAction.HANDSHAKE_WS` | `type`, `request` |
-| `AGAction.HANDSHAKE_AG` | `type`, `request`, `socket` |
+| `AGAction.HANDSHAKE_SC` | `type`, `request`, `socket` |
 | `AGAction.MESSAGE` | `type`, `socket`, `data` |
 | `AGAction.TRANSMIT` | `type`, `socket`, `receiver`, `data` |
 | `AGAction.INVOKE` | `type`, `socket`, `procedure`, `data` |

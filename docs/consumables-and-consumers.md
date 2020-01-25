@@ -4,7 +4,7 @@ title: Consumables and Consumers
 sidebar_label: Consumables and Consumers
 ---
 
-In SocketCluster, streams returned by functions such as `socket.listener(...)`, `socket.receiver(...)`, `socket.producer(...)` and `socket.channel(...)` are all [async iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables).
+In SocketCluster, streams returned by functions such as `socket.listener(...)`, `socket.receiver(...)`, `socket.procedure(...)` and `socket.channel(...)` are all [async iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables).
 
 This means that you can iterate over any stream directly like this:
 

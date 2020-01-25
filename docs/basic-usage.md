@@ -21,6 +21,9 @@ let options = {
 
 let httpServer = http.createServer();
 let agServer = socketClusterServer.attach(httpServer, options);
+
+// port 8000
+httpServer.listen(8000);
 ```
 
 The `httpServer` argument must be an instance of a <a href="https://nodejs.org/api/http.html#http_class_http_server" target="_blank">Node.js HTTP server</a>.

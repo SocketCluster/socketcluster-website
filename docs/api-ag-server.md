@@ -54,6 +54,10 @@ sidebar_label: AGServer
       HTTP).</td>
   </tr>
   <tr>
+    <td>httpServer</td>
+    <td>An instance of the Node.js HTTP server to which this SC server is attached.</td>
+  </tr>
+  <tr>
     <td>secure</td>
     <td>Whether or not this server uses SSL</td>
   </tr>
@@ -167,11 +171,18 @@ sidebar_label: AGServer
     <td>
       <p>
         Create the server instance (with config options).
+        Note that you can also create the server using the <code>attach</code> method of the top-level <a href="/docs/api-socket-cluster-server">socketClusterServer</a> instance.
         The options object can have any of the following properties (sample showing defaults):
       </p>
 
 ```js
 {
+// An instance of a Node.js HTTP server.
+// https://nodejs.org/api/http.html#http_class_http_server
+// This option should not be set if the server is created
+// with socketClusterServer.attach(...).
+httpServer: null,
+
 // This can be the name of an npm module or a path to a
 // Node.js module to use as the WebSocket server engine.
 wsEngine: 'ws',

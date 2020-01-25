@@ -6,6 +6,28 @@ sidebar_label: Basic usage
 
 ## API overview
 
+### [Server] Create a server
+
+Similar logic should already be inside `server.js` if using the default boilerplate:
+
+```js
+// --- in server.js ---
+const http = require('http');
+const socketClusterServer = require('socketcluster-server');
+
+let options = {
+  // ...
+};
+
+let httpServer = http.createServer();
+let agServer = socketClusterServer.attach(httpServer, options);
+```
+
+The `httpServer` argument must be an instance of a <a href="https://nodejs.org/api/http.html#http_class_http_server" target="_blank">Node.js HTTP server</a>.
+The list of possible `options` which can be passed to the SocketCluster server instance can be found [here](/docs/api-ag-server#methods).
+Note that you can also use the ECMAScript `import` syntax.
+
+
 ### [Server] Listen for inbound socket connections
 
 Inside `server.js`, you can find the `for-await-of` loop which is handling inbound connections. It should look like this:

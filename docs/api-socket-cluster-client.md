@@ -10,6 +10,10 @@ sidebar_label: socketClusterClient
     <td>version</td>
     <td>The SocketCluster client version number.</td>
   </tr>
+  <tr>
+    <td>AGClientSocket</td>
+    <td>A reference to the SocketCluster client socket class.</td>
+  </tr>
 </table>
 
 ## Methods

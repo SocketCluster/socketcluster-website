@@ -24,6 +24,14 @@ class Footer extends React.Component {
   render() {
     return (
       <footer className="nav-footer" id="footer">
+        <section style={{textAlign: 'center'}}>
+          <a href={this.docUrl('deploying-to-kubernetes', this.props.language)}>
+            <div style={{display: 'inline-block', marginBottom: '50px', marginTop: '10px', fontSize: '24px'}} >
+              <img style={{height: '70px', width: '70px', display: 'inline-block', verticalAlign: 'middle', marginRight: '15px'}} src={`${this.props.config.baseUrl}img/k8s-logo.png`} />
+              <div style={{height: '100px', display: 'inline', display: 'inline', verticalAlign: 'middle', color: '#FFFFFF'}}>Runs and scales on Kubernetes</div>
+            </div>
+          </a>
+        </section>
         <section className="sitemap">
           <a href={this.props.config.baseUrl} className="nav-home">
             {this.props.config.footerIcon && (

@@ -99,8 +99,29 @@
   margin-right: 10px;
 }
 
-@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+.footerPromoItem {
+  display: inline-block;
+  margin-bottom: 50px;
+  margin-top: 10px;
+  font-size: 24px;
+}
 
+.footerPromoIcon {
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+.footerPromoText {
+  height: 100px;
+  display: inline;
+  vertical-align: middle;
+  color: #FFFFFF;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 
 @media only screen and (min-width: 1024px) {
@@ -119,6 +140,19 @@
 }
 
 @media only screen and (max-width: 736px) {
+  .footerPromoItem {
+    margin-bottom: 0px;
+  }
+
+  .footerPromoIcon {
+    height: 50px;
+    width: 50px;
+  }
+
+  .footerPromoText {
+    font-size: 18px;
+  }
+
   .pluginRowBlock {
     flex-direction: column;
   }
@@ -128,8 +162,14 @@
     margin-bottom: 10px;
   }
 
+  .splashSubsection {
+    flex-direction: column;
+  }
+
   .splashSubsectionCaption {
-    display: none;
+    /* display: none; */
+    font-size: 18px;
+    margin-bottom: 10px;
   }
 
   .splashLogo {

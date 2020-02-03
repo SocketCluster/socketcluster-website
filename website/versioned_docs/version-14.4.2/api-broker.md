@@ -127,7 +127,7 @@ new Broker();
     </tr>
 </table>
 
-### Methods:<
+### Methods:
 
 <table>
     <tr>

@@ -1,0 +1,203 @@
+---
+id: version-14.4.2-middleware-and-authorization
+title: Middleware and authorization
+sidebar_label: Middleware and authorization
+original_id: middleware-and-authorization
+---
+
+With SocketCluster, clients can share messages with one another by listening to and publishing data to particular channels. By default, anyone can listen to and publish data to any channel they like. While this might be OK for some systems, most systems need some degree of access control to regulate how users can interact with one another. Most systems also need a way to authenticate and authorize connections in order to enforce appropriate access rights. Middleware functions offer a clean, centralized way to do all this.
+
+In SocketCluster, all real-time events have to pass through middleware functions before they can be handled by your server. SocketCluster offers different kinds of middleware lines to handle various kinds of interactions. The most useful middleware lines go in worker processes but there are also middleware lines exposed by the master process. For this guide, we will focus on worker middleware only.
+
+The worker exposes middleware through our real-time scServer object &mdash; This object can be accessed using <code>worker.getSCServer()</code> or just <code>worker.scServer</code>.
+
+To add a middleware function to the server, you should use:
+
+```js
+scServer.addMiddleware(middlewareType, middlewareFunction);
+```
+
+The middleware types available on scServer include:
+
+```js
+scServer.MIDDLEWARE_HANDSHAKE_WS
+scServer.MIDDLEWARE_HANDSHAKE_SC
+scServer.MIDDLEWARE_AUTHENTICATE
+scServer.MIDDLEWARE_SUBSCRIBE
+scServer.MIDDLEWARE_PUBLISH_IN
+scServer.MIDDLEWARE_PUBLISH_OUT
+scServer.MIDDLEWARE_EMIT
+```
+
+The req argument passed to the middlewareFunction depends on the type of middleware used.
+For details about the properties of the req object for different middleware lines, see the addMiddleware method near the bottom of [this page](api-scserver).
+
+Note that the <code>err</code> objects in the following examples are based on custom classes which inherit from JavaScript's <code>Error</code> object.
+You can also create errors using <code>var err = new Error('Some error')</code> and then add custom properties to that error like <code>err.name = 'MyError'</code> - In fact this approach is often simpler; the page on [handling failure](handling-failure) demonstrates that approach for responding to events (instead of inside middleware).
+Here are some sample code snippets showing how to use each kind of middleware:
+
+### Handshake WS
+
+```js
+// For WebSocket handshakes
+scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_WS,
+  function (req, next) {
+    // Note that the req object in this middleware is a Node.js HTTP
+    // request (IncomingMessage).
+    // ...
+    if (...) {
+      next(); // Allow
+    } else {
+      var err = new MyCustomHandshakeFailedError('Handshake failed');
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);
+```
+Note that the MIDDLEWARE_HANDSHAKE_WS middleware is special because it happens before the underlying WebSocket has been created (at the HTTP/WS handshake stage).
+If you block the connection by passing an error to the <code>next(err)</code> callback, the error string will show up in your browser's developer panel (Network tab in Chrome)
+but there is no way to handle this error in your code. If you try to listen to the 'connectAbort' event, the error code will always be 1006 and you won't be able to get any additional information about it.
+This is a limitation of the WebSocket RFC itself (and is intentional; see [the answers here for more details](http://stackoverflow.com/questions/31002592/javascript-doesnt-catch-error-in-websocket-instantiation)) - For this reason, blocking connections with MIDDLEWARE_HANDSHAKE_WS mostly makes sense for quickly and efficiently shutting down malicious connections.
+If you want a more client-friendly way to kill a connection, you should use the <code>MIDDLEWARE_HANDSHAKE_SC</code> middleware instead.
+
+### Handshake SC
+
+```js
+// For SocketCluster handshakes
+scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_SC,
+  function (req, next) {
+    // ...
+    if (...) {
+      next(); // Allow
+    } else {
+      var err = new MyCustomHandshakeFailedError('Handshake failed');
+      // Block and close socket with custom 4500 status code.
+      // The status code will be passed as the first argument to the client socket's
+      // 'connectAbort' event handler. The second argument (reason) will be the stringified err object.
+      next(err, 4500);
+      // next(true, 4500); // Blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);
+```
+
+The MIDDLEWARE_HANDSHAKE_SC middleware line gets executed during a SocketCluster protocol handshake.
+It is similar to MIDDLEWARE_HANDSHAKE_WS except that it happens later; after the SC socket has been instantiated.
+Because it runs at a higher level in the protocol stack, it is possible to pass back custom status codes when
+blocking the middleware with an error.
+The status code will be passed to the client as the first argument to the <code>'connectAbort'</code> event handler.
+If an err object is passed without a status code, then the default <code>4008</code> (<code>'Server
+rejected handshake from client'</code>) will be used. For custom status codes, it is recommended that you use integers in
+the range 4500 to 4999 - These codes cannot be reserved by either the WebSocket or SocketCluster protocols
+so they are ideal as custom application level status codes.
+
+Scroll to the addMiddleware method near the bottom of [this page](api-scserver) to see what properties are provided by the req object for each middleware type.
+
+### Authenticate
+
+```js
+scServer.addMiddleware(scServer.MIDDLEWARE_AUTHENTICATE,
+  function (req, next) {
+    // ...
+    if (...) {
+      next(); // Allow
+    } else {
+      var err = new MyCustomAuthenticationFailedError('Authentication failed');
+      // Prevent the socket from becoming authenticated (socket.authToken will be null).
+      // The socket will still be allowed to connect.
+      next(err);
+    }
+  }
+);
+```
+
+The MIDDLEWARE_AUTHENTICATE middleware line gets executed after a socket's JWT has been validated but before the resulting authToken is attached to the socket; it also runs before any authentication events are triggered.
+This middleware allows you to perform additional checks before authenticating the socket  (e.g. checking the token against credentials stored in a database).
+
+### Subscribe
+
+```js
+scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE,
+  function (req, next) {
+    // ...
+    if (req.authTokenExpiredError) {
+      next(req.authTokenExpiredError); // Fail with a default auth token expiry error
+    } else if (...) {
+      next(); // Allow
+    } else {
+      var socketId = req.socket.id;
+      var err = new MyCustomSubscribeFailedError(socketId + ' cannot subscribe to channel ' + req.channel);
+      // You can have custom properties on your Error object.
+      err.code = 1234;
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);
+```
+
+### Publish
+
+SC supports two different middleware lines for publish. MIDDLEWARE_PUBLISH_IN captures inbound published messages as
+they reach the server (before reaching a broker for processing) while MIDDLEWARE_PUBLISH_OUT captures published messages after they have been processed -
+just before they are sent to individual sockets. MIDDLEWARE_PUBLISH_OUT lets you block a message from reaching specific sockets - A use case
+for this is that it lets you design your messages and middleware such that the socket which published a message doesn't receive
+their own message.
+
+### Publish in
+
+```js
+scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_IN,
+  function (req, next) {
+    // ...
+    if (...) {
+      // If the client socket.publish(channelName, data, callback) has provided
+      // a callback as argument, what you set as data.ackData here will be passed back
+      // to that client as the second argument to the callback function(err, ackData).
+      data.ackData = {myMessage: 'This is a message'};
+      next(); // Allow
+    } else {
+      var err = MyCustomPublishInFailedError(req.socket.id + ' cannot publish channel ' + req.channel);
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);
+```
+
+### Publish out
+
+```js
+scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_OUT,
+  function (req, next) {
+    // ...
+    if (...) {
+      next(); // Allow
+    } else {
+      var err = MyCustomPublishOutFailedError('Blocked publishing message out to ' + req.socket.id);
+      next(err); // Block with notice
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);
+```
+
+### Emit
+
+```js
+scServer.addMiddleware(scServer.MIDDLEWARE_EMIT,
+  function (req, next) {
+    // ...
+    if (...) {
+      next(); // Allow
+    } else {
+      var err = MyCustomEmitFailedError(req.socket.id + ' is not allowed to emit event ' + req.event);
+      next(err); // Block
+      // next(true); // Passing true to next() blocks quietly (without raising a warning on the server-side)
+    }
+  }
+);
+```
+
+Note that you can call the next() function at any time you want (asynchronously is fine), but you should make sure that you do call it eventually &mdash; Otherwise the client's subscribe/publish/emit action will simply timeout and the client will get a non-descriptive timeout error. If you want to block a client from doing something, it's better to give them an explicit error that way they can handle it better.

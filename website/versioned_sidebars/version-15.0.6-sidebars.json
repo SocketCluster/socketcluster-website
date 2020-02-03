@@ -1,0 +1,23 @@
+{
+  "version-15.0.6-docs": {
+    "Guides": [
+      "version-15.0.6-getting-started",
+      "version-15.0.6-basic-usage",
+      "version-15.0.6-consumables-and-consumers",
+      "version-15.0.6-authentication",
+      "version-15.0.6-middleware-and-authorization",
+      "version-15.0.6-streams-and-backpressure",
+      "version-15.0.6-deploying-to-kubernetes"
+    ],
+    "API": [
+      "version-15.0.6-api-socket-cluster-server",
+      "version-15.0.6-api-socket-cluster-client",
+      "version-15.0.6-api-ag-client-socket",
+      "version-15.0.6-api-ag-channel",
+      "version-15.0.6-api-ag-server",
+      "version-15.0.6-api-ag-server-socket",
+      "version-15.0.6-api-ag-exchange",
+      "version-15.0.6-api-ag-action"
+    ]
+  }
+}

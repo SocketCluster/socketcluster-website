@@ -1,0 +1,172 @@
+---
+id: version-14.4.2-api-broker
+title: API - SCBroker
+sidebar_label: SCBroker (server, broker)
+original_id: api-broker
+---
+
+The broker object allows you to interact directly with SocketCluster's internal data and pub/sub channels.
+This object should be instantiated inside the brokerController (broker.js file by default).
+The broker's main purpose is to allow you to synchronise SocketCluster's internal channels with external
+channels from a third-party system - This is useful if you need to scale SocketCluster horizontally across
+multiple machines. See [SCC](https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md#scc-guide).
+
+When reading this documentation, it's important to keep in mind that your SocketCluster system could have multiple brokers; in
+such a case, each broker will only manage a subset of all available channels (responsibilities will be somewhat evenly
+distributed between each broker).
+
+Example broker controller:
+
+```js
+var SCBroker = require('socketcluster/scbroker');
+
+class Broker extends SCBroker {
+  // Override the run function.
+  // It will be executed when the broker is ready.
+  run() {
+    // Broker logic goes here.
+  }
+}
+
+new Broker();
+```
+
+### Inherits from:
+
+[EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter)
+
+### Properties:
+
+<table>
+    <tr>
+        <td>id</td>
+        <td>The broker's id. This is also the broker's index - So the first broker's ID will always be 0.</td>
+    </tr>
+    <tr>
+        <td>options</td>
+        <td>
+            This is the options object provided to the SocketCluster master instance (inside server.js).
+            This can be useful if you need to pass command line arguments from your master process to your broker when launching SC (you can add custom properties to the options object in server.js).
+        </td>
+    </tr>
+    <tr>
+        <td>instanceId</td>
+        <td>
+            The ID of the current SocketCluster instance. A single SC instance constitutes of the master process and all of its child processes -
+            This includes worker and broker processes which were forked from master.
+        </td>
+    </tr>
+    <tr>
+        <td>dataMap</td>
+        <td>
+            A FlexiMap (<a href="https://github.com/SocketCluster/fleximap">https://github.com/SocketCluster/fleximap</a>) containing all data for the current broker.
+        </td>
+    </tr>
+    <tr>
+        <td>dataExpirer</td>
+        <td>
+            An ExpiryManager (<a href="https://github.com/SocketCluster/expirymanager">https://github.com/SocketCluster/expirymanager</a>) which holds a list of expiries for various keys in dataMap.
+        </td>
+    </tr>
+    <tr>
+        <td>subscriptions</td>
+        <td>
+            A multi-dimensional Object which maps socket IDs and channels to worker sockets which are subscribed to the current broker.
+        </td>
+    </tr>
+</table>
+
+### Events:
+
+<table>
+    <tr>
+        <td>'subscribe'</td>
+        <td>
+            This gets triggered whenever a SocketCluster worker subscribes to a channel. When a worker subscribes to a channel,
+            it means that at least one client-side socket which is bound to that worker has asked to subscribe to that channel.
+            A worker will not try to subscribe to the channel again if it is already subscribed to it.<br />
+            <br />
+            For the purpose of scaling SocketCluster across multiple machines, if you see this event triggered for a particular
+            channel, then you know that the current broker is interested in that channel, so you can use an MQTT, AMQP, or Redis client
+            of your choice to create a matching channel subscription on a remote Pub/Sub cluster - This allows you to extend the subscription
+            to an external pub/sub service.
+        </td>
+    </tr>
+    <tr>
+        <td>'unsubscribe'</td>
+        <td>
+            This event will get triggered when a worker unsubscribes from a channel on the current broker.
+            A worker will unsubscribe itself from a channel when it no longer has any client-side sockets which want to be subscribed to that channel.
+            A worker will only unsubscribe to a channel if it is subscribed to it.<br />
+            <br />
+            Like the 'subscribe' event described above, you can use this event to unsubscribe your broker process from a particular
+            channel on a remote Pub/Sub cluster.
+        </td>
+    </tr>
+    <tr>
+        <td>'publish'</td>
+        <td>
+            This event will be emitted whenever a worker publishes data to a particular channel on the current broker.
+            The worker may publish data to a channel on a broker when one of its client-side sockets asks to publish to that channel or
+            when you call worker.exchange.publish(...) from the worker process.
+            Note that if your SC instance has multiple brokers, then each broker will be responsible for a subset of all available channels within SC.
+        </td>
+    </tr>
+    <tr>
+        <td>'masterMessage'</td>
+        <td>
+            Emitted when the master process sends a message to this broker.
+            Since SocketCluster version 6.6.0, the handler function accepts two arguments; the first is the data which was sent
+            by the master process, the second is a <code>respond</code> callback function which you can call to respond to the
+            event using IPC. The <code>respond</code> function should be invoked as <code>respond(error, data)</code>; it is recommended
+            that you pass an instance of the <code>Error</code> object as the first argument; if you don't want to send back an error,
+            then the first argument should be <code>null</code>: <code>respond(null, data)</code>.
+            See <code>sendToBroker(...)</code> method in <a href="/docs/14.4.2/api-socketcluster">SocketCluster (master) API</a> for details on how
+            to send a message to a broker from the master process.
+        </td>
+    </tr>
+</table>
+
+### Methods:
+
+<table>
+    <tr>
+        <td>publish(channelName, data)</td>
+        <td>
+            <p>
+                Publish data (any valid JavaScript object/value) to channelName on the current broker.
+            </p>
+            <p>
+                For the purpose of scaling to multiple SC instances, this method allows you to inject external
+                channel data (from an external service) into relevant SocketCluster channels.
+                Because this method publishes data directly from the broker itself, the broker will not emit a 'publish' event -
+                The 'publish' event only gets emitted when a worker publishes data.
+            </p>
+            <p>
+                Note that if your SC instance has multiple brokers, then each broker will be responsible for a subset of all available channels within SC.
+                What this means is that if you try to publish data to a channel which does not belong to the current broker, it will be ignored (and is wasteful).
+                To check if a channel belongs to a broker, you can use the <a href="https://www.npmjs.com/package/sc-hasher">sc-hasher</a> module to hash
+                the channel name and then compare the returned number with a broker.id - If they match, then you know that the channel belongs to the broker.
+                See <a href="https://github.com/SocketCluster/socketcluster/issues/245#issuecomment-261041729">this comment</a> for more details.
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>run(query)</td>
+        <td>
+            Execute a query function on the current broker. See <a href="https://github.com/SocketCluster/sc-broker#run">http://github.com/SocketCluster/sc-broker</a> for details.
+        </td>
+    </tr>
+    <tr>
+        <td>sendToMaster(data, [callback])</td>
+        <td>
+            Send some data to the master process from this broker. You will be able to handle this data from inside the master process by listening for the
+            'brokerMessage' event. See <a href="/docs/14.4.2/api-socketcluster">here</a> for more details.
+            Since SocketCluster v6.6.0, you can provide an optional callback as the second argument; it should be in the
+            form <code>function (err, data) { /* ... */ }</code> - Note that the master will need to respond
+            to the 'brokerMessage' event by invoking a <code>respond</code> function; this is a convenient way to collect data back from the master process in response to this event.
+            If the master does not invoke the <code>respond</code> function, then this callback will receive an instance of <code>TimeoutError</code> as the first argument.
+            The timeout is defined by the <code>ipcAckTimeout</code> option - See the <a href="/docs/14.4.2/api-socketcluster">SocketCluster (server) API</a> for details.
+        </td>
+    </tr>
+</table>

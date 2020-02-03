@@ -6,7 +6,7 @@ sidebar_label: Authentication
 
 ## Feature overview
 
-The default authentication mechanism in SocketCluster is JWT; it is essentially the same as it was in SocketCluster; the main difference is that any function which accepted a callback will now return a `Promise` instead. Like in SocketCluster, you can use either the HTTP-based flow or the WebSocket-based flow for doing authentication. See the [SocketCluster guide](https://socketcluster.io/#!/docs/authentication) for more details.
+The default authentication mechanism in SocketCluster is JWT; it is essentially the same as it was previous versions of SocketCluster; the main difference is that with version 15+ any function which accepted a callback will now return a `Promise` instead. Like in SocketCluster, you can use either the HTTP-based flow or the WebSocket-based flow for doing authentication. See the [SocketCluster guide](https://socketcluster.io/#!/docs/authentication) for more details.
 
 The custom `authKey` string which you pass as an option to the `AGServer` constructor will be used to sign and verify JWT tokens from client sockets.
 The initial authentication phase occurs automatically as part of the socket handshake. Authentication can also be done at runtime on a connected socket using the client's `socket.authenticate(...)` method.

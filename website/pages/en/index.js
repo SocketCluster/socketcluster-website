@@ -74,7 +74,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href={docUrl('getting-started.html')}>Get started</Button>
+            <Button href={docUrl('getting-started')}>Get started</Button>
             <Button
               href="https://github.com/SocketCluster/socketcluster"
               target="_blank"
@@ -85,11 +85,6 @@ class HomeSplash extends React.Component {
               target="_blank"
               rel="noreferrer noopener"
             >Chat on Gitter</Button>
-            <Button
-              href="https://github.com/SocketCluster/socketcluster-website/tree/old/public/app/views/docs"
-              target="_blank"
-              rel="noreferrer noopener"
-            >Browse old docs</Button>
           </PromoSection>
         </div>
       </SplashContainer>

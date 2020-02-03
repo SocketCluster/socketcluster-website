@@ -1,0 +1,28 @@
+{
+  "version-14.4.2-docs": {
+    "Guides": [
+      "version-14.4.2-introduction",
+      "version-14.4.2-getting-started",
+      "version-14.4.2-basic-usage",
+      "version-14.4.2-debugging",
+      "version-14.4.2-authentication",
+      "version-14.4.2-middleware-and-authorization",
+      "version-14.4.2-handling-failure",
+      "version-14.4.2-full-stack",
+      "version-14.4.2-running-in-production",
+      "version-14.4.2-scaling-horizontally"
+    ],
+    "API": [
+      "version-14.4.2-api-socketcluster-client",
+      "version-14.4.2-api-scsocket-client",
+      "version-14.4.2-api-scchannel-client",
+      "version-14.4.2-api-socketcluster",
+      "version-14.4.2-api-scworker",
+      "version-14.4.2-api-scserver",
+      "version-14.4.2-api-scsocket-server",
+      "version-14.4.2-api-scchannel-server",
+      "version-14.4.2-api-exchange",
+      "version-14.4.2-api-broker"
+    ]
+  }
+}

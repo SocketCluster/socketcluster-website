@@ -1,0 +1,450 @@
+---
+id: version-14.4.2-api-scsocket-client
+title: API - SCSocket (Client)
+sidebar_label: SCClientSocket (client)
+original_id: api-scsocket-client
+---
+
+Note that there are two types of SCSocket objects - One which runs on the client and another which runs on the server.
+These two objects have slightly different APIs. This page concerns the client socket.
+
+The client-side SCSocket object allows you to interact with your backend and with other client sockets in real-time.
+The SCSocket object uses WebSockets the underlying transport (since v2.0.0, there is no polling fallback).
+
+One of the biggest differences between the client-side SCSocket and server-side SCSocket is that a client-side SCSocket is not ephemeral and will not be
+be discarded when it loses the connection - By default, it will try to reconnect automatically.
+
+### Inherits from:
+
+[Emitter](https://github.com/component/emitter)
+
+### Properties
+<table>
+    <tr>
+        <td>id</td>
+        <td>The socket id.</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>The current state of the socket as a string - Can be socket.CONNECTING, socket.OPEN or socket.CLOSED.</td>
+    </tr>
+    <tr>
+        <td>pendingReconnect</td>
+        <td>A boolean which indicates if the socket is about to be automatically reconnected.</td>
+    </tr>
+    <tr>
+        <td>pendingReconnectTimeout</td>
+        <td>The number of milliseconds until the next reconnection attempt is executed.</td>
+    </tr>
+    <tr>
+        <td>connectAttempts</td>
+        <td>The number of automatic connect/reconnect attempts which the socket has executed (including the current latest attempt).</td>
+    </tr>
+    <tr>
+        <td>authState</td>
+        <td>The last known authentication state of the socket as a string. Can be either 'authenticated' (socket.AUTHENTICATED) or 'unauthenticated' (socket.UNAUTHENTICATED).</td>
+    </tr>
+    <tr>
+        <td>authToken</td>
+        <td>The auth token (as a plain Object) currently associated with the socket. This property will be null if no token is associated with this socket.</td>
+    </tr>
+    <tr>
+        <td>signedAuthToken</td>
+        <td>The signed auth token currently associated with the socket (encoded and signed in the JWT format). This property will be null if no token is associated with this socket.</td>
+    </tr>
+    <tr>
+        <td>channels</td>
+        <td>An object which holds all the channels (SCChannel object) attached to this socket (with the channel name as key). This object also contains channels which are in the 'unsubscribed' state.</td>
+    </tr>
+    <tr>
+        <td>CONNECTING</td>
+        <td><b>'connecting'</b> - A string constant which represents this socket's connecting state. See state property.</td>
+    </tr>
+    <tr>
+        <td>OPEN</td>
+        <td><b>'open'</b> - A string constant which represents this socket's open/connected state. See state property.</td>
+    </tr>
+    <tr>
+        <td>CLOSED</td>
+        <td><b>'closed'</b> - A string constant which represents this socket's closed state. See state property.</td>
+    </tr>
+    <tr>
+        <td>AUTHENTICATED</td>
+        <td><b>'authenticated'</b> - A string constant which represents this socket's authenticated authState.</td>
+    </tr>
+    <tr>
+        <td>UNAUTHENTICATED</td>
+        <td><b>'unauthenticated'</b> - A string constant which represents this socket's unauthenticated authState.</td>
+    </tr>
+</table>
+
+### Events:
+
+<table style="font-size:15px;">
+    <tr>
+        <td>'error'</td>
+        <td>This gets triggered when an error occurs on this socket. Argument is the error object.</td>
+    </tr>
+    <tr>
+        <td>'connect'</td>
+        <td>
+        <p>
+            Emitted whenever the socket connects to the server (includes reconnections).
+            The handler receives two arguments; the first is a status object in the form:
+        </p>
+
+```js
+{
+    // The socket's id
+    id: 'RM11Szl-tPn7p1BhAAAA',
+
+    // Whether or not the current socket is authenticated with the server
+    // (has a valid auth token)
+    isAuthenticated: true,
+
+    // If the client has a token, but it was invalid, authError
+    // will be a JavaScript object.
+    authError: {name: 'errorName', message: 'errorMessage'}
+}
+```
+<p>
+The second argument is a callback function (<code>processSubscriptions</code>) which, when called, will send all pending channel subscriptions to the server (to start activating pending channels).
+Note that this <code>processSubscriptions</code> callback will only work if the client <code>socket.options.autoSubscribeOnConnect</code> option is set to <code>false</code>. See <a href="/docs/14.4.2/api-socketcluster-client">SocketCluster Client API</a>.
+</p>
+        </td>
+    </tr>
+    <tr>
+        <td>'disconnect'</td>
+        <td>Happens when this socket becomes disconnected from the server.</td>
+    </tr>
+    <tr>
+        <td>'connectAbort'</td>
+        <td>Triggers when a new connection is aborted for whatever reason - This could be caused by a failure during the 
+        connection phase or it may be triggered intentionally by calling socket.disconnect() while the socket is connecting.</td>
+    </tr>
+    <tr>
+        <td>'close'</td>
+        <td>Triggers when a socket is disconnected or the connection is aborted - This is a catch-all event for both <code>'disconnect'</code> and <code>'connectAbort'</code>.</td>
+    </tr>
+    <tr>
+        <td>'connecting'</td>
+        <td>
+            Triggers whenever the socket initiates a connection to the server - This includes reconnects.
+            In order capture the very first 'connecting' event, you will need to set the initial <code>autoConnect</code> option
+            to <code>false</code> when you create the socket with <code>socketCluster.create(...)</code> - You will need to register the handler
+            before you call <code>socket.connect()</code>.
+        </td>
+    </tr>
+    <tr>
+        <td>'raw'</td>
+        <td>This gets triggered whenever the server socket on the other side calls socket.send(...).</td>
+    </tr>
+    <tr>
+        <td>'kickOut'</td>
+        <td>Occurs when this socket is kicked out of a particular channel by the backend. Arguments are (message, channelName).</td>
+    </tr>
+    <tr>
+        <td>'subscribe'</td>
+        <td>When the subscription succeeds.</td>
+    </tr>
+    <tr>
+        <td>'subscribeFail'</td>
+        <td>Happens when the subscription fails. The first argument passed to the handler will be the error which caused the subscription to fail.</td>
+    </tr>
+    <tr>
+        <td>'unsubscribe'</td>
+        <td>When the socket becomes unsubscribed from a channel.</td>
+    </tr>
+    <tr>
+        <td>'authStateChange'</td>
+        <td>
+            Triggers whenever the client's authState changes between socket.AUTHENTICATED and socket.UNAUTHENTICATED states.
+            The handler will receive as an argument an object which has at least two properties: <code>oldState</code> and <code>newState</code>.
+            If <code>newState</code> is 'authenticated', the argument to the handler will also have an additional <code>signedAuthToken</code> property which
+            will be the base64 signed JWT auth token as a string and an <code>authToken</code> property which will represent the token as a plain Object.
+        </td>
+    </tr>
+    <tr>
+        <td>'authTokenChange' <b>[Removed from socketcluster-client v12.0.0]</b></td>
+        <td>
+            This event was removed from socketcluster-client v12.0.0 onwards - The alternative is now to bind handlers to both the 'authenticate' and 'deauthenticate' events.
+            Triggers whenever the client's signedAuthToken and authToken properties are updated (including if the client is already authenticated).
+            The argument passed to the handler is the signedAuthToken. You can use <code>socket.authToken</code> to get the token in plaintext.
+        </td>
+    </tr>
+    <tr>
+        <td>'subscribeStateChange'</td>
+        <td>
+            Triggers whenever a pub/sub channel's state transitions between 'pending', 'subscribed' and 'unsubscribed' states.
+            The handler will receive as an argument an object which has three properties: channel, oldState and newState.
+        </td>
+    </tr>
+    <tr>
+        <td>'subscribeRequest'</td>
+        <td>Emits the channel name when a `subscribe` action is invoked by the client.</td>
+    </tr>
+    <tr>
+        <td>'authenticate'</td>
+        <td>
+            Triggers whenever the client is successfully authenticated by the server - The data argument passed along
+            with this event is the base64 signed JWT auth token as a string.
+        </td>
+    </tr>
+    <tr>
+        <td>'deauthenticate'</td>
+        <td>
+            Triggers whenever the client becomes unauthenticated.
+        </td>
+    </tr>
+    <tr>
+        <td>'message'</td>
+        <td>
+            All data that arrives on this socket is emitted through this event as a string.
+        </td>
+    </tr>
+</table>
+
+### Errors
+
+For the list of all SC errors (and their properties) [click here](https://github.com/SocketCluster/sc-errors/blob/master/index.js).
+To check the type of an error in SC, you should use the <code>name</code> property of the error (do not use the instanceof statement).
+Errors which are sent to the client from the server will be dehydrated on the server and rehydrated on the client - As a result they will be cast
+to plain <code>Error</code> objects.
+
+### Methods:
+
+<table>
+    <tr>
+        <td>
+            connect()
+        </td>
+        <td>
+            Reconnects the client socket to its origin server.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            getState()
+        </td>
+        <td>
+            Returns the state of the socket as a string constant.
+            <ul>
+                <li><b>'connecting'</b> - socket.CONNECTING</li>
+                <li><b>'open'</b> - socket.OPEN</li>
+                <li><b>'closed'</b> - socket.CLOSED</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            getAuthToken()
+        </td>
+        <td>
+            Returns the auth token as a plain JavaScript object.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            getSignedAuthToken()
+        </td>
+        <td>
+            Returns the signed auth token as a string in the JWT format.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            disconnect([code, data])
+        </td>
+        <td>
+            Disconnect this socket from the server.
+            This function accepts two optional arguments:
+            A custom error code (a Number - Ideally between 4100 to 4500) and data (which can be either reason message String or an Object).
+        </td>
+    </tr>
+    <tr>
+        <td>
+            emit(event, data, [callback])
+        </td>
+        <td>
+            Emit the specified event on the corresponding server-side socket.
+            Note that you cannot emit any of the reserved SCSocket events.
+            This is the same as Socket.io's emit function except that if a callback is provided, your server-side socket will need to respond to this event - <a href="/docs/14.4.2/handling-failure">See example</a>.
+            Also note that SC has a default timeout of 10 seconds for responding to events on the other side. You can increase this limit by setting <code>ackTimeout</code> when
+            initiating SocketCluster on the server side. See <a href="/docs/14.4.2/api-socketcluster">here</a>.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            on(event, handler)
+        </td>
+        <td>
+            Add a handler for a particular event (those emitted from a corresponding socket on the server). The handler is a function
+            in the form: handler(data, res) - The res argument is a function which can be used to send a response to the server socket which
+            emitted the event (assuming that the server is expecting a response - I.e. A callback was provided to the emit method).
+            The res function is in the form: res(err, message) - To send back an error, you can do either: res('This is an error') or
+            res(1234, 'This is the error message for error code 1234').
+            To send back a normal non-error response: res(null, 'This is a normal response message').
+            Note that both arguments provided to res can be of any JSON-compatible type.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            off([event, handler])
+        </td>
+        <td>
+            Unbind a previously attached event handler.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            send(data, [options]);
+        </td>
+        <td>
+            Send some raw data to the server. This will trigger a 'raw' event on the server which will carry the provided data.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            authenticate(encryptedTokenString, [callback]);
+        </td>
+        <td>
+            Perform client-initiated authentication - This is useful if you already have a valid encrypted auth token string and would like to use
+            it to authenticate directly with the server (without having to ask the user to login details).
+            Typically, you should perform server-initiated authentication using the socket.setAuthToken() method from the server side.
+            This method is useful if, for example, you received the token from a different browser tab via localStorage and you want to immediately
+            authenticate the current socket without having to reconnect the socket. It may also be useful if you're getting the token from a third-party
+            JWT-based system and you're using the same authKey (see boot options for SocketCluster) - In which case they should be compatible.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            deauthenticate([callback]);
+        </td>
+        <td>
+            Perform client-initiated deauthentication - Deauthenticate (logout) the current socket.
+            The callback will receive an error as the first argument if the operation fails.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>
+                <i style="color: #999;">
+                    All of the following methods are related to pub/sub features of SC.<br />
+                    SC let you interact with channels either directly through the socket or through
+                    <a href="/docs/14.4.2/api-scchannel-client">SCChannel</a> objects.
+                </i>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            publish(channelName, data, [callback])
+        </td>
+        <td>
+            Publish data to the specified channelName.
+            The channelName argument must be a string.
+            The data argument can be any JSON-compatible object/array or primitive.
+            The callback lets you check that the publish action reached the backend successfully.
+            Callback function is in the form callback(err, ackData) - On success, the err argument will be undefined.
+            The ackData argument will be a value which is passed back from back end middleware (undefined by default);
+            see the example about MIDDLEWARE_PUBLISH_IN for more details: <a href="/docs/14.4.2/middleware-and-authorization">Middleware and authorization</a>.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            subscribe(channelName, [options])
+        </td>
+        <td>
+            Subscribe to a particular channel.
+            This function returns an <a href="/docs/14.4.2/api-scchannel-client">SCChannel</a> object which lets you watch for incoming data on that channel.
+            Since v4.0.0, you can provide an optional options object in the form <code>{waitForAuth: true, data: someCustomData, batch: true}</code> (all properties are optional) - If <code>waitForAuth</code> is true, the channel
+            will wait for the socket to become authenticated before trying to subscribe to the server - These kinds of channels are
+            sometimes known as "private channels" - Note that in this case, "authenticated" means that the client socket has received a valid JWT authToken - Read about the server-side <code>socket.setAuthToken(tokenData)</code> function <a href="/docs/14.4.2/authentication">here</a> for more details. The <code>data</code> property can be used to pass data along with the subscription.
+            See <a href="https://github.com/SocketCluster/socketcluster/issues/167#issuecomment-208313977">this comment</a> for more details about how to handle the data property.
+            The <code>batch</code> property was introduced in SC v8 (both the client and the server must be at least version 8 in order to use this feature) - It's false by default; if set to true, then the subscription request will be batched together with other subscriptions instead of being sent off immediately and individually. By the default, the batch duration is 0 (which will batch subscribe calls that are within the same call stack).
+            Note that the <code>pubSubBatchDuration</code> can be specified on a per-socket basis as an option when creating/connecting the socket for the first time.
+            Batching can result in a significant performance boost if the client needs to subscribe to a large number of channels (will also speed up socket reconnect if there are a lot of pending channels).
+        </td>
+    </tr>
+    <tr>
+        <td>
+            unsubscribe(channelName)
+        </td>
+        <td>
+            Unsubscribe from the specified channel. This makes any associated SCChannel object inactive.
+            You can reactivate the <a href="/docs/14.4.2/api-scchannel-client">SCChannel</a> object by calling subscribe(channelName) again at a later time.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            channel(channelName)
+        </td>
+        <td>
+            Returns an <a href="/docs/14.4.2/api-scchannel-client">SCChannel</a> instance. This is different from subscribe() in that it will not try to subscribe to that channel.
+            The returned channel will be inactive initially.
+            You can call channel.subscribe() later to activate that channel when required.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            watch(channelName, handler)
+        </td>
+        <td>
+            Lets you watch a channel directly from the SCSocket object.
+            The handler accepts a single data argument which holds the data which was published to the channel.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            unwatch(channelName, [handler])
+        </td>
+        <td>
+            Stop handling data which is published on the specified channel. This is different from unsubscribe in that the
+            socket will still receive channel data but the specified handler will no longer capture it.
+            If the handler argument is not provided, all handlers for that channelName will be removed.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            watchers(channelName)
+        </td>
+        <td>
+            Returns an array of listener functions which are watching for data on the specified channel.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            destroyChannel(channelName)
+        </td>
+        <td>
+            This will cause SCSocket to unsubscribe that channel and remove any watchers from it.
+            Any SCChannel object which is associated with that channelName will be disabled permanently (ready to be cleaned up by garbage collector).
+        </td>
+    </tr>
+    <tr>
+        <td>
+            subscriptions(includePending)
+        </td>
+        <td>
+            Returns an array of active channel subscriptions which this socket is bound to.
+            If includePending is true, pending subscriptions will also be included in the list.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            isSubscribed(channelName, [includePending])
+        </td>
+        <td>
+            Check if socket is subscribed to channelName.
+            If includePending is true, pending subscriptions will also be included in the list.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            destroy()
+        </td>
+        <td>
+            Disconnects and destroys the socket so that it can be garbage collected.
+        </td>
+    </tr>
+</table>

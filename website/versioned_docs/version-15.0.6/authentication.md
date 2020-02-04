@@ -163,7 +163,7 @@ you can access it from inside your middleware functions (example using a `PUBLIS
 ```js
 // Server code
 
-agServer.addMiddleware(agServer.MIDDLEWARE_INBOUND, async (middlewareStream) => {
+agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND, async (middlewareStream) => {
   for await (let action of middlewareStream) {
 
     if (action.type === action.PUBLISH_IN) {

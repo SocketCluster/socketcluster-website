@@ -23,7 +23,7 @@ sidebar_label: socketClusterServer
       attach(httpServer, options)
     </td>
     <td>
-      Create a new SocketCluster server and attach it to the specified <a href="https://nodejs.org/api/http.html#http_class_http_server" target="_blank">Node.js HTTP server</a> instance.
+      Create a new SocketCluster server and attach it to the specified <a href="https://nodejs.org/api/http.html#http_class_http_server" target="_blank">Node.js HTTP server</a> instance. This method returns an AGServer instance.
       The list of possible options which will be passed to the SocketCluster server instance can be found <a href="/docs/api-ag-server#methods">here</a>.
     </td>
   </tr>
@@ -32,7 +32,7 @@ sidebar_label: socketClusterServer
       listen(port, options, fn)
     </td>
     <td>
-      Create a SocketCluster server instance which is already attached to an HTTP server instance and ready to use.
+      Create a SocketCluster server instance which is already attached to an HTTP server instance and ready to use. This method returns an AGServer instance.
     </td>
   </tr>
 </table>

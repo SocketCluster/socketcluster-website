@@ -29,7 +29,7 @@ For additional information about how to consume streams in SocketCluster, see th
 
 ### Breaking out of a specific loop
 
-Sometimes you want your `for-await-of` loops to behave more like `EventEmitter` instances; for example, `eventEmitter.removeAllListeners(eventName)` is not suitable for a lot of cases, instead you may want something similar to `eventEmitter.removeListener(eventName, listener)`. This can be easily achieved using a `Consumer` instance like this:
+Sometimes you want your `for-await-of` loops to behave more like `EventEmitter` listeners; for example, `eventEmitter.removeAllListeners(eventName)` is not suitable for a lot of cases, instead you may want something similar to `eventEmitter.removeListener(eventName, listener)`. This can be easily achieved using a `Consumer` instance like this:
 
 ```js
 // Back end.

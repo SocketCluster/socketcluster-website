@@ -182,7 +182,7 @@ class Index extends React.Component {
             title: 'Avoid callback hell',
           },
           {
-            content: 'Clients are optimized to handle lost connections seamlessly. For example, if a client loses the connection, channels attached to that socket will be put in a `pending` state and automatically resubscribe after the socket reconnects .',
+            content: 'Clients are optimized to handle lost connections seamlessly. For example, if a client loses the connection, channels attached to that socket will be put in a `pending` state and automatically resubscribe after the socket reconnects.',
             image: `${baseUrl}img/icons/recover.png`,
             imageAlign: 'top',
             title: 'Recover from failure',

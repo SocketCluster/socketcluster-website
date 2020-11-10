@@ -14,7 +14,7 @@ sidebar_label: AGServer
   <tr>
     <td>exchange</td>
     <td>
-      A client which lets you interact with pub/sub channels from the server side.
+      A client which lets you interact with pub/sub channels and make RPC requests from the server side.
       (See API section on the <a href="/docs/api-ag-exchange">AGExchange</a> object for details).
     </td>
   </tr>

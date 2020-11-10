@@ -5,7 +5,7 @@ sidebar_label: Introduction
 original_id: introduction
 ---
 
-SocketCluster is a fast, highly scalable HTTP + WebSockets server environment which lets you build multi-process real-time systems that make use of all CPU cores on a machine/instance. It removes the limitations of having to run your Node server as a single process and makes your backend resilient by automatically recovering from worker crashes.
+SocketCluster is a fast, highly scalable HTTP + WebSockets server environment which lets you build multi-process real-time systems (e.g. for pub/sub and RPCs) that make use of all CPU cores on a machine/instance. It removes the limitations of having to run your Node server as a single process and makes your backend resilient by automatically recovering from worker crashes.
 
 SocketCluster is optimized to run on Kubernetes inside Docker containers, see [SCC](https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md) for details.
 

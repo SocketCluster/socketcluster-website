@@ -54,7 +54,7 @@
 
 .splashSubsection {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -86,6 +86,17 @@
 
 .splashSubsectionLink :visited {
   color: #FFFFFF;
+}
+
+.splashSubsectionCaption {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.splashLogoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .splashLogo {

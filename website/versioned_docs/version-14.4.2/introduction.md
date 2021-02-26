@@ -22,7 +22,7 @@ This site is also open source, contributions on [Github](https://github.com/Sock
 
 ### For Chat Applications
 
-SC is ideal for building highly flexible, resilient and scalable chat systems. See [SocketCluster Design Patterns for Chat](https://blog.baasil.io/socketcluster-design-patterns-for-chat-69e76a4b1966) and [SCC Guide](https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md#scc-guide) for more details.
+SC is ideal for building highly flexible, resilient and scalable chat systems. See [SocketCluster Design Patterns for Chat](https://jonathangrosdubois.medium.com/socketcluster-design-patterns-for-chat-69e76a4b1966) and [SCC Guide](https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md#scc-guide) for more details.
 
 ### For Games
 

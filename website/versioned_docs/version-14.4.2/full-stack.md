@@ -94,4 +94,4 @@ Note that subscription requests will have to pass through the SUBSCRIBE middlewa
 
 ## Design Patterns
 
-If you need a high-level overview of some patterns to follow when using SocketCluster, you may want to read [SocketCluster Design Patterns for Chat](https://blog.baasil.io/socketcluster-design-patterns-for-chat-69e76a4b1966).
+If you need a high-level overview of some patterns to follow when using SocketCluster, you may want to read [SocketCluster Design Patterns for Chat](https://jonathangrosdubois.medium.com/socketcluster-design-patterns-for-chat-69e76a4b1966).

@@ -97,7 +97,7 @@ SocketCluster runs as a cluster of different kinds of processes; each kind of pr
 
  Remember to reboot SocketCluster when you make changes to your code - If you're running on a UNIX-like environment, you can also send a SIGUSR2 signal to the master PID order to reboot the only workers (with the fresh source code).
 
- If you need guidance about how to make the most of SocketCluster, you may want to read [SocketCluster Design Patterns for Chat](https://blog.baasil.io/socketcluster-design-patterns-for-chat-69e76a4b1966).
+ If you need guidance about how to make the most of SocketCluster, you may want to read [SocketCluster Design Patterns for Chat](https://jonathangrosdubois.medium.com/socketcluster-design-patterns-for-chat-69e76a4b1966).
 
 ### Video by Nick Kotenberg
 

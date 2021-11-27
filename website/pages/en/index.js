@@ -208,49 +208,49 @@ class Index extends React.Component {
           <BlockWithHeading layout="fourColumn" background={'light'} heading={'Client Libraries'}>
               {[
                   {
-                      image: 'https://image.flaticon.com/icons/svg/136/136530.svg',
+                      image: `${baseUrl}img/icons/js-icon.png`,
                       imageAlign: 'top',
                       title: 'Javascript Client',
                       imageLink: 'https://github.com/SocketCluster/socketcluster-client'
                   },
                   {
-                      image: 'https://image.flaticon.com/icons/svg/226/226770.svg',
+                      image: `${baseUrl}img/icons/java-icon.png`,
                       imageAlign: 'top',
                       title: 'Java/Android Client',
                       imageLink: 'https://github.com/sacOO7/socketcluster-client-java'
                   },
                   {
-                      image: 'https://image.flaticon.com/icons/svg/180/180867.svg',
+                      image: `${baseUrl}img/icons/python-icon.png`,
                       imageAlign: 'top',
                       title: 'Python Client',
                       imageLink: 'https://github.com/sacOO7/socketcluster-client-python'
                   },
                   {
-                      image: 'https://image.flaticon.com/icons/svg/376/376105.svg',
+                      image: `${baseUrl}img/icons/dot-net-icon.png`,
                       imageAlign: 'top',
                       title: 'DotNet Client',
                       imageLink: 'https://github.com/sacOO7/SocketclusterClientDotNet'
                   },
                   {
-                      image: 'https://github.com/egonelbre/gophers/raw/master/.thumb/animation/gopher-dance-long-3x.gif',
+                      image: `${baseUrl}img/icons/go-icon.png`,
                       imageAlign: 'top',
                       title: 'Go Client',
                       imageLink: 'https://github.com/sacOO7/socketcluster-client-go'
                   },
                   {
-                      image: 'https://image.flaticon.com/icons/svg/919/919833.svg',
+                      image: `${baseUrl}img/icons/swift-icon.png`,
                       imageAlign: 'top',
                       title: 'Swift/iOS Client',
                       imageLink: 'https://github.com/sacOO7/socketcluster-client-swift'
                   },
                   {
-                      image: 'https://image.flaticon.com/icons/svg/919/919842.svg',
+                      image: `${baseUrl}img/icons/ruby-icon.png`,
                       imageAlign: 'top',
                       title: 'Ruby client',
                       imageLink: 'https://github.com/OpenSocket/socketcluster-client-ruby'
                   },
                   {
-                      image: 'https://seeklogo.com/images/U/unity-logo-988A22E703-seeklogo.com.png',
+                      image: `${baseUrl}img/icons/unity-icon.png`,
                       imageAlign: 'top',
                       title: 'Unity Client',
                       imageLink: 'https://github.com/sacOO7/socketcluster-client-unity'

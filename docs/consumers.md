@@ -19,7 +19,7 @@ for await (let data of socket.receiver('foo')) {
 Whenever you start iterating over a stream, a new async iterator will be created implicitly with a new (empty) message/event buffer.
 This feature allows you to iterate over a single stream using multiple loops in parallel; each loop can `await` and process messages/events at its own pace.
 
-While the pattern described above is succinct and conveninent, sometimes, you need more flexibility. For example:
+While the pattern described above is succinct and convenient, sometimes, you need more flexibility. For example:
 
 - You may want to break out of specific `for-await-of` loops individually (without killing the entire stream along with all other loops that are running in parallel).
 - You may want to start buffering data for some time before you start asynchronously iterating over it to consume it.

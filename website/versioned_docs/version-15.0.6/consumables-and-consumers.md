@@ -20,7 +20,7 @@ This feature allows you to iterate over a single stream using multiple loops in 
 
 ## Consumables
 
-While the pattern described above is succinct and conveninent, sometimes, you need more flexibility.
+While the pattern described above is succinct and convenient, sometimes, you need more flexibility.
 For example, you may want to `await` for a back end operation to complete before processing events from a `receiver`.
 
 Consider this naive approach:

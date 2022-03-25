@@ -53,6 +53,8 @@ original_id: api-socket-cluster-client
           for the WebSocket. Defaults to '/socketcluster/'.</li>
         <li><b>query</b>: Object - A map of key-value pairs which will be used as query
           parameters for the initial HTTP handshake which will initiate the WebSocket connection.</li>
+        <li><b>connectTimeout</b>: Number (milliseconds) - This is the timeout for
+            establishing a connection.</li>
         <li><b>ackTimeout</b>: Number (milliseconds) - This is the timeout for
           getting a response to a AGClientSocket invoke action.</li>
         <li><b>autoConnect</b>: Boolean - Whether or not to automatically connect

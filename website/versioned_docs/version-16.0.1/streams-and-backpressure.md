@@ -93,11 +93,11 @@ fooChannel.getOutputBackpressure();
 
 ### Measure agServer (AGServer) backpressure
 
-You should generally avoid awaiting on listeners directly from the main `agServer` instance because this can cause backpressure to build up on the `agServer` itself.
+When consuming an event/listener stream (using a `for-await-of` loop) from the `agServer` instance, you should avoid blocking that stream directly with `await` statements because this can cause backpressure to build up on the `agServer`. For most use cases, you should aim to keep the `agServer` backpressure at 0 at all times - You should use async IIFEs `(async () => { /* Code goes here */ })()` to ensure that your `await` statements do not block the event stream.
 
-Backpressure on `agServer` listeners could mean that sockets will have to wait in line (one at a time) before they can be handled by your code (I.e. because `'connection'` events would be getting increasingly delayed); this can lead to a situation whereby a new socket cannot interact with the server until the previous socket has released the listener stream. This feature can be desirable for some systems but it creates an interdependency between different sockets which is not suitable for the vast majority of user-facing systems (it could open up a DoS vulnerability).
+There may be unusual cases (e.g. with the server operating in a trusted private network environment and only exposed to trusted clients) where it may be desirable to process a `'connection'` listener stream sequentially (for example to accept and fully initialize new socket connections one at a time on the back end) but this approach is not recommended for typical user-facing scenarios as it would make the server vulnerable to DoS attacks since connections are likely to pile up and increase the backpressure on the `agServer` instance.
 
-If you do not `await` directly on listeners of the `agServer` instance, then you do not need to monitor backpressure on the `agServer` instance at all (since it will always be 0). If you do, then you can use this method to get the total listeners backpressure on the `agServer` instance:
+If you do not `await` directly on listeners of the `agServer` instance, then you do not need to monitor backpressure on the `agServer` instance at all (since it will always be 0). If you do, however, you can use this method to get the total listeners backpressure on the `agServer` instance:
 
 ```js
 agServer.getAllListenersBackpressure();

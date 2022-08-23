@@ -1,0 +1,23 @@
+{
+  "version-17.0.0-docs": {
+    "Guides": [
+      "version-17.0.0-getting-started",
+      "version-17.0.0-basic-usage",
+      "version-17.0.0-consumers",
+      "version-17.0.0-authentication",
+      "version-17.0.0-middleware-and-authorization",
+      "version-17.0.0-streams-and-backpressure",
+      "version-17.0.0-deploying-to-kubernetes"
+    ],
+    "API": [
+      "version-17.0.0-api-socket-cluster-server",
+      "version-17.0.0-api-socket-cluster-client",
+      "version-17.0.0-api-ag-client-socket",
+      "version-17.0.0-api-ag-channel",
+      "version-17.0.0-api-ag-server",
+      "version-17.0.0-api-ag-server-socket",
+      "version-17.0.0-api-ag-exchange",
+      "version-17.0.0-api-ag-action"
+    ]
+  }
+}

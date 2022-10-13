@@ -11,14 +11,12 @@ SocketCluster is optimized to run on Kubernetes inside Docker containers, see [S
 
 SocketCluster works like a pub/sub system (which extends all the way to the browser/IoT device) - It only delivers particular events to clients who actually need them. SC is designed to scale both vertically (as a cluster of processes) and horizontally (multiple machines/instances).
 
-SC was designed to be modular so that you can run other frameworks like express on top of it (or build your own!).
+SC was designed to be modular so that you can run it with other frameworks such as express.
 SC's real-time API is similar to that of Socket.io.
-
-You can use SocketCluster as a standalone framework (to act as both a HTTP and WebSocket server) or use it only as a real-time engine and serve the client script separately. See [http://npmjs.org/socketcluster-client](http://npmjs.org/socketcluster-client).
 
 Follow the project on [Twitter](https://twitter.com/SocketCluster). Subscribe for updates on [http://socketcluster.launchrock.com/](http://socketcluster.launchrock.com/)
 
-This site is also open source, contributions on [Github](https://github.com/SocketCluster/socketcluster-website) are welcome.
+This site is open source, contributions on [Github](https://github.com/SocketCluster/socketcluster-website) are welcome.
 
 ### For Chat Applications
 

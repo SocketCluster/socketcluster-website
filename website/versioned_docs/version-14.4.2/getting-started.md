@@ -12,7 +12,6 @@ If you want to run SocketCluster inside a Docker container (and deploy to a Kube
 
 Once you have Node installed, you can install SocketCluster.
 There are two ways to install SocketCluster - You can install it as a framework (this is the simplest way) or you can install the client and server separately (this may be better if you have more specific requirements).
-Note that the two setups share almost exactly the same API so you generally don't need to change any code when switching from one to the other. In fact, socketcluster-server is a direct dependency of socketcluster (the framework).
 
 ### Install the CLI tool
 
@@ -60,7 +59,7 @@ For more details about the main SocketCluster JavaScript client, [click here](ht
 
 On the server side, you can configure SocketCluster by editing code inside <code>server.js</code>. SocketCluster has over 30 options which you can change to suit your specific needs (most options are optional).
 
-Here is a sample (basic) <code>server.js</code> file (note that the default one which comes with the framework might be more detailed - See [here](https://github.com/SocketCluster/socketcluster/blob/master/sample/server.js)
+Here is a sample (basic) <code>server.js</code> file:
 
 ```js
 var SocketCluster = require('socketcluster');

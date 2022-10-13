@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
   title: 'SocketCluster', // Title for your website.
-  tagline: 'Highly scalable pub/sub and RPC framework optimized for async/await',
+  tagline: 'Highly scalable pub/sub and RPC toolkit optimized for async/await',
   url: 'https://socketcluster.io', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:

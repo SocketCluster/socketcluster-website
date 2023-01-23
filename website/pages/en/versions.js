@@ -24,7 +24,7 @@ function Versions(props) {
       <Container className="mainContainer versionsContainer">
         <div className="post">
           <header className="postHeader">
-            <h1>{siteConfig.title} Versions</h1>
+            <h1>{siteConfig.title} Versions <small><a href={`${repoUrl}/releases`} target="_blank">Release Notes</a></small></h1>
           </header>
           <h3 id="latest">Current version (Stable)</h3>
           <table className="versions">
@@ -33,9 +33,6 @@ function Versions(props) {
                 <th>{latestVersion}</th>
                 <td>
                   <a href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${ props.language ? props.language + '/' : '' }getting-started`}> Documentation </a>
-                </td>
-                <td>
-                  <a href="">Release Notes</a>
                 </td>
               </tr>
             </tbody>
@@ -47,9 +44,6 @@ function Versions(props) {
                 <th>master</th>
                 <td>
                   <a href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${ props.language ? props.language + '/' : '' }next/getting-started`}> Documentation </a>
-                </td>
-                <td>
-                  <a href="https://github.com/SocketCluster/socketcluster">Source Code</a>
                 </td>
               </tr>
             </tbody>
@@ -65,11 +59,6 @@ function Versions(props) {
                       <th>{version}</th>
                       <td>
                         <a href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${ props.language ? props.language + '/' : '' }${version}/getting-started`}> Documentation </a>
-                      </td>
-                      <td>
-                        <a href={`${repoUrl}/releases/tag/v${version}`}>
-                          Release Notes
-                        </a>
                       </td>
                     </tr>
                   ),

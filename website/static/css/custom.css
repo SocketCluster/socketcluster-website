@@ -39,6 +39,10 @@
   line-height: 1.2;
 }
 
+h1 small {
+  font-size: 0.6em;
+}
+
 .promoRow .button {
   color: #FFFFFF;
   padding: 15px;

@@ -57,7 +57,7 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>Community</h5>
-            <a href="https://gitter.im/SocketCluster/socketcluster">Project Chat</a>
+            <a href="https://gitter.im/SocketCluster/socketcluster">Gitter Chat</a>
             <a
               href="https://twitter.com/SocketCluster"
               target="_blank"
@@ -76,7 +76,7 @@ class Footer extends React.Component {
               data-show-count="true"
               data-count-aria-label="# stargazers on GitHub"
               aria-label="Star this project on GitHub">
-              Star
+              Stars
             </a>
           </div>
         </section>

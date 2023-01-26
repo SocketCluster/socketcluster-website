@@ -240,4 +240,3 @@ agServer.exchange.transmitPublish('foo', 'This is some data');
 - https://github.com/SocketCluster/socketcluster
 - https://github.com/SocketCluster/socketcluster-server
 - https://github.com/SocketCluster/socketcluster-client
-- https://socketcluster.io/

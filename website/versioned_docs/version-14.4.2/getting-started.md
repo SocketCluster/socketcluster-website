@@ -8,8 +8,6 @@ original_id: getting-started
 To get started with SocketCluster, you need to have [Node.js](https://nodejs.org/en/) installed.
 You can follow [these instructions](https://nodejs.org/en/download/package-manager/) to install NodeJS.
 
-If you want to run SocketCluster inside a Docker container (and deploy to a Kubernetes cluster), you should use the Baasil CLI tool: [follow this guide](https://docs.baasil.io/setting_up.html).
-
 Once you have Node installed, you can install SocketCluster.
 There are two ways to install SocketCluster - You can install it as a framework (this is the simplest way) or you can install the client and server separately (this may be better if you have more specific requirements).
 

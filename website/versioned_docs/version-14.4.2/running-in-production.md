@@ -36,7 +36,7 @@ Another important thing to consider when running SC in production is that some o
 To avoid this issue, you should deliver your app over HTTPS/WSS by providing a key/cert SSL pair to your SC instance(s)... Or you can
 simply put your SC instance behind an SSL/TLS terminating reverse proxy which supports WebSockets such as HAProxy or nginx.
 
-To configure SC to use SSL/TLS (without terminating proxy), you need to set some [boot options](http://socketcluster.io/#!/docs/api-socketcluster) - Set the
+To configure SC to use SSL/TLS (without terminating proxy), you need to set some [boot options](/docs/14.4.2/api-socketcluster) - Set the
 'protocol' to 'https' and provide an object containing your certificate and key to 'protocolOptions'.
 The protocolOptions object is exactly the same as the options object which is passed to Node.js's https
 server: [See here](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener).

@@ -51,8 +51,8 @@ You should get a 'Sample channel message: 1' message back - The server receives 
 The first argument is the event name - You can use any event name you like except for [reserved events](https://github.com/SocketCluster/socketcluster-client/blob/70403a7853897b1948368b13ec652b09b7fede0a/lib/scsocket.js#L59-L74).
 You can pass almost anything as the second argument to the emit and publish commands so long as it's compatible with JSON.
 
-Note that you can provide an optional options object to the socketCluster.create() method on the client side.
-See <a href="#!/docs/api-socketcluster-client" target="_blank">socketCluster</a> for details.
+Note that you can provide an optional `options` object to the `socketCluster.create()` method on the client side.
+Look at [SocketCluster Client API](/docs/14.4.2/api-socketcluster-client) for details.
 For more details about the main SocketCluster JavaScript client, [click here](https://github.com/SocketCluster/socketcluster-client).
 
 On the server side, you can configure SocketCluster by editing code inside <code>server.js</code>. SocketCluster has over 30 options which you can change to suit your specific needs (most options are optional).

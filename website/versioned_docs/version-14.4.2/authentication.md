@@ -17,11 +17,11 @@ An important design consideration for SC's authentication system was that it had
 from specific database engines or underlying data (this includes user account information).
 To achieve this, SC had to introduce the notion of a JWT auth token.
 
-Simply put, an auth token is a custom Object/JSON which is signed with a secret authKey on the server and sent to a client as part of an
-authentication (login) process (see authKey option in SocketCluster constructor [here](api-socketcluster)).
+Simply put, an auth token is a custom Object/JSON which is signed with a secret `authKey` on the server and sent to a client as part of an
+authentication (login) process (see authKey option in SocketCluster constructor [here](/docs/14.4.2/api-socketcluster/)).
 Because the data in the token is signed when provided to the client, they cannot modify it without invalidating the token.
 This means that if your socket on the server has a valid auth token attached to it
-(see [socket.authToken](api-scsocket-server)), then you know that the client's token was signed by the server
+(see [socket.authToken](/docs/14.4.2/api-scsocket-server/)), then you know that the client's token was signed by the server
 and the data that is inside it is therefore valid.
 
 Some important things to note about an auth token is that you should only give it to a client AFTER they have been successfully
@@ -144,7 +144,7 @@ wsServer.addMiddleware(wsServer.MIDDLEWARE_PUBLISH_IN, function (req, next) {
 
 Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't
 really need to store the channel list inside the token itself - We could just check the database provided that we have a
-username or a user id. See section on [middleware and authorization](middleware-and-authorization)
+username or a user id. See section on [middleware and authorization](/docs/14.4.2/middleware-and-authorization/)
 for more info about middleware in SC.
 
 If you want to do authentication over HTTP (before establishing a WebSocket connection), you will need to handle the token yourself.

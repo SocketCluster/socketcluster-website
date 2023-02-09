@@ -409,7 +409,7 @@ while (exitConditionIsNotMet) {
   <tr>
     <td>kickOut([channel, message])</td>
     <td>
-      Forcibly unsubscribe this socket from the specified channel.
+      Forcibly unsubscribe this socket from the specified channel. It's also possible to provide an array of channel names.
       All arguments are optional - If no channel name is provided, it will unsubscribe this socket from all channels.
       In addition, the client side of this socket will emit a 'kickOut' event to signify that it was kicked out of the channel. Note that this doesn't prevent the client from resubscribing to that channel later. You will need to update your middleware
       if you want to achieve this.

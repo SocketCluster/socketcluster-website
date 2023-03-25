@@ -5,6 +5,10 @@
   padding-bottom: 0;
 }
 
+.mainFooterContainer {
+  position: relative;
+}
+
 .postHeader h1 {
   margin-top: 0;
 }
@@ -141,6 +145,14 @@ h1 small {
   color: #FFFFFF;
 }
 
+.mascot {
+  position: absolute;
+  width: 300px;
+  top: -90px;
+  right: 50px;
+  z-index: 100;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 
@@ -157,6 +169,18 @@ h1 small {
 }
 
 @media only screen and (min-width: 1500px) {
+}
+
+@media only screen and (max-width: 1800px) {
+  .mascot {
+    width: 250px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .mascot {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 736px) {

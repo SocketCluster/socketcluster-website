@@ -290,8 +290,9 @@ class Index extends React.Component {
         <div className="mainContainer">
           <Features />
         </div>
-          <div className="mainContainer">
-              <ClientLibraries />
+          <div className="mainContainer mainFooterContainer">
+            <img className="mascot" src={`${baseUrl}img/socketcluster-mascot.png`} />
+            <ClientLibraries />
           </div>
       </div>
     );

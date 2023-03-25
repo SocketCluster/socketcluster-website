@@ -43,6 +43,13 @@ h1 small {
   font-size: 0.6em;
 }
 
+.projectTitleHeading {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
 .promoRow .button {
   color: #FFFFFF;
   padding: 15px;
@@ -108,9 +115,8 @@ h1 small {
 }
 
 .titleLogo {
-  width: 34px;
-  height: 34px;
-  margin-right: 10px;
+  width: 60px;
+  height: 60px;
 }
 
 .footerPromoItem {
@@ -193,5 +199,18 @@ h1 small {
   .splashSubsectionItem {
     margin-left: 20px;
     margin-right: 20px;
+  }
+
+  .projectTitleHeading {
+    flex-direction: column;
+  }
+
+  .projectTitle {
+    margin-top: 20px;
+  }
+
+  .homeContainer .homeWrapper {
+    padding-top: 3.5em;
+    padding-bottom: 3.5em;
   }
 }

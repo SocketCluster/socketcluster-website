@@ -18,7 +18,7 @@ const versions = require(`${CWD}/versions.json`);
 function Versions(props) {
   const {config: siteConfig} = props;
   const latestVersion = versions[0];
-  const repoUrl = `https://github.com/${siteConfig.organizationName}/${siteConfig.projectName}`;
+  const repoUrl = `https://github.com/${siteConfig.organizationName}/socketcluster`;
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer versionsContainer">

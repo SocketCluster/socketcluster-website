@@ -130,13 +130,13 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: 'Pub/sub channels are very cheap. You can have millions of unique channels without worrying about memory or CPU usage. Channels are automatically cleaned up when they are no longer used.',
+            content: 'Pub/sub channels are lightweight and efficient. You can have millions of unique channels without worrying about memory or CPU usage. Channels are automatically cleaned up when they are no longer used.',
             image: `${baseUrl}img/icons/unlimited-channels.png`,
             imageAlign: 'top',
             title: 'Handle unlimited channels',
           },
           {
-            content: 'The `socketcluster` CLI tool exposes `kubectl` (Kubernetes) shortcut commands to make deploying your app to any Kubernetes cluster really easy. All necessary Kubernetes `.yaml` files are provided.',
+            content: 'The `socketcluster` CLI tool exposes `kubectl` (Kubernetes) shortcut commands to make it easy to deploy your app to any Kubernetes cluster. All necessary Kubernetes `.yaml` files are provided.',
             image: `${baseUrl}img/icons/deploy-containers.png`,
             imageAlign: 'top',
             title: 'Deploy easily',
@@ -148,7 +148,7 @@ class Index extends React.Component {
             title: 'Scale easily',
           },
           {
-            content: 'You can perform asynchronous operations anywhere along a socket\'s inbound or outbound stream without any risk of disrupting the message processing order.',
+            content: 'You can perform asynchronous operations anywhere along a socket\'s inbound or outbound stream without disrupting the message processing order. Streams behave like processing queues by default.',
             image: `${baseUrl}img/icons/delivery-order.png`,
             imageAlign: 'top',
             title: 'Guarantee message order',
@@ -160,25 +160,25 @@ class Index extends React.Component {
             title: 'Monitor message backpressure',
           },
           {
-            content: 'SocketCluster supports JWT authentication. This form of authentication is ideal for WebSockets because the token expiry can be made arbitrarily short and renewed often on an interval for very little performance cost while saving many database lookups.',
+            content: 'SocketCluster supports JWT authentication by default. This type of authentication is well suited for WebSockets as it allows short-lived tokens to be renewed and pushed out frequently while allowing you to save on database lookups.',
             image: `${baseUrl}img/icons/authentication.png`,
             imageAlign: 'top',
             title: 'Support efficient authentication',
           },
           {
-            content: 'Middleware streams allow you to block socket connections using the `MIDDLEWARE_HANDSHAKE` middleware line and to block individual socket actions using the `MIDDLEWARE_INBOUND` and `MIDDLEWARE_OUTBOUND` lines.',
+            content: 'Middleware streams allow you to block socket connections using the `MIDDLEWARE_HANDSHAKE` middleware line. Individual socket actions can be blocked using the `MIDDLEWARE_INBOUND` and `MIDDLEWARE_OUTBOUND` lines.',
             image: `${baseUrl}img/icons/police-access-control.png`,
             imageAlign: 'top',
             title: 'Enforce access control using middleware streams',
           },
           {
-            content: 'Every data packet which is being received from or being sent to a client can be delayed or transformed using `MIDDLEWARE_INBOUND_RAW`, `MIDDLEWARE_INBOUND` or `MIDDLEWARE_OUTBOUND` lines.',
+            content: 'Every data packet which is sent between a client and server can be delayed or transformed using `MIDDLEWARE_INBOUND_RAW`, `MIDDLEWARE_INBOUND` or `MIDDLEWARE_OUTBOUND` lines.',
             image: `${baseUrl}img/icons/breaks-throttle.png`,
             imageAlign: 'top',
             title: 'Throttle and transform data using middleware streams',
           },
           {
-            content: 'All data and events must be consumed using asynchronous loops (e.g. `for-await-of`). Event listener callbacks are not supported; this solves many problems related to code readability and maintainability.',
+            content: 'All data and events are consumed using asynchronous loops (e.g. `for-await-of`). Event listener callbacks are not required; this solves many problems related to code readability and maintainability.',
             image: `${baseUrl}img/icons/tangled-hell.png`,
             imageAlign: 'top',
             title: 'Avoid callback hell',
@@ -190,7 +190,7 @@ class Index extends React.Component {
             title: 'Recover from failure',
           },
           {
-            content: 'Without callbacks, asynchronous logic can always be executed from top to bottom. This makes it more obvious which parts of the code are serial and which parts are parallel and it encourages a more declarative style of programming.',
+            content: 'Without callbacks, asynchronous logic is easier to follow. Using `async/await` and `for-await-of` loops makes it more obvious which parts of the code are serial and which parts are parallel; it encourages a more declarative style of programming.',
             image: `${baseUrl}img/icons/declare-king.png`,
             imageAlign: 'top',
             title: 'Write declarative code',

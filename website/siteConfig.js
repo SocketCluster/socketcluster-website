@@ -98,7 +98,7 @@ const siteConfig = {
   // Show documentation's last update time.
   // enableUpdateTime: true,
 
-  gaTrackingId: 'UA-54246608-1',
+  gaTrackingId: 'G-9DTH90QYZH',
   gaGtag: true
 };
 

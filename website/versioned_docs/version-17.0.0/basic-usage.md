@@ -31,6 +31,7 @@ The `httpServer` argument must be an instance of a <a href="https://nodejs.org/a
 The list of possible `options` which can be passed to the SocketCluster server instance can be found [here](/docs/api-ag-server#methods).
 Note that you can also use the ECMAScript `import` syntax.
 
+The `ag` in `agServer` (and other related objects) stands for `asynchronous generator`; it is used to differentiate the async generator approach used in new versions of SC from the callback/listener approach from previous versions.
 
 ### [Server] Listen for inbound socket connections
 

@@ -37,7 +37,7 @@ sidebar_label: socketClusterClient
   secure: true,
   port: 443,
   // Only necessary during debug if using a self-signed certificate
-  rejectUnauthorized: false
+  wsOptions: { rejectUnauthorized: false }
 }
 ```
 

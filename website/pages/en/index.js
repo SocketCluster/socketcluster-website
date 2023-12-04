@@ -279,10 +279,15 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="splashSubsection">
           <div className="splashSubsectionCaption">Sponsored by</div>
-          <div className="splashLogoContainer">
+          <div style={{ display: 'flex', gap: '15px', justifyContent: 'space-around' }} className="splashLogoContainer">
             <a className="splashSubsectionLink" href={`https://capitalisk.com/`} target="_blank">
               <div className="splashSubsectionItem">
-                <img className="splashLogo" style={{height: '40px', paddingBottom: '10px'}} src={`${baseUrl}img/capitalisk-logo-horizontal-white.png`} />
+                <img className="splashLogo" style={{height: '40px', paddingBottom: '10px' }} src={`${baseUrl}img/capitalisk-logo-horizontal-white.png`} />
+              </div>
+            </a>
+            <a className="splashSubsectionLink" href={`https://saasufy.com/`} target="_blank">
+              <div className="splashSubsectionItem">
+                <img className="splashLogo" style={{height: '50px', paddingBottom: '10px' }} src={`${baseUrl}img/saasufy-logo-horizontal-white.png`} />
               </div>
             </a>
           </div>

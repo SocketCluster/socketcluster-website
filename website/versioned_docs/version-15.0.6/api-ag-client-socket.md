@@ -235,18 +235,7 @@ original_id: api-ag-client-socket
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over their current backlogs of events.
-      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In SocketCluster, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
-
-```js
-while (exitConditionIsNotMet) {
-  for await (
-    let event of socket.listener('message')
-  ) {
-    // Consume event...
-  }
-}
-```
-</td>
+    </td>
   </tr>
   <tr>
     <td>
@@ -286,18 +275,7 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>receiverName</code> receiver) to <code>break</code> after they have finished iterating over their current backlogs of data.
-      This method is the recommended way to gracefully stop consuming data from a receiver; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the stream like this (note that no data will be missed):
-
-```js
-while (exitConditionIsNotMet) {
-  for await (
-    let data of socket.receiver('foo')
-  ) {
-    // Consume data...
-  }
-}
-```
-</td>
+    </td>
   </tr>
   <tr>
     <td>
@@ -337,28 +315,7 @@ while (exitConditionIsNotMet) {
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>procedureName</code> procedure) to <code>break</code> after they have finished iterating over their current backlogs of data.
-      This method is the recommended way to gracefully stop consuming data from a procedure; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the stream like this (note that no data will be missed):
-
-```js
-while (exitConditionIsNotMet) {
-  for await (
-    let request of socket.procedure('myProc')
-  ) {
-    // Handle RPC request...
-    if (request.data.foo) {
-      let error = new Error('Foo error');
-      error.name = 'FooError';
-      // Send back an error.
-      request.error(error);
-    } else {
-      // Success. Custom data can be passed
-      // as an argument.
-      request.end();
-    }
-  }
-}
-```
-</td>
+    </td>
   </tr>
   <tr>
     <td>
@@ -579,18 +536,7 @@ Note that `socket.subscribe(...)` can be called multiple times for the same chan
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>channelName</code> channel and all of its listeners) to <code>break</code> after they have finished iterating over their current backlogs of events.
-      This method is the recommended way to gracefully stop consuming channel data; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. The consumer could choose to immediately resume consumption of the channel stream like this (note that no data will be missed):
-
-```js
-while (exitConditionIsNotMet) {
-  for await (
-    let data of socket.channel('myChannel')
-  ) {
-    // Consume channel data...
-  }
-}
-```
-</td>
+    </td>
   </tr>
   <tr>
     <td>

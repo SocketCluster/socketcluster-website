@@ -333,19 +333,7 @@ socketStreamCleanupMode: 'kill'
     </td>
     <td>
       This method will signal to all consuming <code>for-await-of</code> loops (for the <code>eventName</code> listener) to <code>break</code> after they have finished iterating over their current backlogs of events.
-      This method is the recommended way to gracefully stop consuming events; you should not try to target a specific consumer/loop; instead, each consumer should be able to decide for themselves how to handle the break. In SocketCluster, the consumer always gets the last say. The consumer could choose to immediately resume consumption of the stream like this (note that no event will be missed):
-
-```js
-while (exitConditionIsNotMet) {
-  for await (
-    let {socket} of server.listener('connection')
-  ) {
-    // Consume event...
-  }
-}
-```
-
-</td>
+    </td>
   </tr>
   <tr>
     <td>

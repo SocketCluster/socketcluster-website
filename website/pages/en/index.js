@@ -53,7 +53,7 @@ class HomeSplash extends React.Component {
               aria-label="Star this project on GitHub">
             </a>
             <a href="javascript: musicToggle = document.querySelector('.music-toggle'); scAudioEl = document.querySelector('.sc-music'); scAudioEl.paused ? (() => { scAudioEl.currentTime = 0; scAudioEl.play(); musicToggle.classList.remove('paused'); })() : (() => { scAudioEl.pause(); musicToggle.classList.add('paused'); })()">
-              <span class="music-toggle paused">&#9835;</span>
+              <span className="music-toggle paused">&#9835;</span>
             </a>
             <audio className="sc-music">
               <source src="https://saasufy.com/sid8002/files/Music/8d2c2409-450a-4fb8-a5b9-337d8d1de929/file" type="audio/mp3" />

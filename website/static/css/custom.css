@@ -190,6 +190,10 @@ h1 small {
   }
 }
 
+.music-toggle.paused {
+  opacity: 0.5;
+}
+
 @media only screen and (max-width: 1800px) {
   .mascot {
     width: 250px;

@@ -35,25 +35,34 @@ class HomeSplash extends React.Component {
       </div>
     );
 
-    const ProjectTitle = () => (
-      <h2 className="projectTitle">
-        <div className="projectTitleHeading">
-          <img className="titleLogo" src="img/socketcluster-logo.png" />
-          {siteConfig.title} <a
-            className="github-button"
-            href="https://github.com/SocketCluster/socketcluster"
-            data-icon="octicon-star"
-            data-count-href="https://github.com/SocketCluster/socketcluster/stargazers"
-            data-show-count="true"
-            data-count-aria-label="# stargazers on GitHub"
-            data-size="large"
-            data-text="Star"
-            aria-label="Star this project on GitHub">
-          </a>
-        </div>
-        <small>{siteConfig.tagline}</small>
-      </h2>
-    );
+
+    const ProjectTitle = () => {
+      return (
+        <h2 className="projectTitle">
+          <div className="projectTitleHeading">
+            <img className="titleLogo" src="img/socketcluster-logo.png" />
+            {siteConfig.title} <a
+              className="github-button"
+              href="https://github.com/SocketCluster/socketcluster"
+              data-icon="octicon-star"
+              data-count-href="https://github.com/SocketCluster/socketcluster/stargazers"
+              data-show-count="true"
+              data-count-aria-label="# stargazers on GitHub"
+              data-size="large"
+              data-text="Star"
+              aria-label="Star this project on GitHub">
+            </a>
+            <a href="javascript: musicToggle = document.querySelector('.music-toggle'); scAudioEl = document.querySelector('.sc-music'); scAudioEl.paused ? (() => { scAudioEl.currentTime = 0; scAudioEl.play(); musicToggle.classList.remove('paused'); })() : (() => { scAudioEl.pause(); musicToggle.classList.add('paused'); })()">
+              <span class="music-toggle paused">&#9835;</span>
+            </a>
+            <audio className="sc-music">
+              <source src="https://saasufy.com/sid8002/files/Music/8d2c2409-450a-4fb8-a5b9-337d8d1de929/file" type="audio/mp3" />
+            </audio>
+          </div>
+          <small>{siteConfig.tagline}</small>
+        </h2>
+      );
+    };
 
     const PromoSection = props => (
       <div className="section promoSection">

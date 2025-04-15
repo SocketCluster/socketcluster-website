@@ -53,7 +53,7 @@ During development, you may want to run your app locally inside a container (as 
 socketcluster run
 ```
 
-!! Essentially, this command launches an SocketCluster container which binds to your local `myapp` directory and watches for code changes — This means that you don’t need to restart the container in order to test changes during development.
+!! Essentially, this command launches a SocketCluster container which binds to your local `myapp` directory and watches for code changes — This means that you don’t need to restart the container in order to test changes during development.
 
 Once the app is running on your machine, you can access it from your browser at URL: http://localhost:8000
 

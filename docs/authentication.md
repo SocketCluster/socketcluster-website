@@ -189,3 +189,88 @@ agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND, async (middlewareStream) => 
 ```
 
 !! Note that in this case, the token contains all the information that we need to authorize this publish action, but we didn't really need to store the `channels` list inside the JWT - An alternative approach would have been to fetch the user account details from the database using the username from the JWT (but it would require an extra database lookup; bad for performance). See the section on [middleware and authorization](middleware-and-authorization.md) for more info about middleware in SocketCluster.
+
+### Refreshing auth tokens periodically
+
+In the following code example there's a comprehensive way to refresh JWT token periodically.
+
+```js
+(async () => {
+  for await (let { socket } of agServer.listener('connection')) {
+    let renewAuthTokenInterval = null;
+    let jwtId = 0;
+
+    const clearRenewAuthTokenInterval = () => {
+      clearInterval(renewAuthTokenInterval);
+      renewAuthTokenInterval = null;
+    };
+
+    const renewAuthToken = (socket) => {
+      // 30 Minutes interval
+      const renewalIntervalMs = 30 * 60 * 1000;
+
+      const expirationInMinutes = 30;
+
+      // Renew the auth token periodically
+      renewAuthTokenInterval = setInterval(() => {
+        const oldToken = socket.authToken; // This is the token, translated to an object
+        if (oldToken) {
+          delete oldToken.iat;
+          delete oldToken.exp;
+          delete oldToken.nbf;
+          delete oldToken.jti;
+
+          socket.setAuthToken(oldToken, {
+            expiresIn: `${expirationInMinutes}m`, // See https://github.com/auth0/node-jsonwebtoken
+            jwtid: `${jwtId++}`,
+          });
+        }
+      }, renewalIntervalMs);
+    };
+
+    (async () => {
+      for await (const request of socket.procedure('login')) {
+        socket.setAuthToken({
+          hello: 'world',
+        });
+
+        renewAuthToken(socket);
+      }
+    })();
+
+    (async () => {
+      for await (const request of socket.procedure('logout')) {
+        socket.deauthenticate();
+        clearRenewAuthTokenInterval();
+      }
+    })();
+
+    (async () => {
+      for await (const request of socket.listener('disconnect')) {
+        clearRenewAuthTokenInterval();
+      }
+    })();
+
+    (async () => {
+      for await (const request of socket.listener('deauthenticate')) {
+        clearRenewAuthTokenInterval();
+      }
+    })();
+
+    // socketcluster-client automatically saves the auth token to LocalStorage as `socketcluster.authToken`
+    // That token is then provided by the #handshake event. In that event the server verifies if the token is valid.
+    // If it is it fires the authStateChange event
+    // Opposed checking via the connect event on the socket, that event is fired before the agServer connection event as per documentation
+    (async () => {
+      for await (const request of socket.listener('authStateChange')) {
+        if (
+          socket.authState === socket.AUTHENTICATED &&
+          !renewAuthTokenInterval
+        ) {
+          renewAuthToken();
+        }
+      }
+    })();
+  }
+})();
+```

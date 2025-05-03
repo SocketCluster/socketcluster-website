@@ -21,6 +21,13 @@ const users = [
 ];
 
 const siteConfig = {
+  algolia: {
+    apiKey: 'ddd1c50927f4bfa6b4cdf793752ed63e',
+    indexName: 'socketcluster',
+    algoliaOptions: {
+      facetFilters: [ "version:VERSION" ]
+    }
+  },
   title: 'SocketCluster', // Title for your website.
   tagline: 'Highly scalable pub/sub and RPC SDK optimized for async/await',
   url: 'https://socketcluster.io', // Your website URL

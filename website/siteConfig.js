@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
   title: 'SocketCluster', // Title for your website.
-  tagline: 'Highly scalable pub/sub and RPC SDK optimized for async/await',
+  tagline: 'Scalable open source pub/sub SDK with support for RPC, JWT authentication and Kubernetes — optimized for async/await',
   url: 'https://socketcluster.io', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
@@ -89,8 +89,9 @@ const siteConfig = {
   cleanUrl: true,
 
   // Open Graph and Twitter card images.
-  ogImage: 'img/docusaurus.png',
-  twitterImage: 'img/docusaurus.png',
+  ogImage: 'img/socketcluster-logo.png',
+  twitterImage: 'img/socketcluster-logo.png',
+  twitterUsername: 'SocketCluster',
 
   // Show documentation's last contributor's name.
   // enableUpdateBy: true,

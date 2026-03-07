@@ -1,5 +1,5 @@
 ---
-id: version-17.0.0-api-ag-server
+id: version-20.0.0-api-ag-server
 title: AGServer
 sidebar_label: AGServer
 original_id: api-ag-server

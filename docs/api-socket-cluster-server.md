@@ -2,6 +2,7 @@
 id: api-socket-cluster-server
 title: socketClusterServer
 sidebar_label: socketClusterServer
+description: API reference for socketClusterServer — create and configure a SocketCluster server instance.
 ---
 
 ## Properties

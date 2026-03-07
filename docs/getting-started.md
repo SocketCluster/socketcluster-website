@@ -2,6 +2,7 @@
 id: getting-started
 title: Getting started
 sidebar_label: Getting started
+description: Get started with SocketCluster — install the CLI, create a project, and run your first real-time Node.js server with WebSocket pub/sub and RPC support.
 ---
 
 ## Requirements

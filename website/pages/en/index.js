@@ -31,16 +31,16 @@ class HomeSplash extends React.Component {
 
     const Logo = props => (
       <div className="projectLogo">
-        <img src={props.img_src} alt="Project Logo" />
+        <img src={props.img_src} alt="SocketCluster logo" />
       </div>
     );
 
 
     const ProjectTitle = () => {
       return (
-        <h2 className="projectTitle">
+        <h1 className="projectTitle">
           <div className="projectTitleHeading">
-            <img className="titleLogo" src="img/socketcluster-logo.png" />
+            <img className="titleLogo" src="img/socketcluster-logo.png" alt="SocketCluster logo" />
             {siteConfig.title} <a
               className="github-button"
               href="https://github.com/SocketCluster/socketcluster"
@@ -54,7 +54,7 @@ class HomeSplash extends React.Component {
             </a>
           </div>
           <small>{siteConfig.tagline}</small>
-        </h2>
+        </h1>
       );
     };
 
@@ -120,7 +120,7 @@ class Index extends React.Component {
         padding={['bottom', 'top']}
         id={props.id}
         background={props.background}>
-        <h1 className="blockHeading" align="center">{props.heading}</h1>
+        <h2 className="blockHeading" align="center">{props.heading}</h2>
         <GridBlock
           align="center"
           contents={props.children}
@@ -283,14 +283,14 @@ class Index extends React.Component {
         <div className="splashSubsection">
           <div className="splashSubsectionCaption">Sponsored by</div>
           <div style={{ display: 'flex', gap: '15px', justifyContent: 'space-around' }} className="splashLogoContainer">
-            <a className="splashSubsectionLink" href={`https://capitalisk.com/`} target="_blank">
+            <a className="splashSubsectionLink" href={`https://capitalisk.com/`} target="_blank" rel="noreferrer noopener">
               <div className="splashSubsectionItem">
-                <img className="splashLogo" style={{height: '40px', paddingBottom: '10px' }} src={`${baseUrl}img/capitalisk-logo-horizontal-white.png`} />
+                <img className="splashLogo" style={{height: '40px', paddingBottom: '10px' }} src={`${baseUrl}img/capitalisk-logo-horizontal-white.png`} alt="Capitalisk - SocketCluster sponsor" />
               </div>
             </a>
-            <a className="splashSubsectionLink" href={`https://saasufy.com/`} target="_blank">
+            <a className="splashSubsectionLink" href={`https://saasufy.com/`} target="_blank" rel="noreferrer noopener">
               <div className="splashSubsectionItem">
-                <img className="splashLogo" style={{height: '50px', paddingBottom: '10px' }} src={`${baseUrl}img/saasufy-logo-horizontal-white.png`} />
+                <img className="splashLogo" style={{height: '50px', paddingBottom: '10px' }} src={`${baseUrl}img/saasufy-logo-horizontal-white.png`} alt="Saasufy - SocketCluster sponsor" />
               </div>
             </a>
           </div>
@@ -299,7 +299,7 @@ class Index extends React.Component {
           <Features />
         </div>
           <div className="mainContainer mainFooterContainer">
-            <img className="mascot" src={`${baseUrl}img/socketcluster-mascot.png`} />
+            <img className="mascot" src={`${baseUrl}img/socketcluster-mascot.png`} alt="SocketCluster mascot" />
             <ClientLibraries />
           </div>
       </div>

@@ -2,6 +2,7 @@
 id: deploying-to-kubernetes
 title: Deploying to Kubernetes
 sidebar_label: Deploying to Kubernetes
+description: Deploy and scale your SocketCluster application on Kubernetes — set up Docker, kubectl, configure services, and scale worker and broker instances.
 ---
 
 ## Requirements

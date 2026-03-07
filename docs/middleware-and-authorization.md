@@ -2,6 +2,7 @@
 id: middleware-and-authorization
 title: Middleware and authorization
 sidebar_label: Middleware and authorization
+description: Use SocketCluster middleware streams for access control, throttling, and transforming inbound and outbound data with async iterables.
 ---
 
 ## Feature overview

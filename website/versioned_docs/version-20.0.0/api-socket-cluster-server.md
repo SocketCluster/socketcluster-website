@@ -1,5 +1,5 @@
 ---
-id: version-17.0.0-api-socket-cluster-server
+id: version-20.0.0-api-socket-cluster-server
 title: socketClusterServer
 sidebar_label: socketClusterServer
 original_id: api-socket-cluster-server

@@ -2,6 +2,7 @@
 id: consumables-and-consumers
 title: Consumables and Consumers
 sidebar_label: Consumables and Consumers
+description: Learn about consumable streams and consumers in SocketCluster — iterate over async data with for-await-of loops.
 ---
 
 In SocketCluster, streams returned by functions such as `socket.listener(...)`, `socket.receiver(...)`, `socket.procedure(...)` and `socket.channel(...)` are all [async iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables).

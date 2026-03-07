@@ -2,6 +2,7 @@
 id: api-ag-channel
 title: AGChannel
 sidebar_label: AGChannel
+description: API reference for AGChannel — subscribe to pub/sub channels, publish data, and manage channel state in SocketCluster.
 ---
 
 ## Inherits from

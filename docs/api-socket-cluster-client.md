@@ -2,6 +2,7 @@
 id: api-socket-cluster-client
 title: socketClusterClient
 sidebar_label: socketClusterClient
+description: API reference for socketClusterClient — create client socket connections to a SocketCluster server.
 ---
 
 ## Properties

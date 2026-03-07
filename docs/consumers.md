@@ -2,6 +2,7 @@
 id: consumers
 title: Consumers
 sidebar_label: Consumers
+description: Learn how to consume async iterable streams in SocketCluster using for-await-of loops for listeners, receivers, procedures, and channels.
 ---
 
 ## Overview

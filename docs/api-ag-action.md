@@ -2,6 +2,7 @@
 id: api-ag-action
 title: AGAction
 sidebar_label: AGAction
+description: API reference for AGAction — represents an inbound or outbound action in SocketCluster middleware streams.
 ---
 
 ## Properties

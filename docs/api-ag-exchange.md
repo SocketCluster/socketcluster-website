@@ -2,6 +2,7 @@
 id: api-ag-exchange
 title: AGExchange
 sidebar_label: AGExchange
+description: API reference for AGExchange — server-side pub/sub interface for publishing and subscribing to channels in SocketCluster.
 ---
 
 ## Inherits from

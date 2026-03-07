@@ -1,7 +1,8 @@
 ---
 id: api
-title: API
+title: API Reference
 sidebar_label: API
+description: Complete API reference for SocketCluster — AGServer, AGClientSocket, AGServerSocket, AGChannel, AGExchange, AGAction, and stream APIs.
 ---
 
 ### Core API

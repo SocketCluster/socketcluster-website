@@ -2,6 +2,7 @@
 id: basic-usage
 title: Basic usage
 sidebar_label: Basic usage
+description: Learn the basics of SocketCluster — create a server, connect clients, transmit data, invoke RPCs, and use pub/sub channels with async/await.
 ---
 
 ## API overview

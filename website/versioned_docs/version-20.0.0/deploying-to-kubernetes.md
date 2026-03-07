@@ -1,5 +1,5 @@
 ---
-id: version-17.0.0-deploying-to-kubernetes
+id: version-20.0.0-deploying-to-kubernetes
 title: Deploying to Kubernetes
 sidebar_label: Deploying to Kubernetes
 original_id: deploying-to-kubernetes

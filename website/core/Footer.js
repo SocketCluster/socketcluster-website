@@ -27,7 +27,7 @@ class Footer extends React.Component {
         <section style={{textAlign: 'center'}}>
           <a href={this.docUrl('deploying-to-kubernetes', this.props.language)}>
             <div className="footerPromoItem" >
-              <img className="footerPromoIcon" src={`${this.props.config.baseUrl}img/k8s-logo.png`} />
+              <img className="footerPromoIcon" src={`${this.props.config.baseUrl}img/k8s-logo.png`} alt="Kubernetes logo" />
               <div className="footerPromoText">Runs and scales on Kubernetes</div>
             </div>
           </a>

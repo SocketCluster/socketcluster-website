@@ -1,5 +1,5 @@
 ---
-id: version-17.0.0-authentication
+id: version-20.0.0-authentication
 title: Authentication
 sidebar_label: Authentication
 original_id: authentication

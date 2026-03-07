@@ -2,6 +2,7 @@
 id: streams-and-backpressure
 title: Streams and backpressure
 sidebar_label: Streams and backpressure
+description: Understand SocketCluster's async stream architecture and how to monitor and manage backpressure on inbound and outbound socket data.
 ---
 
 ## Feature overview

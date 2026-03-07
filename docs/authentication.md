@@ -2,6 +2,7 @@
 id: authentication
 title: Authentication
 sidebar_label: Authentication
+description: Implement JWT authentication in SocketCluster using HTTP or WebSocket flows — sign tokens, verify users, and manage authenticated sockets.
 ---
 
 ## Feature overview

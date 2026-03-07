@@ -2,6 +2,7 @@
 id: guides
 title: Guides
 sidebar_label: Guides
+description: SocketCluster guides — getting started, basic usage, authentication, middleware, streams, backpressure, and Kubernetes deployment.
 ---
 
 - [Getting started](getting-started.md)

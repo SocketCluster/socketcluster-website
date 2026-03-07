@@ -1,5 +1,5 @@
 ---
-id: version-17.0.0-api-socket-cluster-client
+id: version-20.0.0-api-socket-cluster-client
 title: socketClusterClient
 sidebar_label: socketClusterClient
 original_id: api-socket-cluster-client

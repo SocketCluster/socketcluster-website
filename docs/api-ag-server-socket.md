@@ -2,6 +2,7 @@
 id: api-ag-server-socket
 title: AGServerSocket
 sidebar_label: AGServerSocket
+description: API reference for AGServerSocket — handle server-side socket connections, authentication, and data streams in SocketCluster.
 ---
 
 ## Inherits from

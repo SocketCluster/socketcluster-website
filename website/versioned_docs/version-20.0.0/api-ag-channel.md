@@ -1,5 +1,5 @@
 ---
-id: version-17.0.0-api-ag-channel
+id: version-20.0.0-api-ag-channel
 title: AGChannel
 sidebar_label: AGChannel
 original_id: api-ag-channel

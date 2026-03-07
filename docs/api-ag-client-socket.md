@@ -2,6 +2,7 @@
 id: api-ag-client-socket
 title: AGClientSocket
 sidebar_label: AGClientSocket
+description: API reference for AGClientSocket — connect to a SocketCluster server, transmit data, invoke RPCs, and subscribe to channels.
 ---
 
 ## Inherits from

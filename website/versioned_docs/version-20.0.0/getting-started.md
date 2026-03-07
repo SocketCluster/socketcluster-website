@@ -1,5 +1,5 @@
 ---
-id: version-17.0.0-getting-started
+id: version-20.0.0-getting-started
 title: Getting started
 sidebar_label: Getting started
 original_id: getting-started

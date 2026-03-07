@@ -2,6 +2,7 @@
 id: api-ag-server
 title: AGServer
 sidebar_label: AGServer
+description: API reference for AGServer — create and configure a SocketCluster server with middleware, authentication, and WebSocket handling.
 ---
 
 ## Inherits from

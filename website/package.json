@@ -4,7 +4,7 @@
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
     "build": "docusaurus-build",
-    "build:prod": "docusaurus-build && rm -Rf /var/www/html/ && cp -Rf ./build/socketcluster-website/ /var/www/html/",
+    "build:prod": "docusaurus-build && rm -Rf /var/www/socketcluster.io/ && cp -Rf ./build/socketcluster-website/ /var/www/socketcluster.io/",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",

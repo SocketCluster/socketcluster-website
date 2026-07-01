@@ -119,6 +119,8 @@ You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPC
           badCustomError.name = 'BadCustomError';
           request.error(badCustomError);
 
+          // Go back to the start of the loop to wait for the
+          // next call to customProc.
           continue;
         }
         request.end('Success');
@@ -130,6 +132,7 @@ You can use a `socket.procedure(...)` within a `for-await-of` loop to handle RPC
 ```
 
 !! You can also iterate over a `socket.procedure(procedureName)` stream on a client socket using the same syntax.
+!! Be careful to not use `return` inside the procedure loop (unless intended) as this will effectively kill the consumer for that procedure and exit the async function entirely. In most cases, you want to use `continue` to allow the loop to keep handling future calls.
 
 ### [Client] Invoke RPCs through a socket
 

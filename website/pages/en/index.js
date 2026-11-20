@@ -281,7 +281,7 @@ class Index extends React.Component {
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="splashSubsection">
-          <div className="splashSubsectionCaption">Used by</div>
+          <div className="splashSubsectionCaption">Supported by</div>
           <div style={{ display: 'flex', gap: '15px', justifyContent: 'space-around' }} className="splashLogoContainer">
             <a className="splashSubsectionLink" href={`https://capitalisk.com/`} target="_blank" rel="noreferrer noopener">
               <div className="splashSubsectionItem">
